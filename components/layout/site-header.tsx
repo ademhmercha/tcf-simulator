@@ -27,6 +27,7 @@ export async function SiteHeader(): Promise<React.JSX.Element> {
       ? [
           { href: "/dashboard", label: t("dashboard") },
           { href: "/history", label: t("history") },
+          { href: "/corrections", label: t("corrections") },
         ]
       : []),
     ...(isAdmin ? [{ href: "/admin", label: t("admin") }] : []),

@@ -1,0 +1,168 @@
+import { isSectionType, levelIndex, type Level } from "@/config/enums";
+import { prisma } from "@/lib/db";
+import type {
+  CorrectionIndexEntry,
+  CorrectionQuestion,
+  CorrectionSection,
+  SectionOrder,
+  TestCorrection,
+} from "@/lib/types";
+import { getPublishedTests } from "@/server/services/attempts";
+
+// ---------------------------------------------------------------------------
+// Service des corriges.
+//
+// Point sensible : avec `grading.ts`, ce module est le seul endroit ou
+// `Option.isCorrect` est lu pour etre affiche au candidat. Il ne doit jamais
+// etre appele depuis le code de l'examen : tant que l'epreuve n'est pas
+// terminee, aucune bonne reponse ne doit transiter vers le client.
+//
+// Les pages de corrige sont reservees aux utilisateurs connectes : la garde
+// d'authentification vit dans les pages, comme partout ailleurs dans ce
+// projet (aucun layout ne verifie la session).
+// ---------------------------------------------------------------------------
+
+const CORRECTION_INCLUDE = {
+  sections: {
+    orderBy: { order: "asc" as const },
+    include: {
+      questions: {
+        orderBy: { number: "asc" as const },
+        include: { options: true, document: true },
+      },
+    },
+  },
+} as const;
+
+type CorrectionRow = {
+  id: string;
+  slug: string;
+  title: string;
+  description: string | null;
+  order: number;
+  isPublished: boolean;
+  sections: Array<{
+    id: string;
+    type: string;
+    title: string;
+    instructions: string | null;
+    durationMinutes: number;
+    questions: Array<{
+      id: string;
+      number: number;
+      prompt: string;
+      level: string;
+      category: string | null;
+      points: number;
+      explanation: string;
+      document: { code: string; title: string; content: string } | null;
+      options: Array<{ id: string; label: string; text: string; isCorrect: boolean }>;
+    }>;
+  }>;
+};
+
+function toSectionOrder(value: string): SectionOrder {
+  return isSectionType(value) ? value : "STRUCTURE";
+}
+
+/**
+ * Corrige complet d'un test publie : enonces, options, bonne reponse et
+ * explication, document de comprehension ecrit inclus.
+ *
+ * Retourne `null` si le test n'existe pas ou n'est pas publie, afin que la
+ * page affiche une 404.
+ */
+export async function getTestCorrection(slug: string): Promise<TestCorrection | null> {
+  const test = (await prisma.test.findUnique({
+    where: { slug },
+    include: CORRECTION_INCLUDE,
+  })) as unknown as CorrectionRow | null;
+
+  if (!test || !test.isPublished) return null;
+
+  const sections: CorrectionSection[] = test.sections.map((section) => {
+    const sectionType = toSectionOrder(section.type);
+
+    const questions: CorrectionQuestion[] = section.questions.map((question) => {
+      const options = [...question.options]
+        .sort((a, b) => a.label.localeCompare(b.label))
+        .map((option) => ({
+          id: option.id,
+          label: option.label,
+          text: option.text,
+          isCorrect: option.isCorrect,
+        }));
+
+      return {
+        id: question.id,
+        number: question.number,
+        prompt: question.prompt,
+        level: question.level as Level,
+        category: question.category,
+        points: question.points,
+        explanation: question.explanation,
+        sectionId: section.id,
+        sectionType,
+        documentCode: question.document?.code ?? null,
+        documentTitle: question.document?.title ?? null,
+        documentContent: question.document?.content ?? null,
+        options,
+        correctOptionId: options.find((option) => option.isCorrect)?.id ?? "",
+      };
+    });
+
+    return {
+      id: section.id,
+      type: sectionType,
+      title: section.title,
+      instructions: section.instructions,
+      durationMinutes: section.durationMinutes,
+      questions,
+    };
+  });
+
+  const all = sections.flatMap((section) => section.questions);
+  const levels = [...new Set(all.map((question) => question.level))].sort(
+    (a, b) => levelIndex(a) - levelIndex(b),
+  );
+
+  return {
+    id: test.id,
+    slug: test.slug,
+    title: test.title,
+    description: test.description,
+    order: test.order,
+    durationMinutes: sections.reduce((sum, section) => sum + section.durationMinutes, 0),
+    questionCount: all.length,
+    levels,
+    sections,
+  };
+}
+
+/**
+ * Index des corriges : un billet par test publie, enrichi de la progression de
+ * l'utilisateur pour eviter d'ouvrir deux requetes identiques.
+ */
+export async function getCorrectionsIndex(
+  userId?: string,
+): Promise<CorrectionIndexEntry[]> {
+  const tests = await getPublishedTests(userId);
+
+  return tests.map((test) => ({
+    id: test.id,
+    slug: test.slug,
+    title: test.title,
+    description: test.description,
+    order: test.order,
+    questionCount: test.questionCount,
+    durationMinutes:
+      test.durationMinutes ??
+      test.sections.reduce((sum, section) => sum + section.durationMinutes, 0),
+    sectionCount: test.sections.length,
+    levels: test.levels,
+    attemptCount: test.attemptCount,
+    bestTotalScore: test.bestTotalScore,
+    bestMaxScore: test.bestMaxScore,
+    bestLevel: test.bestLevel,
+  }));
+}

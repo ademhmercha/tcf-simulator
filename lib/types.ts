@@ -117,13 +117,79 @@ export interface ReviewQuestion {
   correctOptionId: string;
 }
 
+// ---------------------------------------------------------------------------
+// Corrigés.
+// `Option.isCorrect` n'est transporté que par ces types, jamais par
+// `ExamQuestion`. Ils ne doivent donc pas etre utilises par le code de
+// l'examen, seulement par les pages de correction.
+// ---------------------------------------------------------------------------
+
+export interface CorrectionOption extends ExamOption {
+  isCorrect: boolean;
+}
+
+export interface CorrectionQuestion {
+  id: string;
+  number: number;
+  prompt: string;
+  level: Level;
+  category: string | null;
+  points: number;
+  explanation: string;
+  sectionId: string;
+  sectionType: SectionOrder;
+  documentCode: string | null;
+  documentTitle: string | null;
+  documentContent: string | null;
+  options: CorrectionOption[];
+  correctOptionId: string;
+}
+
+export interface CorrectionSection {
+  id: string;
+  type: SectionOrder;
+  title: string;
+  instructions: string | null;
+  durationMinutes: number;
+  questions: CorrectionQuestion[];
+}
+
+export interface TestCorrection {
+  id: string;
+  slug: string;
+  title: string;
+  description: string | null;
+  order: number;
+  /** Somme des durees des epreuves. */
+  durationMinutes: number;
+  questionCount: number;
+  levels: Level[];
+  sections: CorrectionSection[];
+}
+
+/** Entree de la page d'index des corriges. */
+export interface CorrectionIndexEntry {
+  id: string;
+  slug: string;
+  title: string;
+  description: string | null;
+  order: number;
+  questionCount: number;
+  durationMinutes: number;
+  sectionCount: number;
+  levels: Level[];
+  attemptCount: number;
+  bestTotalScore: number | null;
+  bestMaxScore: number | null;
+  bestLevel: Level | null;
+}
+
 export interface LevelStat {
   level: Level;
   total: number;
   correct: number;
   ratio: number;
 }
-
 export interface CategoryStat {
   category: string;
   total: number;
