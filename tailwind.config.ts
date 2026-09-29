@@ -113,12 +113,43 @@ const config: Config = {
           "0%, 100%": { transform: "scale(1)" },
           "50%": { transform: "scale(1.04)" },
         },
+        "fade-in": {
+          from: { opacity: "0" },
+          to: { opacity: "1" },
+        },
+        "scale-in": {
+          from: { opacity: "0", transform: "scale(0.96)" },
+          to: { opacity: "1", transform: "scale(1)" },
+        },
+        float: {
+          "0%, 100%": { transform: "translate3d(0, 0, 0)" },
+          "50%": { transform: "translate3d(0, -14px, 0)" },
+        },
+        drift: {
+          "0%, 100%": { transform: "translate3d(0, 0, 0) scale(1)" },
+          "33%": { transform: "translate3d(4%, -6%, 0) scale(1.06)" },
+          "66%": { transform: "translate3d(-5%, 4%, 0) scale(0.96)" },
+        },
+        "aurora-pan": {
+          "0%, 100%": { backgroundPosition: "0% 50%" },
+          "50%": { backgroundPosition: "100% 50%" },
+        },
+        "caret-blink": {
+          "0%, 100%": { opacity: "1" },
+          "50%": { opacity: "0" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
         shimmer: "shimmer 1.6s infinite",
         "fade-up": "fade-up 0.45s cubic-bezier(0.16, 1, 0.3, 1) both",
+        "fade-in": "fade-in 0.6s ease-out both",
+        "scale-in": "scale-in 0.5s cubic-bezier(0.16, 1, 0.3, 1) both",
+        float: "float 7s ease-in-out infinite",
+        drift: "drift 22s ease-in-out infinite",
+        "aurora-pan": "aurora-pan 16s ease-in-out infinite",
+        "caret-blink": "caret-blink 1.1s step-end infinite",
         "pulse-ring": "pulse-ring 1.6s cubic-bezier(0.4, 0, 0.6, 1) infinite",
         "timer-warn": "timer-warn 1s ease-in-out infinite",
       },

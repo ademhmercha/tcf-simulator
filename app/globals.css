@@ -184,6 +184,16 @@
     @apply border border-white/60 bg-white/70 backdrop-blur-xl dark:border-white/10 dark:bg-white/5;
   }
 
+  /* Halos animes derriere le hero : deux degrades qui glissent en boucle. */
+  .hero-aurora {
+    background-image:
+      radial-gradient(42rem 30rem at 18% 22%, hsl(var(--primary) / 0.22), transparent 62%),
+      radial-gradient(38rem 28rem at 82% 18%, hsl(var(--accent) / 0.20), transparent 60%),
+      radial-gradient(34rem 26rem at 55% 88%, hsl(var(--primary) / 0.12), transparent 65%);
+    background-size: 180% 180%;
+    filter: blur(10px);
+  }
+
   /* ------------------------------ Skeleton ----------------------------- */
   .skeleton {
     @apply relative overflow-hidden rounded-md bg-muted;

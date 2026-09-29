@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { redirect } from "next/navigation";
-import { ArrowRight, Award, CheckCircle2, Clock, Sparkles, Target, TrendingUp } from "lucide-react";
+import { ArrowRight, Award, CheckCircle2, Clock, Sparkles, Target } from "lucide-react";
 
 import { StartTestDialog } from "@/components/tests/start-test-dialog";
 import { LevelBadge } from "@/components/ui/badge";
@@ -63,24 +63,10 @@ export default async function DashboardPage({
     return max > 0 ? Math.round((points / max) * 100) : null;
   })();
 
-  const recommendations = buildRecommendations(accuracy, history.length, {
-    start: t("startTest"),
-    noAttemptsHint: t("noAttemptsHint"),
-    available: t("availableTests"),
-    availableSub: t("availableTestsSub"),
-    compare: t("compare"),
-    noData: t("noData"),
-    strengths: t("strengths"),
-    strengthsSub: t("recommendationsSub"),
-    weaknesses: t("weaknesses"),
-    spendMoreTime: t("noRecommendations"),
-    recommendationsSub: t("recommendationsSub"),
-  });
-
   return (
     <div className="container space-y-10 py-12">
       {/* ----------------------------- Accueil ----------------------------- */}
-      <header className="space-y-2">
+      <header className="animate-fade-up space-y-2">
         <h1 className="text-3xl font-extrabold sm:text-4xl">
           {firstName ? t("greeting", { name: firstName }) : t("greeting", { name: "" })}
         </h1>
@@ -89,7 +75,7 @@ export default async function DashboardPage({
 
       {/* --------------------- Tentative en cours ------------------------- */}
       {inProgress ? (
-        <Card className="border-accent/40 bg-accent/5">
+        <Card className="animate-fade-up border-accent/40 bg-accent/5 [animation-delay:60ms]">
           <CardContent className="flex flex-wrap items-center justify-between gap-4 p-6">
             <div>
               <h2 className="font-display text-lg font-bold">{t("inProgress")}</h2>
@@ -112,6 +98,7 @@ export default async function DashboardPage({
             icon={CheckCircle2}
             label={t("statsCompleted")}
             value={String(completed.length)}
+            delay={0}
           />
           <StatCard
             icon={Award}
@@ -120,25 +107,28 @@ export default async function DashboardPage({
               last && last.maxScore ? `${last.totalScore}/${last.maxScore}` : "-"
             }
             hint={last?.cefrLevel ? <LevelBadge level={last.cefrLevel} size="sm" /> : null}
+            delay={80}
           />
           <StatCard
             icon={Target}
             label={t("accuracy")}
             value={accuracy === null ? "-" : `${accuracy} %`}
             hint={average !== null ? `${t("averageScore")} : ${average} %` : null}
+            delay={160}
           />
           <StatCard
             icon={Clock}
             label={t("totalTime")}
             value={`${Math.floor(totalTimeSec / 3600)} h`}
             hint={best !== null ? `${t("bestScore")} : ${best}` : null}
+            delay={240}
           />
         </dl>
       </section>
 
       {/* ------------------------ Progression ---------------------------- */}
       {completed.length > 0 ? (
-        <section className="space-y-4">
+        <section className="animate-fade-up space-y-4">
           <div>
             <h2 className="text-xl font-bold">{t("progression")}</h2>
             <p className="text-sm text-muted-foreground">{t("progressionSub")}</p>
@@ -199,7 +189,7 @@ export default async function DashboardPage({
       ) : null}
 
       {/* --------------------- Tests disponibles ------------------------- */}
-      <section className="space-y-4">
+      <section className="animate-fade-up space-y-4">
         <div className="flex flex-wrap items-end justify-between gap-3">
           <div>
             <h2 className="text-xl font-bold">{t("availableTests")}</h2>
@@ -264,7 +254,7 @@ export default async function DashboardPage({
       </section>
 
       {/* --------------------- Tentatives recentes ----------------------- */}
-      <section className="space-y-4">
+      <section className="animate-fade-up space-y-4">
         <div className="flex flex-wrap items-center justify-between gap-3">
           <h2 className="text-xl font-bold">{t("recentAttempts")}</h2>
           {history.length > 0 ? (
@@ -317,27 +307,6 @@ export default async function DashboardPage({
           </Card>
         )}
       </section>
-
-      {/* ---------------------- Recommandations ------------------------- */}
-      <section className="space-y-4">
-        <h2 className="flex items-center gap-2 text-xl font-bold">
-          <TrendingUp className="size-5 text-primary" aria-hidden />
-          {t("recommendations")}
-        </h2>
-
-        <ul className="grid gap-3 md:grid-cols-3">
-          {recommendations.map((item) => (
-            <li key={item.title}>
-              <Card className="h-full border-border/70">
-                <CardContent className="p-5">
-                  <h3 className="font-semibold">{item.title}</h3>
-                  <p className="mt-1.5 text-sm text-muted-foreground">{item.body}</p>
-                </CardContent>
-              </Card>
-            </li>
-          ))}
-        </ul>
-      </section>
     </div>
   );
 }
@@ -347,14 +316,19 @@ function StatCard({
   label,
   value,
   hint,
+  delay = 0,
 }: {
   icon: typeof Award;
   label: string;
   value: string;
   hint?: React.ReactNode;
+  delay?: number;
 }): React.JSX.Element {
   return (
-    <Card>
+    <Card
+      className="animate-fade-up transition-all duration-300 hover:-translate-y-1 hover:shadow-medium"
+      style={{ animationDelay: `${delay}ms` }}
+    >
       <CardContent className="space-y-1 p-5">
         <p className="flex items-center gap-1.5 text-xs text-muted-foreground">
           <Icon className="size-3.5" aria-hidden />
@@ -365,44 +339,4 @@ function StatCard({
       </CardContent>
     </Card>
   );
-}
-
-/** Conseils generiques derives des performances, sans montant de seuil fige. */
-function buildRecommendations(
-  accuracy: number | null,
-  attempts: number,
-  labels: {
-    start: string;
-    noAttemptsHint: string;
-    available: string;
-    availableSub: string;
-    compare: string;
-    noData: string;
-    strengths: string;
-    strengthsSub: string;
-    weaknesses: string;
-    spendMoreTime: string;
-    recommendationsSub: string;
-  },
-): Array<{ title: string; body: string }> {
-  if (attempts === 0) {
-    return [
-      { title: labels.start, body: labels.noAttemptsHint },
-      { title: labels.available, body: labels.availableSub },
-      { title: labels.compare, body: labels.noData },
-    ];
-  }
-
-  return [
-    {
-      title: labels.strengths,
-      body:
-        accuracy !== null && accuracy >= 70 ? labels.strengthsSub : labels.recommendationsSub,
-    },
-    {
-      title: labels.weaknesses,
-      body: accuracy !== null && accuracy < 50 ? labels.spendMoreTime : labels.recommendationsSub,
-    },
-    { title: labels.compare, body: labels.recommendationsSub },
-  ];
 }
