@@ -94,10 +94,12 @@ met en file d'attente et rejoue au retour du réseau.
 Pour forcer une mise à jour de la PWA, incrémentez `VERSION` dans
 `public/sw.js` : les clients reçoivent alors la notification « Actualiser ».
 
-## Déploiement (Vercel)
+## Déploiement
+
+Production : **https://tcf-simulator-tn.vercel.app** (Vercel + Supabase Postgres).
 
 Vercel ne dispose pas d'un système de fichiers persistant : **SQLite n'y
-fonctionne pas**. Utilisez PostgreSQL (Neon, Supabase, Vercel Postgres).
+fonctionne pas**. Utilisez PostgreSQL.
 
 1. Créez une base PostgreSQL et copiez son URL de connexion.
 2. Réglez les variables d'environnement du projet Vercel :
@@ -115,7 +117,10 @@ npm run db:push
 npm run db:seed
 ```
 
-4. Importez le projet dans Vercel. Le build utilise `npm run build`, qui
+4. Utilisez l'URL du **pooler de session** (hôte `*.pooler.supabase.com`,
+   port `5432`), et non la connexion directe : Supabase n'expose cette dernière
+   qu'en IPv6, que Vercel ne supporte pas.
+5. Importez le projet dans Vercel. Le build utilise `npm run build`, qui
    exécute `prisma generate` avec le schéma PostgreSQL.
 
 ## Contenu
