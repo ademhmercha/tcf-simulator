@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { notFound, redirect } from "next/navigation";
-import { Award, Clock, Flag, Target, TrendingUp } from "lucide-react";
+import { Award, BookOpenCheck, Clock, Flag, Target, TrendingUp } from "lucide-react";
 
 import { PrintButton } from "@/components/results/print-button";
 import { RetakeFullButton, RetakeMistakesButton } from "@/components/results/retake-buttons";
@@ -26,6 +26,7 @@ export default async function ResultsPage({
 }): Promise<React.JSX.Element> {
   setRequestLocale(params.locale);
   const t = await getTranslations("results");
+  const tc = await getTranslations("corrections");
 
   const session = await auth();
   if (!session?.user) redirect(`/fr/login?next=${encodeURIComponent(`/fr/results/${params.attemptId}`)}`);
@@ -66,6 +67,12 @@ export default async function ResultsPage({
               <Link href="/dashboard">{t("backToDashboard")}</Link>
             </Button>
             <RetakeMistakesButton attemptId={result.attemptId} mistakesCount={mistakes} />
+            <Button asChild variant="ghost">
+              <Link href={`/corrections/${result.testSlug}`}>
+                <BookOpenCheck className="size-4" aria-hidden />
+                {tc("viewCorrection")}
+              </Link>
+            </Button>
             <RetakeFullButton testId={result.testId} />
             <PrintButton />
           </div>

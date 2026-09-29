@@ -1,4 +1,5 @@
 import { isSectionType, levelIndex, type Level } from "@/config/enums";
+import { unstable_cache } from "next/cache";
 import { prisma } from "@/lib/db";
 import type {
   CorrectionIndexEntry,
@@ -66,6 +67,31 @@ function toSectionOrder(value: string): SectionOrder {
 }
 
 /**
+ * Lecture brute du corrige, mise en cache.
+ *
+ * Un corrige represente environ mille lignes (50 questions, 200 options, 30
+ * documents) et ne depend que du contenu : c'est le gros poste de base de
+ * données de cette section, il ne doit pas etre rejoue a chaque visite.
+ *
+ * Comme le catalogue de tests, le contenu est ecrit en base par des scripts
+ * (`npm run db:seed`, imports) qui ne peuvent pas invalider le cache depuis
+ * le serveur : la fenetre de revalidation absorbe le decalage.
+ */
+const CORRECTION_REVALIDATE_SECONDS = 900;
+
+const getCorrectionRow = unstable_cache(
+  async (slug: string): Promise<CorrectionRow | null> => {
+    const row = await prisma.test.findUnique({
+      where: { slug },
+      include: CORRECTION_INCLUDE,
+    });
+    return (row as unknown as CorrectionRow | null) ?? null;
+  },
+  ["test-correction-row"],
+  { revalidate: CORRECTION_REVALIDATE_SECONDS, tags: ["tests"] },
+);
+
+/**
  * Corrige complet d'un test publie : enonces, options, bonne reponse et
  * explication, document de comprehension ecrit inclus.
  *
@@ -73,10 +99,7 @@ function toSectionOrder(value: string): SectionOrder {
  * page affiche une 404.
  */
 export async function getTestCorrection(slug: string): Promise<TestCorrection | null> {
-  const test = (await prisma.test.findUnique({
-    where: { slug },
-    include: CORRECTION_INCLUDE,
-  })) as unknown as CorrectionRow | null;
+  const test = await getCorrectionRow(slug);
 
   if (!test || !test.isPublished) return null;
 

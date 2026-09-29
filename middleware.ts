@@ -1,17 +1,31 @@
 import createMiddleware from "next-intl/middleware";
-import type { NextRequest } from "next/server";
+import { NextResponse, type NextRequest } from "next/server";
 
-import { DEFAULT_LOCALE, LOCALES } from "@/config/enums";
+import { DEFAULT_LOCALE, LOCALES, type AppLocale } from "@/config/enums";
 
 /**
- * Middleware i18n.
+ * Middleware : localisation + garde de session.
  *
- * La plateforme est livree en francais uniquement : la racine `/` est
- * redirigee vers `/fr` et toute locale inconnue retombe sur le francais.
+ * 1) LOCALISATION
+ *    La plateforme est livree en francais uniquement : la racine `/` est
+ *    redirigee vers `/fr` et toute locale inconnue retombe sur le francais.
  *
- * Pour ajouter une langue : ajoutez-la a LOCALES (config/enums.ts), deposez
- * `i18n/messages/<locale>.json`, puis completez `localeNames` dans
- * i18n/routing.ts. Aucune autre modification n'est necessaire.
+ *    Pour ajouter une langue : ajoutez-la a LOCALES (config/enums.ts), deposez
+ *    `i18n/messages/<locale>.json`, puis completez `localeNames` dans
+ *    i18n/routing.ts. Aucune autre modification n'est necessaire.
+ *
+ * 2) GARDE DE SESSION
+ *    Les pages protegees exigent une session. Cette verification vit ici, et
+ *    non dans les pages, pour une raison precise : le layout appelle `auth()`
+ *    pour afficher l'en-tete, la reponse commence donc a etre streamed avant
+ *    que la page ne redirectionne. Un `redirect()` declenche apres le premier
+ *    octet ne peut plus changer le code HTTP : le visiteur anonyme recevait un
+ *    200 contenant l'instruction de redirection, et non un 307. Le middleware
+ *    s'execute avant tout rendu, donc il repond un vrai 307 et evite
+ *    egalement d'aller interroger la base pour une page qui va rediriger.
+ *
+ *    La presence du cookie n'est qu'un filtre rapide : chaque page conserve
+ *    son `auth()` et reste seule autoritaire sur la session.
  */
 const handleI18n = createMiddleware({
   locales: [...LOCALES],
@@ -23,7 +37,39 @@ const handleI18n = createMiddleware({
   localeDetection: false,
 });
 
+/** Prefices de route reserves aux utilisateurs connectes. */
+const PROTECTED_PREFIXES = [
+  "/dashboard",
+  "/history",
+  "/results",
+  "/corrections",
+  "/exam",
+  "/admin",
+] as const;
+
+/**
+ * Noms du cookie de session Auth.js : `__Secure-` en HTTPS (production),
+ * nom nu en HTTP (developpement local).
+ */
+const SESSION_COOKIES = ["authjs.session-token", "__Secure-authjs.session-token"] as const;
+
 export default function middleware(request: NextRequest) {
+  const segments = request.nextUrl.pathname.split("/").filter(Boolean);
+  const first = segments[0] as AppLocale | undefined;
+  const localized = Boolean(first && (LOCALES as readonly string[]).includes(first));
+  const locale = localized ? (first as AppLocale) : DEFAULT_LOCALE;
+  const route = `/${segments.slice(localized ? 1 : 0).join("/")}`;
+
+  const isProtected = PROTECTED_PREFIXES.some(
+    (prefix) => route === prefix || route.startsWith(`${prefix}/`),
+  );
+
+  if (isProtected && !SESSION_COOKIES.some((name) => request.cookies.has(name))) {
+    const login = new URL(`/${locale}/login`, request.url);
+    login.searchParams.set("next", request.nextUrl.pathname);
+    return NextResponse.redirect(login);
+  }
+
   return handleI18n(request);
 }
 

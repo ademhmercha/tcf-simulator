@@ -1,6 +1,7 @@
 import { prisma } from "@/lib/db";
 import { examConfig } from "@/config/site";
 import { LEVELS, type Level, type SectionType } from "@/config/enums";
+import { unstable_cache } from "next/cache";
 import type { AttemptResult, AttemptSummary, ExamPayload, TestSummary } from "@/lib/types";
 import {
   buildAttemptResult,
@@ -225,12 +226,49 @@ function toTestSummary(test: TestRow, attempts: AttemptLight[]): TestSummary {
   };
 }
 
+/**
+ * Catalogue des tests publies, mis en cache.
+ *
+ * Cette requete charge les sections, leurs compteurs de questions et de
+ * documents, ainsi que le niveau de chaque question : c'est la lecture la
+ * plus lourdes du site, et son resultat ne depend que du contenu. Elle est
+ * donc isolee dans une fonction `unstable_cache` pour ne pas etre rejouee a
+ * chaque affichage.
+ *
+ * La progression de l'utilisateur n'est PAS dans le cache : elle est lue
+ * ensuite, en direct, et fusionnee par `toTestSummary`.
+ *
+ * `npm run db:seed` et les imports de contenu ecrivent en base depuis un
+ * script, hors du serveur : ils ne peuvent pas invalider le cache. La fenetre
+ * de revalidation absorbe donc ce decalage.
+ */
+const CATALOG_REVALIDATE_SECONDS = 300;
+
+const getPublishedTestRows = unstable_cache(
+  async (): Promise<TestRow[]> => {
+    const rows = await prisma.test.findMany({
+      where: { isPublished: true },
+      orderBy: { order: "asc" },
+      include: TEST_INCLUDE,
+    });
+    return rows as unknown as TestRow[];
+  },
+  ["published-test-rows"],
+  { revalidate: CATALOG_REVALIDATE_SECONDS, tags: ["tests"] },
+);
+
+/** Fiche d'un test publie, avec la meme fenetre de cache que le catalogue. */
+const getPublishedTestRowBySlug = unstable_cache(
+  async (slug: string): Promise<TestRow | null> => {
+    const row = await prisma.test.findUnique({ where: { slug }, include: TEST_INCLUDE });
+    return (row as unknown as TestRow | null) ?? null;
+  },
+  ["published-test-row-by-slug"],
+  { revalidate: CATALOG_REVALIDATE_SECONDS, tags: ["tests"] },
+);
+
 export async function getPublishedTests(userId?: string): Promise<TestSummary[]> {
-  const tests = (await prisma.test.findMany({
-    where: { isPublished: true },
-    orderBy: { order: "asc" },
-    include: TEST_INCLUDE,
-  })) as unknown as TestRow[];
+  const tests = await getPublishedTestRows();
 
   if (!userId) return tests.map((test) => toTestSummary(test, []));
 
@@ -262,10 +300,7 @@ export async function getPublishedTests(userId?: string): Promise<TestSummary[]>
 }
 
 export async function getTestBySlug(slug: string): Promise<TestSummary | null> {
-  const test = (await prisma.test.findUnique({
-    where: { slug },
-    include: TEST_INCLUDE,
-  })) as unknown as TestRow | null;
+  const test = await getPublishedTestRowBySlug(slug);
   return test ? toTestSummary(test, []) : null;
 }
 

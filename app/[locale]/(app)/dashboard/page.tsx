@@ -24,6 +24,7 @@ export default async function DashboardPage({
 }): Promise<React.JSX.Element> {
   setRequestLocale(params.locale);
   const t = await getTranslations("dashboard");
+  const tc = await getTranslations("corrections");
 
   const session = await auth();
   if (!session?.user) redirect(`/fr/login?next=${encodeURIComponent("/fr/dashboard")}`);
@@ -245,6 +246,9 @@ export default async function DashboardPage({
                         </Link>
                       </Button>
                     ) : null}
+                    <Button asChild size="sm" variant="ghost">
+                      <Link href={`/corrections/${test.slug}`}>{tc("viewCorrection")}</Link>
+                    </Button>
                   </div>
                 </CardContent>
               </Card>
