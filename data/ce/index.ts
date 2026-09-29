@@ -13,13 +13,12 @@ import type { CeLongDocument, CeShortDocTuple } from "./types";
 /**
  * Assemblage des sections de comprehension ecrite.
  *
- * Chaque section compte 30 questions dans une progression de niveau :
- *   4 A1 + 4 A2 + 4 B1 + 5 B2 = 17 questions courtes (documents courts)
- *   7 C1 + 6 C2 = 13 questions longues (textes de 12 ou 13 lignes)
+ * Chaque section compte 30 questions, une question par document :
+ *   5 A1 + 5 A2 + 5 B1 + 5 B2 = 20 questions courtes (documents courts)
+ *   5 C1 + 5 C2 = 10 questions longues (textes de 12 ou 13 lignes)
  *
- * Les 13 questions C1/C2 sont placees en fin de section, conformement a la
- * demande : les textes d'art, d'environnement et de societe fermalent
- * l'epreuve.
+ * Les 20 questions A1 -> B2 sont placees en tete de section, et les 10
+ * textes longs ferment l'epreuve.
  */
 
 export interface CeBuiltQuestion {
@@ -44,12 +43,12 @@ export interface CeBuiltSection {
 
 /** Repartition cible, dans l'ordre de presentation. */
 export const CE_LEVEL_PLAN = [
-  { level: "A1", count: 4 },
-  { level: "A2", count: 4 },
-  { level: "B1", count: 4 },
+  { level: "A1", count: 5 },
+  { level: "A2", count: 5 },
+  { level: "B1", count: 5 },
   { level: "B2", count: 5 },
-  { level: "C1", count: 7 },
-  { level: "C2", count: 6 },
+  { level: "C1", count: 5 },
+  { level: "C2", count: 5 },
 ] as const;
 
 export const CE_TOTAL = CE_LEVEL_PLAN.reduce((sum, row) => sum + row.count, 0);
@@ -65,11 +64,17 @@ function shortQuestions(
 ): void {
   const docs = bundle[level];
   const expected = CE_LEVEL_PLAN.find((row) => row.level === level)!.count;
-  const total = docs.reduce((sum, doc) => sum + doc[2].length, 0);
-  if (total !== expected) {
+  if (docs.length !== expected) {
     throw new Error(
-      `${prefix} ${level} : ${total} question(s) au lieu de ${expected}.`,
+      `${prefix} ${level} : ${docs.length} document(s) au lieu de ${expected}.`,
     );
+  }
+  for (const [title, , questions] of docs) {
+    if (questions.length !== 1) {
+      throw new Error(
+        `${prefix} ${level} « ${title} » : ${questions.length} question(s), une seule attendue.`,
+      );
+    }
   }
 
   for (const [title, content, questions] of docs) {
@@ -98,6 +103,14 @@ function longQuestions(
   level: "C1" | "C2",
   out: CeBuiltQuestion[],
 ): void {
+  for (const document of documents) {
+    if (document.questions.length !== 1) {
+      throw new Error(
+        `${prefix} texte ${document.code} : ${document.questions.length} question(s), une seule attendue.`,
+      );
+    }
+  }
+
   const questions = documents.flatMap((doc) =>
     doc.questions.filter((q) => q.level === level),
   );

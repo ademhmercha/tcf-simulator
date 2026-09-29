@@ -1,13 +1,21 @@
 /**
- * Textes longs C1/C2 de la comprehension ecrite.
+ * Comprehension ecrite : types partages.
  *
- * Chaque test recoit trois documents (art, environnement, societe) de 12 ou 13
- * lignes. Voir `data/ce/index.ts` pour l'assemblage et le plan de repartition.
+ * Regle de composition : chaque texte donne exactement UNE question. Les
+ * niveaux sont equilibres dans chaque section :
+ *
+ *   5 A1 + 5 A2 + 5 B1 + 5 B2 + 5 C1 + 5 C2 = 30 questions
+ *
+ * Les 20 questions A1 -> B2 s'appuient sur des documents courts (annonces,
+ * horaires, reglements). Les 10 questions C1/C2 s'appuient sur des textes
+ * longs de 12 ou 13 lignes, sur les themes imposes : agriculture,
+ * environnement, societe, economie, art, litterature, science, technologie.
  */
 
 export type CeAnswer = "A" | "B" | "C" | "D";
 export type CeOptions = [string, string, string, string];
 
+/** Question d'un texte long. */
 export interface CeLongQuestion {
   prompt: string;
   options: Record<CeAnswer, string>;
@@ -17,7 +25,7 @@ export interface CeLongQuestion {
 }
 
 export interface CeLongDocument {
-  /** Code unique dans la section (ex: "T1-ART1"). */
+  /** Code unique dans la section (ex: "T1-C1-01"). */
   code: string;
   title: string;
   /** 12 ou 13 lignes separees par des retours a la ligne. */
@@ -35,22 +43,37 @@ export type CeShortTuple = [string, CeOptions, CeAnswer, string];
 /** Document court : [titre, contenu, questions]. */
 export type CeShortDocTuple = [string, string, CeShortTuple[]];
 
+/** Un texte long : une seule question. */
 export function doc(
   code: string,
   title: string,
   content: string,
-  questions: Array<[CeShortTuple, "C1" | "C2"]>,
+  question: [CeLongQuestion["prompt"], CeOptions, CeAnswer, string],
+  level: "C1" | "C2",
 ): CeLongDocument {
   return {
     code,
     title,
     content,
-    questions: questions.map(([[prompt, options, correctAnswer, explanation], level]) => ({
-      prompt,
-      options: { A: options[0], B: options[1], C: options[2], D: options[3] },
-      correctAnswer,
-      explanation,
-      level,
-    })),
+    questions: [
+      {
+        prompt: question[0],
+        options: { A: question[1][0], B: question[1][1], C: question[1][2], D: question[1][3] },
+        correctAnswer: question[2],
+        explanation: question[3],
+        level,
+      },
+    ],
   };
 }
+
+/** Nom de la rubrique, utilise dans les titres. */
+export type CeTopic =
+  | "Agriculture"
+  | "Environnement"
+  | "Societe"
+  | "Economie"
+  | "Art"
+  | "Litterature"
+  | "Science"
+  | "Technologie";

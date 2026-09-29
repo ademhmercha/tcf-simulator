@@ -29,6 +29,8 @@
     "content:reading:check": "tsx scripts/apply-reading-content.ts --check",
     "content:reading:verify": "tsx scripts/verify-reading-content.ts",
     "content:check": "tsx scripts/check-ce-content.ts",
+    "content:encoding": "tsx scripts/check-ce-encoding.ts",
+    "db:audit": "tsx scripts/audit-reading-db.mts",
     "import:tests": "tsx scripts/import-tests.ts",
     "import:csv": "tsx scripts/import-csv.ts",
     "export:csv": "tsx scripts/export-csv.ts",

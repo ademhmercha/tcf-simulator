@@ -121,6 +121,24 @@ for (const file of files) {
       report(file, lineNumber, `texte long de ${count} lignes (attendu 12 ou 13)`);
     }
   }
+
+  // Documents courts : le tuple doit avoir exactement 3 elements.
+  const shorts = raw.matchAll(/^  \[$/gm);
+  for (const entry of shorts) {
+    const after = raw.slice(entry.index);
+    const end = after.indexOf("\n  ],");
+    if (end === -1) continue;
+    const block = after.slice(0, end);
+    const topLevel = (block.match(/^    \S/gm) ?? []).length;
+    if (topLevel !== 3) {
+      const lineNumber = raw.slice(0, entry.index).split(/\r?\n/).length;
+      report(
+        file,
+        lineNumber,
+        `document court de ${topLevel} elements (attendu 3 : titre, contenu, questions)`,
+      );
+    }
+  }
 }
 
 if (failures === 0) {

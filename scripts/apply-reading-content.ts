@@ -63,26 +63,41 @@ for (const input of CE_INPUTS) {
     }
   }
 
-  // Les 13 questions C1/C2 doivent etre en fin de section.
+  // Les 20 questions A1 -> B2 viennent en tete, les 10 textes longs ferment la
+  // section.
   const firstHigh = section.questions.findIndex(
     (q) => q.level === "C1" || q.level === "C2",
   );
-  if (firstHigh !== 17) {
+  if (firstHigh !== 20) {
     throw new Error(
-      `${input.testId} : les questions C1/C2 commencent a la position ${firstHigh + 1} au lieu de 18.`,
+      `${input.testId} : les questions C1/C2 commencent a la position ${firstHigh + 1} au lieu de 21.`,
     );
   }
 
   // Les documents courts sont des textes courts sur une seule ligne ; les
-  // documents longs sont les trois textes de 12 ou 13 lignes du test.
+  // documents longs sont les dix textes de 12 ou 13 lignes du test.
   const longDocs = section.documents.filter((d) => d.lineCount >= 12);
   const shortDocs = section.documents.filter((d) => d.lineCount < 12);
   const shortCount = shortDocs.length;
-  if (longDocs.length !== 3) {
-    throw new Error(`${input.testId} : ${longDocs.length} texte(s) long(s) au lieu de 3.`);
+  if (longDocs.length !== 10) {
+    throw new Error(`${input.testId} : ${longDocs.length} texte(s) long(s) au lieu de 10.`);
+  }
+  if (shortCount !== 20) {
+    throw new Error(`${input.testId} : ${shortCount} document(s) court(s) au lieu de 20.`);
   }
   if (longDocs.some((d) => d.lineCount < 12 || d.lineCount > 13)) {
     throw new Error(`${input.testId} : un texte long ne fait pas 12 ou 13 lignes.`);
+  }
+
+  // Une seule question par document.
+  const byDoc = new Map<string, number>();
+  for (const question of section.questions) {
+    byDoc.set(question.documentId, (byDoc.get(question.documentId) ?? 0) + 1);
+  }
+  for (const [documentId, count] of byDoc) {
+    if (count !== 1) {
+      throw new Error(`${input.testId} : document ${documentId} porte ${count} questions.`);
+    }
   }
 
   const spread = CE_LEVEL_PLAN.map(

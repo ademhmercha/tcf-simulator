@@ -127,7 +127,7 @@ npm run db:seed
 
 Le contenu des tests provient de
 `data/tcf_practice_5_tests_250_questions.json` : 5 tests, 10 sections,
-250 questions, 1000 options, 50 documents, 400 minutes au total.
+250 questions, 1000 options, 150 documents, 400 minutes au total.
 
 ## Avertissement
 
