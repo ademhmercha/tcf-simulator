@@ -2,6 +2,7 @@ import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 
 import { CE_LEVEL_PLAN } from "../data/ce";
+import { CE_LONG_MIN_LINES } from "../data/ce/types";
 
 /**
  * Verifie le JSON genere apres regeneration de la comprehension ecrite.
@@ -79,7 +80,7 @@ for (const test of target.tests) {
     `${test.id} : ${byDoc.size} documents pour ${questions.length} questions (une question par document attendu)`,
   );
 
-  const longs = questions.filter((q) => q.document.split("\n").length >= 12);
+  const longs = questions.filter((q) => q.document.split("\n").length >= CE_LONG_MIN_LINES);
   check(longs.length === 10, `${test.id} : ${longs.length} texte(s) long(s) au lieu de 10`);
 
   for (const question of questions) {

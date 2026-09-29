@@ -8,12 +8,21 @@
  *
  * Les 20 questions A1 -> B2 s'appuient sur des documents courts (annonces,
  * horaires, reglements). Les 10 questions C1/C2 s'appuient sur des textes
- * longs de 12 ou 13 lignes, sur les themes imposes : agriculture,
+ * longs de 11 a 13 lignes, sur les themes imposes : agriculture,
  * environnement, societe, economie, art, litterature, science, technologie.
  */
 
 export type CeAnswer = "A" | "B" | "C" | "D";
 export type CeOptions = [string, string, string, string];
+
+/**
+ * Longueur des textes longs C1/C2, en lignes de prose. La rubrique
+ * « Vocabulaire » ayant ete retiree du corps des textes, un texte long
+ * comporte de 11 a 13 lignes. Les documents courts tiennent sur une ligne :
+ * le seuil de 11 les distingue sans ambiguite.
+ */
+export const CE_LONG_MIN_LINES = 11;
+export const CE_LONG_MAX_LINES = 13;
 
 /** Question d'un texte long. */
 export interface CeLongQuestion {
@@ -28,7 +37,7 @@ export interface CeLongDocument {
   /** Code unique dans la section (ex: "T1-C1-01"). */
   code: string;
   title: string;
-  /** 12 ou 13 lignes separees par des retours a la ligne. */
+  /** 11 a 13 lignes separees par des retours a la ligne. */
   content: string;
   questions: CeLongQuestion[];
 }

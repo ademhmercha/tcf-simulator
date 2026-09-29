@@ -1,5 +1,7 @@
 import { PrismaClient } from "@prisma/client";
 
+import { CE_LONG_MAX_LINES, CE_LONG_MIN_LINES } from "../data/ce/types";
+
 const db = new PrismaClient();
 
 const levels = ["A1", "A2", "B1", "B2", "C1", "C2"] as const;
@@ -64,10 +66,10 @@ const longDocuments = await db.document.findMany({
 console.log(`\nQuestions en base: ${questions} dont ${linkedQuestions} liees a un document`);
 console.log(`Documents en base: ${documents}`);
 console.log(
-  `Textes de 12 ou 13 lignes: ${
+  `Textes de ${CE_LONG_MIN_LINES} a ${CE_LONG_MAX_LINES} lignes: ${
     longDocuments.filter((d) => {
       const n = d.content.split("\n").length;
-      return n === 12 || n === 13;
+      return n >= CE_LONG_MIN_LINES && n <= CE_LONG_MAX_LINES;
     }).length
   }`,
 );

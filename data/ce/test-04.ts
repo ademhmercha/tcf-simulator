@@ -17,7 +17,6 @@ const TEST4: CeLongDocument[] = [
       "Le récit s'accompagne de longues digressions, sur Waterloo ou sur les égouts de Paris,",
       "qui déconcertent parfois le lecteur mais donnent à l'œuvre son souffle épique.",
       "L'auteur, engagé politiquement, voulait que son livre serve la cause des déshérités.",
-      "Vocabulaire : un forçat = condamné aux travaux forcés ; la rédemption = le rachat moral ; une digression = passage qui s'écarte du sujet principal.",
     ),
     [
       "Pourquoi les digressions sont-elles malgré tout valorisées par le texte ?",
@@ -47,7 +46,6 @@ const TEST4: CeLongDocument[] = [
       "Pour y répondre, les experts insistent sur la pédagogie et la transparence :",
       "expliquer comment les vaccins sont évalués",
       "et rappeler que leurs bénéfices dépassent très largement leurs rares effets indésirables.",
-      "Vocabulaire : un agent pathogène = microbe responsable d'une maladie ; éradiquer = faire disparaître totalement ; la défiance = manque de confiance.",
     ),
     [
       "Quelle stratégie les experts privilégient-ils pour lutter contre la défiance ?",
@@ -77,7 +75,6 @@ const TEST4: CeLongDocument[] = [
       "écrans le soir, horaires décalés, usage de stimulants.",
       "Les spécialistes recommandent surtout une régularité des horaires",
       "et une limitation des écrans dans l'heure qui précède l'endormissement.",
-      "Vocabulaire : la consolidation = renforcement durable ; un stimulant = substance qui éveille ; l'endormissement = passage à l'état de sommeil.",
     ),
     [
       "Quelles mesures les spécialistes donnent-ils en priorité ?",
@@ -107,7 +104,6 @@ const TEST4: CeLongDocument[] = [
       "qui répond d'une erreur commise par une machine ?",
       "Plusieurs pays travaillent à des cadres juridiques",
       "pour garantir que ces technologies restent au service de l'humain.",
-      "Vocabulaire : un schéma = structure récurrente ; amplifier = renforcer ; un préjugé = opinion toute faite.",
     ),
     [
       "D'où viennent principalement les risques évoqués ?",
@@ -137,7 +133,6 @@ const TEST4: CeLongDocument[] = [
       "constituent des réflexes de base.",
       "Reste que la sécurité absolue n'existe pas :",
       "l'objectif est de rendre l'attaque aussi difficile et coûteuse que possible.",
-      "Vocabulaire : un rançongiciel = logiciel malveillant qui exige une rançon ; une faille = point faible ; piégé = contenant un danger caché.",
     ),
     [
       "Comment l'auteur présente-t-il la sécurité informatique ?",
@@ -168,7 +163,6 @@ const TEST4: CeLongDocument[] = [
       "Sous l'apparente légèreté de la chronique mondaine,",
       "l'œuvre est ainsi une méditation sur le temps, l'art et la vérité,",
       "dont l'ambition demeure inégalée.",
-      "Vocabulaire : fortuit = dû au hasard ; une incise = proposition insérée dans la phrase ; la réminiscence = retour d'un souvenir.",
     ),
     [
       "Qu'opposent les deux formes de mémoire évoquées par le texte ?",
@@ -199,7 +193,6 @@ const TEST4: CeLongDocument[] = [
       "Sa rigueur formelle, jointe à la violence des images,",
       "a ouvert la voie aux symbolistes, puis à toute la poésie ultérieure.",
       "Baudelaire est ainsi le pivot entre le romantisme et la modernité poétique.",
-      "Vocabulaire : affranchi de = libéré de ; lancinant = qui revient douloureusement ; le spleen = mélancolie profonde.",
     ),
     [
       "Quel rôle le texte attribue-t-il à la ville moderne dans l'œuvre ?",
@@ -230,7 +223,6 @@ const TEST4: CeLongDocument[] = [
       "non un échec, mais un moteur du progrès.",
       "Elles invitent à voir dans la science moins un corpus de certitudes",
       "qu'une pratique critique perpétuellement remise en chantier.",
-      "Vocabulaire : la réfutabilité = possibilité d'être démenti ; épistémologique = relatif à la connaissance scientifique ; entraver = empêcher.",
     ),
     [
       "Quel est le point de convergence entre Popper et Bachelard selon le texte ?",
@@ -261,7 +253,6 @@ const TEST4: CeLongDocument[] = [
       "les données d'entraînement ont-elles été consenties ?",
       "L'artiste trouve-t-il encore une autorité sur son propre travail ?",
       "Le texte suggère qu'un cadre reste nécessaire, sans trancher la question.",
-      "Vocabulaire : génératif = qui produit du contenu ; original = qui n'est pas repris ; une donnée d'entraînement = donnée utilisée par un modèle.",
     ),
     [
       "Pourquoi le critère d'apport humain est-il qualifié de fragile ?",
@@ -292,7 +283,6 @@ const TEST4: CeLongDocument[] = [
       "tant les chaînes de valeur sont entrelacées.",
       "L'enjeu réaliste est donc de réduire les dépendances les plus dangereuses",
       "sans se couper des bénéfices de l'ouverture.",
-      "Vocabulaire : une infrastructure critique = système essentiel au fonctionnement d'un pays ; entrelacé = étroitement mêlé ; s'employer à = s'efforcer de.",
     ),
     [
       "Quelle position l'auteur défend-il sur la souveraineté numérique ?",

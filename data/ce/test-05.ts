@@ -17,7 +17,6 @@ const TEST5: CeLongDocument[] = [
       "Cette lucidité lui vaut l'hostilité de son entourage, qui ne lui pardonne pas de ne pas jouer.",
       "Camus revendique cette cohérence plutôt qu'une consolation :",
       "il assume la mort comme le prix de la liberté.",
-      "Vocabulaire : l'absurde = confrontation sans issue entre l'attente de sens et un monde muet ; cynique = qui brave ouvertement les conventions ; la lucidité = capacité à voir clairement.",
     ),
     [
       "Pourquoi le personnage de L'Étranger est-il condamné selon le texte ?",
@@ -47,7 +46,6 @@ const TEST5: CeLongDocument[] = [
       "Il n'a d'ailleurs pas toujours été bienvenu sur scène :",
       "Le Tartuffe fut interdit plusieurs années, tant la satire dérangeait les cercles puissants.",
       "Cette liberté de ton lui a valu autant d'ennemis que d'admirateurs.",
-      "Vocabulaire : un vice = défaut moral ; outré = poussé à l'excès ; un interdit = mesure empêchant une représentation ; la satire = critique moqueuse.",
     ),
     [
       "Quelle fonction Molière attribue-t-il au rire selon le texte ?",
@@ -78,7 +76,6 @@ const TEST5: CeLongDocument[] = [
       "La coopération internationale reste donc indispensable.",
       "L'espace illustre une règle générale : toute technologie",
       "qui se diffuse finit par soulever des questions qu'elle n'avait pas prévu de poser.",
-      "Vocabulaire : un lanceur = fusée ; réutilisable = utilisable plusieurs fois ; un débris = élément d'origine spatiale en orbite.",
     ),
     [
       "Que révèle l'orbite terrestre de plus en plus encombrée ?",
@@ -108,7 +105,6 @@ const TEST5: CeLongDocument[] = [
       "La transition suppose donc de repenser l'ensemble du système,",
       "et non de se contenter d'interdire certains véhicules, comme le prévoient quelques villes.",
       "L'effort doit porter sur des mesures concrètes : parkings, transports en commun, zones à faibles émissions.",
-      "Vocabulaire : le périurbain = qui concerne la couronne autour d'une ville ; une agglomération = ensemble urbain ; une zone à faibles émissions = secteur où la circulation est réglementée.",
     ),
     [
       "Pourquoi le texte s'oppose-t-il à une interdiction portant sur les seuls véhicules ?",
@@ -138,7 +134,6 @@ const TEST5: CeLongDocument[] = [
       "mais d'apprendre à s'en servir avec discernement.",
       "L'éducation aux usages numériques, menée par les familles et par l'école,",
       "apparaît aujourd'hui comme la réponse la plus adaptée.",
-      "Vocabulaire : viral = qui se propage très vite ; l'assignation = attribution ; le discernement = capacité à juger.",
     ),
     [
       "Quelle nuance le texte apporte-t-il sur les effets des réseaux sociaux ?",
@@ -168,7 +163,6 @@ const TEST5: CeLongDocument[] = [
       "Cette tension entre idéal d'effacement et besoin de s'exprimer traverse toute l'œuvre.",
       "L'accueil réservé au roman fut hostile : Emma Bovary fut jugée immorale.",
       "Le procès, intenté pour outrage aux bonnes mœurs, transforma l'interdit en succès.",
-      "Vocabulaire : l'impersonnalité = absence de la voix de l'auteur ; un gueuloir = pièce où l'on lit à voix haute ; un procès = jugement intenté contre un auteur.",
     ),
     [
       "Que révèlent les lettres de Flaubert selon le texte ?",
@@ -198,7 +192,6 @@ const TEST5: CeLongDocument[] = [
       "tandis que la mécanique causale décrit des trajectoires certaines.",
       "Les physiciens ont longtemps débattu du problème de la mesure et du rôle de l'observateur,",
       "sans être parvenus à un consensus largement partagé.",
-      "Vocabulaire : un corpuscule = petit constituant de la matière ; l'incertitude = impossibilité de mesurer avec précision ; une trajectoire = ligne décrivant un mouvement.",
     ),
     [
       "Comment le texte présente-t-il le principe d'incertitude ?",
@@ -228,7 +221,6 @@ const TEST5: CeLongDocument[] = [
       "qui possède une séquence de génome, et qui peut en disposer ?",
       "La question de la vie privée est aujourd'hui au premier plan.",
       "Elle appelle une réglementation claire du consentement et de la conservation des informations.",
-      "Vocabulaire : le diagnostic précoce = identification d'une maladie à son début ; le génome = ensemble de l'information génétique ; le consentement = accord éclairé du patient.",
     ),
     [
       "À quelles questions la génétique contemporaine doit-elle répondre selon le texte ?",
@@ -258,7 +250,6 @@ const TEST5: CeLongDocument[] = [
       "si l'augmentation ne se démocratise pas,",
       "elle creusera un fossé entre ceux qui l'obtiennent et les autres.",
       "Le débat porte donc moins sur la technique que sur les valeurs qui l'encadrent.",
-      "Vocabulaire : émancipant = qui libère ; l'hubris = démesure orgueilleuse ; la contingence = caractère non nécessaire.",
     ),
     [
       "Comment le texte situe-t-il la controverse sur le transhumanisme ?",
@@ -289,7 +280,6 @@ const TEST5: CeLongDocument[] = [
       "rend plus difficile le contrôle de ce qui est collecté et conservé.",
       "D'où l'appel à une régulation claire, en Europe comme ailleurs,",
       "sur la conservation des données et l'usage de la reconnaissance faciale.",
-      "Vocabulaire : un capteur = appareil qui mesure un phénomène ; une trace numérique = donnée enregistrée par un appareil ; la rétention = le fait de conserver.",
     ),
     [
       "Selon le texte, qu'est-ce qui rend la régulation particulièrement nécessaire ?",

@@ -2,6 +2,7 @@ import { readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 
 import { CE_INPUTS, CE_LEVEL_PLAN, buildCeSection } from "../data/ce";
+import { CE_LONG_MAX_LINES, CE_LONG_MIN_LINES } from "../data/ce/types";
 
 /**
  * Regenere la comprehension ecrite de tous les tests.
@@ -75,9 +76,9 @@ for (const input of CE_INPUTS) {
   }
 
   // Les documents courts sont des textes courts sur une seule ligne ; les
-  // documents longs sont les dix textes de 12 ou 13 lignes du test.
-  const longDocs = section.documents.filter((d) => d.lineCount >= 12);
-  const shortDocs = section.documents.filter((d) => d.lineCount < 12);
+  // documents longs sont les dix textes de 11 a 13 lignes du test.
+  const longDocs = section.documents.filter((d) => d.lineCount >= CE_LONG_MIN_LINES);
+  const shortDocs = section.documents.filter((d) => d.lineCount < CE_LONG_MIN_LINES);
   const shortCount = shortDocs.length;
   if (longDocs.length !== 10) {
     throw new Error(`${input.testId} : ${longDocs.length} texte(s) long(s) au lieu de 10.`);
@@ -85,8 +86,10 @@ for (const input of CE_INPUTS) {
   if (shortCount !== 20) {
     throw new Error(`${input.testId} : ${shortCount} document(s) court(s) au lieu de 20.`);
   }
-  if (longDocs.some((d) => d.lineCount < 12 || d.lineCount > 13)) {
-    throw new Error(`${input.testId} : un texte long ne fait pas 12 ou 13 lignes.`);
+  if (longDocs.some((d) => d.lineCount < CE_LONG_MIN_LINES || d.lineCount > CE_LONG_MAX_LINES)) {
+    throw new Error(
+      `${input.testId} : un texte long ne fait pas ${CE_LONG_MIN_LINES} a ${CE_LONG_MAX_LINES} lignes.`,
+    );
   }
 
   // Une seule question par document.

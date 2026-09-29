@@ -17,7 +17,6 @@ const TEST2: CeLongDocument[] = [
       "Il exige du producteur un temps considérable consacré à la vente et à la logistique,",
       "et il ne saurait, à lui seul, nourrir les grandes agglomérations.",
       "Il représente donc un complément précieux plutôt qu'une solution universelle.",
-      "Vocabulaire : un essor = un développement rapide ; une agglomération = un grand ensemble urbain ; la provenance = l'origine.",
     ),
     [
       "Pourquoi l'auteur présente-t-il les circuits courts comme un « complément » ?",
@@ -47,7 +46,6 @@ const TEST2: CeLongDocument[] = [
       "Pour réussir, les États devront donc associer les habitants aux projets",
       "et accompagner les travailleurs des secteurs appelés à décliner,",
       "c'est-à-dire à accompagner ceux qui perdront leur emploi.",
-      "Vocabulaire : intermittent = irrégulier ; un riverain = personne qui habite à proximité ; rechigner = accepter avec mauvaise volonté.",
     ),
     [
       "Quel obstacle le texte identifie-t-il comme le plus subtil ?",
@@ -78,7 +76,6 @@ const TEST2: CeLongDocument[] = [
       "Mais le manque de personnel dans le secteur du grand âge demeure criant.",
       "Au-delà des chiffres, c'est notre regard sur la vieillesse qu'il faudrait transformer,",
       "pour cesser d'y voir un fardeau.",
-      "Vocabulaire : la natalité = nombre de naissances ; intergénérationnel = entre plusieurs générations ; criant = évident, flagrant.",
     ),
     [
       "Selon la dernière phrase du texte, la difficulté principale est-elle d'ordre économique ?",
@@ -109,7 +106,6 @@ const TEST2: CeLongDocument[] = [
       "un équilibre qui reste à trouver.",
       "L'économie collaborative illustre donc un double mouvement :",
       "il ouvre des possibilités nouvelles tout en posing des problèmes qu'il contribua lui-même à créer.",
-      "Vocabulaire : sous-utilisé = utilisé en dessous de ses possibilités ; dévier = s'écarter ; encadrer = réglementer.",
     ),
     [
       "Que signifie le terme « dévié » dans le texte ?",
@@ -139,7 +135,6 @@ const TEST2: CeLongDocument[] = [
       "a illustré cette liberté en bousculant les conventions du récit et du tournage.",
       "Aujourd'hui, l'arrivée des plateformes de streaming redistribue les cartes",
       "et oblige à repenser ce modèle.",
-      "Vocabulaire : audacieux = novateur, courageux ; l'exception culturelle = principe protégeant la culture des règles commerciales ordinaires ; bousculer = remettre en question.",
     ),
     [
       "Pourquoi l'arrivée du streaming oblige-t-elle à repenser le modèle ?",
@@ -170,7 +165,6 @@ const TEST2: CeLongDocument[] = [
       "La question excède donc le seul registre juridique :",
       "elle interroge le statut même du vivant, tiraillé entre patrimoine de l'humanité",
       "et marchandise, et pose, en creux, celle de la souveraineté paysanne.",
-      "Vocabulaire : un contempteur = détracteur ; tributaire de = dépendant de ; en creux = de façon implicite.",
     ),
     [
       "Que signifie l'expression « en creux » dans la dernière phrase ?",
@@ -201,7 +195,6 @@ const TEST2: CeLongDocument[] = [
       "indépendante de toute utilité humaine.",
       "Entre ces deux positions, c'est notre rapport à la nature qui se joue :",
       "simple réservoir de ressources ou communauté dont nous ne sommes qu'un membre.",
-      "Vocabulaire : sous-tendre = servir de fondement à ; assujettir = soumettre ; intrinsèque = propre à la chose en elle-même.",
     ),
     [
       "Quelle objection l'auteur retient-il contre l'approche économique des services écosystémiques ?",
@@ -232,7 +225,6 @@ const TEST2: CeLongDocument[] = [
       "Il faut sans doute rappeler que le principe, dans sa lettre,",
       "garantit à la fois la neutralité des institutions et la libre expression des convictions,",
       "deux versants que la controverse tend à opposer à tort.",
-      "Vocabulaire : un corollaire = conséquence logique ; une crispation = tension ; se muer en = se transformer en.",
     ),
     [
       "Que reproche l'auteur à la controverse sur la laïcité ?",
@@ -263,7 +255,6 @@ const TEST2: CeLongDocument[] = [
       "en canalisant l'épargne vers les projets les plus prometteurs.",
       "La difficulté tient à ce que la même mécanique, vertueuse en son principe,",
       "peut se déliter en spéculation lorsqu'elle s'affranchit de tout contrepoids.",
-      "Vocabulaire : sommer de = enjoindre de ; irriguer = alimenter ; se déliter = se désagréger.",
     ),
     [
       "Selon l'auteur, qu'est-ce qui explique que la finance soit à la fois utile et dangereuse ?",
@@ -294,7 +285,6 @@ const TEST2: CeLongDocument[] = [
       "et la valeur esthétique ou critique, qui ne se laisse pas monnayer.",
       "Encore convient-il de reconnaître que la seconde",
       "ne se constitue jamais totalement hors de la première.",
-      "Vocabulaire : déconcerter = surprendre, troubler ; vertigineux = extrêmement élevé ; monnayer = convertir en argent.",
     ),
     [
       "Quelle position l'auteur adopte-t-il sur les deux régimes de valeur ?",

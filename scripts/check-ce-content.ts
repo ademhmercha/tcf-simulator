@@ -7,13 +7,20 @@ import { join } from "node:path";
  * Le but est de catching les derives suivantes, visibles dans les textes longs :
  *   - caracteres hors alphabet latin (CJK,oglyphes, U+FFFD, controles)
  *   - residus de fusion de deux mots francais (« QueSoutient », « moit�� »)
- *   - documents dont le nombre de lignes sort de la plage 12-13
+ *   - documents dont le nombre de lignes sort de la plage 11-13
  *   - questions sans enonce, sans explication ou a 4 propositions non distinctes
  *
  * Usage : node --import tsx scripts/check-ce-content.ts
  */
 
 const CE_DIR = join(process.cwd(), "data", "ce");
+
+/**
+ * Longueur des textes longs. La rubrique « Vocabulaire » a ete retiree du
+ * corps des textes : la plage accepte desormais 11 a 13 lignes de prose.
+ */
+const MIN_LONG_LINES = 11;
+const MAX_LONG_LINES = 13;
 
 /** Plages autorisees : ASCII, latin sup. et ponctuation francaise. */
 const ALLOWED =
@@ -116,9 +123,9 @@ for (const file of files) {
   const blocks = raw.matchAll(/lines\(\s*((?:"[^"]*",?\s*)+)\)/g);
   for (const block of blocks) {
     const count = (block[1]?.match(/"/g) ?? []).length / 2;
-    if (count < 12 || count > 13) {
+    if (count < MIN_LONG_LINES || count > MAX_LONG_LINES) {
       const lineNumber = raw.slice(0, block.index).split(/\r?\n/).length;
-      report(file, lineNumber, `texte long de ${count} lignes (attendu 12 ou 13)`);
+      report(file, lineNumber, `texte long de ${count} lignes (attendu 11 a 13)`);
     }
   }
 

@@ -18,7 +18,6 @@ const TEST3: CeLongDocument[] = [
       "Se dessine ainsi un enjeu de justice :",
       "comment répartir équitablement une ressource devenue rare",
       "entre agriculteurs, habitants et milieux naturels ?",
-      "Vocabulaire : une retenue d'eau = un réservoir ; l'accaparement = appropriation excessive ; une nappe phréatique = eau souterraine.",
     ),
     [
       "Quel obstacle commun aux solutions techniques citées est signalé ?",
@@ -48,7 +47,6 @@ const TEST3: CeLongDocument[] = [
       "Le consommateur, de son côté, achète plus souvent un service qu'un bien.",
       "L'obstacle principal reste le verrouillage de certaines filières de recyclage.",
       "L'économie circulaire est donc autant une question d'organisation qu'une technique.",
-      "Vocabulaire : une filière = ensemble des étapes de production ; un gisement = stock de matière exploitable ; le reconditionnement = remise en état.",
     ),
     [
       "Selon le texte, qu'est-ce qui freine le plus l'économie circulaire ?",
@@ -78,7 +76,6 @@ const TEST3: CeLongDocument[] = [
       "souvent subie plutôt que choisie.",
       "L'enjeu n'est donc pas seulement de transmettre des savoirs,",
       "mais de donner à chaque élève les moyens de s'en saisir.",
-      "Vocabulaire : le capital culturel = ensemble des ressources culturelles héritées ; implicite = non dit ; subi = imposé.",
     ),
     [
       "Selon le texte, pourquoi l'égalité des chances reste-t-elle inachevée ?",
@@ -109,7 +106,6 @@ const TEST3: CeLongDocument[] = [
       "D'autres reprochent aux labels leur manque de transparence.",
       "Il n'en demeure pas moins qu'il a fait émerger l'idée",
       "qu'un achat est aussi un acte éthique.",
-      "Vocabulaire : une filière = ensemble des étapes de production d'un produit ; un label = marque de qualité certifiée ; exempt de = libre de.",
     ),
     [
       "Quelle conclusion l'auteur tire-t-il malgré les critiques ?",
@@ -140,7 +136,6 @@ const TEST3: CeLongDocument[] = [
       "notamment en matière de déchets et de transports.",
       "Plusieurs organisateurs adoptent désormais des chartes de sobriété",
       "pour concilier fête et responsabilité.",
-      "Vocabulaire : émergent = qui commence à se faire connaître ; un cachet = rémunération d'un artiste ; une tête d'affiche = artiste principal d'un événement.",
     ),
     [
       "Quel paradoxe le texte met-il en évidence ?",
@@ -171,7 +166,6 @@ const TEST3: CeLongDocument[] = [
       "L'attachement au village reste souvent le premier moteur d'une installation.",
       "La déprise rurale n'est donc pas une fatalité.",
       "Elle appelle un projet de territoire, conduit à l'échelle intercommunale.",
-      "Vocabulaire : la dépopulation = diminution de la population ; l'intercommunalité = groupement de communes ; l'attractivité = capacité à attirer des habitants.",
     ),
     [
       "Comment le texte présente-t-il la déprise rurale ?",
@@ -202,7 +196,6 @@ const TEST3: CeLongDocument[] = [
       "Elle suppose de savoir qui décide, et à quelles conditions les habitants sont associés.",
       "La justice climatique ne se réduit donc pas à la compensation financière.",
       "Une politique équitable se juge à la qualité de ses mesures, pas à leur seule existence.",
-      "Vocabulaire : une canicule = période de chaleur exceptionnelle ; asymétrique = fortement inégal ; un tarif social = prix adapté aux revenus.",
     ),
     [
       "Selon le texte, comment une politique climatique est-elle jugée équitable ?",
@@ -233,7 +226,6 @@ const TEST3: CeLongDocument[] = [
       "mais d'éclairer, sans complaisance, ce qui a eu lieu.",
       "Reste que le devoir de mémoire et le travail de l'histoire",
       "gagnent à se répondre plutôt qu'à s'exclure.",
-      "Vocabulaire : distancié = pris avec du recul ; brider = limiter ; la complaisance = indulgence excessive.",
     ),
     [
       "Quel danger l'auteur associe-t-il à la fixation d'une vérité officielle par la loi ?",
@@ -264,7 +256,6 @@ const TEST3: CeLongDocument[] = [
       "Le débat dépasse ainsi le cas particulier :",
       "il interroge le devenir de la protection sociale",
       "dans une économie où la notion même d'employeur se dilue.",
-      "Vocabulaire : le salariat = statut de salarié ; la subordination = lien de dépendance envers un employeur ; requalifier = attribuer une nouvelle nature juridique.",
     ),
     [
       "Quel est le cœur du problème juridique identifié ?",
@@ -295,7 +286,6 @@ const TEST3: CeLongDocument[] = [
       "Faut-il faire du neuf à l'identique, ou assumer l'empreinte de notre époque ?",
       "La question engage moins la technique",
       "que notre conception du temps et de la transmission.",
-      "Vocabulaire : une strate = couche superposée ; sinistré = gravement endommagé ; scrupuleux = très rigoureux.",
     ),
     [
       "Que révèle l'opposition entre Viollet-le-Duc et Ruskin ?",

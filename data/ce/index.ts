@@ -9,6 +9,7 @@ import SHORTS3 from "./shorts-03";
 import SHORTS4 from "./shorts-04";
 import SHORTS5 from "./shorts-05";
 import type { CeLongDocument, CeShortDocTuple } from "./types";
+import { CE_LONG_MAX_LINES, CE_LONG_MIN_LINES } from "./types";
 
 /**
  * Assemblage des sections de comprehension ecrite.
@@ -140,12 +141,13 @@ function longQuestions(
   }
 }
 
-/** Verifie qu'un texte long fait bien 12 ou 13 lignes. */
+/** Verifie qu'un texte long fait bien 11 a 13 lignes. */
 function checkLongDocument(testNo: number, code: string, content: string): void {
   const count = content.split("\n").length;
-  if (count < 12 || count > 13) {
+  if (count < CE_LONG_MIN_LINES || count > CE_LONG_MAX_LINES) {
     throw new Error(
-      `Test ${testNo} document ${code} : ${count} lignes (attendu 12 ou 13).`,
+      `Test ${testNo} document ${code} : ${count} lignes ` +
+        `(attendu ${CE_LONG_MIN_LINES} a ${CE_LONG_MAX_LINES}).`,
     );
   }
 }

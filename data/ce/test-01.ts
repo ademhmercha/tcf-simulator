@@ -18,7 +18,6 @@ const TEST1: CeLongDocument[] = [
       "Néanmoins, nombre d'entre eux constatent, à moyen terme, une amélioration de leurs marges.",
       "Les pouvoirs publics multiplient les aides à la conversion, mais reste à savoir",
       "si ces dispositifs suffiront à entraîner l'ensemble de la profession.",
-      "Vocabulaire : les intrants = produits ajoutés aux cultures ; une parcelle = portion de terrain cultivé ; fléchir = baisser légèrement.",
     ),
     [
       "Que laisse entendre la dernière ligne du texte ?",
@@ -49,7 +48,6 @@ const TEST1: CeLongDocument[] = [
       "soucieux de conserver l'attractivité de leur commune.",
       "Entre développement territorial et sobriété foncière,",
       "le compromis demeure délicat à trouver.",
-      "Vocabulaire : l'étalement urbain = extension des villes vers la campagne ; imperméabilisé = qui ne laisse plus passer l'eau ; la sobriété foncière = usage économe des terrains.",
     ),
     [
       "Laquelle de ces mesures est décrite comme étant en difficulté de mise en œuvre ?",
@@ -80,7 +78,6 @@ const TEST1: CeLongDocument[] = [
       "alternant présence au bureau et travail à distance.",
       "Ce compromis semble concilier les attentes de chacun,",
       "mais il soulève une question de fond : que devient la frontière entre vie privée et vie professionnelle lorsque le salon se fait bureau ?",
-      "Vocabulaire : se banaliser = devenir courant ; un revers = un côté négatif ; la cohésion = solidarité d'un groupe.",
     ),
     [
       "Comment le texte présente-t-il le modèle hybride ?",
@@ -110,7 +107,6 @@ const TEST1: CeLongDocument[] = [
       "ou à des chèques exceptionnels pour soulager les foyers.",
       "Ces mesures efficaces à court terme pèsent toutefois sur les finances publiques.",
       "L'équation demeure donc complexe : protéger les citoyens sans aggraver l'endettement.",
-      "Vocabulaire : pâtir de = souffrir de ; un levier = moyen d'action ; un bouclier tarifaire = plafonnement des prix de l'énergie par l'État.",
     ),
     [
       "Pourquoi les ménages modestes sont-ils les plus touchés par l'inflation ?",
@@ -141,7 +137,6 @@ const TEST1: CeLongDocument[] = [
       "Les municipalités hésitent entre répression et valorisation,",
       "certaines allant jusqu'à commander des fresques pour redynamiser des quartiers délaissés.",
       "Le street art rappelle ainsi que l'art n'a pas besoin de musée pour exister.",
-      "Vocabulaire : éphémère = de courte durée ; un pochoir = motif reproduit à la bombe à travers un gabarit ; délaissé = abandonné, négligé.",
     ),
     [
       "Quel paradoxe le texte met-il en évidence ?",
@@ -172,7 +167,6 @@ const TEST1: CeLongDocument[] = [
       "Encore faut-il que les politiques publiques cessent de sacrifier l'agriculteur,",
       "tantôt érigé en gardien du terroir, tantôt sommé de se conformer",
       "aux exigences d'un marché mondialisé.",
-      "Vocabulaire : cantonné à = limité à ; autarcique = fondé sur l'autosuffisance ; hypothéquer = compromettre l'avenir de.",
     ),
     [
       "Selon le texte, quelle serait une réduction erronée du problème ?",
@@ -203,7 +197,6 @@ const TEST1: CeLongDocument[] = [
       "faut-il appréhender la crise écologique comme une fatalité anthropologique",
       "ou comme le produit d'arbitrages politiques réversibles ?",
       "De la réponse dépend la nature même de l'action : contrition ou transformation.",
-      "Vocabulaire : tellurique = relatif à la Terre ; imputer = attribuer une faute ; un arbitrage = choix entre plusieurs options.",
     ),
     [
       "Que répond l'auteur à la question « fatalité ou arbitrage politique » ?",
@@ -234,7 +227,6 @@ const TEST1: CeLongDocument[] = [
       "La réponse tient peut-être à ceci :",
       "l'individu moderne ne renonce pas au collectif,",
       "il en exige seulement qu'il soit choisi plutôt qu'hérité.",
-      "Vocabulaire : le délitement = désagrégation progressive ; arrimé à = solidement attaché à ; à la carte = selon ses préférences, sans contrainte.",
     ),
     [
       "Selon l'auteur, qu'est-ce qui caractérise le rapport de l'individu moderne au collectif ?",
@@ -265,7 +257,6 @@ const TEST1: CeLongDocument[] = [
       "sous-estimation des résistances sociales à la sobriété de l'autre.",
       "Il n'est pas certain que la controverse puisse être tranchée par les seuls arguments empiriques,",
       "tant elle engage des conceptions antagonistes du progrès et de la vie bonne.",
-      "Vocabulaire : cristalliser = rendre visible et durable ; le découplage = séparation de deux évolutions liées ; l'effet rebond = hausse de consommation qui annule les économies réalisées.",
     ),
     [
       "Pourquoi l'auteur doute-t-il que l'argumentation empirique suffise ?",
@@ -295,7 +286,6 @@ const TEST1: CeLongDocument[] = [
       "Ce paradoxe invite à réviser la thèse benjaminienne :",
       "la reproduction, loin de tuer le sacré de l'art,",
       "en aurait paradoxalement réactivé la quête.",
-      "Vocabulaire : l'aura = caractère unique et presque sacré d'une œuvre ; l'affluence = grand nombre de visiteurs ; aviver = rendre plus intense.",
     ),
     [
       "Comment l'auteur réinterprète-t-il la thèse de Benjamin ?",
