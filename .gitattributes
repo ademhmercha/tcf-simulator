@@ -1,0 +1,19 @@
+# Normalisation des fins de ligne : le depot est developpe sous Windows mais
+# doit rester lisible sous Linux (Vercel, conteneurs).
+* text=auto eol=lf
+
+# Fichiers Windows
+*.bat text eol=crlf
+*.cmd text eol=crlf
+
+# Fichiers binaires
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.webp binary
+*.ico binary
+*.woff binary
+*.woff2 binary
+*.pdf binary
+*.db binary

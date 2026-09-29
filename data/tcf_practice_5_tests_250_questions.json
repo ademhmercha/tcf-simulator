@@ -1,0 +1,4053 @@
+{
+  "metadata": {
+    "name": "TCF Practice Platform — 5 Tests",
+    "version": "1.0.0",
+    "language": "fr-FR",
+    "testCount": 5,
+    "questionsPerTest": 50,
+    "totalQuestions": 250,
+    "structureQuestionsPerTest": 20,
+    "readingQuestionsPerTest": 30,
+    "format": "QCM A/B/C/D — une seule bonne réponse",
+    "originalContent": true,
+    "disclaimer": "Questions originales pour entraînement ; elles ne sont pas des questions officielles du TCF.",
+    "reference": "France Éducation international — TCF Tout public (format public consulté en 2026)."
+  },
+  "tests": [
+    {
+      "id": "test-01",
+      "title": "TCF Entraînement — Test 1",
+      "description": "Questions originales d’entraînement inspirées du format général du TCF Tout public.",
+      "sections": {
+        "structure_de_la_langue": {
+          "questionCount": 20,
+          "questions": [
+            {
+              "id": "ST1-01",
+              "question": "Je vais ___ bureau acheter quelque chose.",
+              "options": {
+                "A": "au",
+                "B": "à la",
+                "C": "aux",
+                "D": "du"
+              },
+              "correctAnswer": "A",
+              "explanation": "« à + le » donne « au ».",
+              "level": "A1",
+              "category": "prépositions"
+            },
+            {
+              "id": "ST1-02",
+              "question": "Nous ___ anglais tous les jours.",
+              "options": {
+                "A": "étudions",
+                "B": "étudiez",
+                "C": "étudient",
+                "D": "étudier"
+              },
+              "correctAnswer": "A",
+              "explanation": "Avec « nous », le présent est « étudions ».",
+              "level": "A1",
+              "category": "conjugaison"
+            },
+            {
+              "id": "ST1-03",
+              "question": "Marie a acheté ___ nouvelle voiture.",
+              "options": {
+                "A": "un",
+                "B": "une",
+                "C": "des",
+                "D": "du"
+              },
+              "correctAnswer": "B",
+              "explanation": "« voiture » est féminin singulier.",
+              "level": "A1",
+              "category": "articles"
+            },
+            {
+              "id": "ST1-04",
+              "question": "Il est arrivé ___ huit heures.",
+              "options": {
+                "A": "à",
+                "B": "en",
+                "C": "dans",
+                "D": "sur"
+              },
+              "correctAnswer": "A",
+              "explanation": "Pour une heure précise, on utilise « à ».",
+              "level": "A1",
+              "category": "prépositions"
+            },
+            {
+              "id": "ST1-05",
+              "question": "Ils ___ au cinéma samedi dernier.",
+              "options": {
+                "A": "vont",
+                "B": "sont allés",
+                "C": "allaient",
+                "D": "iront"
+              },
+              "correctAnswer": "B",
+              "explanation": "« samedi dernier » renvoie à une action passée et terminée.",
+              "level": "A2",
+              "category": "temps"
+            },
+            {
+              "id": "ST1-06",
+              "question": "Je ne connais pas cette femme. Tu ___ connais ?",
+              "options": {
+                "A": "la",
+                "B": "lui",
+                "C": "leur",
+                "D": "les"
+              },
+              "correctAnswer": "A",
+              "explanation": "« cette femme » est un COD féminin singulier.",
+              "level": "A2",
+              "category": "pronoms"
+            },
+            {
+              "id": "ST1-07",
+              "question": "Nous avons besoin ___ informations supplémentaires.",
+              "options": {
+                "A": "des",
+                "B": "d'",
+                "C": "de",
+                "D": "aux"
+              },
+              "correctAnswer": "C",
+              "explanation": "La construction est « avoir besoin de ».",
+              "level": "A2",
+              "category": "prépositions"
+            },
+            {
+              "id": "ST1-08",
+              "question": "Quand j'étais enfant, je ___ beaucoup au football.",
+              "options": {
+                "A": "joue",
+                "B": "jouais",
+                "C": "jouerai",
+                "D": "ai joué"
+              },
+              "correctAnswer": "B",
+              "explanation": "Une habitude passée se met à l’imparfait.",
+              "level": "A2",
+              "category": "imparfait"
+            },
+            {
+              "id": "ST1-09",
+              "question": "Il faut que vous ___ à l'heure.",
+              "options": {
+                "A": "arrivez",
+                "B": "arriviez",
+                "C": "arriverez",
+                "D": "arriver"
+              },
+              "correctAnswer": "B",
+              "explanation": "« il faut que » est suivi du subjonctif.",
+              "level": "B1",
+              "category": "subjonctif"
+            },
+            {
+              "id": "ST1-10",
+              "question": "Si j'avais plus de temps, je ___ davantage.",
+              "options": {
+                "A": "voyage",
+                "B": "voyagerai",
+                "C": "voyagerais",
+                "D": "avais voyagé"
+              },
+              "correctAnswer": "C",
+              "explanation": "Si + imparfait entraîne ici le conditionnel présent.",
+              "level": "B1",
+              "category": "conditionnel"
+            },
+            {
+              "id": "ST1-11",
+              "question": "C'est le sujet ___ je t'ai parlé hier.",
+              "options": {
+                "A": "que",
+                "B": "dont",
+                "C": "où",
+                "D": "auquel"
+              },
+              "correctAnswer": "B",
+              "explanation": "« parler de » appelle le pronom relatif « dont ». ",
+              "level": "B1",
+              "category": "relatifs"
+            },
+            {
+              "id": "ST1-12",
+              "question": "Elle travaille ici ___ trois ans.",
+              "options": {
+                "A": "depuis",
+                "B": "pendant",
+                "C": "dans",
+                "D": "il y a"
+              },
+              "correctAnswer": "A",
+              "explanation": "Une situation toujours actuelle se construit avec « depuis ».",
+              "level": "B1",
+              "category": "prépositions"
+            },
+            {
+              "id": "ST1-13",
+              "question": "Bien qu'il ___ fatigué, il continue.",
+              "options": {
+                "A": "est",
+                "B": "soit",
+                "C": "sera",
+                "D": "était"
+              },
+              "correctAnswer": "B",
+              "explanation": "« bien que » + subjonctif.",
+              "level": "B2",
+              "category": "subjonctif"
+            },
+            {
+              "id": "ST1-14",
+              "question": "Il a réussi ___ son manque de préparation.",
+              "options": {
+                "A": "grâce à",
+                "B": "malgré",
+                "C": "parce que",
+                "D": "afin de"
+              },
+              "correctAnswer": "B",
+              "explanation": "« malgré » introduit une opposition.",
+              "level": "B2",
+              "category": "connecteurs"
+            },
+            {
+              "id": "ST1-15",
+              "question": "Le directeur souhaite que le rapport ___ avant vendredi.",
+              "options": {
+                "A": "est terminé",
+                "B": "soit terminé",
+                "C": "sera terminé",
+                "D": "a été terminé"
+              },
+              "correctAnswer": "B",
+              "explanation": "« souhaite que » + subjonctif.",
+              "level": "B2",
+              "category": "subjonctif"
+            },
+            {
+              "id": "ST1-16",
+              "question": "La décision, ___ les conséquences sont importantes, sera annoncée demain.",
+              "options": {
+                "A": "dont",
+                "B": "que",
+                "C": "laquelle",
+                "D": "où"
+              },
+              "correctAnswer": "A",
+              "explanation": "« les conséquences de la décision » → « dont les conséquences ».",
+              "level": "C1",
+              "category": "relatifs"
+            },
+            {
+              "id": "ST1-17",
+              "question": "Il aurait accepté, à condition que vous lui ___ les détails.",
+              "options": {
+                "A": "expliquez",
+                "B": "expliquiez",
+                "C": "expliquerez",
+                "D": "expliquiez-vous"
+              },
+              "correctAnswer": "B",
+              "explanation": "« à condition que » + subjonctif.",
+              "level": "C1",
+              "category": "subjonctif"
+            },
+            {
+              "id": "ST1-18",
+              "question": "Ce projet est beaucoup plus complexe que je ne l'___.",
+              "options": {
+                "A": "pensais",
+                "B": "penserai",
+                "C": "pense",
+                "D": "ai pensé"
+              },
+              "correctAnswer": "A",
+              "explanation": "L’attente passée est exprimée à l’imparfait.",
+              "level": "C1",
+              "category": "temps"
+            },
+            {
+              "id": "ST1-19",
+              "question": "Les mesures ont été prises afin de ___ les risques.",
+              "options": {
+                "A": "réduire",
+                "B": "réduisant",
+                "C": "réduits",
+                "D": "réduction"
+              },
+              "correctAnswer": "A",
+              "explanation": "« afin de » + infinitif.",
+              "level": "B2",
+              "category": "infinitif"
+            },
+            {
+              "id": "ST1-20",
+              "question": "À peine était-il arrivé ___ le téléphone a sonné.",
+              "options": {
+                "A": "que",
+                "B": "dont",
+                "C": "où",
+                "D": "si"
+              },
+              "correctAnswer": "A",
+              "explanation": "La construction est « à peine… que ».",
+              "level": "C1",
+              "category": "connecteurs"
+            }
+          ]
+        },
+        "comprehension_ecrite": {
+          "questionCount": 30,
+          "questions": [
+            {
+              "id": "CE1-01",
+              "documentId": "T1-DOC01",
+              "documentTitle": "Bibliothèque",
+              "document": "La bibliothèque du quartier sera fermée mardi matin pour maintenance. Elle rouvrira à 14 h et fermera à 18 h. Les retours de livres restent possibles dans la boîte située à l’entrée.",
+              "question": "Quand la bibliothèque rouvrira-t-elle mardi ?",
+              "options": {
+                "A": "À 8 h",
+                "B": "À 12 h",
+                "C": "À 14 h",
+                "D": "À 18 h"
+              },
+              "correctAnswer": "C",
+              "explanation": "Le document annonce une réouverture à 14 h.",
+              "level": "A2",
+              "category": "compréhension écrite"
+            },
+            {
+              "id": "CE1-02",
+              "documentId": "T1-DOC01",
+              "documentTitle": "Bibliothèque",
+              "document": "La bibliothèque du quartier sera fermée mardi matin pour maintenance. Elle rouvrira à 14 h et fermera à 18 h. Les retours de livres restent possibles dans la boîte située à l’entrée.",
+              "question": "Que peut-on faire pendant la fermeture ?",
+              "options": {
+                "A": "Emprunter des livres",
+                "B": "Déposer des retours dans la boîte",
+                "C": "Utiliser les ordinateurs",
+                "D": "Rencontrer le personnel"
+              },
+              "correctAnswer": "B",
+              "explanation": "La boîte de retour reste accessible.",
+              "level": "A2",
+              "category": "compréhension écrite"
+            },
+            {
+              "id": "CE1-03",
+              "documentId": "T1-DOC01",
+              "documentTitle": "Bibliothèque",
+              "document": "La bibliothèque du quartier sera fermée mardi matin pour maintenance. Elle rouvrira à 14 h et fermera à 18 h. Les retours de livres restent possibles dans la boîte située à l’entrée.",
+              "question": "Pourquoi ferme-t-elle le matin ?",
+              "options": {
+                "A": "Pour une réunion",
+                "B": "Pour maintenance",
+                "C": "Pour un déménagement",
+                "D": "Pour un jour férié"
+              },
+              "correctAnswer": "B",
+              "explanation": "La fermeture est liée à la maintenance.",
+              "level": "A2",
+              "category": "compréhension écrite"
+            },
+            {
+              "id": "CE1-04",
+              "documentId": "T1-DOC02",
+              "documentTitle": "Transport",
+              "document": "En raison de travaux, les trains ne circuleront pas entre Centre et République samedi. Des bus de remplacement passeront toutes les quinze minutes de 7 h à 22 h.",
+              "question": "Pourquoi les trains seront-ils interrompus ?",
+              "options": {
+                "A": "Une grève",
+                "B": "Des travaux",
+                "C": "Une panne électrique",
+                "D": "La météo"
+              },
+              "correctAnswer": "B",
+              "explanation": "Le texte mentionne des travaux.",
+              "level": "A2",
+              "category": "compréhension écrite"
+            },
+            {
+              "id": "CE1-05",
+              "documentId": "T1-DOC02",
+              "documentTitle": "Transport",
+              "document": "En raison de travaux, les trains ne circuleront pas entre Centre et République samedi. Des bus de remplacement passeront toutes les quinze minutes de 7 h à 22 h.",
+              "question": "Quel transport est prévu en remplacement ?",
+              "options": {
+                "A": "Des taxis",
+                "B": "Des bus",
+                "C": "Des vélos",
+                "D": "Des tramways"
+              },
+              "correctAnswer": "B",
+              "explanation": "Des bus de remplacement sont prévus.",
+              "level": "A2",
+              "category": "compréhension écrite"
+            },
+            {
+              "id": "CE1-06",
+              "documentId": "T1-DOC02",
+              "documentTitle": "Transport",
+              "document": "En raison de travaux, les trains ne circuleront pas entre Centre et République samedi. Des bus de remplacement passeront toutes les quinze minutes de 7 h à 22 h.",
+              "question": "À quelle fréquence passeront-ils ?",
+              "options": {
+                "A": "Toutes les 5 minutes",
+                "B": "Toutes les 10 minutes",
+                "C": "Toutes les 15 minutes",
+                "D": "Toutes les 30 minutes"
+              },
+              "correctAnswer": "C",
+              "explanation": "Ils passeront toutes les quinze minutes.",
+              "level": "A2",
+              "category": "compréhension écrite"
+            },
+            {
+              "id": "CE1-07",
+              "documentId": "T1-DOC03",
+              "documentTitle": "Logement",
+              "document": "Studio meublé de 28 m² près de l’université. Disponible le 1er octobre. Loyer : 520 euros charges comprises. Internet inclus. Premier contact par courriel.",
+              "question": "Quand le studio est-il disponible ?",
+              "options": {
+                "A": "1er septembre",
+                "B": "1er octobre",
+                "C": "1er novembre",
+                "D": "15 octobre"
+              },
+              "correctAnswer": "B",
+              "explanation": "La date indiquée est le 1er octobre.",
+              "level": "A2",
+              "category": "compréhension écrite"
+            },
+            {
+              "id": "CE1-08",
+              "documentId": "T1-DOC03",
+              "documentTitle": "Logement",
+              "document": "Studio meublé de 28 m² près de l’université. Disponible le 1er octobre. Loyer : 520 euros charges comprises. Internet inclus. Premier contact par courriel.",
+              "question": "Quel service est inclus ?",
+              "options": {
+                "A": "Parking",
+                "B": "Ménage",
+                "C": "Internet",
+                "D": "Petit déjeuner"
+              },
+              "correctAnswer": "C",
+              "explanation": "Internet est inclus dans le loyer.",
+              "level": "A2",
+              "category": "compréhension écrite"
+            },
+            {
+              "id": "CE1-09",
+              "documentId": "T1-DOC03",
+              "documentTitle": "Logement",
+              "document": "Studio meublé de 28 m² près de l’université. Disponible le 1er octobre. Loyer : 520 euros charges comprises. Internet inclus. Premier contact par courriel.",
+              "question": "Quel est le premier moyen de contact ?",
+              "options": {
+                "A": "Téléphone",
+                "B": "Courriel",
+                "C": "Courrier",
+                "D": "Visite sans rendez-vous"
+              },
+              "correctAnswer": "B",
+              "explanation": "L’annonce demande un premier contact par courriel.",
+              "level": "A2",
+              "category": "compréhension écrite"
+            },
+            {
+              "id": "CE1-10",
+              "documentId": "T1-DOC04",
+              "documentTitle": "Formation",
+              "document": "Une entreprise propose trois jours de formation à la cybersécurité. La participation est volontaire. Des ateliers portent sur les mots de passe, l’hameçonnage et la protection des données.",
+              "question": "Combien de temps dure la formation ?",
+              "options": {
+                "A": "Un jour",
+                "B": "Deux jours",
+                "C": "Trois jours",
+                "D": "Une semaine"
+              },
+              "correctAnswer": "C",
+              "explanation": "La formation dure trois jours.",
+              "level": "A2",
+              "category": "compréhension écrite"
+            },
+            {
+              "id": "CE1-11",
+              "documentId": "T1-DOC04",
+              "documentTitle": "Formation",
+              "document": "Une entreprise propose trois jours de formation à la cybersécurité. La participation est volontaire. Des ateliers portent sur les mots de passe, l’hameçonnage et la protection des données.",
+              "question": "La participation est-elle obligatoire ?",
+              "options": {
+                "A": "Oui",
+                "B": "Non, elle est volontaire",
+                "C": "Seulement le premier jour",
+                "D": "Uniquement pour les managers"
+              },
+              "correctAnswer": "B",
+              "explanation": "Le texte précise qu’elle est volontaire.",
+              "level": "A2",
+              "category": "compréhension écrite"
+            },
+            {
+              "id": "CE1-12",
+              "documentId": "T1-DOC04",
+              "documentTitle": "Formation",
+              "document": "Une entreprise propose trois jours de formation à la cybersécurité. La participation est volontaire. Des ateliers portent sur les mots de passe, l’hameçonnage et la protection des données.",
+              "question": "Quel sujet est traité ?",
+              "options": {
+                "A": "Cuisine",
+                "B": "Cybersécurité",
+                "C": "Comptabilité",
+                "D": "Marketing"
+              },
+              "correctAnswer": "B",
+              "explanation": "Les ateliers concernent la cybersécurité.",
+              "level": "A2",
+              "category": "compréhension écrite"
+            },
+            {
+              "id": "CE1-13",
+              "documentId": "T1-DOC05",
+              "documentTitle": "Travail",
+              "document": "À partir du mois prochain, les employés pourront commencer entre 8 h et 10 h, à condition de respecter leur durée quotidienne. Les réunions d’équipe resteront fixées à 9 h.",
+              "question": "Quelle flexibilité est introduite ?",
+              "options": {
+                "A": "Les congés",
+                "B": "L’heure de début",
+                "C": "Le salaire",
+                "D": "Les réunions"
+              },
+              "correctAnswer": "B",
+              "explanation": "Les employés pourront commencer entre 8 h et 10 h.",
+              "level": "A2",
+              "category": "compréhension écrite"
+            },
+            {
+              "id": "CE1-14",
+              "documentId": "T1-DOC05",
+              "documentTitle": "Travail",
+              "document": "À partir du mois prochain, les employés pourront commencer entre 8 h et 10 h, à condition de respecter leur durée quotidienne. Les réunions d’équipe resteront fixées à 9 h.",
+              "question": "Quelle réunion reste fixée à 9 h ?",
+              "options": {
+                "A": "La réunion d’équipe",
+                "B": "La réunion annuelle",
+                "C": "La réunion avec les clients",
+                "D": "La réunion syndicale"
+              },
+              "correctAnswer": "A",
+              "explanation": "Les réunions d’équipe restent à 9 h.",
+              "level": "A2",
+              "category": "compréhension écrite"
+            },
+            {
+              "id": "CE1-15",
+              "documentId": "T1-DOC05",
+              "documentTitle": "Travail",
+              "document": "À partir du mois prochain, les employés pourront commencer entre 8 h et 10 h, à condition de respecter leur durée quotidienne. Les réunions d’équipe resteront fixées à 9 h.",
+              "question": "Quand le dispositif sera-t-il évalué ?",
+              "options": {
+                "A": "Après un mois",
+                "B": "Après trois mois",
+                "C": "Après six mois",
+                "D": "Après un an"
+              },
+              "correctAnswer": "B",
+              "explanation": "L’évaluation est prévue après trois mois.",
+              "level": "A2",
+              "category": "compréhension écrite"
+            },
+            {
+              "id": "CE1-16",
+              "documentId": "T1-DOC06",
+              "documentTitle": "Culture",
+              "document": "L’exposition de photographie contemporaine est prolongée jusqu’au 20 novembre. L’entrée reste gratuite le premier dimanche du mois.",
+              "question": "Jusqu’à quand l’exposition est-elle prolongée ?",
+              "options": {
+                "A": "20 octobre",
+                "B": "1er novembre",
+                "C": "20 novembre",
+                "D": "30 novembre"
+              },
+              "correctAnswer": "C",
+              "explanation": "La nouvelle date est le 20 novembre.",
+              "level": "A2",
+              "category": "compréhension écrite"
+            },
+            {
+              "id": "CE1-17",
+              "documentId": "T1-DOC06",
+              "documentTitle": "Culture",
+              "document": "L’exposition de photographie contemporaine est prolongée jusqu’au 20 novembre. L’entrée reste gratuite le premier dimanche du mois.",
+              "question": "Quand l’entrée reste-t-elle gratuite ?",
+              "options": {
+                "A": "Chaque dimanche",
+                "B": "Le premier dimanche du mois",
+                "C": "Le dernier dimanche",
+                "D": "Tous les jours"
+              },
+              "correctAnswer": "B",
+              "explanation": "La gratuité concerne le premier dimanche du mois.",
+              "level": "A2",
+              "category": "compréhension écrite"
+            },
+            {
+              "id": "CE1-18",
+              "documentId": "T1-DOC06",
+              "documentTitle": "Culture",
+              "document": "L’exposition de photographie contemporaine est prolongée jusqu’au 20 novembre. L’entrée reste gratuite le premier dimanche du mois.",
+              "question": "Quel est le thème de l’exposition ?",
+              "options": {
+                "A": "Peinture",
+                "B": "Photographie contemporaine",
+                "C": "Sculpture",
+                "D": "Architecture"
+              },
+              "correctAnswer": "B",
+              "explanation": "Elle est consacrée à la photographie contemporaine.",
+              "level": "A2",
+              "category": "compréhension écrite"
+            },
+            {
+              "id": "CE1-19",
+              "documentId": "T1-DOC07",
+              "documentTitle": "Ville",
+              "document": "La ville lance un service de vélos électriques. Les abonnés disposent de trente minutes sans supplément. Le service vise surtout les déplacements courts entre les transports publics et les quartiers résidentiels.",
+              "question": "Combien de temps est sans supplément pour les abonnés ?",
+              "options": {
+                "A": "15 minutes",
+                "B": "20 minutes",
+                "C": "30 minutes",
+                "D": "60 minutes"
+              },
+              "correctAnswer": "C",
+              "explanation": "Les trente premières minutes sont sans supplément.",
+              "level": "A2",
+              "category": "compréhension écrite"
+            },
+            {
+              "id": "CE1-20",
+              "documentId": "T1-DOC07",
+              "documentTitle": "Ville",
+              "document": "La ville lance un service de vélos électriques. Les abonnés disposent de trente minutes sans supplément. Le service vise surtout les déplacements courts entre les transports publics et les quartiers résidentiels.",
+              "question": "Quel type de déplacement est visé ?",
+              "options": {
+                "A": "Longs voyages",
+                "B": "Déplacements courts",
+                "C": "Voyages internationaux",
+                "D": "Déplacements uniquement professionnels"
+              },
+              "correctAnswer": "B",
+              "explanation": "Le service vise surtout les déplacements courts.",
+              "level": "A2",
+              "category": "compréhension écrite"
+            },
+            {
+              "id": "CE1-21",
+              "documentId": "T1-DOC07",
+              "documentTitle": "Ville",
+              "document": "La ville lance un service de vélos électriques. Les abonnés disposent de trente minutes sans supplément. Le service vise surtout les déplacements courts entre les transports publics et les quartiers résidentiels.",
+              "question": "Entre quels lieux le service est-il particulièrement utile ?",
+              "options": {
+                "A": "Aéroports et ports",
+                "B": "Transports publics et quartiers résidentiels",
+                "C": "Écoles et hôpitaux",
+                "D": "Gares et autoroutes"
+              },
+              "correctAnswer": "B",
+              "explanation": "C’est l’usage cité dans le document.",
+              "level": "A2",
+              "category": "compréhension écrite"
+            },
+            {
+              "id": "CE1-22",
+              "documentId": "T1-DOC08",
+              "documentTitle": "Consommation",
+              "document": "Avant d’acheter un appareil, il est conseillé de comparer son prix, sa consommation d’énergie et la durée de garantie. Il est également utile de vérifier la disponibilité des pièces détachées.",
+              "question": "Que faut-il comparer en plus du prix ?",
+              "options": {
+                "A": "La couleur",
+                "B": "La consommation et la garantie",
+                "C": "Le poids du vendeur",
+                "D": "La taille du magasin"
+              },
+              "correctAnswer": "B",
+              "explanation": "Le document cite consommation et garantie.",
+              "level": "A2",
+              "category": "compréhension écrite"
+            },
+            {
+              "id": "CE1-23",
+              "documentId": "T1-DOC08",
+              "documentTitle": "Consommation",
+              "document": "Avant d’acheter un appareil, il est conseillé de comparer son prix, sa consommation d’énergie et la durée de garantie. Il est également utile de vérifier la disponibilité des pièces détachées.",
+              "question": "Pourquoi un modèle plus cher peut-il être intéressant ?",
+              "options": {
+                "A": "Il est toujours plus grand",
+                "B": "Il peut coûter moins cher à long terme",
+                "C": "Il est forcément plus beau",
+                "D": "Il est toujours garanti à vie"
+              },
+              "correctAnswer": "B",
+              "explanation": "Une consommation moindre peut réduire le coût sur plusieurs années.",
+              "level": "A2",
+              "category": "compréhension écrite"
+            },
+            {
+              "id": "CE1-24",
+              "documentId": "T1-DOC08",
+              "documentTitle": "Consommation",
+              "document": "Avant d’acheter un appareil, il est conseillé de comparer son prix, sa consommation d’énergie et la durée de garantie. Il est également utile de vérifier la disponibilité des pièces détachées.",
+              "question": "Que faut-il aussi vérifier ?",
+              "options": {
+                "A": "La publicité",
+                "B": "Les pièces détachées disponibles",
+                "C": "La météo",
+                "D": "Le nombre de vendeurs"
+              },
+              "correctAnswer": "B",
+              "explanation": "Le document conseille de vérifier les pièces détachées.",
+              "level": "A2",
+              "category": "compréhension écrite"
+            },
+            {
+              "id": "CE1-25",
+              "documentId": "T1-DOC09",
+              "documentTitle": "Télétravail",
+              "document": "Une étude auprès de salariés indique que la flexibilité des horaires est un avantage du télétravail. Elle souligne aussi la difficulté de séparer vie professionnelle et vie personnelle. Des règles claires de disponibilité peuvent limiter ce problème.",
+              "question": "Quel avantage est cité ?",
+              "options": {
+                "A": "La suppression des réunions",
+                "B": "La flexibilité des horaires",
+                "C": "La baisse des salaires",
+                "D": "La réduction des congés"
+              },
+              "correctAnswer": "B",
+              "explanation": "La flexibilité est présentée comme un avantage.",
+              "level": "A2",
+              "category": "compréhension écrite"
+            },
+            {
+              "id": "CE1-26",
+              "documentId": "T1-DOC09",
+              "documentTitle": "Télétravail",
+              "document": "Une étude auprès de salariés indique que la flexibilité des horaires est un avantage du télétravail. Elle souligne aussi la difficulté de séparer vie professionnelle et vie personnelle. Des règles claires de disponibilité peuvent limiter ce problème.",
+              "question": "Quelle difficulté est mentionnée ?",
+              "options": {
+                "A": "Les transports",
+                "B": "La séparation entre vie professionnelle et personnelle",
+                "C": "Le manque de bureaux",
+                "D": "Les vacances"
+              },
+              "correctAnswer": "B",
+              "explanation": "Cette difficulté est explicitement mentionnée.",
+              "level": "A2",
+              "category": "compréhension écrite"
+            },
+            {
+              "id": "CE1-27",
+              "documentId": "T1-DOC09",
+              "documentTitle": "Télétravail",
+              "document": "Une étude auprès de salariés indique que la flexibilité des horaires est un avantage du télétravail. Elle souligne aussi la difficulté de séparer vie professionnelle et vie personnelle. Des règles claires de disponibilité peuvent limiter ce problème.",
+              "question": "Qu’est-ce qui peut limiter ce problème ?",
+              "options": {
+                "A": "Des règles claires de disponibilité",
+                "B": "Plus de notifications",
+                "C": "Des horaires illimités",
+                "D": "La suppression du télétravail"
+              },
+              "correctAnswer": "A",
+              "explanation": "Des règles claires peuvent limiter la difficulté.",
+              "level": "A2",
+              "category": "compréhension écrite"
+            },
+            {
+              "id": "CE1-28",
+              "documentId": "T1-DOC10",
+              "documentTitle": "Langues",
+              "document": "Mémoriser des listes de mots isolés peut aider au début, mais ne suffit pas toujours pour employer les mots en contexte. Rencontrer les mêmes expressions dans des situations variées et les réutiliser consolide les acquis.",
+              "question": "Quelle limite des listes isolées est mentionnée ?",
+              "options": {
+                "A": "Elles sont toujours inutiles",
+                "B": "Elles ne suffisent pas toujours pour l’usage en contexte",
+                "C": "Elles empêchent de lire",
+                "D": "Elles ne permettent jamais de mémoriser"
+              },
+              "correctAnswer": "B",
+              "explanation": "Le contexte est nécessaire pour bien employer le vocabulaire.",
+              "level": "A2",
+              "category": "compréhension écrite"
+            },
+            {
+              "id": "CE1-29",
+              "documentId": "T1-DOC10",
+              "documentTitle": "Langues",
+              "document": "Mémoriser des listes de mots isolés peut aider au début, mais ne suffit pas toujours pour employer les mots en contexte. Rencontrer les mêmes expressions dans des situations variées et les réutiliser consolide les acquis.",
+              "question": "Que conseille le texte ?",
+              "options": {
+                "A": "Éviter la répétition",
+                "B": "Réutiliser les expressions dans des situations variées",
+                "C": "Apprendre uniquement des traductions",
+                "D": "Ne jamais écrire"
+              },
+              "correctAnswer": "B",
+              "explanation": "La réutilisation en contexte consolide les acquis.",
+              "level": "A2",
+              "category": "compréhension écrite"
+            },
+            {
+              "id": "CE1-30",
+              "documentId": "T1-DOC10",
+              "documentTitle": "Langues",
+              "document": "Mémoriser des listes de mots isolés peut aider au début, mais ne suffit pas toujours pour employer les mots en contexte. Rencontrer les mêmes expressions dans des situations variées et les réutiliser consolide les acquis.",
+              "question": "Quel est l’objectif final ?",
+              "options": {
+                "A": "Reconnaître seulement les mots",
+                "B": "Savoir les employer dans leur contexte",
+                "C": "Mémoriser un dictionnaire",
+                "D": "Traduire chaque phrase"
+              },
+              "correctAnswer": "B",
+              "explanation": "L’objectif est l’emploi contextualisé.",
+              "level": "A2",
+              "category": "compréhension écrite"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "test-02",
+      "title": "TCF Entraînement — Test 2",
+      "description": "Questions originales d’entraînement inspirées du format général du TCF Tout public.",
+      "sections": {
+        "structure_de_la_langue": {
+          "questionCount": 20,
+          "questions": [
+            {
+              "id": "ST2-01",
+              "question": "Je vais ___ restaurant pour mon rendez-vous.",
+              "options": {
+                "A": "au",
+                "B": "à la",
+                "C": "aux",
+                "D": "du"
+              },
+              "correctAnswer": "A",
+              "explanation": "« à + le » donne « au ».",
+              "level": "A1",
+              "category": "prépositions"
+            },
+            {
+              "id": "ST2-02",
+              "question": "Nous ___ français tous les jours.",
+              "options": {
+                "A": "étudions",
+                "B": "étudiez",
+                "C": "étudient",
+                "D": "étudier"
+              },
+              "correctAnswer": "A",
+              "explanation": "Avec « nous », le présent est « étudions ».",
+              "level": "A1",
+              "category": "conjugaison"
+            },
+            {
+              "id": "ST2-03",
+              "question": "Marie a acheté ___ petite maison.",
+              "options": {
+                "A": "un",
+                "B": "une",
+                "C": "des",
+                "D": "du"
+              },
+              "correctAnswer": "B",
+              "explanation": "« voiture » est féminin singulier.",
+              "level": "A1",
+              "category": "articles"
+            },
+            {
+              "id": "ST2-04",
+              "question": "Il est arrivé ___ huit heures.",
+              "options": {
+                "A": "à",
+                "B": "en",
+                "C": "dans",
+                "D": "sur"
+              },
+              "correctAnswer": "A",
+              "explanation": "Pour une heure précise, on utilise « à ».",
+              "level": "A1",
+              "category": "prépositions"
+            },
+            {
+              "id": "ST2-05",
+              "question": "Ils ___ au restaurant samedi dernier.",
+              "options": {
+                "A": "vont",
+                "B": "sont allés",
+                "C": "allaient",
+                "D": "iront"
+              },
+              "correctAnswer": "B",
+              "explanation": "« samedi dernier » renvoie à une action passée et terminée.",
+              "level": "A2",
+              "category": "temps"
+            },
+            {
+              "id": "ST2-06",
+              "question": "Je ne connais pas cette femme. Tu ___ connais ?",
+              "options": {
+                "A": "la",
+                "B": "lui",
+                "C": "leur",
+                "D": "les"
+              },
+              "correctAnswer": "A",
+              "explanation": "« cette femme » est un COD féminin singulier.",
+              "level": "A2",
+              "category": "pronoms"
+            },
+            {
+              "id": "ST2-07",
+              "question": "Nous avons besoin ___ informations supplémentaires.",
+              "options": {
+                "A": "des",
+                "B": "d'",
+                "C": "de",
+                "D": "aux"
+              },
+              "correctAnswer": "C",
+              "explanation": "La construction est « avoir besoin de ».",
+              "level": "A2",
+              "category": "prépositions"
+            },
+            {
+              "id": "ST2-08",
+              "question": "Quand j'étais enfant, je ___ beaucoup du piano.",
+              "options": {
+                "A": "joue",
+                "B": "jouais",
+                "C": "jouerai",
+                "D": "ai joué"
+              },
+              "correctAnswer": "B",
+              "explanation": "Une habitude passée se met à l’imparfait.",
+              "level": "A2",
+              "category": "imparfait"
+            },
+            {
+              "id": "ST2-09",
+              "question": "Il faut que vous ___ à l'heure.",
+              "options": {
+                "A": "arrivez",
+                "B": "arriviez",
+                "C": "arriverez",
+                "D": "arriver"
+              },
+              "correctAnswer": "B",
+              "explanation": "« il faut que » est suivi du subjonctif.",
+              "level": "B1",
+              "category": "subjonctif"
+            },
+            {
+              "id": "ST2-10",
+              "question": "Si j'avais plus de temps, je ___ davantage.",
+              "options": {
+                "A": "voyage",
+                "B": "voyagerai",
+                "C": "voyagerais",
+                "D": "avais voyagé"
+              },
+              "correctAnswer": "C",
+              "explanation": "Si + imparfait entraîne ici le conditionnel présent.",
+              "level": "B1",
+              "category": "conditionnel"
+            },
+            {
+              "id": "ST2-11",
+              "question": "C'est le sujet ___ je t'ai parlé hier.",
+              "options": {
+                "A": "que",
+                "B": "dont",
+                "C": "où",
+                "D": "auquel"
+              },
+              "correctAnswer": "B",
+              "explanation": "« parler de » appelle le pronom relatif « dont ». ",
+              "level": "B1",
+              "category": "relatifs"
+            },
+            {
+              "id": "ST2-12",
+              "question": "Elle travaille ici ___ trois ans.",
+              "options": {
+                "A": "depuis",
+                "B": "pendant",
+                "C": "dans",
+                "D": "il y a"
+              },
+              "correctAnswer": "A",
+              "explanation": "Une situation toujours actuelle se construit avec « depuis ».",
+              "level": "B1",
+              "category": "prépositions"
+            },
+            {
+              "id": "ST2-13",
+              "question": "Bien qu'il ___ fatigué, il continue.",
+              "options": {
+                "A": "est",
+                "B": "soit",
+                "C": "sera",
+                "D": "était"
+              },
+              "correctAnswer": "B",
+              "explanation": "« bien que » + subjonctif.",
+              "level": "B2",
+              "category": "subjonctif"
+            },
+            {
+              "id": "ST2-14",
+              "question": "Il a réussi ___ son manque de préparation.",
+              "options": {
+                "A": "grâce à",
+                "B": "malgré",
+                "C": "parce que",
+                "D": "afin de"
+              },
+              "correctAnswer": "B",
+              "explanation": "« malgré » introduit une opposition.",
+              "level": "B2",
+              "category": "connecteurs"
+            },
+            {
+              "id": "ST2-15",
+              "question": "Le directeur souhaite que le rapport ___ avant vendredi.",
+              "options": {
+                "A": "est terminé",
+                "B": "soit terminé",
+                "C": "sera terminé",
+                "D": "a été terminé"
+              },
+              "correctAnswer": "B",
+              "explanation": "« souhaite que » + subjonctif.",
+              "level": "B2",
+              "category": "subjonctif"
+            },
+            {
+              "id": "ST2-16",
+              "question": "La décision, ___ les conséquences sont importantes, sera annoncée demain.",
+              "options": {
+                "A": "dont",
+                "B": "que",
+                "C": "laquelle",
+                "D": "où"
+              },
+              "correctAnswer": "A",
+              "explanation": "« les conséquences de la décision » → « dont les conséquences ».",
+              "level": "C1",
+              "category": "relatifs"
+            },
+            {
+              "id": "ST2-17",
+              "question": "Il aurait accepté, à condition que vous lui ___ les détails.",
+              "options": {
+                "A": "expliquez",
+                "B": "expliquiez",
+                "C": "expliquerez",
+                "D": "expliquiez-vous"
+              },
+              "correctAnswer": "B",
+              "explanation": "« à condition que » + subjonctif.",
+              "level": "C1",
+              "category": "subjonctif"
+            },
+            {
+              "id": "ST2-18",
+              "question": "Ce projet est beaucoup plus complexe que je ne l'___.",
+              "options": {
+                "A": "pensais",
+                "B": "penserai",
+                "C": "pense",
+                "D": "ai pensé"
+              },
+              "correctAnswer": "A",
+              "explanation": "L’attente passée est exprimée à l’imparfait.",
+              "level": "C1",
+              "category": "temps"
+            },
+            {
+              "id": "ST2-19",
+              "question": "Les mesures ont été prises afin de ___ les risques.",
+              "options": {
+                "A": "réduire",
+                "B": "réduisant",
+                "C": "réduits",
+                "D": "réduction"
+              },
+              "correctAnswer": "A",
+              "explanation": "« afin de » + infinitif.",
+              "level": "B2",
+              "category": "infinitif"
+            },
+            {
+              "id": "ST2-20",
+              "question": "À peine était-il arrivé ___ le téléphone a sonné.",
+              "options": {
+                "A": "que",
+                "B": "dont",
+                "C": "où",
+                "D": "si"
+              },
+              "correctAnswer": "A",
+              "explanation": "La construction est « à peine… que ».",
+              "level": "C1",
+              "category": "connecteurs"
+            }
+          ]
+        },
+        "comprehension_ecrite": {
+          "questionCount": 30,
+          "questions": [
+            {
+              "id": "CE2-01",
+              "documentId": "T2-DOC01",
+              "documentTitle": "Recrutement",
+              "document": "Certaines entreprises utilisent des outils pour trier automatiquement les CV. Ils accélèrent une première sélection, mais dépendent fortement des critères définis. Un examen humain reste nécessaire pour tenir compte de formulations inhabituelles et du contexte du parcours.",
+              "question": "Pourquoi utiliser des outils de tri automatique ?",
+              "options": {
+                "A": "Pour accélérer la première sélection",
+                "B": "Pour supprimer les recruteurs",
+                "C": "Pour rédiger les CV",
+                "D": "Pour gérer les congés"
+              },
+              "correctAnswer": "A",
+              "explanation": "Ils accélèrent une première sélection.",
+              "level": "B1",
+              "category": "compréhension écrite"
+            },
+            {
+              "id": "CE2-02",
+              "documentId": "T2-DOC01",
+              "documentTitle": "Recrutement",
+              "document": "Certaines entreprises utilisent des outils pour trier automatiquement les CV. Ils accélèrent une première sélection, mais dépendent fortement des critères définis. Un examen humain reste nécessaire pour tenir compte de formulations inhabituelles et du contexte du parcours.",
+              "question": "De quoi dépendent-ils fortement ?",
+              "options": {
+                "A": "Du hasard",
+                "B": "Des critères définis",
+                "C": "De la météo",
+                "D": "Du salaire"
+              },
+              "correctAnswer": "B",
+              "explanation": "Le texte insiste sur les critères attribués au système.",
+              "level": "B1",
+              "category": "compréhension écrite"
+            },
+            {
+              "id": "CE2-03",
+              "documentId": "T2-DOC01",
+              "documentTitle": "Recrutement",
+              "document": "Certaines entreprises utilisent des outils pour trier automatiquement les CV. Ils accélèrent une première sélection, mais dépendent fortement des critères définis. Un examen humain reste nécessaire pour tenir compte de formulations inhabituelles et du contexte du parcours.",
+              "question": "Quelle précaution est recommandée ?",
+              "options": {
+                "A": "Supprimer toute technologie",
+                "B": "Garder un examen humain",
+                "C": "Refuser les CV numériques",
+                "D": "Employer uniquement des mots-clés"
+              },
+              "correctAnswer": "B",
+              "explanation": "Un examen humain permet de tenir compte du contexte.",
+              "level": "B1",
+              "category": "compréhension écrite"
+            },
+            {
+              "id": "CE2-04",
+              "documentId": "T2-DOC02",
+              "documentTitle": "Information",
+              "document": "Face à une information urgente, vérifier la source et la date de publication peut éviter de relayer une erreur. Cette vérification ne garantit pas l’exactitude absolue, mais réduit le risque d’accepter trop vite une affirmation non établie.",
+              "question": "Que peut apporter une vérification de la source ?",
+              "options": {
+                "A": "Elle peut éviter de relayer une erreur",
+                "B": "Elle garantit toute information",
+                "C": "Elle supprime les médias",
+                "D": "Elle rend une information urgente"
+              },
+              "correctAnswer": "A",
+              "explanation": "La vérification réduit le risque de relayer une erreur.",
+              "level": "B1",
+              "category": "compréhension écrite"
+            },
+            {
+              "id": "CE2-05",
+              "documentId": "T2-DOC02",
+              "documentTitle": "Information",
+              "document": "Face à une information urgente, vérifier la source et la date de publication peut éviter de relayer une erreur. Cette vérification ne garantit pas l’exactitude absolue, mais réduit le risque d’accepter trop vite une affirmation non établie.",
+              "question": "L’urgence prouve-t-elle la fiabilité ?",
+              "options": {
+                "A": "Oui",
+                "B": "Non",
+                "C": "Toujours sur Internet",
+                "D": "Seulement à la télévision"
+              },
+              "correctAnswer": "B",
+              "explanation": "L’urgence apparente n’est pas une preuve.",
+              "level": "B1",
+              "category": "compréhension écrite"
+            },
+            {
+              "id": "CE2-06",
+              "documentId": "T2-DOC02",
+              "documentTitle": "Information",
+              "document": "Face à une information urgente, vérifier la source et la date de publication peut éviter de relayer une erreur. Cette vérification ne garantit pas l’exactitude absolue, mais réduit le risque d’accepter trop vite une affirmation non établie.",
+              "question": "Pourquoi vérifier reste-t-il nécessaire ?",
+              "options": {
+                "A": "Parce que l’exactitude absolue est garantie",
+                "B": "Parce que même des médias peuvent corriger une information",
+                "C": "Parce que les sources sont inutiles",
+                "D": "Parce que toutes les nouvelles sont fausses"
+              },
+              "correctAnswer": "B",
+              "explanation": "Le texte présente la vérification comme un processus continu.",
+              "level": "B1",
+              "category": "compréhension écrite"
+            },
+            {
+              "id": "CE2-07",
+              "documentId": "T2-DOC03",
+              "documentTitle": "Urbanisme",
+              "document": "Créer un espace vert ne consiste pas seulement à planter des arbres. Les urbanistes doivent prévoir les usages, les accès et l’entretien. Un parc fréquenté et un espace consacré à la biodiversité ne répondent pas aux mêmes besoins.",
+              "question": "Que faut-il prévoir pour un espace vert ?",
+              "options": {
+                "A": "Uniquement des arbres",
+                "B": "Usages, accès et entretien",
+                "C": "Uniquement des parkings",
+                "D": "Seulement des terrains sportifs"
+              },
+              "correctAnswer": "B",
+              "explanation": "Ces trois éléments sont cités.",
+              "level": "B1",
+              "category": "compréhension écrite"
+            },
+            {
+              "id": "CE2-08",
+              "documentId": "T2-DOC03",
+              "documentTitle": "Urbanisme",
+              "document": "Créer un espace vert ne consiste pas seulement à planter des arbres. Les urbanistes doivent prévoir les usages, les accès et l’entretien. Un parc fréquenté et un espace consacré à la biodiversité ne répondent pas aux mêmes besoins.",
+              "question": "Pourquoi deux espaces verts peuvent-ils différer ?",
+              "options": {
+                "A": "Leurs objectifs et usages diffèrent",
+                "B": "Les arbres sont identiques",
+                "C": "Les parcs n’ont aucun objectif",
+                "D": "Les villes interdisent les arbres"
+              },
+              "correctAnswer": "A",
+              "explanation": "Un parc fréquenté et un espace de biodiversité n’ont pas les mêmes besoins.",
+              "level": "B1",
+              "category": "compréhension écrite"
+            },
+            {
+              "id": "CE2-09",
+              "documentId": "T2-DOC03",
+              "documentTitle": "Urbanisme",
+              "document": "Créer un espace vert ne consiste pas seulement à planter des arbres. Les urbanistes doivent prévoir les usages, les accès et l’entretien. Un parc fréquenté et un espace consacré à la biodiversité ne répondent pas aux mêmes besoins.",
+              "question": "Quelle idée générale ressort ?",
+              "options": {
+                "A": "Tous les parcs doivent être identiques",
+                "B": "La conception dépend du lieu et des objectifs",
+                "C": "L’entretien est inutile",
+                "D": "Les espaces verts sont décoratifs"
+              },
+              "correctAnswer": "B",
+              "explanation": "La conception doit être adaptée au contexte.",
+              "level": "B1",
+              "category": "compréhension écrite"
+            },
+            {
+              "id": "CE2-10",
+              "documentId": "T2-DOC04",
+              "documentTitle": "Projet",
+              "document": "Dans un projet complexe, définir des objectifs précis ne signifie pas prévoir chaque détail. Les équipes doivent parfois ajuster leurs décisions lorsque de nouvelles informations apparaissent. Une bonne planification combine donc cadre clair et marge d’adaptation.",
+              "question": "Définir des objectifs précis signifie-t-il prévoir chaque détail ?",
+              "options": {
+                "A": "Oui",
+                "B": "Non",
+                "C": "Seulement dans les petits projets",
+                "D": "Seulement au début"
+              },
+              "correctAnswer": "B",
+              "explanation": "Le texte distingue objectifs précis et détail figé.",
+              "level": "B1",
+              "category": "compréhension écrite"
+            },
+            {
+              "id": "CE2-11",
+              "documentId": "T2-DOC04",
+              "documentTitle": "Projet",
+              "document": "Dans un projet complexe, définir des objectifs précis ne signifie pas prévoir chaque détail. Les équipes doivent parfois ajuster leurs décisions lorsque de nouvelles informations apparaissent. Une bonne planification combine donc cadre clair et marge d’adaptation.",
+              "question": "Pourquoi certaines décisions sont-elles ajustées ?",
+              "options": {
+                "A": "De nouvelles informations apparaissent",
+                "B": "Les objectifs disparaissent",
+                "C": "Les projets sont simples",
+                "D": "Les équipes refusent de travailler"
+              },
+              "correctAnswer": "A",
+              "explanation": "De nouvelles informations peuvent imposer des ajustements.",
+              "level": "B1",
+              "category": "compréhension écrite"
+            },
+            {
+              "id": "CE2-12",
+              "documentId": "T2-DOC04",
+              "documentTitle": "Projet",
+              "document": "Dans un projet complexe, définir des objectifs précis ne signifie pas prévoir chaque détail. Les équipes doivent parfois ajuster leurs décisions lorsque de nouvelles informations apparaissent. Une bonne planification combine donc cadre clair et marge d’adaptation.",
+              "question": "Quel équilibre est recherché ?",
+              "options": {
+                "A": "Aucun cadre",
+                "B": "Un cadre clair et une marge d’adaptation",
+                "C": "Un plan totalement figé",
+                "D": "Une improvisation totale"
+              },
+              "correctAnswer": "B",
+              "explanation": "La dernière phrase résume cet équilibre.",
+              "level": "B1",
+              "category": "compréhension écrite"
+            },
+            {
+              "id": "CE2-13",
+              "documentId": "T2-DOC05",
+              "documentTitle": "Vie privée",
+              "document": "Le principe de minimisation des données consiste à ne recueillir que les informations utiles à une finalité annoncée. Il ne supprime pas les obligations de sécurité : les données collectées doivent rester protégées contre les accès non autorisés.",
+              "question": "Que signifie la minimisation des données ?",
+              "options": {
+                "A": "Tout collecter",
+                "B": "Collecter seulement ce qui est utile",
+                "C": "Ne rien sécuriser",
+                "D": "Conserver sans limite"
+              },
+              "correctAnswer": "B",
+              "explanation": "Elle consiste à limiter la collecte à la finalité annoncée.",
+              "level": "B1",
+              "category": "compréhension écrite"
+            },
+            {
+              "id": "CE2-14",
+              "documentId": "T2-DOC05",
+              "documentTitle": "Vie privée",
+              "document": "Le principe de minimisation des données consiste à ne recueillir que les informations utiles à une finalité annoncée. Il ne supprime pas les obligations de sécurité : les données collectées doivent rester protégées contre les accès non autorisés.",
+              "question": "La minimisation supprime-t-elle la sécurité ?",
+              "options": {
+                "A": "Oui",
+                "B": "Non",
+                "C": "Seulement pour les entreprises",
+                "D": "Seulement pour les administrations"
+              },
+              "correctAnswer": "B",
+              "explanation": "Les données collectées doivent toujours être protégées.",
+              "level": "B1",
+              "category": "compréhension écrite"
+            },
+            {
+              "id": "CE2-15",
+              "documentId": "T2-DOC05",
+              "documentTitle": "Vie privée",
+              "document": "Le principe de minimisation des données consiste à ne recueillir que les informations utiles à une finalité annoncée. Il ne supprime pas les obligations de sécurité : les données collectées doivent rester protégées contre les accès non autorisés.",
+              "question": "Contre quoi faut-il protéger les données ?",
+              "options": {
+                "A": "Les accès non autorisés",
+                "B": "Les lecteurs",
+                "C": "Les utilisateurs autorisés",
+                "D": "Les mises à jour"
+              },
+              "correctAnswer": "A",
+              "explanation": "La sécurité vise notamment les accès non autorisés.",
+              "level": "B1",
+              "category": "compréhension écrite"
+            },
+            {
+              "id": "CE2-16",
+              "documentId": "T2-DOC06",
+              "documentTitle": "Patrimoine",
+              "document": "Rénover un bâtiment ancien suppose souvent de trouver un équilibre entre conservation et adaptation. Préserver les éléments remarquables n’implique pas forcément de conserver chaque détail à l’identique. Les projets distinguent généralement valeur patrimoniale et éléments transformables.",
+              "question": "Quelle tension est évoquée ?",
+              "options": {
+                "A": "Conservation et adaptation",
+                "B": "Transport et agriculture",
+                "C": "Commerce et sport",
+                "D": "École et travail"
+              },
+              "correctAnswer": "A",
+              "explanation": "Le texte traite de conservation et d’adaptation.",
+              "level": "B1",
+              "category": "compréhension écrite"
+            },
+            {
+              "id": "CE2-17",
+              "documentId": "T2-DOC06",
+              "documentTitle": "Patrimoine",
+              "document": "Rénover un bâtiment ancien suppose souvent de trouver un équilibre entre conservation et adaptation. Préserver les éléments remarquables n’implique pas forcément de conserver chaque détail à l’identique. Les projets distinguent généralement valeur patrimoniale et éléments transformables.",
+              "question": "Faut-il conserver chaque détail à l’identique ?",
+              "options": {
+                "A": "Toujours",
+                "B": "Pas nécessairement",
+                "C": "Uniquement les fenêtres",
+                "D": "Uniquement les murs"
+              },
+              "correctAnswer": "B",
+              "explanation": "Le texte dit que préserver n’implique pas tout conserver à l’identique.",
+              "level": "B1",
+              "category": "compréhension écrite"
+            },
+            {
+              "id": "CE2-18",
+              "documentId": "T2-DOC06",
+              "documentTitle": "Patrimoine",
+              "document": "Rénover un bâtiment ancien suppose souvent de trouver un équilibre entre conservation et adaptation. Préserver les éléments remarquables n’implique pas forcément de conserver chaque détail à l’identique. Les projets distinguent généralement valeur patrimoniale et éléments transformables.",
+              "question": "Que distinguent les projets complexes ?",
+              "options": {
+                "A": "Touristes et habitants",
+                "B": "Valeur patrimoniale et éléments transformables",
+                "C": "Propriétaires et locataires",
+                "D": "Bâtiments publics et privés"
+              },
+              "correctAnswer": "B",
+              "explanation": "Cette distinction guide l’adaptation.",
+              "level": "B1",
+              "category": "compréhension écrite"
+            },
+            {
+              "id": "CE2-19",
+              "documentId": "T2-DOC07",
+              "documentTitle": "Médias",
+              "document": "L’abondance de contenus en ligne rend la sélection de l’information plus complexe. Comparer plusieurs sources, vérifier les dates et distinguer faits et commentaires sont des stratégies utiles, sans constituer une garantie absolue.",
+              "question": "Quel problème pose l’abondance de contenus ?",
+              "options": {
+                "A": "La sélection devient plus complexe",
+                "B": "La lecture devient impossible",
+                "C": "Les sources disparaissent",
+                "D": "Les commentaires sont interdits"
+              },
+              "correctAnswer": "A",
+              "explanation": "L’abondance rend la sélection plus complexe.",
+              "level": "B1",
+              "category": "compréhension écrite"
+            },
+            {
+              "id": "CE2-20",
+              "documentId": "T2-DOC07",
+              "documentTitle": "Médias",
+              "document": "L’abondance de contenus en ligne rend la sélection de l’information plus complexe. Comparer plusieurs sources, vérifier les dates et distinguer faits et commentaires sont des stratégies utiles, sans constituer une garantie absolue.",
+              "question": "Quelle stratégie est recommandée ?",
+              "options": {
+                "A": "Comparer plusieurs sources",
+                "B": "Ne consulter qu’un texte",
+                "C": "Partager immédiatement",
+                "D": "Ignorer les dates"
+              },
+              "correctAnswer": "A",
+              "explanation": "Comparer les sources est explicitement cité.",
+              "level": "B1",
+              "category": "compréhension écrite"
+            },
+            {
+              "id": "CE2-21",
+              "documentId": "T2-DOC07",
+              "documentTitle": "Médias",
+              "document": "L’abondance de contenus en ligne rend la sélection de l’information plus complexe. Comparer plusieurs sources, vérifier les dates et distinguer faits et commentaires sont des stratégies utiles, sans constituer une garantie absolue.",
+              "question": "Ces pratiques garantissent-elles l’exactitude ?",
+              "options": {
+                "A": "Oui",
+                "B": "Non, mais elles réduisent certains risques",
+                "C": "Oui si le texte est long",
+                "D": "Non, elles rendent toute vérification inutile"
+              },
+              "correctAnswer": "B",
+              "explanation": "Elles ne garantissent pas l’exactitude absolue.",
+              "level": "B1",
+              "category": "compréhension écrite"
+            },
+            {
+              "id": "CE2-22",
+              "documentId": "T2-DOC08",
+              "documentTitle": "Énergie",
+              "document": "La réduction de la consommation énergétique dépend aussi des habitudes quotidiennes. Régler correctement le chauffage, éviter la veille inutile et adapter l’éclairage sont des mesures simples dont l’effet cumulé peut devenir important.",
+              "question": "De quoi dépend aussi la réduction de consommation ?",
+              "options": {
+                "A": "Des habitudes quotidiennes",
+                "B": "Uniquement des nouvelles machines",
+                "C": "Du prix des bâtiments",
+                "D": "Du nombre de fenêtres"
+              },
+              "correctAnswer": "A",
+              "explanation": "Le texte souligne le rôle des habitudes.",
+              "level": "B1",
+              "category": "compréhension écrite"
+            },
+            {
+              "id": "CE2-23",
+              "documentId": "T2-DOC08",
+              "documentTitle": "Énergie",
+              "document": "La réduction de la consommation énergétique dépend aussi des habitudes quotidiennes. Régler correctement le chauffage, éviter la veille inutile et adapter l’éclairage sont des mesures simples dont l’effet cumulé peut devenir important.",
+              "question": "Quelle mesure est citée ?",
+              "options": {
+                "A": "Laisser les appareils en veille",
+                "B": "Adapter l’éclairage",
+                "C": "Augmenter le chauffage",
+                "D": "Allumer toutes les lumières"
+              },
+              "correctAnswer": "B",
+              "explanation": "Adapter l’éclairage fait partie des exemples.",
+              "level": "B1",
+              "category": "compréhension écrite"
+            },
+            {
+              "id": "CE2-24",
+              "documentId": "T2-DOC08",
+              "documentTitle": "Énergie",
+              "document": "La réduction de la consommation énergétique dépend aussi des habitudes quotidiennes. Régler correctement le chauffage, éviter la veille inutile et adapter l’éclairage sont des mesures simples dont l’effet cumulé peut devenir important.",
+              "question": "Pourquoi des mesures simples peuvent-elles compter ?",
+              "options": {
+                "A": "Leur effet cumulé peut être important",
+                "B": "Elles remplacent toute technologie",
+                "C": "Elles sont toujours gratuites",
+                "D": "Elles fonctionnent seulement au bureau"
+              },
+              "correctAnswer": "A",
+              "explanation": "Le texte insiste sur l’effet cumulé.",
+              "level": "B1",
+              "category": "compréhension écrite"
+            },
+            {
+              "id": "CE2-25",
+              "documentId": "T2-DOC09",
+              "documentTitle": "Évaluation",
+              "document": "Un examen final unique peut donner une image incomplète des apprentissages. Des projets et évaluations intermédiaires permettent d’observer la progression sous plusieurs angles, sans rendre nécessairement l’évaluation plus facile.",
+              "question": "Quelle limite d’un examen final unique est citée ?",
+              "options": {
+                "A": "Il peut donner une image incomplète",
+                "B": "Il est toujours trop facile",
+                "C": "Il ne donne aucune note",
+                "D": "Il est impossible à organiser"
+              },
+              "correctAnswer": "A",
+              "explanation": "Un examen unique peut être incomplet.",
+              "level": "B1",
+              "category": "compréhension écrite"
+            },
+            {
+              "id": "CE2-26",
+              "documentId": "T2-DOC09",
+              "documentTitle": "Évaluation",
+              "document": "Un examen final unique peut donner une image incomplète des apprentissages. Des projets et évaluations intermédiaires permettent d’observer la progression sous plusieurs angles, sans rendre nécessairement l’évaluation plus facile.",
+              "question": "Que permettent les évaluations intermédiaires ?",
+              "options": {
+                "A": "Observer la progression sous plusieurs angles",
+                "B": "Supprimer les projets",
+                "C": "Éviter toute évaluation",
+                "D": "Réduire toutes les exigences"
+              },
+              "correctAnswer": "A",
+              "explanation": "Elles apportent plusieurs informations sur la progression.",
+              "level": "B1",
+              "category": "compréhension écrite"
+            },
+            {
+              "id": "CE2-27",
+              "documentId": "T2-DOC09",
+              "documentTitle": "Évaluation",
+              "document": "Un examen final unique peut donner une image incomplète des apprentissages. Des projets et évaluations intermédiaires permettent d’observer la progression sous plusieurs angles, sans rendre nécessairement l’évaluation plus facile.",
+              "question": "Rendent-elles forcément l’évaluation plus facile ?",
+              "options": {
+                "A": "Oui",
+                "B": "Non",
+                "C": "Seulement en ligne",
+                "D": "Seulement pour les débutants"
+              },
+              "correctAnswer": "B",
+              "explanation": "Le texte dit explicitement que non.",
+              "level": "B1",
+              "category": "compréhension écrite"
+            },
+            {
+              "id": "CE2-28",
+              "documentId": "T2-DOC10",
+              "documentTitle": "Traduction",
+              "document": "Traduire une œuvre littéraire ne consiste pas à remplacer chaque mot par un équivalent. Le traducteur doit aussi considérer le rythme, le registre, les références culturelles et les ambiguïtés voulues par l’auteur.",
+              "question": "Pourquoi ne peut-on pas remplacer chaque mot mécaniquement ?",
+              "options": {
+                "A": "Il faut considérer plusieurs dimensions",
+                "B": "Les mots n’ont jamais de sens",
+                "C": "Les références doivent être supprimées",
+                "D": "Toute traduction est impossible"
+              },
+              "correctAnswer": "A",
+              "explanation": "Le rythme, le registre et les références comptent aussi.",
+              "level": "B1",
+              "category": "compréhension écrite"
+            },
+            {
+              "id": "CE2-29",
+              "documentId": "T2-DOC10",
+              "documentTitle": "Traduction",
+              "document": "Traduire une œuvre littéraire ne consiste pas à remplacer chaque mot par un équivalent. Le traducteur doit aussi considérer le rythme, le registre, les références culturelles et les ambiguïtés voulues par l’auteur.",
+              "question": "Deux traductions différentes peuvent-elles être valables ?",
+              "options": {
+                "A": "Non",
+                "B": "Oui, si elles cherchent des effets comparables",
+                "C": "Seulement si les mots sont identiques",
+                "D": "Uniquement pour les romans courts"
+              },
+              "correctAnswer": "B",
+              "explanation": "Le texte l’indique explicitement.",
+              "level": "B1",
+              "category": "compréhension écrite"
+            },
+            {
+              "id": "CE2-30",
+              "documentId": "T2-DOC10",
+              "documentTitle": "Traduction",
+              "document": "Traduire une œuvre littéraire ne consiste pas à remplacer chaque mot par un équivalent. Le traducteur doit aussi considérer le rythme, le registre, les références culturelles et les ambiguïtés voulues par l’auteur.",
+              "question": "Quel élément est cité ?",
+              "options": {
+                "A": "Le rythme",
+                "B": "Le prix",
+                "C": "La couverture",
+                "D": "Le nombre de pages"
+              },
+              "correctAnswer": "A",
+              "explanation": "Le rythme fait partie des éléments à considérer.",
+              "level": "B1",
+              "category": "compréhension écrite"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "test-03",
+      "title": "TCF Entraînement — Test 3",
+      "description": "Questions originales d’entraînement inspirées du format général du TCF Tout public.",
+      "sections": {
+        "structure_de_la_langue": {
+          "questionCount": 20,
+          "questions": [
+            {
+              "id": "ST3-01",
+              "question": "Je vais ___ marché pour mon rendez-vous.",
+              "options": {
+                "A": "au",
+                "B": "à la",
+                "C": "aux",
+                "D": "du"
+              },
+              "correctAnswer": "A",
+              "explanation": "« à + le » donne « au ».",
+              "level": "A1",
+              "category": "prépositions"
+            },
+            {
+              "id": "ST3-02",
+              "question": "Nous ___ espagnol tous les jours.",
+              "options": {
+                "A": "étudions",
+                "B": "étudiez",
+                "C": "étudient",
+                "D": "étudier"
+              },
+              "correctAnswer": "A",
+              "explanation": "Avec « nous », le présent est « étudions ».",
+              "level": "A1",
+              "category": "conjugaison"
+            },
+            {
+              "id": "ST3-03",
+              "question": "Marie a acheté ___ jolie chemise.",
+              "options": {
+                "A": "un",
+                "B": "une",
+                "C": "des",
+                "D": "du"
+              },
+              "correctAnswer": "B",
+              "explanation": "« voiture » est féminin singulier.",
+              "level": "A1",
+              "category": "articles"
+            },
+            {
+              "id": "ST3-04",
+              "question": "Il est arrivé ___ huit heures.",
+              "options": {
+                "A": "à",
+                "B": "en",
+                "C": "dans",
+                "D": "sur"
+              },
+              "correctAnswer": "A",
+              "explanation": "Pour une heure précise, on utilise « à ».",
+              "level": "A1",
+              "category": "prépositions"
+            },
+            {
+              "id": "ST3-05",
+              "question": "Ils ___ au musée samedi dernier.",
+              "options": {
+                "A": "vont",
+                "B": "sont allés",
+                "C": "allaient",
+                "D": "iront"
+              },
+              "correctAnswer": "B",
+              "explanation": "« samedi dernier » renvoie à une action passée et terminée.",
+              "level": "A2",
+              "category": "temps"
+            },
+            {
+              "id": "ST3-06",
+              "question": "Je ne connais pas cette femme. Tu ___ connais ?",
+              "options": {
+                "A": "la",
+                "B": "lui",
+                "C": "leur",
+                "D": "les"
+              },
+              "correctAnswer": "A",
+              "explanation": "« cette femme » est un COD féminin singulier.",
+              "level": "A2",
+              "category": "pronoms"
+            },
+            {
+              "id": "ST3-07",
+              "question": "Nous avons besoin ___ informations supplémentaires.",
+              "options": {
+                "A": "des",
+                "B": "d'",
+                "C": "de",
+                "D": "aux"
+              },
+              "correctAnswer": "C",
+              "explanation": "La construction est « avoir besoin de ».",
+              "level": "A2",
+              "category": "prépositions"
+            },
+            {
+              "id": "ST3-08",
+              "question": "Quand j'étais enfant, je ___ beaucoup la natation.",
+              "options": {
+                "A": "joue",
+                "B": "jouais",
+                "C": "jouerai",
+                "D": "ai joué"
+              },
+              "correctAnswer": "B",
+              "explanation": "Une habitude passée se met à l’imparfait.",
+              "level": "A2",
+              "category": "imparfait"
+            },
+            {
+              "id": "ST3-09",
+              "question": "Il faut que vous ___ à l'heure.",
+              "options": {
+                "A": "arrivez",
+                "B": "arriviez",
+                "C": "arriverez",
+                "D": "arriver"
+              },
+              "correctAnswer": "B",
+              "explanation": "« il faut que » est suivi du subjonctif.",
+              "level": "B1",
+              "category": "subjonctif"
+            },
+            {
+              "id": "ST3-10",
+              "question": "Si j'avais plus de temps, je ___ davantage.",
+              "options": {
+                "A": "voyage",
+                "B": "voyagerai",
+                "C": "voyagerais",
+                "D": "avais voyagé"
+              },
+              "correctAnswer": "C",
+              "explanation": "Si + imparfait entraîne ici le conditionnel présent.",
+              "level": "B1",
+              "category": "conditionnel"
+            },
+            {
+              "id": "ST3-11",
+              "question": "C'est le sujet ___ je t'ai parlé hier.",
+              "options": {
+                "A": "que",
+                "B": "dont",
+                "C": "où",
+                "D": "auquel"
+              },
+              "correctAnswer": "B",
+              "explanation": "« parler de » appelle le pronom relatif « dont ». ",
+              "level": "B1",
+              "category": "relatifs"
+            },
+            {
+              "id": "ST3-12",
+              "question": "Elle travaille ici ___ trois ans.",
+              "options": {
+                "A": "depuis",
+                "B": "pendant",
+                "C": "dans",
+                "D": "il y a"
+              },
+              "correctAnswer": "A",
+              "explanation": "Une situation toujours actuelle se construit avec « depuis ».",
+              "level": "B1",
+              "category": "prépositions"
+            },
+            {
+              "id": "ST3-13",
+              "question": "Bien qu'il ___ fatigué, il continue.",
+              "options": {
+                "A": "est",
+                "B": "soit",
+                "C": "sera",
+                "D": "était"
+              },
+              "correctAnswer": "B",
+              "explanation": "« bien que » + subjonctif.",
+              "level": "B2",
+              "category": "subjonctif"
+            },
+            {
+              "id": "ST3-14",
+              "question": "Il a réussi ___ son manque de préparation.",
+              "options": {
+                "A": "grâce à",
+                "B": "malgré",
+                "C": "parce que",
+                "D": "afin de"
+              },
+              "correctAnswer": "B",
+              "explanation": "« malgré » introduit une opposition.",
+              "level": "B2",
+              "category": "connecteurs"
+            },
+            {
+              "id": "ST3-15",
+              "question": "Le directeur souhaite que le rapport ___ avant vendredi.",
+              "options": {
+                "A": "est terminé",
+                "B": "soit terminé",
+                "C": "sera terminé",
+                "D": "a été terminé"
+              },
+              "correctAnswer": "B",
+              "explanation": "« souhaite que » + subjonctif.",
+              "level": "B2",
+              "category": "subjonctif"
+            },
+            {
+              "id": "ST3-16",
+              "question": "La décision, ___ les conséquences sont importantes, sera annoncée demain.",
+              "options": {
+                "A": "dont",
+                "B": "que",
+                "C": "laquelle",
+                "D": "où"
+              },
+              "correctAnswer": "A",
+              "explanation": "« les conséquences de la décision » → « dont les conséquences ».",
+              "level": "C1",
+              "category": "relatifs"
+            },
+            {
+              "id": "ST3-17",
+              "question": "Il aurait accepté, à condition que vous lui ___ les détails.",
+              "options": {
+                "A": "expliquez",
+                "B": "expliquiez",
+                "C": "expliquerez",
+                "D": "expliquiez-vous"
+              },
+              "correctAnswer": "B",
+              "explanation": "« à condition que » + subjonctif.",
+              "level": "C1",
+              "category": "subjonctif"
+            },
+            {
+              "id": "ST3-18",
+              "question": "Ce projet est beaucoup plus complexe que je ne l'___.",
+              "options": {
+                "A": "pensais",
+                "B": "penserai",
+                "C": "pense",
+                "D": "ai pensé"
+              },
+              "correctAnswer": "A",
+              "explanation": "L’attente passée est exprimée à l’imparfait.",
+              "level": "C1",
+              "category": "temps"
+            },
+            {
+              "id": "ST3-19",
+              "question": "Les mesures ont été prises afin de ___ les risques.",
+              "options": {
+                "A": "réduire",
+                "B": "réduisant",
+                "C": "réduits",
+                "D": "réduction"
+              },
+              "correctAnswer": "A",
+              "explanation": "« afin de » + infinitif.",
+              "level": "B2",
+              "category": "infinitif"
+            },
+            {
+              "id": "ST3-20",
+              "question": "À peine était-il arrivé ___ le téléphone a sonné.",
+              "options": {
+                "A": "que",
+                "B": "dont",
+                "C": "où",
+                "D": "si"
+              },
+              "correctAnswer": "A",
+              "explanation": "La construction est « à peine… que ».",
+              "level": "C1",
+              "category": "connecteurs"
+            }
+          ]
+        },
+        "comprehension_ecrite": {
+          "questionCount": 30,
+          "questions": [
+            {
+              "id": "CE3-01",
+              "documentId": "T3-DOC01",
+              "documentTitle": "Bibliothèque",
+              "document": "La bibliothèque du quartier sera fermée mardi matin pour maintenance. Elle rouvrira à 14 h et fermera à 18 h. Les retours de livres restent possibles dans la boîte située à l’entrée.",
+              "question": "Quand la bibliothèque rouvrira-t-elle mardi ?",
+              "options": {
+                "A": "À 8 h",
+                "B": "À 12 h",
+                "C": "À 14 h",
+                "D": "À 18 h"
+              },
+              "correctAnswer": "C",
+              "explanation": "Le document annonce une réouverture à 14 h.",
+              "level": "B2",
+              "category": "compréhension écrite"
+            },
+            {
+              "id": "CE3-02",
+              "documentId": "T3-DOC01",
+              "documentTitle": "Bibliothèque",
+              "document": "La bibliothèque du quartier sera fermée mardi matin pour maintenance. Elle rouvrira à 14 h et fermera à 18 h. Les retours de livres restent possibles dans la boîte située à l’entrée.",
+              "question": "Que peut-on faire pendant la fermeture ?",
+              "options": {
+                "A": "Emprunter des livres",
+                "B": "Déposer des retours dans la boîte",
+                "C": "Utiliser les ordinateurs",
+                "D": "Rencontrer le personnel"
+              },
+              "correctAnswer": "B",
+              "explanation": "La boîte de retour reste accessible.",
+              "level": "B2",
+              "category": "compréhension écrite"
+            },
+            {
+              "id": "CE3-03",
+              "documentId": "T3-DOC01",
+              "documentTitle": "Bibliothèque",
+              "document": "La bibliothèque du quartier sera fermée mardi matin pour maintenance. Elle rouvrira à 14 h et fermera à 18 h. Les retours de livres restent possibles dans la boîte située à l’entrée.",
+              "question": "Pourquoi ferme-t-elle le matin ?",
+              "options": {
+                "A": "Pour une réunion",
+                "B": "Pour maintenance",
+                "C": "Pour un déménagement",
+                "D": "Pour un jour férié"
+              },
+              "correctAnswer": "B",
+              "explanation": "La fermeture est liée à la maintenance.",
+              "level": "B2",
+              "category": "compréhension écrite"
+            },
+            {
+              "id": "CE3-04",
+              "documentId": "T3-DOC02",
+              "documentTitle": "Transport",
+              "document": "En raison de travaux, les trains ne circuleront pas entre Centre et République samedi. Des bus de remplacement passeront toutes les quinze minutes de 7 h à 22 h.",
+              "question": "Pourquoi les trains seront-ils interrompus ?",
+              "options": {
+                "A": "Une grève",
+                "B": "Des travaux",
+                "C": "Une panne électrique",
+                "D": "La météo"
+              },
+              "correctAnswer": "B",
+              "explanation": "Le texte mentionne des travaux.",
+              "level": "B2",
+              "category": "compréhension écrite"
+            },
+            {
+              "id": "CE3-05",
+              "documentId": "T3-DOC02",
+              "documentTitle": "Transport",
+              "document": "En raison de travaux, les trains ne circuleront pas entre Centre et République samedi. Des bus de remplacement passeront toutes les quinze minutes de 7 h à 22 h.",
+              "question": "Quel transport est prévu en remplacement ?",
+              "options": {
+                "A": "Des taxis",
+                "B": "Des bus",
+                "C": "Des vélos",
+                "D": "Des tramways"
+              },
+              "correctAnswer": "B",
+              "explanation": "Des bus de remplacement sont prévus.",
+              "level": "B2",
+              "category": "compréhension écrite"
+            },
+            {
+              "id": "CE3-06",
+              "documentId": "T3-DOC02",
+              "documentTitle": "Transport",
+              "document": "En raison de travaux, les trains ne circuleront pas entre Centre et République samedi. Des bus de remplacement passeront toutes les quinze minutes de 7 h à 22 h.",
+              "question": "À quelle fréquence passeront-ils ?",
+              "options": {
+                "A": "Toutes les 5 minutes",
+                "B": "Toutes les 10 minutes",
+                "C": "Toutes les 15 minutes",
+                "D": "Toutes les 30 minutes"
+              },
+              "correctAnswer": "C",
+              "explanation": "Ils passeront toutes les quinze minutes.",
+              "level": "B2",
+              "category": "compréhension écrite"
+            },
+            {
+              "id": "CE3-07",
+              "documentId": "T3-DOC03",
+              "documentTitle": "Logement",
+              "document": "Studio meublé de 28 m² près de l’université. Disponible le 1er octobre. Loyer : 520 euros charges comprises. Internet inclus. Premier contact par courriel.",
+              "question": "Quand le studio est-il disponible ?",
+              "options": {
+                "A": "1er septembre",
+                "B": "1er octobre",
+                "C": "1er novembre",
+                "D": "15 octobre"
+              },
+              "correctAnswer": "B",
+              "explanation": "La date indiquée est le 1er octobre.",
+              "level": "B2",
+              "category": "compréhension écrite"
+            },
+            {
+              "id": "CE3-08",
+              "documentId": "T3-DOC03",
+              "documentTitle": "Logement",
+              "document": "Studio meublé de 28 m² près de l’université. Disponible le 1er octobre. Loyer : 520 euros charges comprises. Internet inclus. Premier contact par courriel.",
+              "question": "Quel service est inclus ?",
+              "options": {
+                "A": "Parking",
+                "B": "Ménage",
+                "C": "Internet",
+                "D": "Petit déjeuner"
+              },
+              "correctAnswer": "C",
+              "explanation": "Internet est inclus dans le loyer.",
+              "level": "B2",
+              "category": "compréhension écrite"
+            },
+            {
+              "id": "CE3-09",
+              "documentId": "T3-DOC03",
+              "documentTitle": "Logement",
+              "document": "Studio meublé de 28 m² près de l’université. Disponible le 1er octobre. Loyer : 520 euros charges comprises. Internet inclus. Premier contact par courriel.",
+              "question": "Quel est le premier moyen de contact ?",
+              "options": {
+                "A": "Téléphone",
+                "B": "Courriel",
+                "C": "Courrier",
+                "D": "Visite sans rendez-vous"
+              },
+              "correctAnswer": "B",
+              "explanation": "L’annonce demande un premier contact par courriel.",
+              "level": "B2",
+              "category": "compréhension écrite"
+            },
+            {
+              "id": "CE3-10",
+              "documentId": "T3-DOC04",
+              "documentTitle": "Formation",
+              "document": "Une entreprise propose trois jours de formation à la cybersécurité. La participation est volontaire. Des ateliers portent sur les mots de passe, l’hameçonnage et la protection des données.",
+              "question": "Combien de temps dure la formation ?",
+              "options": {
+                "A": "Un jour",
+                "B": "Deux jours",
+                "C": "Trois jours",
+                "D": "Une semaine"
+              },
+              "correctAnswer": "C",
+              "explanation": "La formation dure trois jours.",
+              "level": "B2",
+              "category": "compréhension écrite"
+            },
+            {
+              "id": "CE3-11",
+              "documentId": "T3-DOC04",
+              "documentTitle": "Formation",
+              "document": "Une entreprise propose trois jours de formation à la cybersécurité. La participation est volontaire. Des ateliers portent sur les mots de passe, l’hameçonnage et la protection des données.",
+              "question": "La participation est-elle obligatoire ?",
+              "options": {
+                "A": "Oui",
+                "B": "Non, elle est volontaire",
+                "C": "Seulement le premier jour",
+                "D": "Uniquement pour les managers"
+              },
+              "correctAnswer": "B",
+              "explanation": "Le texte précise qu’elle est volontaire.",
+              "level": "B2",
+              "category": "compréhension écrite"
+            },
+            {
+              "id": "CE3-12",
+              "documentId": "T3-DOC04",
+              "documentTitle": "Formation",
+              "document": "Une entreprise propose trois jours de formation à la cybersécurité. La participation est volontaire. Des ateliers portent sur les mots de passe, l’hameçonnage et la protection des données.",
+              "question": "Quel sujet est traité ?",
+              "options": {
+                "A": "Cuisine",
+                "B": "Cybersécurité",
+                "C": "Comptabilité",
+                "D": "Marketing"
+              },
+              "correctAnswer": "B",
+              "explanation": "Les ateliers concernent la cybersécurité.",
+              "level": "B2",
+              "category": "compréhension écrite"
+            },
+            {
+              "id": "CE3-13",
+              "documentId": "T3-DOC05",
+              "documentTitle": "Travail",
+              "document": "À partir du mois prochain, les employés pourront commencer entre 8 h et 10 h, à condition de respecter leur durée quotidienne. Les réunions d’équipe resteront fixées à 9 h.",
+              "question": "Quelle flexibilité est introduite ?",
+              "options": {
+                "A": "Les congés",
+                "B": "L’heure de début",
+                "C": "Le salaire",
+                "D": "Les réunions"
+              },
+              "correctAnswer": "B",
+              "explanation": "Les employés pourront commencer entre 8 h et 10 h.",
+              "level": "B2",
+              "category": "compréhension écrite"
+            },
+            {
+              "id": "CE3-14",
+              "documentId": "T3-DOC05",
+              "documentTitle": "Travail",
+              "document": "À partir du mois prochain, les employés pourront commencer entre 8 h et 10 h, à condition de respecter leur durée quotidienne. Les réunions d’équipe resteront fixées à 9 h.",
+              "question": "Quelle réunion reste fixée à 9 h ?",
+              "options": {
+                "A": "La réunion d’équipe",
+                "B": "La réunion annuelle",
+                "C": "La réunion avec les clients",
+                "D": "La réunion syndicale"
+              },
+              "correctAnswer": "A",
+              "explanation": "Les réunions d’équipe restent à 9 h.",
+              "level": "B2",
+              "category": "compréhension écrite"
+            },
+            {
+              "id": "CE3-15",
+              "documentId": "T3-DOC05",
+              "documentTitle": "Travail",
+              "document": "À partir du mois prochain, les employés pourront commencer entre 8 h et 10 h, à condition de respecter leur durée quotidienne. Les réunions d’équipe resteront fixées à 9 h.",
+              "question": "Quand le dispositif sera-t-il évalué ?",
+              "options": {
+                "A": "Après un mois",
+                "B": "Après trois mois",
+                "C": "Après six mois",
+                "D": "Après un an"
+              },
+              "correctAnswer": "B",
+              "explanation": "L’évaluation est prévue après trois mois.",
+              "level": "B2",
+              "category": "compréhension écrite"
+            },
+            {
+              "id": "CE3-16",
+              "documentId": "T3-DOC06",
+              "documentTitle": "Culture",
+              "document": "L’exposition de photographie contemporaine est prolongée jusqu’au 20 novembre. L’entrée reste gratuite le premier dimanche du mois.",
+              "question": "Jusqu’à quand l’exposition est-elle prolongée ?",
+              "options": {
+                "A": "20 octobre",
+                "B": "1er novembre",
+                "C": "20 novembre",
+                "D": "30 novembre"
+              },
+              "correctAnswer": "C",
+              "explanation": "La nouvelle date est le 20 novembre.",
+              "level": "B2",
+              "category": "compréhension écrite"
+            },
+            {
+              "id": "CE3-17",
+              "documentId": "T3-DOC06",
+              "documentTitle": "Culture",
+              "document": "L’exposition de photographie contemporaine est prolongée jusqu’au 20 novembre. L’entrée reste gratuite le premier dimanche du mois.",
+              "question": "Quand l’entrée reste-t-elle gratuite ?",
+              "options": {
+                "A": "Chaque dimanche",
+                "B": "Le premier dimanche du mois",
+                "C": "Le dernier dimanche",
+                "D": "Tous les jours"
+              },
+              "correctAnswer": "B",
+              "explanation": "La gratuité concerne le premier dimanche du mois.",
+              "level": "B2",
+              "category": "compréhension écrite"
+            },
+            {
+              "id": "CE3-18",
+              "documentId": "T3-DOC06",
+              "documentTitle": "Culture",
+              "document": "L’exposition de photographie contemporaine est prolongée jusqu’au 20 novembre. L’entrée reste gratuite le premier dimanche du mois.",
+              "question": "Quel est le thème de l’exposition ?",
+              "options": {
+                "A": "Peinture",
+                "B": "Photographie contemporaine",
+                "C": "Sculpture",
+                "D": "Architecture"
+              },
+              "correctAnswer": "B",
+              "explanation": "Elle est consacrée à la photographie contemporaine.",
+              "level": "B2",
+              "category": "compréhension écrite"
+            },
+            {
+              "id": "CE3-19",
+              "documentId": "T3-DOC07",
+              "documentTitle": "Ville",
+              "document": "La ville lance un service de vélos électriques. Les abonnés disposent de trente minutes sans supplément. Le service vise surtout les déplacements courts entre les transports publics et les quartiers résidentiels.",
+              "question": "Combien de temps est sans supplément pour les abonnés ?",
+              "options": {
+                "A": "15 minutes",
+                "B": "20 minutes",
+                "C": "30 minutes",
+                "D": "60 minutes"
+              },
+              "correctAnswer": "C",
+              "explanation": "Les trente premières minutes sont sans supplément.",
+              "level": "B2",
+              "category": "compréhension écrite"
+            },
+            {
+              "id": "CE3-20",
+              "documentId": "T3-DOC07",
+              "documentTitle": "Ville",
+              "document": "La ville lance un service de vélos électriques. Les abonnés disposent de trente minutes sans supplément. Le service vise surtout les déplacements courts entre les transports publics et les quartiers résidentiels.",
+              "question": "Quel type de déplacement est visé ?",
+              "options": {
+                "A": "Longs voyages",
+                "B": "Déplacements courts",
+                "C": "Voyages internationaux",
+                "D": "Déplacements uniquement professionnels"
+              },
+              "correctAnswer": "B",
+              "explanation": "Le service vise surtout les déplacements courts.",
+              "level": "B2",
+              "category": "compréhension écrite"
+            },
+            {
+              "id": "CE3-21",
+              "documentId": "T3-DOC07",
+              "documentTitle": "Ville",
+              "document": "La ville lance un service de vélos électriques. Les abonnés disposent de trente minutes sans supplément. Le service vise surtout les déplacements courts entre les transports publics et les quartiers résidentiels.",
+              "question": "Entre quels lieux le service est-il particulièrement utile ?",
+              "options": {
+                "A": "Aéroports et ports",
+                "B": "Transports publics et quartiers résidentiels",
+                "C": "Écoles et hôpitaux",
+                "D": "Gares et autoroutes"
+              },
+              "correctAnswer": "B",
+              "explanation": "C’est l’usage cité dans le document.",
+              "level": "B2",
+              "category": "compréhension écrite"
+            },
+            {
+              "id": "CE3-22",
+              "documentId": "T3-DOC08",
+              "documentTitle": "Consommation",
+              "document": "Avant d’acheter un appareil, il est conseillé de comparer son prix, sa consommation d’énergie et la durée de garantie. Il est également utile de vérifier la disponibilité des pièces détachées.",
+              "question": "Que faut-il comparer en plus du prix ?",
+              "options": {
+                "A": "La couleur",
+                "B": "La consommation et la garantie",
+                "C": "Le poids du vendeur",
+                "D": "La taille du magasin"
+              },
+              "correctAnswer": "B",
+              "explanation": "Le document cite consommation et garantie.",
+              "level": "B2",
+              "category": "compréhension écrite"
+            },
+            {
+              "id": "CE3-23",
+              "documentId": "T3-DOC08",
+              "documentTitle": "Consommation",
+              "document": "Avant d’acheter un appareil, il est conseillé de comparer son prix, sa consommation d’énergie et la durée de garantie. Il est également utile de vérifier la disponibilité des pièces détachées.",
+              "question": "Pourquoi un modèle plus cher peut-il être intéressant ?",
+              "options": {
+                "A": "Il est toujours plus grand",
+                "B": "Il peut coûter moins cher à long terme",
+                "C": "Il est forcément plus beau",
+                "D": "Il est toujours garanti à vie"
+              },
+              "correctAnswer": "B",
+              "explanation": "Une consommation moindre peut réduire le coût sur plusieurs années.",
+              "level": "B2",
+              "category": "compréhension écrite"
+            },
+            {
+              "id": "CE3-24",
+              "documentId": "T3-DOC08",
+              "documentTitle": "Consommation",
+              "document": "Avant d’acheter un appareil, il est conseillé de comparer son prix, sa consommation d’énergie et la durée de garantie. Il est également utile de vérifier la disponibilité des pièces détachées.",
+              "question": "Que faut-il aussi vérifier ?",
+              "options": {
+                "A": "La publicité",
+                "B": "Les pièces détachées disponibles",
+                "C": "La météo",
+                "D": "Le nombre de vendeurs"
+              },
+              "correctAnswer": "B",
+              "explanation": "Le document conseille de vérifier les pièces détachées.",
+              "level": "B2",
+              "category": "compréhension écrite"
+            },
+            {
+              "id": "CE3-25",
+              "documentId": "T3-DOC09",
+              "documentTitle": "Télétravail",
+              "document": "Une étude auprès de salariés indique que la flexibilité des horaires est un avantage du télétravail. Elle souligne aussi la difficulté de séparer vie professionnelle et vie personnelle. Des règles claires de disponibilité peuvent limiter ce problème.",
+              "question": "Quel avantage est cité ?",
+              "options": {
+                "A": "La suppression des réunions",
+                "B": "La flexibilité des horaires",
+                "C": "La baisse des salaires",
+                "D": "La réduction des congés"
+              },
+              "correctAnswer": "B",
+              "explanation": "La flexibilité est présentée comme un avantage.",
+              "level": "B2",
+              "category": "compréhension écrite"
+            },
+            {
+              "id": "CE3-26",
+              "documentId": "T3-DOC09",
+              "documentTitle": "Télétravail",
+              "document": "Une étude auprès de salariés indique que la flexibilité des horaires est un avantage du télétravail. Elle souligne aussi la difficulté de séparer vie professionnelle et vie personnelle. Des règles claires de disponibilité peuvent limiter ce problème.",
+              "question": "Quelle difficulté est mentionnée ?",
+              "options": {
+                "A": "Les transports",
+                "B": "La séparation entre vie professionnelle et personnelle",
+                "C": "Le manque de bureaux",
+                "D": "Les vacances"
+              },
+              "correctAnswer": "B",
+              "explanation": "Cette difficulté est explicitement mentionnée.",
+              "level": "B2",
+              "category": "compréhension écrite"
+            },
+            {
+              "id": "CE3-27",
+              "documentId": "T3-DOC09",
+              "documentTitle": "Télétravail",
+              "document": "Une étude auprès de salariés indique que la flexibilité des horaires est un avantage du télétravail. Elle souligne aussi la difficulté de séparer vie professionnelle et vie personnelle. Des règles claires de disponibilité peuvent limiter ce problème.",
+              "question": "Qu’est-ce qui peut limiter ce problème ?",
+              "options": {
+                "A": "Des règles claires de disponibilité",
+                "B": "Plus de notifications",
+                "C": "Des horaires illimités",
+                "D": "La suppression du télétravail"
+              },
+              "correctAnswer": "A",
+              "explanation": "Des règles claires peuvent limiter la difficulté.",
+              "level": "B2",
+              "category": "compréhension écrite"
+            },
+            {
+              "id": "CE3-28",
+              "documentId": "T3-DOC10",
+              "documentTitle": "Langues",
+              "document": "Mémoriser des listes de mots isolés peut aider au début, mais ne suffit pas toujours pour employer les mots en contexte. Rencontrer les mêmes expressions dans des situations variées et les réutiliser consolide les acquis.",
+              "question": "Quelle limite des listes isolées est mentionnée ?",
+              "options": {
+                "A": "Elles sont toujours inutiles",
+                "B": "Elles ne suffisent pas toujours pour l’usage en contexte",
+                "C": "Elles empêchent de lire",
+                "D": "Elles ne permettent jamais de mémoriser"
+              },
+              "correctAnswer": "B",
+              "explanation": "Le contexte est nécessaire pour bien employer le vocabulaire.",
+              "level": "B2",
+              "category": "compréhension écrite"
+            },
+            {
+              "id": "CE3-29",
+              "documentId": "T3-DOC10",
+              "documentTitle": "Langues",
+              "document": "Mémoriser des listes de mots isolés peut aider au début, mais ne suffit pas toujours pour employer les mots en contexte. Rencontrer les mêmes expressions dans des situations variées et les réutiliser consolide les acquis.",
+              "question": "Que conseille le texte ?",
+              "options": {
+                "A": "Éviter la répétition",
+                "B": "Réutiliser les expressions dans des situations variées",
+                "C": "Apprendre uniquement des traductions",
+                "D": "Ne jamais écrire"
+              },
+              "correctAnswer": "B",
+              "explanation": "La réutilisation en contexte consolide les acquis.",
+              "level": "B2",
+              "category": "compréhension écrite"
+            },
+            {
+              "id": "CE3-30",
+              "documentId": "T3-DOC10",
+              "documentTitle": "Langues",
+              "document": "Mémoriser des listes de mots isolés peut aider au début, mais ne suffit pas toujours pour employer les mots en contexte. Rencontrer les mêmes expressions dans des situations variées et les réutiliser consolide les acquis.",
+              "question": "Quel est l’objectif final ?",
+              "options": {
+                "A": "Reconnaître seulement les mots",
+                "B": "Savoir les employer dans leur contexte",
+                "C": "Mémoriser un dictionnaire",
+                "D": "Traduire chaque phrase"
+              },
+              "correctAnswer": "B",
+              "explanation": "L’objectif est l’emploi contextualisé.",
+              "level": "B2",
+              "category": "compréhension écrite"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "test-04",
+      "title": "TCF Entraînement — Test 4",
+      "description": "Questions originales d’entraînement inspirées du format général du TCF Tout public.",
+      "sections": {
+        "structure_de_la_langue": {
+          "questionCount": 20,
+          "questions": [
+            {
+              "id": "ST4-01",
+              "question": "Je vais ___ musée pour mon rendez-vous.",
+              "options": {
+                "A": "au",
+                "B": "à la",
+                "C": "aux",
+                "D": "du"
+              },
+              "correctAnswer": "A",
+              "explanation": "« à + le » donne « au ».",
+              "level": "A1",
+              "category": "prépositions"
+            },
+            {
+              "id": "ST4-02",
+              "question": "Nous ___ allemand tous les jours.",
+              "options": {
+                "A": "étudions",
+                "B": "étudiez",
+                "C": "étudient",
+                "D": "étudier"
+              },
+              "correctAnswer": "A",
+              "explanation": "Avec « nous », le présent est « étudions ».",
+              "level": "A1",
+              "category": "conjugaison"
+            },
+            {
+              "id": "ST4-03",
+              "question": "Marie a acheté ___ ancienne horloge.",
+              "options": {
+                "A": "un",
+                "B": "une",
+                "C": "des",
+                "D": "du"
+              },
+              "correctAnswer": "B",
+              "explanation": "« voiture » est féminin singulier.",
+              "level": "A1",
+              "category": "articles"
+            },
+            {
+              "id": "ST4-04",
+              "question": "Il est arrivé ___ huit heures.",
+              "options": {
+                "A": "à",
+                "B": "en",
+                "C": "dans",
+                "D": "sur"
+              },
+              "correctAnswer": "A",
+              "explanation": "Pour une heure précise, on utilise « à ».",
+              "level": "A1",
+              "category": "prépositions"
+            },
+            {
+              "id": "ST4-05",
+              "question": "Ils ___ au théâtre samedi dernier.",
+              "options": {
+                "A": "vont",
+                "B": "sont allés",
+                "C": "allaient",
+                "D": "iront"
+              },
+              "correctAnswer": "B",
+              "explanation": "« samedi dernier » renvoie à une action passée et terminée.",
+              "level": "A2",
+              "category": "temps"
+            },
+            {
+              "id": "ST4-06",
+              "question": "Je ne connais pas cette femme. Tu ___ connais ?",
+              "options": {
+                "A": "la",
+                "B": "lui",
+                "C": "leur",
+                "D": "les"
+              },
+              "correctAnswer": "A",
+              "explanation": "« cette femme » est un COD féminin singulier.",
+              "level": "A2",
+              "category": "pronoms"
+            },
+            {
+              "id": "ST4-07",
+              "question": "Nous avons besoin ___ informations supplémentaires.",
+              "options": {
+                "A": "des",
+                "B": "d'",
+                "C": "de",
+                "D": "aux"
+              },
+              "correctAnswer": "C",
+              "explanation": "La construction est « avoir besoin de ».",
+              "level": "A2",
+              "category": "prépositions"
+            },
+            {
+              "id": "ST4-08",
+              "question": "Quand j'étais enfant, je ___ beaucoup à la guitare.",
+              "options": {
+                "A": "joue",
+                "B": "jouais",
+                "C": "jouerai",
+                "D": "ai joué"
+              },
+              "correctAnswer": "B",
+              "explanation": "Une habitude passée se met à l’imparfait.",
+              "level": "A2",
+              "category": "imparfait"
+            },
+            {
+              "id": "ST4-09",
+              "question": "Il faut que vous ___ à l'heure.",
+              "options": {
+                "A": "arrivez",
+                "B": "arriviez",
+                "C": "arriverez",
+                "D": "arriver"
+              },
+              "correctAnswer": "B",
+              "explanation": "« il faut que » est suivi du subjonctif.",
+              "level": "B1",
+              "category": "subjonctif"
+            },
+            {
+              "id": "ST4-10",
+              "question": "Si j'avais plus de temps, je ___ davantage.",
+              "options": {
+                "A": "voyage",
+                "B": "voyagerai",
+                "C": "voyagerais",
+                "D": "avais voyagé"
+              },
+              "correctAnswer": "C",
+              "explanation": "Si + imparfait entraîne ici le conditionnel présent.",
+              "level": "B1",
+              "category": "conditionnel"
+            },
+            {
+              "id": "ST4-11",
+              "question": "C'est le sujet ___ je t'ai parlé hier.",
+              "options": {
+                "A": "que",
+                "B": "dont",
+                "C": "où",
+                "D": "auquel"
+              },
+              "correctAnswer": "B",
+              "explanation": "« parler de » appelle le pronom relatif « dont ». ",
+              "level": "B1",
+              "category": "relatifs"
+            },
+            {
+              "id": "ST4-12",
+              "question": "Elle travaille ici ___ trois ans.",
+              "options": {
+                "A": "depuis",
+                "B": "pendant",
+                "C": "dans",
+                "D": "il y a"
+              },
+              "correctAnswer": "A",
+              "explanation": "Une situation toujours actuelle se construit avec « depuis ».",
+              "level": "B1",
+              "category": "prépositions"
+            },
+            {
+              "id": "ST4-13",
+              "question": "Bien qu'il ___ fatigué, il continue.",
+              "options": {
+                "A": "est",
+                "B": "soit",
+                "C": "sera",
+                "D": "était"
+              },
+              "correctAnswer": "B",
+              "explanation": "« bien que » + subjonctif.",
+              "level": "B2",
+              "category": "subjonctif"
+            },
+            {
+              "id": "ST4-14",
+              "question": "Il a réussi ___ son manque de préparation.",
+              "options": {
+                "A": "grâce à",
+                "B": "malgré",
+                "C": "parce que",
+                "D": "afin de"
+              },
+              "correctAnswer": "B",
+              "explanation": "« malgré » introduit une opposition.",
+              "level": "B2",
+              "category": "connecteurs"
+            },
+            {
+              "id": "ST4-15",
+              "question": "Le directeur souhaite que le rapport ___ avant vendredi.",
+              "options": {
+                "A": "est terminé",
+                "B": "soit terminé",
+                "C": "sera terminé",
+                "D": "a été terminé"
+              },
+              "correctAnswer": "B",
+              "explanation": "« souhaite que » + subjonctif.",
+              "level": "B2",
+              "category": "subjonctif"
+            },
+            {
+              "id": "ST4-16",
+              "question": "La décision, ___ les conséquences sont importantes, sera annoncée demain.",
+              "options": {
+                "A": "dont",
+                "B": "que",
+                "C": "laquelle",
+                "D": "où"
+              },
+              "correctAnswer": "A",
+              "explanation": "« les conséquences de la décision » → « dont les conséquences ».",
+              "level": "C1",
+              "category": "relatifs"
+            },
+            {
+              "id": "ST4-17",
+              "question": "Il aurait accepté, à condition que vous lui ___ les détails.",
+              "options": {
+                "A": "expliquez",
+                "B": "expliquiez",
+                "C": "expliquerez",
+                "D": "expliquiez-vous"
+              },
+              "correctAnswer": "B",
+              "explanation": "« à condition que » + subjonctif.",
+              "level": "C1",
+              "category": "subjonctif"
+            },
+            {
+              "id": "ST4-18",
+              "question": "Ce projet est beaucoup plus complexe que je ne l'___.",
+              "options": {
+                "A": "pensais",
+                "B": "penserai",
+                "C": "pense",
+                "D": "ai pensé"
+              },
+              "correctAnswer": "A",
+              "explanation": "L’attente passée est exprimée à l’imparfait.",
+              "level": "C1",
+              "category": "temps"
+            },
+            {
+              "id": "ST4-19",
+              "question": "Les mesures ont été prises afin de ___ les risques.",
+              "options": {
+                "A": "réduire",
+                "B": "réduisant",
+                "C": "réduits",
+                "D": "réduction"
+              },
+              "correctAnswer": "A",
+              "explanation": "« afin de » + infinitif.",
+              "level": "B2",
+              "category": "infinitif"
+            },
+            {
+              "id": "ST4-20",
+              "question": "À peine était-il arrivé ___ le téléphone a sonné.",
+              "options": {
+                "A": "que",
+                "B": "dont",
+                "C": "où",
+                "D": "si"
+              },
+              "correctAnswer": "A",
+              "explanation": "La construction est « à peine… que ».",
+              "level": "C1",
+              "category": "connecteurs"
+            }
+          ]
+        },
+        "comprehension_ecrite": {
+          "questionCount": 30,
+          "questions": [
+            {
+              "id": "CE4-01",
+              "documentId": "T4-DOC01",
+              "documentTitle": "Recrutement",
+              "document": "Certaines entreprises utilisent des outils pour trier automatiquement les CV. Ils accélèrent une première sélection, mais dépendent fortement des critères définis. Un examen humain reste nécessaire pour tenir compte de formulations inhabituelles et du contexte du parcours.",
+              "question": "Pourquoi utiliser des outils de tri automatique ?",
+              "options": {
+                "A": "Pour accélérer la première sélection",
+                "B": "Pour supprimer les recruteurs",
+                "C": "Pour rédiger les CV",
+                "D": "Pour gérer les congés"
+              },
+              "correctAnswer": "A",
+              "explanation": "Ils accélèrent une première sélection.",
+              "level": "C1",
+              "category": "compréhension écrite"
+            },
+            {
+              "id": "CE4-02",
+              "documentId": "T4-DOC01",
+              "documentTitle": "Recrutement",
+              "document": "Certaines entreprises utilisent des outils pour trier automatiquement les CV. Ils accélèrent une première sélection, mais dépendent fortement des critères définis. Un examen humain reste nécessaire pour tenir compte de formulations inhabituelles et du contexte du parcours.",
+              "question": "De quoi dépendent-ils fortement ?",
+              "options": {
+                "A": "Du hasard",
+                "B": "Des critères définis",
+                "C": "De la météo",
+                "D": "Du salaire"
+              },
+              "correctAnswer": "B",
+              "explanation": "Le texte insiste sur les critères attribués au système.",
+              "level": "C1",
+              "category": "compréhension écrite"
+            },
+            {
+              "id": "CE4-03",
+              "documentId": "T4-DOC01",
+              "documentTitle": "Recrutement",
+              "document": "Certaines entreprises utilisent des outils pour trier automatiquement les CV. Ils accélèrent une première sélection, mais dépendent fortement des critères définis. Un examen humain reste nécessaire pour tenir compte de formulations inhabituelles et du contexte du parcours.",
+              "question": "Quelle précaution est recommandée ?",
+              "options": {
+                "A": "Supprimer toute technologie",
+                "B": "Garder un examen humain",
+                "C": "Refuser les CV numériques",
+                "D": "Employer uniquement des mots-clés"
+              },
+              "correctAnswer": "B",
+              "explanation": "Un examen humain permet de tenir compte du contexte.",
+              "level": "C1",
+              "category": "compréhension écrite"
+            },
+            {
+              "id": "CE4-04",
+              "documentId": "T4-DOC02",
+              "documentTitle": "Information",
+              "document": "Face à une information urgente, vérifier la source et la date de publication peut éviter de relayer une erreur. Cette vérification ne garantit pas l’exactitude absolue, mais réduit le risque d’accepter trop vite une affirmation non établie.",
+              "question": "Que peut apporter une vérification de la source ?",
+              "options": {
+                "A": "Elle peut éviter de relayer une erreur",
+                "B": "Elle garantit toute information",
+                "C": "Elle supprime les médias",
+                "D": "Elle rend une information urgente"
+              },
+              "correctAnswer": "A",
+              "explanation": "La vérification réduit le risque de relayer une erreur.",
+              "level": "C1",
+              "category": "compréhension écrite"
+            },
+            {
+              "id": "CE4-05",
+              "documentId": "T4-DOC02",
+              "documentTitle": "Information",
+              "document": "Face à une information urgente, vérifier la source et la date de publication peut éviter de relayer une erreur. Cette vérification ne garantit pas l’exactitude absolue, mais réduit le risque d’accepter trop vite une affirmation non établie.",
+              "question": "L’urgence prouve-t-elle la fiabilité ?",
+              "options": {
+                "A": "Oui",
+                "B": "Non",
+                "C": "Toujours sur Internet",
+                "D": "Seulement à la télévision"
+              },
+              "correctAnswer": "B",
+              "explanation": "L’urgence apparente n’est pas une preuve.",
+              "level": "C1",
+              "category": "compréhension écrite"
+            },
+            {
+              "id": "CE4-06",
+              "documentId": "T4-DOC02",
+              "documentTitle": "Information",
+              "document": "Face à une information urgente, vérifier la source et la date de publication peut éviter de relayer une erreur. Cette vérification ne garantit pas l’exactitude absolue, mais réduit le risque d’accepter trop vite une affirmation non établie.",
+              "question": "Pourquoi vérifier reste-t-il nécessaire ?",
+              "options": {
+                "A": "Parce que l’exactitude absolue est garantie",
+                "B": "Parce que même des médias peuvent corriger une information",
+                "C": "Parce que les sources sont inutiles",
+                "D": "Parce que toutes les nouvelles sont fausses"
+              },
+              "correctAnswer": "B",
+              "explanation": "Le texte présente la vérification comme un processus continu.",
+              "level": "C1",
+              "category": "compréhension écrite"
+            },
+            {
+              "id": "CE4-07",
+              "documentId": "T4-DOC03",
+              "documentTitle": "Urbanisme",
+              "document": "Créer un espace vert ne consiste pas seulement à planter des arbres. Les urbanistes doivent prévoir les usages, les accès et l’entretien. Un parc fréquenté et un espace consacré à la biodiversité ne répondent pas aux mêmes besoins.",
+              "question": "Que faut-il prévoir pour un espace vert ?",
+              "options": {
+                "A": "Uniquement des arbres",
+                "B": "Usages, accès et entretien",
+                "C": "Uniquement des parkings",
+                "D": "Seulement des terrains sportifs"
+              },
+              "correctAnswer": "B",
+              "explanation": "Ces trois éléments sont cités.",
+              "level": "C1",
+              "category": "compréhension écrite"
+            },
+            {
+              "id": "CE4-08",
+              "documentId": "T4-DOC03",
+              "documentTitle": "Urbanisme",
+              "document": "Créer un espace vert ne consiste pas seulement à planter des arbres. Les urbanistes doivent prévoir les usages, les accès et l’entretien. Un parc fréquenté et un espace consacré à la biodiversité ne répondent pas aux mêmes besoins.",
+              "question": "Pourquoi deux espaces verts peuvent-ils différer ?",
+              "options": {
+                "A": "Leurs objectifs et usages diffèrent",
+                "B": "Les arbres sont identiques",
+                "C": "Les parcs n’ont aucun objectif",
+                "D": "Les villes interdisent les arbres"
+              },
+              "correctAnswer": "A",
+              "explanation": "Un parc fréquenté et un espace de biodiversité n’ont pas les mêmes besoins.",
+              "level": "C1",
+              "category": "compréhension écrite"
+            },
+            {
+              "id": "CE4-09",
+              "documentId": "T4-DOC03",
+              "documentTitle": "Urbanisme",
+              "document": "Créer un espace vert ne consiste pas seulement à planter des arbres. Les urbanistes doivent prévoir les usages, les accès et l’entretien. Un parc fréquenté et un espace consacré à la biodiversité ne répondent pas aux mêmes besoins.",
+              "question": "Quelle idée générale ressort ?",
+              "options": {
+                "A": "Tous les parcs doivent être identiques",
+                "B": "La conception dépend du lieu et des objectifs",
+                "C": "L’entretien est inutile",
+                "D": "Les espaces verts sont décoratifs"
+              },
+              "correctAnswer": "B",
+              "explanation": "La conception doit être adaptée au contexte.",
+              "level": "C1",
+              "category": "compréhension écrite"
+            },
+            {
+              "id": "CE4-10",
+              "documentId": "T4-DOC04",
+              "documentTitle": "Projet",
+              "document": "Dans un projet complexe, définir des objectifs précis ne signifie pas prévoir chaque détail. Les équipes doivent parfois ajuster leurs décisions lorsque de nouvelles informations apparaissent. Une bonne planification combine donc cadre clair et marge d’adaptation.",
+              "question": "Définir des objectifs précis signifie-t-il prévoir chaque détail ?",
+              "options": {
+                "A": "Oui",
+                "B": "Non",
+                "C": "Seulement dans les petits projets",
+                "D": "Seulement au début"
+              },
+              "correctAnswer": "B",
+              "explanation": "Le texte distingue objectifs précis et détail figé.",
+              "level": "C1",
+              "category": "compréhension écrite"
+            },
+            {
+              "id": "CE4-11",
+              "documentId": "T4-DOC04",
+              "documentTitle": "Projet",
+              "document": "Dans un projet complexe, définir des objectifs précis ne signifie pas prévoir chaque détail. Les équipes doivent parfois ajuster leurs décisions lorsque de nouvelles informations apparaissent. Une bonne planification combine donc cadre clair et marge d’adaptation.",
+              "question": "Pourquoi certaines décisions sont-elles ajustées ?",
+              "options": {
+                "A": "De nouvelles informations apparaissent",
+                "B": "Les objectifs disparaissent",
+                "C": "Les projets sont simples",
+                "D": "Les équipes refusent de travailler"
+              },
+              "correctAnswer": "A",
+              "explanation": "De nouvelles informations peuvent imposer des ajustements.",
+              "level": "C1",
+              "category": "compréhension écrite"
+            },
+            {
+              "id": "CE4-12",
+              "documentId": "T4-DOC04",
+              "documentTitle": "Projet",
+              "document": "Dans un projet complexe, définir des objectifs précis ne signifie pas prévoir chaque détail. Les équipes doivent parfois ajuster leurs décisions lorsque de nouvelles informations apparaissent. Une bonne planification combine donc cadre clair et marge d’adaptation.",
+              "question": "Quel équilibre est recherché ?",
+              "options": {
+                "A": "Aucun cadre",
+                "B": "Un cadre clair et une marge d’adaptation",
+                "C": "Un plan totalement figé",
+                "D": "Une improvisation totale"
+              },
+              "correctAnswer": "B",
+              "explanation": "La dernière phrase résume cet équilibre.",
+              "level": "C1",
+              "category": "compréhension écrite"
+            },
+            {
+              "id": "CE4-13",
+              "documentId": "T4-DOC05",
+              "documentTitle": "Vie privée",
+              "document": "Le principe de minimisation des données consiste à ne recueillir que les informations utiles à une finalité annoncée. Il ne supprime pas les obligations de sécurité : les données collectées doivent rester protégées contre les accès non autorisés.",
+              "question": "Que signifie la minimisation des données ?",
+              "options": {
+                "A": "Tout collecter",
+                "B": "Collecter seulement ce qui est utile",
+                "C": "Ne rien sécuriser",
+                "D": "Conserver sans limite"
+              },
+              "correctAnswer": "B",
+              "explanation": "Elle consiste à limiter la collecte à la finalité annoncée.",
+              "level": "C1",
+              "category": "compréhension écrite"
+            },
+            {
+              "id": "CE4-14",
+              "documentId": "T4-DOC05",
+              "documentTitle": "Vie privée",
+              "document": "Le principe de minimisation des données consiste à ne recueillir que les informations utiles à une finalité annoncée. Il ne supprime pas les obligations de sécurité : les données collectées doivent rester protégées contre les accès non autorisés.",
+              "question": "La minimisation supprime-t-elle la sécurité ?",
+              "options": {
+                "A": "Oui",
+                "B": "Non",
+                "C": "Seulement pour les entreprises",
+                "D": "Seulement pour les administrations"
+              },
+              "correctAnswer": "B",
+              "explanation": "Les données collectées doivent toujours être protégées.",
+              "level": "C1",
+              "category": "compréhension écrite"
+            },
+            {
+              "id": "CE4-15",
+              "documentId": "T4-DOC05",
+              "documentTitle": "Vie privée",
+              "document": "Le principe de minimisation des données consiste à ne recueillir que les informations utiles à une finalité annoncée. Il ne supprime pas les obligations de sécurité : les données collectées doivent rester protégées contre les accès non autorisés.",
+              "question": "Contre quoi faut-il protéger les données ?",
+              "options": {
+                "A": "Les accès non autorisés",
+                "B": "Les lecteurs",
+                "C": "Les utilisateurs autorisés",
+                "D": "Les mises à jour"
+              },
+              "correctAnswer": "A",
+              "explanation": "La sécurité vise notamment les accès non autorisés.",
+              "level": "C1",
+              "category": "compréhension écrite"
+            },
+            {
+              "id": "CE4-16",
+              "documentId": "T4-DOC06",
+              "documentTitle": "Patrimoine",
+              "document": "Rénover un bâtiment ancien suppose souvent de trouver un équilibre entre conservation et adaptation. Préserver les éléments remarquables n’implique pas forcément de conserver chaque détail à l’identique. Les projets distinguent généralement valeur patrimoniale et éléments transformables.",
+              "question": "Quelle tension est évoquée ?",
+              "options": {
+                "A": "Conservation et adaptation",
+                "B": "Transport et agriculture",
+                "C": "Commerce et sport",
+                "D": "École et travail"
+              },
+              "correctAnswer": "A",
+              "explanation": "Le texte traite de conservation et d’adaptation.",
+              "level": "C1",
+              "category": "compréhension écrite"
+            },
+            {
+              "id": "CE4-17",
+              "documentId": "T4-DOC06",
+              "documentTitle": "Patrimoine",
+              "document": "Rénover un bâtiment ancien suppose souvent de trouver un équilibre entre conservation et adaptation. Préserver les éléments remarquables n’implique pas forcément de conserver chaque détail à l’identique. Les projets distinguent généralement valeur patrimoniale et éléments transformables.",
+              "question": "Faut-il conserver chaque détail à l’identique ?",
+              "options": {
+                "A": "Toujours",
+                "B": "Pas nécessairement",
+                "C": "Uniquement les fenêtres",
+                "D": "Uniquement les murs"
+              },
+              "correctAnswer": "B",
+              "explanation": "Le texte dit que préserver n’implique pas tout conserver à l’identique.",
+              "level": "C1",
+              "category": "compréhension écrite"
+            },
+            {
+              "id": "CE4-18",
+              "documentId": "T4-DOC06",
+              "documentTitle": "Patrimoine",
+              "document": "Rénover un bâtiment ancien suppose souvent de trouver un équilibre entre conservation et adaptation. Préserver les éléments remarquables n’implique pas forcément de conserver chaque détail à l’identique. Les projets distinguent généralement valeur patrimoniale et éléments transformables.",
+              "question": "Que distinguent les projets complexes ?",
+              "options": {
+                "A": "Touristes et habitants",
+                "B": "Valeur patrimoniale et éléments transformables",
+                "C": "Propriétaires et locataires",
+                "D": "Bâtiments publics et privés"
+              },
+              "correctAnswer": "B",
+              "explanation": "Cette distinction guide l’adaptation.",
+              "level": "C1",
+              "category": "compréhension écrite"
+            },
+            {
+              "id": "CE4-19",
+              "documentId": "T4-DOC07",
+              "documentTitle": "Médias",
+              "document": "L’abondance de contenus en ligne rend la sélection de l’information plus complexe. Comparer plusieurs sources, vérifier les dates et distinguer faits et commentaires sont des stratégies utiles, sans constituer une garantie absolue.",
+              "question": "Quel problème pose l’abondance de contenus ?",
+              "options": {
+                "A": "La sélection devient plus complexe",
+                "B": "La lecture devient impossible",
+                "C": "Les sources disparaissent",
+                "D": "Les commentaires sont interdits"
+              },
+              "correctAnswer": "A",
+              "explanation": "L’abondance rend la sélection plus complexe.",
+              "level": "C1",
+              "category": "compréhension écrite"
+            },
+            {
+              "id": "CE4-20",
+              "documentId": "T4-DOC07",
+              "documentTitle": "Médias",
+              "document": "L’abondance de contenus en ligne rend la sélection de l’information plus complexe. Comparer plusieurs sources, vérifier les dates et distinguer faits et commentaires sont des stratégies utiles, sans constituer une garantie absolue.",
+              "question": "Quelle stratégie est recommandée ?",
+              "options": {
+                "A": "Comparer plusieurs sources",
+                "B": "Ne consulter qu’un texte",
+                "C": "Partager immédiatement",
+                "D": "Ignorer les dates"
+              },
+              "correctAnswer": "A",
+              "explanation": "Comparer les sources est explicitement cité.",
+              "level": "C1",
+              "category": "compréhension écrite"
+            },
+            {
+              "id": "CE4-21",
+              "documentId": "T4-DOC07",
+              "documentTitle": "Médias",
+              "document": "L’abondance de contenus en ligne rend la sélection de l’information plus complexe. Comparer plusieurs sources, vérifier les dates et distinguer faits et commentaires sont des stratégies utiles, sans constituer une garantie absolue.",
+              "question": "Ces pratiques garantissent-elles l’exactitude ?",
+              "options": {
+                "A": "Oui",
+                "B": "Non, mais elles réduisent certains risques",
+                "C": "Oui si le texte est long",
+                "D": "Non, elles rendent toute vérification inutile"
+              },
+              "correctAnswer": "B",
+              "explanation": "Elles ne garantissent pas l’exactitude absolue.",
+              "level": "C1",
+              "category": "compréhension écrite"
+            },
+            {
+              "id": "CE4-22",
+              "documentId": "T4-DOC08",
+              "documentTitle": "Énergie",
+              "document": "La réduction de la consommation énergétique dépend aussi des habitudes quotidiennes. Régler correctement le chauffage, éviter la veille inutile et adapter l’éclairage sont des mesures simples dont l’effet cumulé peut devenir important.",
+              "question": "De quoi dépend aussi la réduction de consommation ?",
+              "options": {
+                "A": "Des habitudes quotidiennes",
+                "B": "Uniquement des nouvelles machines",
+                "C": "Du prix des bâtiments",
+                "D": "Du nombre de fenêtres"
+              },
+              "correctAnswer": "A",
+              "explanation": "Le texte souligne le rôle des habitudes.",
+              "level": "C1",
+              "category": "compréhension écrite"
+            },
+            {
+              "id": "CE4-23",
+              "documentId": "T4-DOC08",
+              "documentTitle": "Énergie",
+              "document": "La réduction de la consommation énergétique dépend aussi des habitudes quotidiennes. Régler correctement le chauffage, éviter la veille inutile et adapter l’éclairage sont des mesures simples dont l’effet cumulé peut devenir important.",
+              "question": "Quelle mesure est citée ?",
+              "options": {
+                "A": "Laisser les appareils en veille",
+                "B": "Adapter l’éclairage",
+                "C": "Augmenter le chauffage",
+                "D": "Allumer toutes les lumières"
+              },
+              "correctAnswer": "B",
+              "explanation": "Adapter l’éclairage fait partie des exemples.",
+              "level": "C1",
+              "category": "compréhension écrite"
+            },
+            {
+              "id": "CE4-24",
+              "documentId": "T4-DOC08",
+              "documentTitle": "Énergie",
+              "document": "La réduction de la consommation énergétique dépend aussi des habitudes quotidiennes. Régler correctement le chauffage, éviter la veille inutile et adapter l’éclairage sont des mesures simples dont l’effet cumulé peut devenir important.",
+              "question": "Pourquoi des mesures simples peuvent-elles compter ?",
+              "options": {
+                "A": "Leur effet cumulé peut être important",
+                "B": "Elles remplacent toute technologie",
+                "C": "Elles sont toujours gratuites",
+                "D": "Elles fonctionnent seulement au bureau"
+              },
+              "correctAnswer": "A",
+              "explanation": "Le texte insiste sur l’effet cumulé.",
+              "level": "C1",
+              "category": "compréhension écrite"
+            },
+            {
+              "id": "CE4-25",
+              "documentId": "T4-DOC09",
+              "documentTitle": "Évaluation",
+              "document": "Un examen final unique peut donner une image incomplète des apprentissages. Des projets et évaluations intermédiaires permettent d’observer la progression sous plusieurs angles, sans rendre nécessairement l’évaluation plus facile.",
+              "question": "Quelle limite d’un examen final unique est citée ?",
+              "options": {
+                "A": "Il peut donner une image incomplète",
+                "B": "Il est toujours trop facile",
+                "C": "Il ne donne aucune note",
+                "D": "Il est impossible à organiser"
+              },
+              "correctAnswer": "A",
+              "explanation": "Un examen unique peut être incomplet.",
+              "level": "C1",
+              "category": "compréhension écrite"
+            },
+            {
+              "id": "CE4-26",
+              "documentId": "T4-DOC09",
+              "documentTitle": "Évaluation",
+              "document": "Un examen final unique peut donner une image incomplète des apprentissages. Des projets et évaluations intermédiaires permettent d’observer la progression sous plusieurs angles, sans rendre nécessairement l’évaluation plus facile.",
+              "question": "Que permettent les évaluations intermédiaires ?",
+              "options": {
+                "A": "Observer la progression sous plusieurs angles",
+                "B": "Supprimer les projets",
+                "C": "Éviter toute évaluation",
+                "D": "Réduire toutes les exigences"
+              },
+              "correctAnswer": "A",
+              "explanation": "Elles apportent plusieurs informations sur la progression.",
+              "level": "C1",
+              "category": "compréhension écrite"
+            },
+            {
+              "id": "CE4-27",
+              "documentId": "T4-DOC09",
+              "documentTitle": "Évaluation",
+              "document": "Un examen final unique peut donner une image incomplète des apprentissages. Des projets et évaluations intermédiaires permettent d’observer la progression sous plusieurs angles, sans rendre nécessairement l’évaluation plus facile.",
+              "question": "Rendent-elles forcément l’évaluation plus facile ?",
+              "options": {
+                "A": "Oui",
+                "B": "Non",
+                "C": "Seulement en ligne",
+                "D": "Seulement pour les débutants"
+              },
+              "correctAnswer": "B",
+              "explanation": "Le texte dit explicitement que non.",
+              "level": "C1",
+              "category": "compréhension écrite"
+            },
+            {
+              "id": "CE4-28",
+              "documentId": "T4-DOC10",
+              "documentTitle": "Traduction",
+              "document": "Traduire une œuvre littéraire ne consiste pas à remplacer chaque mot par un équivalent. Le traducteur doit aussi considérer le rythme, le registre, les références culturelles et les ambiguïtés voulues par l’auteur.",
+              "question": "Pourquoi ne peut-on pas remplacer chaque mot mécaniquement ?",
+              "options": {
+                "A": "Il faut considérer plusieurs dimensions",
+                "B": "Les mots n’ont jamais de sens",
+                "C": "Les références doivent être supprimées",
+                "D": "Toute traduction est impossible"
+              },
+              "correctAnswer": "A",
+              "explanation": "Le rythme, le registre et les références comptent aussi.",
+              "level": "C1",
+              "category": "compréhension écrite"
+            },
+            {
+              "id": "CE4-29",
+              "documentId": "T4-DOC10",
+              "documentTitle": "Traduction",
+              "document": "Traduire une œuvre littéraire ne consiste pas à remplacer chaque mot par un équivalent. Le traducteur doit aussi considérer le rythme, le registre, les références culturelles et les ambiguïtés voulues par l’auteur.",
+              "question": "Deux traductions différentes peuvent-elles être valables ?",
+              "options": {
+                "A": "Non",
+                "B": "Oui, si elles cherchent des effets comparables",
+                "C": "Seulement si les mots sont identiques",
+                "D": "Uniquement pour les romans courts"
+              },
+              "correctAnswer": "B",
+              "explanation": "Le texte l’indique explicitement.",
+              "level": "C1",
+              "category": "compréhension écrite"
+            },
+            {
+              "id": "CE4-30",
+              "documentId": "T4-DOC10",
+              "documentTitle": "Traduction",
+              "document": "Traduire une œuvre littéraire ne consiste pas à remplacer chaque mot par un équivalent. Le traducteur doit aussi considérer le rythme, le registre, les références culturelles et les ambiguïtés voulues par l’auteur.",
+              "question": "Quel élément est cité ?",
+              "options": {
+                "A": "Le rythme",
+                "B": "Le prix",
+                "C": "La couverture",
+                "D": "Le nombre de pages"
+              },
+              "correctAnswer": "A",
+              "explanation": "Le rythme fait partie des éléments à considérer.",
+              "level": "C1",
+              "category": "compréhension écrite"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "test-05",
+      "title": "TCF Entraînement — Test 5",
+      "description": "Questions originales d’entraînement inspirées du format général du TCF Tout public.",
+      "sections": {
+        "structure_de_la_langue": {
+          "questionCount": 20,
+          "questions": [
+            {
+              "id": "ST5-01",
+              "question": "Je vais ___ centre pour mon rendez-vous.",
+              "options": {
+                "A": "au",
+                "B": "à la",
+                "C": "aux",
+                "D": "du"
+              },
+              "correctAnswer": "A",
+              "explanation": "« à + le » donne « au ».",
+              "level": "A1",
+              "category": "prépositions"
+            },
+            {
+              "id": "ST5-02",
+              "question": "Nous ___ italien tous les jours.",
+              "options": {
+                "A": "étudions",
+                "B": "étudiez",
+                "C": "étudient",
+                "D": "étudier"
+              },
+              "correctAnswer": "A",
+              "explanation": "Avec « nous », le présent est « étudions ».",
+              "level": "A1",
+              "category": "conjugaison"
+            },
+            {
+              "id": "ST5-03",
+              "question": "Marie a acheté ___ nouvelle table.",
+              "options": {
+                "A": "un",
+                "B": "une",
+                "C": "des",
+                "D": "du"
+              },
+              "correctAnswer": "B",
+              "explanation": "« voiture » est féminin singulier.",
+              "level": "A1",
+              "category": "articles"
+            },
+            {
+              "id": "ST5-04",
+              "question": "Il est arrivé ___ huit heures.",
+              "options": {
+                "A": "à",
+                "B": "en",
+                "C": "dans",
+                "D": "sur"
+              },
+              "correctAnswer": "A",
+              "explanation": "Pour une heure précise, on utilise « à ».",
+              "level": "A1",
+              "category": "prépositions"
+            },
+            {
+              "id": "ST5-05",
+              "question": "Ils ___ au stade samedi dernier.",
+              "options": {
+                "A": "vont",
+                "B": "sont allés",
+                "C": "allaient",
+                "D": "iront"
+              },
+              "correctAnswer": "B",
+              "explanation": "« samedi dernier » renvoie à une action passée et terminée.",
+              "level": "A2",
+              "category": "temps"
+            },
+            {
+              "id": "ST5-06",
+              "question": "Je ne connais pas cette femme. Tu ___ connais ?",
+              "options": {
+                "A": "la",
+                "B": "lui",
+                "C": "leur",
+                "D": "les"
+              },
+              "correctAnswer": "A",
+              "explanation": "« cette femme » est un COD féminin singulier.",
+              "level": "A2",
+              "category": "pronoms"
+            },
+            {
+              "id": "ST5-07",
+              "question": "Nous avons besoin ___ informations supplémentaires.",
+              "options": {
+                "A": "des",
+                "B": "d'",
+                "C": "de",
+                "D": "aux"
+              },
+              "correctAnswer": "C",
+              "explanation": "La construction est « avoir besoin de ».",
+              "level": "A2",
+              "category": "prépositions"
+            },
+            {
+              "id": "ST5-08",
+              "question": "Quand j'étais enfant, je ___ beaucoup aux échecs.",
+              "options": {
+                "A": "joue",
+                "B": "jouais",
+                "C": "jouerai",
+                "D": "ai joué"
+              },
+              "correctAnswer": "B",
+              "explanation": "Une habitude passée se met à l’imparfait.",
+              "level": "A2",
+              "category": "imparfait"
+            },
+            {
+              "id": "ST5-09",
+              "question": "Il faut que vous ___ à l'heure.",
+              "options": {
+                "A": "arrivez",
+                "B": "arriviez",
+                "C": "arriverez",
+                "D": "arriver"
+              },
+              "correctAnswer": "B",
+              "explanation": "« il faut que » est suivi du subjonctif.",
+              "level": "B1",
+              "category": "subjonctif"
+            },
+            {
+              "id": "ST5-10",
+              "question": "Si j'avais plus de temps, je ___ davantage.",
+              "options": {
+                "A": "voyage",
+                "B": "voyagerai",
+                "C": "voyagerais",
+                "D": "avais voyagé"
+              },
+              "correctAnswer": "C",
+              "explanation": "Si + imparfait entraîne ici le conditionnel présent.",
+              "level": "B1",
+              "category": "conditionnel"
+            },
+            {
+              "id": "ST5-11",
+              "question": "C'est le sujet ___ je t'ai parlé hier.",
+              "options": {
+                "A": "que",
+                "B": "dont",
+                "C": "où",
+                "D": "auquel"
+              },
+              "correctAnswer": "B",
+              "explanation": "« parler de » appelle le pronom relatif « dont ». ",
+              "level": "B1",
+              "category": "relatifs"
+            },
+            {
+              "id": "ST5-12",
+              "question": "Elle travaille ici ___ trois ans.",
+              "options": {
+                "A": "depuis",
+                "B": "pendant",
+                "C": "dans",
+                "D": "il y a"
+              },
+              "correctAnswer": "A",
+              "explanation": "Une situation toujours actuelle se construit avec « depuis ».",
+              "level": "B1",
+              "category": "prépositions"
+            },
+            {
+              "id": "ST5-13",
+              "question": "Bien qu'il ___ fatigué, il continue.",
+              "options": {
+                "A": "est",
+                "B": "soit",
+                "C": "sera",
+                "D": "était"
+              },
+              "correctAnswer": "B",
+              "explanation": "« bien que » + subjonctif.",
+              "level": "B2",
+              "category": "subjonctif"
+            },
+            {
+              "id": "ST5-14",
+              "question": "Il a réussi ___ son manque de préparation.",
+              "options": {
+                "A": "grâce à",
+                "B": "malgré",
+                "C": "parce que",
+                "D": "afin de"
+              },
+              "correctAnswer": "B",
+              "explanation": "« malgré » introduit une opposition.",
+              "level": "B2",
+              "category": "connecteurs"
+            },
+            {
+              "id": "ST5-15",
+              "question": "Le directeur souhaite que le rapport ___ avant vendredi.",
+              "options": {
+                "A": "est terminé",
+                "B": "soit terminé",
+                "C": "sera terminé",
+                "D": "a été terminé"
+              },
+              "correctAnswer": "B",
+              "explanation": "« souhaite que » + subjonctif.",
+              "level": "B2",
+              "category": "subjonctif"
+            },
+            {
+              "id": "ST5-16",
+              "question": "La décision, ___ les conséquences sont importantes, sera annoncée demain.",
+              "options": {
+                "A": "dont",
+                "B": "que",
+                "C": "laquelle",
+                "D": "où"
+              },
+              "correctAnswer": "A",
+              "explanation": "« les conséquences de la décision » → « dont les conséquences ».",
+              "level": "C1",
+              "category": "relatifs"
+            },
+            {
+              "id": "ST5-17",
+              "question": "Il aurait accepté, à condition que vous lui ___ les détails.",
+              "options": {
+                "A": "expliquez",
+                "B": "expliquiez",
+                "C": "expliquerez",
+                "D": "expliquiez-vous"
+              },
+              "correctAnswer": "B",
+              "explanation": "« à condition que » + subjonctif.",
+              "level": "C1",
+              "category": "subjonctif"
+            },
+            {
+              "id": "ST5-18",
+              "question": "Ce projet est beaucoup plus complexe que je ne l'___.",
+              "options": {
+                "A": "pensais",
+                "B": "penserai",
+                "C": "pense",
+                "D": "ai pensé"
+              },
+              "correctAnswer": "A",
+              "explanation": "L’attente passée est exprimée à l’imparfait.",
+              "level": "C1",
+              "category": "temps"
+            },
+            {
+              "id": "ST5-19",
+              "question": "Les mesures ont été prises afin de ___ les risques.",
+              "options": {
+                "A": "réduire",
+                "B": "réduisant",
+                "C": "réduits",
+                "D": "réduction"
+              },
+              "correctAnswer": "A",
+              "explanation": "« afin de » + infinitif.",
+              "level": "B2",
+              "category": "infinitif"
+            },
+            {
+              "id": "ST5-20",
+              "question": "À peine était-il arrivé ___ le téléphone a sonné.",
+              "options": {
+                "A": "que",
+                "B": "dont",
+                "C": "où",
+                "D": "si"
+              },
+              "correctAnswer": "A",
+              "explanation": "La construction est « à peine… que ».",
+              "level": "C1",
+              "category": "connecteurs"
+            }
+          ]
+        },
+        "comprehension_ecrite": {
+          "questionCount": 30,
+          "questions": [
+            {
+              "id": "CE5-01",
+              "documentId": "T5-DOC01",
+              "documentTitle": "Bibliothèque",
+              "document": "La bibliothèque du quartier sera fermée mardi matin pour maintenance. Elle rouvrira à 14 h et fermera à 18 h. Les retours de livres restent possibles dans la boîte située à l’entrée.",
+              "question": "Quand la bibliothèque rouvrira-t-elle mardi ?",
+              "options": {
+                "A": "À 8 h",
+                "B": "À 12 h",
+                "C": "À 14 h",
+                "D": "À 18 h"
+              },
+              "correctAnswer": "C",
+              "explanation": "Le document annonce une réouverture à 14 h.",
+              "level": "C2",
+              "category": "compréhension écrite"
+            },
+            {
+              "id": "CE5-02",
+              "documentId": "T5-DOC01",
+              "documentTitle": "Bibliothèque",
+              "document": "La bibliothèque du quartier sera fermée mardi matin pour maintenance. Elle rouvrira à 14 h et fermera à 18 h. Les retours de livres restent possibles dans la boîte située à l’entrée.",
+              "question": "Que peut-on faire pendant la fermeture ?",
+              "options": {
+                "A": "Emprunter des livres",
+                "B": "Déposer des retours dans la boîte",
+                "C": "Utiliser les ordinateurs",
+                "D": "Rencontrer le personnel"
+              },
+              "correctAnswer": "B",
+              "explanation": "La boîte de retour reste accessible.",
+              "level": "C2",
+              "category": "compréhension écrite"
+            },
+            {
+              "id": "CE5-03",
+              "documentId": "T5-DOC01",
+              "documentTitle": "Bibliothèque",
+              "document": "La bibliothèque du quartier sera fermée mardi matin pour maintenance. Elle rouvrira à 14 h et fermera à 18 h. Les retours de livres restent possibles dans la boîte située à l’entrée.",
+              "question": "Pourquoi ferme-t-elle le matin ?",
+              "options": {
+                "A": "Pour une réunion",
+                "B": "Pour maintenance",
+                "C": "Pour un déménagement",
+                "D": "Pour un jour férié"
+              },
+              "correctAnswer": "B",
+              "explanation": "La fermeture est liée à la maintenance.",
+              "level": "C2",
+              "category": "compréhension écrite"
+            },
+            {
+              "id": "CE5-04",
+              "documentId": "T5-DOC02",
+              "documentTitle": "Transport",
+              "document": "En raison de travaux, les trains ne circuleront pas entre Centre et République samedi. Des bus de remplacement passeront toutes les quinze minutes de 7 h à 22 h.",
+              "question": "Pourquoi les trains seront-ils interrompus ?",
+              "options": {
+                "A": "Une grève",
+                "B": "Des travaux",
+                "C": "Une panne électrique",
+                "D": "La météo"
+              },
+              "correctAnswer": "B",
+              "explanation": "Le texte mentionne des travaux.",
+              "level": "C2",
+              "category": "compréhension écrite"
+            },
+            {
+              "id": "CE5-05",
+              "documentId": "T5-DOC02",
+              "documentTitle": "Transport",
+              "document": "En raison de travaux, les trains ne circuleront pas entre Centre et République samedi. Des bus de remplacement passeront toutes les quinze minutes de 7 h à 22 h.",
+              "question": "Quel transport est prévu en remplacement ?",
+              "options": {
+                "A": "Des taxis",
+                "B": "Des bus",
+                "C": "Des vélos",
+                "D": "Des tramways"
+              },
+              "correctAnswer": "B",
+              "explanation": "Des bus de remplacement sont prévus.",
+              "level": "C2",
+              "category": "compréhension écrite"
+            },
+            {
+              "id": "CE5-06",
+              "documentId": "T5-DOC02",
+              "documentTitle": "Transport",
+              "document": "En raison de travaux, les trains ne circuleront pas entre Centre et République samedi. Des bus de remplacement passeront toutes les quinze minutes de 7 h à 22 h.",
+              "question": "À quelle fréquence passeront-ils ?",
+              "options": {
+                "A": "Toutes les 5 minutes",
+                "B": "Toutes les 10 minutes",
+                "C": "Toutes les 15 minutes",
+                "D": "Toutes les 30 minutes"
+              },
+              "correctAnswer": "C",
+              "explanation": "Ils passeront toutes les quinze minutes.",
+              "level": "C2",
+              "category": "compréhension écrite"
+            },
+            {
+              "id": "CE5-07",
+              "documentId": "T5-DOC03",
+              "documentTitle": "Logement",
+              "document": "Studio meublé de 28 m² près de l’université. Disponible le 1er octobre. Loyer : 520 euros charges comprises. Internet inclus. Premier contact par courriel.",
+              "question": "Quand le studio est-il disponible ?",
+              "options": {
+                "A": "1er septembre",
+                "B": "1er octobre",
+                "C": "1er novembre",
+                "D": "15 octobre"
+              },
+              "correctAnswer": "B",
+              "explanation": "La date indiquée est le 1er octobre.",
+              "level": "C2",
+              "category": "compréhension écrite"
+            },
+            {
+              "id": "CE5-08",
+              "documentId": "T5-DOC03",
+              "documentTitle": "Logement",
+              "document": "Studio meublé de 28 m² près de l’université. Disponible le 1er octobre. Loyer : 520 euros charges comprises. Internet inclus. Premier contact par courriel.",
+              "question": "Quel service est inclus ?",
+              "options": {
+                "A": "Parking",
+                "B": "Ménage",
+                "C": "Internet",
+                "D": "Petit déjeuner"
+              },
+              "correctAnswer": "C",
+              "explanation": "Internet est inclus dans le loyer.",
+              "level": "C2",
+              "category": "compréhension écrite"
+            },
+            {
+              "id": "CE5-09",
+              "documentId": "T5-DOC03",
+              "documentTitle": "Logement",
+              "document": "Studio meublé de 28 m² près de l’université. Disponible le 1er octobre. Loyer : 520 euros charges comprises. Internet inclus. Premier contact par courriel.",
+              "question": "Quel est le premier moyen de contact ?",
+              "options": {
+                "A": "Téléphone",
+                "B": "Courriel",
+                "C": "Courrier",
+                "D": "Visite sans rendez-vous"
+              },
+              "correctAnswer": "B",
+              "explanation": "L’annonce demande un premier contact par courriel.",
+              "level": "C2",
+              "category": "compréhension écrite"
+            },
+            {
+              "id": "CE5-10",
+              "documentId": "T5-DOC04",
+              "documentTitle": "Formation",
+              "document": "Une entreprise propose trois jours de formation à la cybersécurité. La participation est volontaire. Des ateliers portent sur les mots de passe, l’hameçonnage et la protection des données.",
+              "question": "Combien de temps dure la formation ?",
+              "options": {
+                "A": "Un jour",
+                "B": "Deux jours",
+                "C": "Trois jours",
+                "D": "Une semaine"
+              },
+              "correctAnswer": "C",
+              "explanation": "La formation dure trois jours.",
+              "level": "C2",
+              "category": "compréhension écrite"
+            },
+            {
+              "id": "CE5-11",
+              "documentId": "T5-DOC04",
+              "documentTitle": "Formation",
+              "document": "Une entreprise propose trois jours de formation à la cybersécurité. La participation est volontaire. Des ateliers portent sur les mots de passe, l’hameçonnage et la protection des données.",
+              "question": "La participation est-elle obligatoire ?",
+              "options": {
+                "A": "Oui",
+                "B": "Non, elle est volontaire",
+                "C": "Seulement le premier jour",
+                "D": "Uniquement pour les managers"
+              },
+              "correctAnswer": "B",
+              "explanation": "Le texte précise qu’elle est volontaire.",
+              "level": "C2",
+              "category": "compréhension écrite"
+            },
+            {
+              "id": "CE5-12",
+              "documentId": "T5-DOC04",
+              "documentTitle": "Formation",
+              "document": "Une entreprise propose trois jours de formation à la cybersécurité. La participation est volontaire. Des ateliers portent sur les mots de passe, l’hameçonnage et la protection des données.",
+              "question": "Quel sujet est traité ?",
+              "options": {
+                "A": "Cuisine",
+                "B": "Cybersécurité",
+                "C": "Comptabilité",
+                "D": "Marketing"
+              },
+              "correctAnswer": "B",
+              "explanation": "Les ateliers concernent la cybersécurité.",
+              "level": "C2",
+              "category": "compréhension écrite"
+            },
+            {
+              "id": "CE5-13",
+              "documentId": "T5-DOC05",
+              "documentTitle": "Travail",
+              "document": "À partir du mois prochain, les employés pourront commencer entre 8 h et 10 h, à condition de respecter leur durée quotidienne. Les réunions d’équipe resteront fixées à 9 h.",
+              "question": "Quelle flexibilité est introduite ?",
+              "options": {
+                "A": "Les congés",
+                "B": "L’heure de début",
+                "C": "Le salaire",
+                "D": "Les réunions"
+              },
+              "correctAnswer": "B",
+              "explanation": "Les employés pourront commencer entre 8 h et 10 h.",
+              "level": "C2",
+              "category": "compréhension écrite"
+            },
+            {
+              "id": "CE5-14",
+              "documentId": "T5-DOC05",
+              "documentTitle": "Travail",
+              "document": "À partir du mois prochain, les employés pourront commencer entre 8 h et 10 h, à condition de respecter leur durée quotidienne. Les réunions d’équipe resteront fixées à 9 h.",
+              "question": "Quelle réunion reste fixée à 9 h ?",
+              "options": {
+                "A": "La réunion d’équipe",
+                "B": "La réunion annuelle",
+                "C": "La réunion avec les clients",
+                "D": "La réunion syndicale"
+              },
+              "correctAnswer": "A",
+              "explanation": "Les réunions d’équipe restent à 9 h.",
+              "level": "C2",
+              "category": "compréhension écrite"
+            },
+            {
+              "id": "CE5-15",
+              "documentId": "T5-DOC05",
+              "documentTitle": "Travail",
+              "document": "À partir du mois prochain, les employés pourront commencer entre 8 h et 10 h, à condition de respecter leur durée quotidienne. Les réunions d’équipe resteront fixées à 9 h.",
+              "question": "Quand le dispositif sera-t-il évalué ?",
+              "options": {
+                "A": "Après un mois",
+                "B": "Après trois mois",
+                "C": "Après six mois",
+                "D": "Après un an"
+              },
+              "correctAnswer": "B",
+              "explanation": "L’évaluation est prévue après trois mois.",
+              "level": "C2",
+              "category": "compréhension écrite"
+            },
+            {
+              "id": "CE5-16",
+              "documentId": "T5-DOC06",
+              "documentTitle": "Culture",
+              "document": "L’exposition de photographie contemporaine est prolongée jusqu’au 20 novembre. L’entrée reste gratuite le premier dimanche du mois.",
+              "question": "Jusqu’à quand l’exposition est-elle prolongée ?",
+              "options": {
+                "A": "20 octobre",
+                "B": "1er novembre",
+                "C": "20 novembre",
+                "D": "30 novembre"
+              },
+              "correctAnswer": "C",
+              "explanation": "La nouvelle date est le 20 novembre.",
+              "level": "C2",
+              "category": "compréhension écrite"
+            },
+            {
+              "id": "CE5-17",
+              "documentId": "T5-DOC06",
+              "documentTitle": "Culture",
+              "document": "L’exposition de photographie contemporaine est prolongée jusqu’au 20 novembre. L’entrée reste gratuite le premier dimanche du mois.",
+              "question": "Quand l’entrée reste-t-elle gratuite ?",
+              "options": {
+                "A": "Chaque dimanche",
+                "B": "Le premier dimanche du mois",
+                "C": "Le dernier dimanche",
+                "D": "Tous les jours"
+              },
+              "correctAnswer": "B",
+              "explanation": "La gratuité concerne le premier dimanche du mois.",
+              "level": "C2",
+              "category": "compréhension écrite"
+            },
+            {
+              "id": "CE5-18",
+              "documentId": "T5-DOC06",
+              "documentTitle": "Culture",
+              "document": "L’exposition de photographie contemporaine est prolongée jusqu’au 20 novembre. L’entrée reste gratuite le premier dimanche du mois.",
+              "question": "Quel est le thème de l’exposition ?",
+              "options": {
+                "A": "Peinture",
+                "B": "Photographie contemporaine",
+                "C": "Sculpture",
+                "D": "Architecture"
+              },
+              "correctAnswer": "B",
+              "explanation": "Elle est consacrée à la photographie contemporaine.",
+              "level": "C2",
+              "category": "compréhension écrite"
+            },
+            {
+              "id": "CE5-19",
+              "documentId": "T5-DOC07",
+              "documentTitle": "Ville",
+              "document": "La ville lance un service de vélos électriques. Les abonnés disposent de trente minutes sans supplément. Le service vise surtout les déplacements courts entre les transports publics et les quartiers résidentiels.",
+              "question": "Combien de temps est sans supplément pour les abonnés ?",
+              "options": {
+                "A": "15 minutes",
+                "B": "20 minutes",
+                "C": "30 minutes",
+                "D": "60 minutes"
+              },
+              "correctAnswer": "C",
+              "explanation": "Les trente premières minutes sont sans supplément.",
+              "level": "C2",
+              "category": "compréhension écrite"
+            },
+            {
+              "id": "CE5-20",
+              "documentId": "T5-DOC07",
+              "documentTitle": "Ville",
+              "document": "La ville lance un service de vélos électriques. Les abonnés disposent de trente minutes sans supplément. Le service vise surtout les déplacements courts entre les transports publics et les quartiers résidentiels.",
+              "question": "Quel type de déplacement est visé ?",
+              "options": {
+                "A": "Longs voyages",
+                "B": "Déplacements courts",
+                "C": "Voyages internationaux",
+                "D": "Déplacements uniquement professionnels"
+              },
+              "correctAnswer": "B",
+              "explanation": "Le service vise surtout les déplacements courts.",
+              "level": "C2",
+              "category": "compréhension écrite"
+            },
+            {
+              "id": "CE5-21",
+              "documentId": "T5-DOC07",
+              "documentTitle": "Ville",
+              "document": "La ville lance un service de vélos électriques. Les abonnés disposent de trente minutes sans supplément. Le service vise surtout les déplacements courts entre les transports publics et les quartiers résidentiels.",
+              "question": "Entre quels lieux le service est-il particulièrement utile ?",
+              "options": {
+                "A": "Aéroports et ports",
+                "B": "Transports publics et quartiers résidentiels",
+                "C": "Écoles et hôpitaux",
+                "D": "Gares et autoroutes"
+              },
+              "correctAnswer": "B",
+              "explanation": "C’est l’usage cité dans le document.",
+              "level": "C2",
+              "category": "compréhension écrite"
+            },
+            {
+              "id": "CE5-22",
+              "documentId": "T5-DOC08",
+              "documentTitle": "Consommation",
+              "document": "Avant d’acheter un appareil, il est conseillé de comparer son prix, sa consommation d’énergie et la durée de garantie. Il est également utile de vérifier la disponibilité des pièces détachées.",
+              "question": "Que faut-il comparer en plus du prix ?",
+              "options": {
+                "A": "La couleur",
+                "B": "La consommation et la garantie",
+                "C": "Le poids du vendeur",
+                "D": "La taille du magasin"
+              },
+              "correctAnswer": "B",
+              "explanation": "Le document cite consommation et garantie.",
+              "level": "C2",
+              "category": "compréhension écrite"
+            },
+            {
+              "id": "CE5-23",
+              "documentId": "T5-DOC08",
+              "documentTitle": "Consommation",
+              "document": "Avant d’acheter un appareil, il est conseillé de comparer son prix, sa consommation d’énergie et la durée de garantie. Il est également utile de vérifier la disponibilité des pièces détachées.",
+              "question": "Pourquoi un modèle plus cher peut-il être intéressant ?",
+              "options": {
+                "A": "Il est toujours plus grand",
+                "B": "Il peut coûter moins cher à long terme",
+                "C": "Il est forcément plus beau",
+                "D": "Il est toujours garanti à vie"
+              },
+              "correctAnswer": "B",
+              "explanation": "Une consommation moindre peut réduire le coût sur plusieurs années.",
+              "level": "C2",
+              "category": "compréhension écrite"
+            },
+            {
+              "id": "CE5-24",
+              "documentId": "T5-DOC08",
+              "documentTitle": "Consommation",
+              "document": "Avant d’acheter un appareil, il est conseillé de comparer son prix, sa consommation d’énergie et la durée de garantie. Il est également utile de vérifier la disponibilité des pièces détachées.",
+              "question": "Que faut-il aussi vérifier ?",
+              "options": {
+                "A": "La publicité",
+                "B": "Les pièces détachées disponibles",
+                "C": "La météo",
+                "D": "Le nombre de vendeurs"
+              },
+              "correctAnswer": "B",
+              "explanation": "Le document conseille de vérifier les pièces détachées.",
+              "level": "C2",
+              "category": "compréhension écrite"
+            },
+            {
+              "id": "CE5-25",
+              "documentId": "T5-DOC09",
+              "documentTitle": "Télétravail",
+              "document": "Une étude auprès de salariés indique que la flexibilité des horaires est un avantage du télétravail. Elle souligne aussi la difficulté de séparer vie professionnelle et vie personnelle. Des règles claires de disponibilité peuvent limiter ce problème.",
+              "question": "Quel avantage est cité ?",
+              "options": {
+                "A": "La suppression des réunions",
+                "B": "La flexibilité des horaires",
+                "C": "La baisse des salaires",
+                "D": "La réduction des congés"
+              },
+              "correctAnswer": "B",
+              "explanation": "La flexibilité est présentée comme un avantage.",
+              "level": "C2",
+              "category": "compréhension écrite"
+            },
+            {
+              "id": "CE5-26",
+              "documentId": "T5-DOC09",
+              "documentTitle": "Télétravail",
+              "document": "Une étude auprès de salariés indique que la flexibilité des horaires est un avantage du télétravail. Elle souligne aussi la difficulté de séparer vie professionnelle et vie personnelle. Des règles claires de disponibilité peuvent limiter ce problème.",
+              "question": "Quelle difficulté est mentionnée ?",
+              "options": {
+                "A": "Les transports",
+                "B": "La séparation entre vie professionnelle et personnelle",
+                "C": "Le manque de bureaux",
+                "D": "Les vacances"
+              },
+              "correctAnswer": "B",
+              "explanation": "Cette difficulté est explicitement mentionnée.",
+              "level": "C2",
+              "category": "compréhension écrite"
+            },
+            {
+              "id": "CE5-27",
+              "documentId": "T5-DOC09",
+              "documentTitle": "Télétravail",
+              "document": "Une étude auprès de salariés indique que la flexibilité des horaires est un avantage du télétravail. Elle souligne aussi la difficulté de séparer vie professionnelle et vie personnelle. Des règles claires de disponibilité peuvent limiter ce problème.",
+              "question": "Qu’est-ce qui peut limiter ce problème ?",
+              "options": {
+                "A": "Des règles claires de disponibilité",
+                "B": "Plus de notifications",
+                "C": "Des horaires illimités",
+                "D": "La suppression du télétravail"
+              },
+              "correctAnswer": "A",
+              "explanation": "Des règles claires peuvent limiter la difficulté.",
+              "level": "C2",
+              "category": "compréhension écrite"
+            },
+            {
+              "id": "CE5-28",
+              "documentId": "T5-DOC10",
+              "documentTitle": "Langues",
+              "document": "Mémoriser des listes de mots isolés peut aider au début, mais ne suffit pas toujours pour employer les mots en contexte. Rencontrer les mêmes expressions dans des situations variées et les réutiliser consolide les acquis.",
+              "question": "Quelle limite des listes isolées est mentionnée ?",
+              "options": {
+                "A": "Elles sont toujours inutiles",
+                "B": "Elles ne suffisent pas toujours pour l’usage en contexte",
+                "C": "Elles empêchent de lire",
+                "D": "Elles ne permettent jamais de mémoriser"
+              },
+              "correctAnswer": "B",
+              "explanation": "Le contexte est nécessaire pour bien employer le vocabulaire.",
+              "level": "C2",
+              "category": "compréhension écrite"
+            },
+            {
+              "id": "CE5-29",
+              "documentId": "T5-DOC10",
+              "documentTitle": "Langues",
+              "document": "Mémoriser des listes de mots isolés peut aider au début, mais ne suffit pas toujours pour employer les mots en contexte. Rencontrer les mêmes expressions dans des situations variées et les réutiliser consolide les acquis.",
+              "question": "Que conseille le texte ?",
+              "options": {
+                "A": "Éviter la répétition",
+                "B": "Réutiliser les expressions dans des situations variées",
+                "C": "Apprendre uniquement des traductions",
+                "D": "Ne jamais écrire"
+              },
+              "correctAnswer": "B",
+              "explanation": "La réutilisation en contexte consolide les acquis.",
+              "level": "C2",
+              "category": "compréhension écrite"
+            },
+            {
+              "id": "CE5-30",
+              "documentId": "T5-DOC10",
+              "documentTitle": "Langues",
+              "document": "Mémoriser des listes de mots isolés peut aider au début, mais ne suffit pas toujours pour employer les mots en contexte. Rencontrer les mêmes expressions dans des situations variées et les réutiliser consolide les acquis.",
+              "question": "Quel est l’objectif final ?",
+              "options": {
+                "A": "Reconnaître seulement les mots",
+                "B": "Savoir les employer dans leur contexte",
+                "C": "Mémoriser un dictionnaire",
+                "D": "Traduire chaque phrase"
+              },
+              "correctAnswer": "B",
+              "explanation": "L’objectif est l’emploi contextualisé.",
+              "level": "C2",
+              "category": "compréhension écrite"
+            }
+          ]
+        }
+      }
+    }
+  ]
+}
