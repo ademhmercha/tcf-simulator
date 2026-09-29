@@ -43,8 +43,10 @@ export interface ImportStats {
   sectionsUpdated: number;
   documentsCreated: number;
   documentsUpdated: number;
+  documentsDeleted: number;
   questionsCreated: number;
   questionsUpdated: number;
+  questionsDeleted: number;
   optionsWritten: number;
   durationMinutes: number;
 }
@@ -57,8 +59,10 @@ function emptyStats(): ImportStats {
     sectionsUpdated: 0,
     documentsCreated: 0,
     documentsUpdated: 0,
+    documentsDeleted: 0,
     questionsCreated: 0,
     questionsUpdated: 0,
+    questionsDeleted: 0,
     optionsWritten: 0,
     durationMinutes: 0,
   };
@@ -326,6 +330,69 @@ export async function importContentFile(
         );
         stats.optionsWritten += OPTION_LABELS.length;
       }
+
+      // --------------------------- Nettoyage ---------------------------
+      // L'import cree ou met a jour, mais ne supprime rien. Sans cette étape,
+      // une reecriture du contenu laisserait les anciennes questions et les
+      // anciens documents en base, ce qui gonflerait les sections au-dela de
+      // leur `questionCount` et proposerait des documents orphelins.
+      const keptQuestionIds = sectionInput.questions
+        .map((question) => question.id)
+        .filter((code): code is string => Boolean(code));
+
+      const staleQuestions = await db.question.findMany({
+        where: {
+          sectionId: section.id,
+          ...(keptQuestionIds.length > 0
+            ? { code: { notIn: keptQuestionIds } }
+            : {}),
+        },
+        select: { id: true, code: true },
+      });
+      if (staleQuestions.length > 0) {
+        // `Option` et `Answer` sont en cascade : ces questions n'etaient plus
+        // dans le contenu, aucune reponse enregistree n'est conservee.
+        await db.question.deleteMany({
+          where: { id: { in: staleQuestions.map((question) => question.id) } },
+        });
+        stats.questionsDeleted += staleQuestions.length;
+        log(
+          `     ${staleQuestions.length} question(s) supprimee(s) : ${
+            staleQuestions.map((question) => question.code).join(", ")
+          }`,
+        );
+      }
+
+      if (sectionInput.type === "COMPREHENSION_ECRITE") {
+        const keptDocumentCodes = [
+          ...new Set(
+            sectionInput.questions.map((question) => question.documentId).filter(Boolean),
+          ),
+        ];
+        const staleDocuments = await db.document.findMany({
+          where: {
+            sectionId: section.id,
+            ...(keptDocumentCodes.length > 0
+              ? { code: { notIn: keptDocumentCodes } }
+              : {}),
+          },
+          select: { id: true, code: true },
+        });
+        if (staleDocuments.length > 0) {
+          // `Question.documentId` est en SetNull : les questions conservees
+          // restent valides, seule leur lecture est reindexee a l'import.
+          await db.document.deleteMany({
+            where: { id: { in: staleDocuments.map((document) => document.id) } },
+          });
+          stats.documentsDeleted += staleDocuments.length;
+          log(
+            `     ${staleDocuments.length} document(s) supprime(s) : ${
+              staleDocuments.map((document) => document.code).join(", ")
+            }`,
+          );
+        }
+      }
+
       log(`     ${sectionInput.type}: ${count} questions`);
     }
   }
