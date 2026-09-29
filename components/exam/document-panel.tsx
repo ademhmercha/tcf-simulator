@@ -10,6 +10,11 @@ import type { DocumentView } from "@/lib/types";
 /**
  * Colonne document de l'epreuve. Sur ecrans larges elle reste visible a cote
  * des questions ; sur mobile elle est repliee derriere un bouton.
+ *
+ * Le panneau ne possede aucune navigation propre : le texte affiche suit
+ * exactement la question courante, comme dans la section de structure de la
+ * langue ou le texte est porte par la question. Un seul « Suivant » pilote
+ * donc simultanement le texte et la question.
  */
 export function DocumentPanel({
   documents,
@@ -21,14 +26,6 @@ export function DocumentPanel({
   const t = useTranslations("exam");
   const tCommon = useTranslations("common");
   const [open, setOpen] = useState(false);
-  const [index, setIndex] = useState(0);
-
-  // Suit la question courante quand celle-ci renvoie vers un autre document.
-  useEffect(() => {
-    if (!activeDocumentId) return;
-    const found = documents.findIndex((document) => document.id === activeDocumentId);
-    if (found >= 0) setIndex(found);
-  }, [activeDocumentId, documents]);
 
   useEffect(() => {
     if (!open) return;
@@ -41,7 +38,11 @@ export function DocumentPanel({
 
   if (documents.length === 0) return null;
 
-  const active = documents[Math.min(index, documents.length - 1)];
+  const index = Math.max(
+    0,
+    documents.findIndex((document) => document.id === activeDocumentId),
+  );
+  const active = documents[index];
   if (!active) return null;
 
   const body = (
@@ -81,29 +82,6 @@ export function DocumentPanel({
       <div className="max-h-[45vh] overflow-y-auto whitespace-pre-wrap rounded-xl border border-border/70 bg-muted/30 p-4 text-sm leading-relaxing lg:max-h-[60vh]">
         {active.content}
       </div>
-
-      {documents.length > 1 ? (
-        <div className="flex items-center justify-between gap-2">
-          <Button
-            type="button"
-            variant="outline"
-            size="sm"
-            disabled={index <= 0}
-            onClick={() => setIndex((value) => Math.max(0, value - 1))}
-          >
-            {tCommon("previous")}
-          </Button>
-          <Button
-            type="button"
-            variant="outline"
-            size="sm"
-            disabled={index >= documents.length - 1}
-            onClick={() => setIndex((value) => Math.min(documents.length - 1, value + 1))}
-          >
-            {tCommon("next")}
-          </Button>
-        </div>
-      ) : null}
     </div>
   );
 
