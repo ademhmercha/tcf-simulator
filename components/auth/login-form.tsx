@@ -93,28 +93,6 @@ export function LoginForm(): React.JSX.Element {
           {t("register")}
         </Link>
       </p>
-
-      <DemoAccountHint />
     </form>
-  );
-}
-
-function DemoAccountHint(): React.JSX.Element {
-  const t = useTranslations("auth");
-
-  return (
-    <div className="rounded-xl border border-dashed border-border bg-surface p-3.5 text-xs">
-      <p className="font-semibold text-foreground">{t("demoHint")}</p>
-      <ul className="mt-2 space-y-1 text-muted-foreground">
-        <li>
-          <code className="font-mono">candidat@tcf-simulator.local</code> /{" "}
-          <code className="font-mono">Candidat!2345</code>
-        </li>
-        <li>
-          <code className="font-mono">admin@tcf-simulator.local</code> /{" "}
-          <code className="font-mono">Admin!2345</code>
-        </li>
-      </ul>
-    </div>
   );
 }

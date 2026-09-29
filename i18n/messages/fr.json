@@ -206,8 +206,6 @@
     "checkEmailTitle": "Verifiez votre boite mail",
     "passwordStrength": "Robustesse du mot de passe",
     "consent": "En creant un compte, vous acceptez d'entrainer votre niveau de francais sur cette plateforme.",
-    "demoHint": "Comptes de demonstration",
-    "useDemo": "Utiliser ce compte",
     "legalNotice": "Plateforme d'entrainement. Les questions ne sont pas issues du TCF officiel."
   },
   "dashboard": {
