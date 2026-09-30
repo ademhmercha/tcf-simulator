@@ -190,15 +190,14 @@ export interface SectionResult {
   title: string;
   /** Nombre de bonnes reponses. */
   score: number;
-  /** Nombre de questions notees. */
+  /** Nombre de questions notees : celui du test complet, meme pour une
+   *  reprise ciblee sur les erreurs (« 2 / 20 »). */
   maxScore: number;
   ratio: number;
   answered: number;
   total: number;
   correct: number;
   flagged: number;
-  /** `null` si la reussite de l'epreuve est sous le palier A1. */
-  level: Level | null;
   durationMinutes: number;
 }
 

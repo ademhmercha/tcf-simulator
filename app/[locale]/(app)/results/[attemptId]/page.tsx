@@ -223,8 +223,10 @@ export default async function ResultsPage({
                   <dd className="font-semibold text-success">{section.correct}</dd>
                 </div>
                 <div>
-                    <dt>{t("answered")}</dt>
-                  <dd className="font-semibold">{section.answered}/{section.total}</dd>
+                  <dt>{t("answered")}</dt>
+                  <dd className="font-semibold">
+                    {section.answered}/{section.total}
+                  </dd>
                 </div>
                 <div>
                   <dt>{t("flagged")}</dt>

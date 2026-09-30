@@ -33,7 +33,26 @@ import {
 
 /** Relations necessaires au calcul d'un resultat. */
 const RESULT_INCLUDE = {
-  test: { select: { id: true, title: true, slug: true } },
+  test: {
+    select: {
+      id: true,
+      title: true,
+      slug: true,
+      // Nombre de questions par epreuve : c'est le denominateur affiche
+      // (« 16 / 20 »), y compris pour une reprise ciblee sur les erreurs.
+      sections: {
+        orderBy: { order: "asc" },
+        select: {
+          id: true,
+          type: true,
+          title: true,
+          order: true,
+          durationMinutes: true,
+          _count: { select: { questions: true } },
+        },
+      },
+    },
+  },
   sectionRuns: { include: { section: true } },
   answers: {
     include: {
@@ -73,7 +92,19 @@ type ResultRow = {
   totalScore: number | null;
   maxScore: number | null;
   cefrLevel: string | null;
-  test: { id: string; title: string; slug: string };
+  test: {
+    id: string;
+    title: string;
+    slug: string;
+    sections: Array<{
+      id: string;
+      type: string;
+      title: string;
+      order: number;
+      durationMinutes: number;
+      _count: { questions: number };
+    }>;
+  };
   sectionRuns: Array<{
     id: string;
     sectionId: string;
@@ -779,6 +810,15 @@ async function loadResultRow(attemptId: string, userId?: string): Promise<Result
 }
 
 function toGradeInput(row: ResultRow): GradeInput {
+  const sections = row.test.sections.map((section) => ({
+    sectionId: section.id,
+    type: section.type,
+    title: section.title,
+    order: section.order,
+    durationMinutes: section.durationMinutes,
+    questionCount: section._count.questions,
+  }));
+
   return {
     attempt: {
       id: row.id,
@@ -787,6 +827,10 @@ function toGradeInput(row: ResultRow): GradeInput {
       finishedAt: row.finishedAt,
       test: row.test,
     },
+    // Une reprise sur les erreurs ne joue qu'une partie des questions : le
+    // bareme doit toutefois rester celui du test complet (« 2 / 20 »).
+    focused: parseFocusedQuestionIds(row.focusedQuestionIds) !== null,
+    sections,
     sectionRuns: row.sectionRuns
       .filter((run) => run.status !== "IN_PROGRESS")
       .map((run) => ({

@@ -139,6 +139,17 @@ export interface GradeInput {
     finishedAt: Date | null;
     test: { id: string; title: string; slug: string };
   };
+  /** `true` pour une reprise ciblee sur les erreurs (voir `retryMistakes`). */
+  focused: boolean;
+  /** Toutes les epreuves du test, avec leur nombre de questions. */
+  sections: Array<{
+    sectionId: string;
+    type: string;
+    title: string;
+    order: number;
+    durationMinutes: number;
+    questionCount: number;
+  }>;
   sectionRuns: Array<{
     sectionId: string;
     type: string;
@@ -184,21 +195,36 @@ export function grade(input: GradeInput): GradeOutput {
   const runsByOrder = [...input.sectionRuns].sort((a, b) => a.order - b.order);
   const sections: SectionResult[] = [];
   const sectionScores = new Map<string, { score: number; maxScore: number }>();
-  const parts = new Map<SectionType, ScorePart>();
+  const parts = new Map<string, ScorePart>();
 
-  for (const run of runsByOrder) {
-    const rows = input.answers.filter((a) => a.question.sectionId === run.sectionId);
-    const type = run.type as SectionType;
+  // Nombre de questions du test pour chaque epreuve : c'est le denominateur
+  // affiche. Pour une reprise sur les erreurs, les questions non retravaillées
+  // comptent comme des erreurs, sinon le resultat afficherait « 2 / 10 » au
+  // lieu de « 2 / 20 ».
+  const totals = new Map(input.sections.map((section) => [section.sectionId, section.questionCount]));
+  const playedSections = new Set(runsByOrder.map((run) => run.sectionId));
+
+  // Une reprise ciblee peut ne porter que sur une epreuve ; l'autre est
+  // ajoutee a zero pour que le bareme reste celui du test complet.
+  const orderedSections = input.focused
+    ? [...input.sections].sort((a, b) => a.order - b.order)
+    : input.sections.filter((section) => playedSections.has(section.sectionId));
+
+  for (const section of orderedSections) {
+    const run = runsByOrder.find((candidate) => candidate.sectionId === section.sectionId);
+    const rows = input.answers.filter((a) => a.question.sectionId === section.sectionId);
+    const type = section.type as SectionType;
 
     const correct = rows.filter((a) => correctIds.has(a.questionId)).length;
-    const total = rows.length;
+    const playedTotal = rows.length;
+    const total = input.focused ? (totals.get(section.sectionId) ?? playedTotal) : playedTotal;
     const answered = rows.filter((a) => a.selectedOptionId !== null).length;
     const flagged = rows.filter((a) => a.flagged).length;
     const ratio = total === 0 ? 0 : correct / total;
 
     // `score` designe ici le nombre de bonnes reponses, sur `maxScore`
     // questions : c'est ce que l'ecran affiche (« 16 / 20 »).
-    sectionScores.set(run.sectionId, { score: correct, maxScore: total });
+    if (run) sectionScores.set(section.sectionId, { score: correct, maxScore: total });
 
     const existing = parts.get(type);
     parts.set(
@@ -207,9 +233,9 @@ export function grade(input: GradeInput): GradeOutput {
     );
 
     sections.push({
-      sectionId: run.sectionId,
+      sectionId: section.sectionId,
       type,
-      title: run.title,
+      title: section.title,
       score: correct,
       maxScore: total,
       ratio,
@@ -217,8 +243,7 @@ export function grade(input: GradeInput): GradeOutput {
       total,
       correct,
       flagged,
-      level: total > 0 ? scoreToLevel(ratio * SCORE_MAX) : null,
-      durationMinutes: run.durationMinutes,
+      durationMinutes: section.durationMinutes,
     });
   }
 
@@ -289,11 +314,27 @@ export function buildAttemptResult(input: GradeInput, output: GradeOutput): Atte
 
 export type AttemptWithAnswers = Prisma.AttemptGetPayload<{
   include: {
-    test: { select: { id: true; title: true; slug: true } };
+    test: {
+      select: {
+        id: true;
+        title: true;
+        slug: true;
+        sections: {
+          select: {
+            id: true;
+            type: true;
+            title: true;
+            order: true;
+            durationMinutes: true;
+            _count: { select: { questions: true } };
+          };
+        };
+      };
+    };
     sectionRuns: { include: { section: true } };
     answers: {
       include: {
-        question: { include: { options: true; document: true; section: true } };
+        question: { include: { options: true, document: true, section: true } };
       };
     };
   };
