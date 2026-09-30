@@ -16,6 +16,7 @@ import {
   Timer,
 } from "lucide-react";
 
+import { HeroBackdrop } from "@/components/marketing/hero-backdrop";
 import { TestCard } from "@/components/tests/test-card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -52,8 +53,9 @@ export default async function HomePage({
   return (
     <>
       {/* ------------------------------- Hero ------------------------------ */}
-      <section className="relative overflow-hidden">
-        <div className="hero-grid absolute inset-0 -z-10" aria-hidden />
+      <section className="relative isolate overflow-hidden">
+        <HeroBackdrop src="/images/hero-paris.jpg" />
+        <div className="hero-grid absolute inset-0 -z-10 opacity-70" aria-hidden />
         <div
           className="hero-aurora animate-aurora-pan pointer-events-none absolute -inset-1/4 -z-10 opacity-70"
           aria-hidden

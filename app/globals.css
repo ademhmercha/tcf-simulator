@@ -184,6 +184,36 @@
     @apply border border-white/60 bg-white/70 backdrop-blur-xl dark:border-white/10 dark:bg-white/5;
   }
 
+  /*
+   * Photo de fond du hero, en Ken Burns.
+   *
+   * Zoom lent et continu, avec une legere derive diagonale pour que le
+   * mouvement ne soit pas percu comme un simple grossissement. La duree est
+   * volontairement tres longue (32 s) et l'oscillation est douce : au-dela,
+   * l'oeil cesse de remarquer le mouvement, et l'image parait etre aussi
+   * immobile qu'une photo, sans jamais etre figee.
+   *
+   * Seule la transformation est animee, ce qui permet de la deleguer au
+   * compositeur et de la laisser tourner cote GPU, y compris quand l'onglet
+   * passe en arriere-plan.
+   *
+   * La preference « moins d'animations » est traitee plus bas dans ce fichier :
+   * l'animation se joue alors une seule fois et l'image reste immobile.
+   */
+  .hero-photo {
+    animation: hero-photo 32s cubic-bezier(0.45, 0, 0.55, 1) infinite alternate;
+    will-change: transform;
+  }
+
+  @keyframes hero-photo {
+    from {
+      transform: scale(1.05) translate3d(-0.8%, -0.6%, 0);
+    }
+    to {
+      transform: scale(1.15) translate3d(0.8%, 0.6%, 0);
+    }
+  }
+
   /* Halos animes derriere le hero : deux degrades qui glissent en boucle. */
   .hero-aurora {
     background-image:

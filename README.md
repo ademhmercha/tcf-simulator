@@ -75,8 +75,37 @@ npm run import:tests   # importe data/*.json
 npm run import:csv     # importe un CSV
 npm run export:csv     # export CSV
 npm run admin:create   # crée un administrateur
-npm run icons:generate # régénère les icônes PWA
+npm run icons:generate # régénère logo, favicon et icônes PWA
+npm run assets:hero    # prépare la photo de fond du hero
 ```
+
+## Identité visuelle
+
+`logo.png` (racine du dépôt) est l'unique source du logo. Il n'est pas utilisé
+tel quel : le fichier est un carré de 1254 px dont le dessin n'occupe que 20 %
+de la surface, le reste étant transparent.
+
+```bash
+npm run icons:generate
+```
+
+Recadre les marges, puis produit :
+
+- `public/brand/logo.png` — logo served dans l'interface, via
+  `components/layout/brand-logo.tsx` (en-tête, pied de page, écrans de
+  connexion) ;
+- `public/favicon.ico` — icône multi-résolution 16/32/48 px ;
+- `public/icons/*.png` — icônes d'installation PWA, dont une version
+  `maskable` qui reçoit un fond opaque, Android rognant les icônes en forme.
+
+Le dessin est bleu marine foncé : sur fond clair il se suffit à lui-même, un
+cartouche blanc est ajouté en mode sombre via la classe `dark:bg-white`.
+
+La photo de fond du hero suit la même logique : `paris4k.jpg` (racine) est
+préparée par `npm run assets:hero`, qui l'agrandit au filtre Lanczos et y cuit
+un flou léger. Ce flou n'est pas fait en CSS : combiné à une animation
+`transform`, un `filter: blur()` se recalculerait à chaque image sur une couche
+de la taille de l'écran.
 
 ## PWA
 

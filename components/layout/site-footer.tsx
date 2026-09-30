@@ -1,6 +1,6 @@
 import { getTranslations } from "next-intl/server";
-import { GraduationCap } from "lucide-react";
 
+import { BrandLogo } from "@/components/layout/brand-logo";
 import { Link } from "@/i18n/navigation";
 import { siteConfig } from "@/config/site";
 
@@ -25,9 +25,7 @@ export async function SiteFooter(): Promise<React.JSX.Element> {
         <div className="grid gap-10 md:grid-cols-[1.5fr_1fr_1fr]">
           <div className="space-y-4">
             <Link href="/" className="flex items-center gap-2 font-display font-extrabold">
-              <span className="flex size-9 items-center justify-center rounded-xl bg-primary text-primary-foreground">
-                <GraduationCap className="size-5" aria-hidden />
-              </span>
+              <BrandLogo className="h-9" imageClassName="h-7" />
               {siteConfig.name}
             </Link>
             <p className="max-w-sm text-sm leading-relaxed text-muted-foreground">

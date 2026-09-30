@@ -1,5 +1,4 @@
-import { GraduationCap } from "lucide-react";
-
+import { BrandLogo } from "@/components/layout/brand-logo";
 import { ThemeToggleButton } from "@/components/theme-toggle";
 import { Link } from "@/i18n/navigation";
 import { siteConfig } from "@/config/site";
@@ -12,9 +11,7 @@ export default function AuthLayout({ children }: { children: React.ReactNode }):
       <header className="border-b border-border/70">
         <div className="container flex h-16 items-center justify-between">
           <Link href="/" className="flex items-center gap-2 font-display font-extrabold">
-            <span className="flex size-9 items-center justify-center rounded-xl bg-primary text-primary-foreground">
-              <GraduationCap className="size-5" aria-hidden />
-            </span>
+            <BrandLogo priority className="h-9" imageClassName="h-7" />
             <span className="hidden sm:inline">{siteConfig.name}</span>
           </Link>
           <ThemeToggleButton />

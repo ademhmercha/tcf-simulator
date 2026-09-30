@@ -1,6 +1,6 @@
 import { getTranslations } from "next-intl/server";
-import { GraduationCap } from "lucide-react";
 
+import { BrandLogo } from "@/components/layout/brand-logo";
 import { MobileNav } from "@/components/layout/mobile-nav";
 import { ThemeToggleButton } from "@/components/theme-toggle";
 import { UserMenu } from "@/components/layout/user-menu";
@@ -40,9 +40,7 @@ export async function SiteHeader(): Promise<React.JSX.Element> {
           href="/"
           className="flex shrink-0 items-center gap-2 font-display text-[0.95rem] font-extrabold tracking-tight"
         >
-          <span className="flex size-9 items-center justify-center rounded-xl bg-primary text-primary-foreground shadow-soft">
-            <GraduationCap className="size-5" aria-hidden />
-          </span>
+          <BrandLogo priority className="h-9" imageClassName="h-7" />
           <span className="hidden sm:inline">{siteConfig.name}</span>
         </Link>
 

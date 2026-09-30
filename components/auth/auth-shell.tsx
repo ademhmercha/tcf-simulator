@@ -1,6 +1,7 @@
 import { getTranslations } from "next-intl/server";
-import { GraduationCap, ShieldCheck } from "lucide-react";
+import { ShieldCheck } from "lucide-react";
 
+import { BrandLogo } from "@/components/layout/brand-logo";
 import { siteConfig } from "@/config/site";
 
 export async function AuthShell({
@@ -18,9 +19,7 @@ export async function AuthShell({
     <div className="container flex min-h-[calc(100dvh-4rem)] items-center justify-center py-12">
       <div className="w-full max-w-md">
         <div className="mb-8 flex flex-col items-center text-center">
-          <span className="flex size-12 items-center justify-center rounded-2xl bg-primary text-primary-foreground shadow-medium">
-            <GraduationCap className="size-6" aria-hidden />
-          </span>
+          <BrandLogo className="h-14" imageClassName="h-12" />
           <h1 className="mt-5 text-2xl font-extrabold">{title}</h1>
           <p className="mt-2 text-sm text-muted-foreground">{subtitle}</p>
         </div>
