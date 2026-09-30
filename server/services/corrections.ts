@@ -1,4 +1,5 @@
-import { isSectionType, levelIndex, type Level } from "@/config/enums";
+import { isSectionType } from "@/config/enums";
+import { examConfig } from "@/config/site";
 import { unstable_cache } from "next/cache";
 import { prisma } from "@/lib/db";
 import type {
@@ -120,13 +121,11 @@ export async function getTestCorrection(slug: string): Promise<TestCorrection | 
         id: question.id,
         number: question.number,
         prompt: question.prompt,
-        level: question.level as Level,
         category: question.category,
         points: question.points,
         explanation: question.explanation,
         sectionId: section.id,
         sectionType,
-        documentCode: question.document?.code ?? null,
         documentTitle: question.document?.title ?? null,
         documentContent: question.document?.content ?? null,
         options,
@@ -145,9 +144,6 @@ export async function getTestCorrection(slug: string): Promise<TestCorrection | 
   });
 
   const all = sections.flatMap((section) => section.questions);
-  const levels = [...new Set(all.map((question) => question.level))].sort(
-    (a, b) => levelIndex(a) - levelIndex(b),
-  );
 
   return {
     id: test.id,
@@ -155,9 +151,8 @@ export async function getTestCorrection(slug: string): Promise<TestCorrection | 
     title: test.title,
     description: test.description,
     order: test.order,
-    durationMinutes: sections.reduce((sum, section) => sum + section.durationMinutes, 0),
+    durationMinutes: examConfig.totalDurationMinutes,
     questionCount: all.length,
-    levels,
     sections,
   };
 }
@@ -178,11 +173,8 @@ export async function getCorrectionsIndex(
     description: test.description,
     order: test.order,
     questionCount: test.questionCount,
-    durationMinutes:
-      test.durationMinutes ??
-      test.sections.reduce((sum, section) => sum + section.durationMinutes, 0),
+    durationMinutes: examConfig.totalDurationMinutes,
     sectionCount: test.sections.length,
-    levels: test.levels,
     attemptCount: test.attemptCount,
     bestTotalScore: test.bestTotalScore,
     bestMaxScore: test.bestMaxScore,

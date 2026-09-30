@@ -4,11 +4,15 @@ import { useId } from "react";
 import { useTranslations } from "next-intl";
 import { Flag, Star } from "lucide-react";
 
-import { LevelBadge } from "@/components/ui/badge";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import type { ExamQuestion } from "@/lib/types";
 
-/** Carte de la question courante : consigne, options, marqueur de relecture. */
+/**
+ * Carte de la question courante : consigne, options, marqueur de relecture.
+ *
+ * Aucun niveau CECRL n'est affiche ni recu : la difficulte d'une question doit
+ * rester inconnue du candidat pendant toute l'epreuve.
+ */
 export function QuestionCard({
   question,
   onSelect,
@@ -24,12 +28,9 @@ export function QuestionCard({
   return (
     <article className="space-y-6">
       <header className="flex flex-wrap items-start justify-between gap-4">
-        <div className="space-y-2">
-          <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
-            {t("question")} {question.number}
-          </p>
-          <LevelBadge level={question.level} size="sm" />
-        </div>
+        <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+          {t("question")} {question.number}
+        </p>
 
         <button
           type="button"

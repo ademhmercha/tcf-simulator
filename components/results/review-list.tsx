@@ -11,7 +11,7 @@ import {
   XCircle,
 } from "lucide-react";
 
-import { LevelBadge } from "@/components/ui/badge";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import type { ReviewQuestion } from "@/lib/types";
@@ -117,7 +117,6 @@ export function ReviewList({ questions }: { questions: ReviewQuestion[] }): Reac
                     <span className="text-xs font-semibold uppercase text-muted-foreground">
                       {t("reviewTitle")} {question.number}
                     </span>
-                    <LevelBadge level={question.level} size="sm" />
                     {question.flagged ? (
                       <Flag className="size-3.5 text-warning" aria-label={t("flagged")} />
                     ) : null}

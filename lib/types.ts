@@ -28,7 +28,6 @@ export interface TestSummary {
   order: number;
   durationMinutes: number | null;
   questionCount: number;
-  levels: Level[];
   sections: SectionSummary[];
   attemptCount: number;
   bestTotalScore: number | null;
@@ -43,7 +42,6 @@ export interface TestSummary {
 
 export interface DocumentView {
   id: string;
-  code: string;
   title: string;
   content: string;
   imageUrl: string | null;
@@ -60,7 +58,7 @@ export interface ExamQuestion {
   id: string;
   number: number;
   prompt: string;
-  level: Level;
+  /** Pas de `level` : la difficulte CECRL ne doit jamais atteindre le client. */
   points: number;
   documentId: string | null;
   category: string | null;
@@ -100,7 +98,6 @@ export interface ReviewQuestion {
   id: string;
   number: number;
   prompt: string;
-  level: Level;
   category: string | null;
   points: number;
   explanation: string;
@@ -132,13 +129,11 @@ export interface CorrectionQuestion {
   id: string;
   number: number;
   prompt: string;
-  level: Level;
   category: string | null;
   points: number;
   explanation: string;
   sectionId: string;
   sectionType: SectionOrder;
-  documentCode: string | null;
   documentTitle: string | null;
   documentContent: string | null;
   options: CorrectionOption[];
@@ -163,7 +158,6 @@ export interface TestCorrection {
   /** Somme des durees des epreuves. */
   durationMinutes: number;
   questionCount: number;
-  levels: Level[];
   sections: CorrectionSection[];
 }
 
@@ -177,19 +171,12 @@ export interface CorrectionIndexEntry {
   questionCount: number;
   durationMinutes: number;
   sectionCount: number;
-  levels: Level[];
   attemptCount: number;
   bestTotalScore: number | null;
   bestMaxScore: number | null;
   bestLevel: Level | null;
 }
 
-export interface LevelStat {
-  level: Level;
-  total: number;
-  correct: number;
-  ratio: number;
-}
 export interface CategoryStat {
   category: string;
   total: number;
@@ -201,13 +188,16 @@ export interface SectionResult {
   sectionId: string;
   type: SectionOrder;
   title: string;
+  /** Nombre de bonnes reponses. */
   score: number;
+  /** Nombre de questions notees. */
   maxScore: number;
   ratio: number;
   answered: number;
   total: number;
   correct: number;
   flagged: number;
+  /** `null` si la reussite de l'epreuve est sous le palier A1. */
   level: Level | null;
   durationMinutes: number;
 }
@@ -220,14 +210,21 @@ export interface AttemptResult {
   status: string;
   startedAt: string;
   finishedAt: string | null;
+  /** Score simule sur l'echelle 0-699. */
   totalScore: number;
   maxScore: number;
-  structureScore: number | null;
-  comprehensionScore: number | null;
+  structureCorrect: number | null;
+  structureTotal: number | null;
+  comprehensionCorrect: number | null;
+  comprehensionTotal: number | null;
+  /** Pourcentage final, entre 0 et 1. */
+  scorePercentage: number;
+  /** Points manquants pour le palier suivant, 0 au sommet. */
+  missingToNextLevel: number;
+  /** `null` sous 100 points : A1 non atteint. */
   cefrLevel: Level | null;
   scoringProfile: string | null;
   sections: SectionResult[];
-  byLevel: LevelStat[];
   byCategory: CategoryStat[];
   review: ReviewQuestion[];
   totalTimeSec: number;
@@ -246,8 +243,8 @@ export interface AttemptSummary {
   finishedAt: string | null;
   totalScore: number | null;
   maxScore: number | null;
-  structureScore: number | null;
-  comprehensionScore: number | null;
+  structureCorrect: number | null;
+  comprehensionCorrect: number | null;
   cefrLevel: Level | null;
   totalTimeSec: number;
 }

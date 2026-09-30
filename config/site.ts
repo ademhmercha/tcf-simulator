@@ -17,8 +17,20 @@ export const siteConfig = {
 } as const;
 
 export const examConfig = {
-  /** Durees par defaut, en minutes. Surchargeables par Section.durationMinutes en base. */
-  defaultDurationMinutes: {
+  /**
+   * Budget de temps de la tentative, en minutes.
+   *
+   * Un SEUL chronometre couvre l'ensemble du test : les deux epreuves se
+   * partagent cette duree globale, elle ne repart pas a zero entre la
+   * Structure et la Comprehension ecrite.
+   */
+  totalDurationMinutes: 60,
+  /**
+   * Duree indicative par epreuve, en minutes. Decrit le volume de contenu et
+   * sert de recommandation de travail dans les corriges ; elle ne pilote pas le
+   * chronometre, qui est global (voir `totalDurationMinutes`).
+   */
+  recommendedSectionMinutes: {
     STRUCTURE: 20,
     COMPREHENSION_ECRITE: 60,
   } as const,

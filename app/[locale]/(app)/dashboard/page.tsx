@@ -211,11 +211,6 @@ export default async function DashboardPage({
                 <CardContent className="flex h-full flex-col gap-4 p-5">
                   <div className="space-y-2">
                     <h3 className="font-display text-base font-bold">{test.title}</h3>
-                    <div className="flex flex-wrap gap-1.5">
-                      {test.levels.map((level) => (
-                        <LevelBadge key={level} level={level} size="sm" />
-                      ))}
-                    </div>
                   </div>
 
                   <dl className="flex gap-4 text-xs text-muted-foreground">

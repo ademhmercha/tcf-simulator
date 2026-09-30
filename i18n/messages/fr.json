@@ -74,7 +74,6 @@
     "stats": {
       "tests": "tests complets",
       "questions": "questions originales",
-      "levels": "niveaux CECRL couverts",
       "explanation": "explication par question"
     },
     "features": {
@@ -97,22 +96,21 @@
     "exam": {
       "eyebrow": "Le format",
       "title": "Deux epreuves, comme le TCF",
-      "subtitle": "Chaque epreuve est chronometree separement. Vous avancez question par question.",
+      "subtitle": "Un chronomètre unique de 60 minutes pour les deux épreuves. Vous avancez question par question.",
       "structureTitle": "Structure de la langue",
       "structureBody": "Grammaire, vocabulaire, morphologie : completer la phrase avec la forme correcte.",
-      "structureMeta": "20 questions - 20 minutes",
+      "structureMeta": "20 questions",
       "comprehensionTitle": "Comprehension ecrite",
       "comprehensionBody": "Annonces, courriels, articles, notices : lire un document puis repondre a ses questions.",
-      "comprehensionMeta": "30 questions - 60 minutes",
+      "comprehensionMeta": "30 questions",
       "badgeA": "4 propositions",
-      "badgeB": "1 seule bonne reponse",
-      "badgeC": "A1 → C2"
+      "badgeB": "1 seule bonne reponse"
     },
     "howItWorks": {
       "eyebrow": "En trois etapes",
       "title": "Comment ca marche",
       "step1Title": "Choisissez un test",
-      "step1Body": "5 tests de 50 questions, du niveau A1 au niveau C2, avec une difficulte progressive.",
+      "step1Body": "5 tests de 50 questions, avec une difficulte progressive.",
       "step2Title": "Passez l'examen",
       "step2Body": "Chronometre, grille de navigation, marquage pour revision, sauvegarde a chaque clic.",
       "step3Title": "Analysez vos erreurs",
@@ -153,9 +151,9 @@
       "q3": "Que se passe-t-il si je perds ma connexion ?",
       "a3": "Vos reponses sont deja enregistrees cote serveur. Des le retour du reseau, la sauvegarde reprend. Le chronometre, lui, reste autoritaire cote serveur.",
       "q4": "Puis-je interrompre un test et le reprendre plus tard ?",
-      "a4": "Oui. Chaque euvre a son propre chronometre. Si vous fermez la page, vous retrouverez la tentative en cours avec le temps restant exact, a condition de ne pas avoir depasse la duree de l'epreuve.",
+      "a4": "Oui. Le chronomètre est unique et couvre les deux épreuves. Si vous fermez la page, vous retrouverez la tentative en cours avec le temps restant exact, tant que les 60 minutes ne sont pas écoulées.",
       "q5": "Combien de temps dure un test complet ?",
-      "a5": "80 minutes au total : 20 minutes pour la structure de la langue (20 questions) et 60 minutes pour la comprehension ecrite (30 questions).",
+      "a5": "60 minutes au total pour l'ensemble du test : structure de la langue (20 questions) et compréhension écrite (30 questions).",
       "q6": "Faut-il creer un compte ?",
       "a6": "Oui, un compte est necessaire pour conserver vos resultats, votre historique et votre courbe de progression. Vous pouvez aussi vous connecter avec Google."
     },
@@ -220,7 +218,7 @@
     "startTest": "Commencer",
     "viewResults": "Voir les resultats",
     "availableTests": "Tests disponibles",
-    "availableTestsSub": "Progression de la difficulte, de A1 a C2",
+    "availableTestsSub": "5 tests blancs, du plus accessible au plus exigeant",
     "completedTests": "Tests termines",
     "recentAttempts": "Dernieres tentatives",
     "progression": "Progression",
@@ -247,8 +245,8 @@
     "instructionsTitle": "Consignes",
     "rulesTitle": "Regles de l'epreuve",
     "rules": {
-      "timer": "Le chronometre de chaque epreuve est lance des que vous cliquez sur « Commencer ». Il ne peut pas etre pause.",
-      "auto": "A la fin du temps, l'epreuve est automatiquement soumise.",
+      "timer": "Le chronomètre démarre dès que vous cliquez sur « Commencer ». Il couvre les deux épreuves et ne peut pas être mis en pause.",
+      "auto": "À la fin du temps, votre tentative est automatiquement soumise.",
       "one": "Une seule reponse par question. Une reponse non donnee compte comme fausse.",
       "flag": "Vous pouvez marquer des questions pour revision et y revenir librement.",
       "save": "Vos reponses sont enregistrees automatiquement, meme en cas de coupure du reseau.",
@@ -264,12 +262,15 @@
     "testNotFound": "Test introuvable",
     "testNotFoundBody": "Ce test n'existe pas ou n'est pas encore publie.",
     "documentsCount": "{count} documents",
-    "levelRange": "Niveaux {min} a {max}",
     "alreadyAttempted": "Deja realise",
     "attemptCount": "{count} tentatives",
     "bestResult": "Meilleur resultat : {score}/{max} ({level})",
     "resumeAttempt": "Reprendre la tentative en cours",
-    "resumeHint": "Il vous reste {time} sur cette epreuve."
+    "resumeHint": "Il vous reste {time} sur l'ensemble du test.",
+    "sharedTimer": "Les deux épreuves se partagent le même chronomètre de {minutes} minutes.",
+    "duration": "Durée : {minutes} min",
+    "recommendedDuration": "Durée conseillée pour cette épreuve : {minutes} min",
+    "questionCount": "{count, plural, one {# question} other {# questions}}"
   },
   "corrections": {
     "indexEyebrow": "Corrigés",
@@ -283,7 +284,6 @@
     "alreadyAttempted": "{count, plural, one {# tentative au compte} other {# tentatives au compte}}",
     "warning": "Consultez ce corrigé après avoir terminé le test : le lire avant transforme l'entraînement en copier-coller et ne vous fait plus progresser.",
     "search": "Rechercher dans le corrigé",
-    "filterAll": "Tous les niveaux",
     "showAll": "Tout déplier",
     "hideAll": "Tout replier",
     "correctAnswer": "Bonne réponse",
@@ -358,17 +358,16 @@
     "title": "Vos resultats",
     "subtitle": "Test {test} - {date}",
     "congratulations": "Bravo, vous avez termine le test",
-    "yourLevel": "Niveau estime",
+    "yourLevel": "Niveau estimé",
     "yourScore": "Score global",
     "overall": "Global",
     "structure": "Structure de la langue",
     "comprehension": "Comprehension ecrite",
     "breakdown": "Detail par epreuve",
-    "byDifficulty": "Reussite par niveau de difficulte",
     "byCategory": "Reussite par theme",
     "byDocument": "Reussite par document",
     "radar": "Profil de competences",
-    "radarSub": "Reussite moyenne par niveau CECRL",
+    "radarSub": "Reussite moyenne par theme",
     "timeAnalysis": "Analyse du temps",
     "totalTime": "Temps total",
     "avgTime": "Temps moyen / question",
@@ -405,7 +404,7 @@
     "print": "Imprimer",
     "noResults": "Aucun resultat",
     "levelExplanation": "Comment ce niveau est calcule",
-    "levelExplanationBody": "Votre niveau est la valeur la plus basse entre vos deux epreuves, obtenue avec un bareme d'entrainement approximatif. Il ne s'agit pas du bareme officiel du TCF.",
+    "levelExplanationBody": "Votre score est la moyenne des deux pourcentages de réussite, convertie sur l'échelle de 699 points du TCF : (16/20 + 21/30) / 2 = 75 %, soit 524/699. Il s'agit d'un barème d'entraînement à but pédagogique, pas du barème officiel.",
     "nextLevel": "Niveau suivant",
     "pointsToNext": "{count} point(s) pour atteindre {level}",
     "topLevel": "Niveau maximal atteint",
@@ -425,7 +424,14 @@
     "regression": "-{count} pts vs tentative precedente",
     "sameAsPrevious": "Score identique a la tentative precedente",
     "spendMoreTime": "Les questions les plus lentes sont celles ou vous hesitez le plus.",
-    "spendMoreTimeBody": "Lire l'explication de ces questions permet de lever le doute et d'eviter de repeter l'erreur."
+    "spendMoreTimeBody": "Lire l'explication de ces questions permet de lever le doute et d'eviter de repeter l'erreur.",
+    "summary": "Résultat du test",
+    "languageMastery": "Maîtrise de la langue",
+    "writtenComprehension": "Compréhension écrite",
+    "estimatedScore": "Score estimé",
+    "timeUsed": "Temps utilisé",
+    "levelNotReached": "A1 non atteint",
+    "disclaimer": "Ce résultat est une estimation à des fins d'entraînement et ne constitue pas un score TCF officiel."
   },
   "history": {
     "title": "Historique",
@@ -745,13 +751,5 @@
       "contactTitle": "Nous contacter",
       "contactBody": "Pour toute question relative à ces conditions d'utilisation, utilisez le formulaire de contact indiqué sur la page d'accueil."
     }
-  },
-  "level": {
-    "A1": "Decouverte",
-    "A2": "Elementaire",
-    "B1": "Autonomie",
-    "B2": "Independant",
-    "C1": "Maitrise",
-    "C2": "Expert"
   }
 }

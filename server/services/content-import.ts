@@ -158,9 +158,9 @@ export async function importContentFile(
   const stats = emptyStats();
   const startOrder = options.startOrder ?? 1;
 
-  const structureDuration = options.structureDuration ?? examConfig.defaultDurationMinutes.STRUCTURE;
+  const structureDuration = options.structureDuration ?? examConfig.recommendedSectionMinutes.STRUCTURE;
   const comprehensionDuration =
-    options.comprehensionDuration ?? examConfig.defaultDurationMinutes.COMPREHENSION_ECRITE;
+    options.comprehensionDuration ?? examConfig.recommendedSectionMinutes.COMPREHENSION_ECRITE;
 
   for (const [testIndex, test] of content.tests.entries()) {
     const order = startOrder + testIndex;
@@ -178,7 +178,8 @@ export async function importContentFile(
       description: test.description || null,
       order,
       isPublished: options.publish ?? false,
-      durationMinutes: structureDuration + comprehensionDuration,
+      // Budget global du chronometre ; les durees par epreuve restent indicatives.
+      durationMinutes: examConfig.totalDurationMinutes,
     };
 
     const savedTest = existingTest
@@ -483,8 +484,8 @@ async function importCsvRowsIntoContent(
       const duration =
         sectionRows.find((r) => r.duration_minutes)?.duration_minutes ??
         (sectionType === "STRUCTURE"
-          ? examConfig.defaultDurationMinutes.STRUCTURE
-          : examConfig.defaultDurationMinutes.COMPREHENSION_ECRITE);
+          ? examConfig.recommendedSectionMinutes.STRUCTURE
+          : examConfig.recommendedSectionMinutes.COMPREHENSION_ECRITE);
 
       const existingSection = await db.section.findFirst({
         where: { testId: savedTest.id, type: sectionType },

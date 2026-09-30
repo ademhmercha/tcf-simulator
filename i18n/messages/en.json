@@ -74,7 +74,6 @@
     "stats": {
       "tests": "complete tests",
       "questions": "original questions",
-      "levels": "CEFR levels covered",
       "explanation": "explanations per question"
     },
     "features": {
@@ -97,22 +96,21 @@
     "exam": {
       "eyebrow": "The format",
       "title": "Two modules, like the TCF",
-      "subtitle": "Each module is timed separately. You move forward one question at a time.",
+      "subtitle": "A single 60-minute timer covers both modules. You move forward one question at a time.",
       "structureTitle": "Language structure",
       "structureBody": "Grammar, vocabulary, morphology: complete the sentence with the correct form.",
-      "structureMeta": "20 questions - 20 minutes",
+      "structureMeta": "20 questions",
       "comprehensionTitle": "Reading comprehension",
       "comprehensionBody": "Notices, emails, articles, leaflets: read a document then answer its questions.",
-      "comprehensionMeta": "30 questions - 60 minutes",
+      "comprehensionMeta": "30 questions",
       "badgeA": "4 options",
-      "badgeB": "1 correct answer",
-      "badgeC": "A1 to C2"
+      "badgeB": "1 correct answer"
     },
     "howItWorks": {
       "eyebrow": "In three steps",
       "title": "How it works",
       "step1Title": "Pick a test",
-      "step1Body": "5 tests of 50 questions, from A1 to C2, with progressive difficulty.",
+      "step1Body": "5 tests of 50 questions, with progressive difficulty.",
       "step2Title": "Take the exam",
       "step2Body": "Timer, navigation grid, flag for review, saved on every click.",
       "step3Title": "Analyse your mistakes",
@@ -153,9 +151,9 @@
       "q3": "What happens if I lose my connection?",
       "a3": "Your answers are already stored server-side. Saving resumes as soon as the connection is back. The timer, however, stays authoritative on the server.",
       "q4": "Can I pause a test and resume later?",
-      "a4": "Yes. Each module has its own timer. If you close the page you will find the in-progress attempt with the exact remaining time, as long as the module duration has not elapsed.",
+      "a4": "Yes. The timer is unique and covers both modules. If you close the page you will find the in-progress attempt with the exact remaining time, as long as the 60 minutes have not elapsed.",
       "q5": "How long does a full test take?",
-      "a5": "80 minutes in total: 20 minutes for language structure (20 questions) and 60 minutes for reading comprehension (30 questions).",
+      "a5": "60 minutes for the whole test: language structure (20 questions) and reading comprehension (30 questions).",
       "q6": "Do I need an account?",
       "a6": "Yes, an account is needed to keep your results, history and progress curve. You can also sign in with Google."
     },
@@ -220,7 +218,7 @@
     "startTest": "Start",
     "viewResults": "View results",
     "availableTests": "Available tests",
-    "availableTestsSub": "Progressive difficulty, from A1 to C2",
+    "availableTestsSub": "5 mock tests, from the most accessible to the most demanding",
     "completedTests": "Completed tests",
     "recentAttempts": "Recent attempts",
     "progression": "Progression",
@@ -247,8 +245,8 @@
     "instructionsTitle": "Instructions",
     "rulesTitle": "Exam rules",
     "rules": {
-      "timer": "Each module timer starts when you click Start. It cannot be paused.",
-      "auto": "When time runs out, the module is submitted automatically.",
+      "timer": "The timer starts when you click Start. It covers both modules and cannot be paused.",
+      "auto": "When time runs out, your attempt is submitted automatically.",
       "one": "One answer per question. An unanswered question counts as wrong.",
       "flag": "You can flag questions for review and come back to them freely.",
       "save": "Your answers are saved automatically, even if the connection drops.",
@@ -264,12 +262,15 @@
     "testNotFound": "Test not found",
     "testNotFoundBody": "This test does not exist or is not published yet.",
     "documentsCount": "{count} documents",
-    "levelRange": "Levels {min} to {max}",
     "alreadyAttempted": "Already taken",
     "attemptCount": "{count} attempts",
     "bestResult": "Best result: {score}/{max} ({level})",
     "resumeAttempt": "Resume the current attempt",
-    "resumeHint": "{time} left on this module."
+    "resumeHint": "{time} left for the whole test.",
+    "sharedTimer": "Both modules share the same {minutes}-minute timer.",
+    "duration": "Duration: {minutes} min",
+    "recommendedDuration": "Recommended time for this module: {minutes} min",
+    "questionCount": "{count, plural, one {# question} other {# questions}}"
   },
   "corrections": {
     "indexEyebrow": "Answer keys",
@@ -283,7 +284,6 @@
     "alreadyAttempted": "{count, plural, one {# attempt so far} other {# attempts so far}}",
     "warning": "Read this answer key after finishing the test: reading it beforehand turns training into copy-paste and stops you from making progress.",
     "search": "Search the answer key",
-    "filterAll": "All levels",
     "showAll": "Expand all",
     "hideAll": "Collapse all",
     "correctAnswer": "Correct answer",
@@ -296,6 +296,7 @@
     "comprehension": "Reading comprehension",
     "question": "Question",
     "questionOf": "Question {current} of {total}",
+    "answeredOf": "{index} answer(s) out of {total}",
     "answered": "Answered",
     "unanswered": "Unanswered",
     "flagged": "Flagged",
@@ -363,11 +364,10 @@
     "structure": "Language structure",
     "comprehension": "Reading comprehension",
     "breakdown": "Breakdown by module",
-    "byDifficulty": "Success rate by difficulty level",
     "byCategory": "Success rate by topic",
     "byDocument": "Success rate by document",
     "radar": "Skill profile",
-    "radarSub": "Average success rate per CEFR level",
+    "radarSub": "Average success rate per topic",
     "timeAnalysis": "Time analysis",
     "totalTime": "Total time",
     "avgTime": "Average time / question",
@@ -403,7 +403,7 @@
     "print": "Print",
     "noResults": "No results",
     "levelExplanation": "How this level is computed",
-    "levelExplanationBody": "Your level is the lower of your two module levels, obtained with an approximate practice scale. This is not the official TCF scale.",
+    "levelExplanationBody": "Your score is the average of your two success percentages, converted onto the TCF 699-point scale: (16/20 + 21/30) / 2 = 75%, i.e. 524/699. This is a training scale for learning purposes, not the official one.",
     "nextLevel": "Next level",
     "pointsToNext": "{count} point(s) to reach {level}",
     "topLevel": "Highest level reached",
@@ -423,7 +423,15 @@
     "regression": "-{count} pts vs previous attempt",
     "sameAsPrevious": "Same score as the previous attempt",
     "spendMoreTime": "The slowest questions are the ones where you hesitate most.",
-    "spendMoreTimeBody": "Reading the explanation of those questions clears up the doubt and prevents repeating the mistake."
+    "spendMoreTimeBody": "Reading the explanation of those questions clears up the doubt and prevents repeating the mistake.",
+    "summary": "Test result",
+    "languageMastery": "Language mastery",
+    "writtenComprehension": "Written comprehension",
+    "estimatedScore": "Estimated score",
+    "timeUsed": "Time used",
+    "levelNotReached": "A1 not reached",
+    "disclaimer": "This result is an estimate for training purposes and does not constitute an official TCF score.",
+    "answered": "Answered"
   },
   "history": {
     "title": "History",
@@ -441,6 +449,11 @@
     "compareHint": "Select at least two attempts from the list.",
     "noAttempts": "No attempt recorded",
     "noAttemptsHint": "Start a test to populate your history.",
+    "empty": "No attempt recorded",
+    "emptyBody": "Start a test to populate your history.",
+    "startTest": "Pick a test",
+    "viewResults": "View details",
+    "attemptsCount": "{count} attempt(s)",
     "progressChart": "Progress curve",
     "emptySelection": "Select at least one attempt",
     "clearSelection": "Clear selection",
@@ -738,13 +751,5 @@
       "contactTitle": "Contact us",
       "contactBody": "For any question about these terms of use, use the contact form shown on the home page."
     }
-  },
-  "level": {
-    "A1": "Discovery",
-    "A2": "Elementary",
-    "B1": "Autonomy",
-    "B2": "Independent",
-    "C1": "Mastery",
-    "C2": "Expert"
   }
 }

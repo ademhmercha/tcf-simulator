@@ -1,6 +1,7 @@
 import { prisma } from "@/lib/db";
+import { DEFAULT_SCORING_PROFILE } from "@/config/scoring";
 import { examConfig } from "@/config/site";
-import { LEVELS, type Level, type SectionType } from "@/config/enums";
+import { type Level, type SectionType } from "@/config/enums";
 import { unstable_cache } from "next/cache";
 import type { AttemptResult, AttemptSummary, ExamPayload, TestSummary } from "@/lib/types";
 import {
@@ -16,9 +17,11 @@ import {
 // Regles fondamentales :
 //
 //  1. LE SERVEUR EST L'AUTORITE SUR LE TEMPS.
-//     `expiresAt` est calcule une fois, a la creation de la SectionRun, et
-//     n'est jamais modifie par le client. Chaque lecture recalcule le temps
-//     restant a partir de `expiresAt` et de l'horloge serveur.
+//     Le chronometre est GLOBAL : `expiresAt` vaut `startedAt + 60 min` et est
+//     recopie a l'identique sur chaque SectionRun de la tentative. Il n'est
+//     jamais modifie par le client, et passer a l'epreuve suivante ne rend
+//     aucun temps. Chaque lecture recalcule le temps restant a partir de
+//     `expiresAt` et de l'horloge serveur.
 //
 //  2. AUCUNE BONNE REPONSE NE PART VERS LE CLIENT.
 //     Les requetes de l'epreuve utilisent des `select` explicites ou
@@ -109,15 +112,14 @@ export class AttemptError extends Error {
 /**
  * Donnees minimales d'un test pour la liste et la fiche detail.
  *
- * Les niveaux sont lus via `section.questions` : `Test` n'a pas de relation
- * directe vers `Question` dans le schema, uniquement via `Section`.
+ * Aucun niveau CECRL n'est lu ici : les questions ne sont comptees que pour
+ * `_count`, la difficulte reste cote serveur.
  */
 const TEST_INCLUDE = {
   sections: {
     orderBy: { order: "asc" as const },
     include: {
       _count: { select: { questions: true, documents: true } },
-      questions: { select: { level: true } },
     },
   },
 } as const;
@@ -139,7 +141,6 @@ type TestRow = {
     durationMinutes: number;
     order: number;
     _count: { questions: number; documents: number };
-    questions: Array<{ level: string }>;
   }>;
 };
 
@@ -187,22 +188,16 @@ function toTestSummary(test: TestRow, attempts: AttemptLight[]): TestSummary {
     }
   }
 
-  const levels = [
-    ...new Set(test.sections.flatMap((section) => section.questions.map((q) => q.level))),
-  ]
-    .filter((level): level is Level => (LEVELS as readonly string[]).includes(level))
-    .sort((a, b) => LEVELS.indexOf(a) - LEVELS.indexOf(b));
-
   return {
     id: test.id,
     slug: test.slug,
     title: test.title,
     description: test.description,
     order: test.order,
-    durationMinutes:
-      test.durationMinutes ?? test.sections.reduce((sum, s) => sum + s.durationMinutes, 0),
+    // Budget global unique : c'est lui qui pilote le chronometre et l'affichage.
+    // Les durees par epreuve en base sont ignorees (duree indicative de contenu).
+    durationMinutes: examConfig.totalDurationMinutes,
     questionCount: test.sections.reduce((sum, s) => sum + s._count.questions, 0),
-    levels,
     sections: [...test.sections]
       .sort((a, b) => a.order - b.order)
       .map((s) => ({
@@ -307,6 +302,18 @@ export async function getTestBySlug(slug: string): Promise<TestSummary | null> {
 // ============================ Demarrage d'une tentative ==================
 
 /**
+ * Echeance unique d'une tentative.
+ *
+ * Le chronometre est global : les epreuves se partagent le meme budget, fixe a
+ * la creation de la tentative. Enregistrer `expiresAt` sur chaque SectionRun
+ * avec cette valeur autorise toujours le serveur a trancher, tout en
+ * garantissant qu'aucun passage dans une epreuve ne rend du temps.
+ */
+function globalDeadline(startedAt: Date): Date {
+  return new Date(startedAt.getTime() + examConfig.totalDurationMinutes * 60_000);
+}
+
+/**
  * Cree la tentative et demarre la premiere epreuve (Structure).
  * Si une tentative IN_PROGRESS non expiree existe deja, elle est renvoyee :
  * un double clic sur « Commencer » ne doit jamais creer de doublon.
@@ -331,7 +338,7 @@ export async function startAttempt(userId: string, testId: string): Promise<stri
       testId,
       status: "IN_PROGRESS",
       startedAt: now,
-      scoringProfile: "approx-2026-v1",
+      scoringProfile: DEFAULT_SCORING_PROFILE.id,
     },
     select: { id: true },
   });
@@ -342,7 +349,7 @@ export async function startAttempt(userId: string, testId: string): Promise<stri
       sectionId: firstSection.id,
       status: "IN_PROGRESS",
       startedAt: now,
-      expiresAt: new Date(now.getTime() + firstSection.durationMinutes * 60_000),
+      expiresAt: globalDeadline(now),
     },
   });
 
@@ -432,11 +439,12 @@ export async function getExamPayload(userId: string, sectionRunId: string): Prom
       id: true,
       number: true,
       prompt: true,
-      level: true,
       points: true,
       documentId: true,
       category: true,
-      // SELECT STRICT : aucune bonne reponse envoyee au client.
+      // SELECT STRICT : aucune bonne reponse envoyee au client, et AUCUN
+      // niveau CECRL. Le candidat ne doit pas pouvoir deduire la difficulte
+      // d'une question (le champ `level` resterait lisible dans le payload).
       options: {
         orderBy: { label: "asc" },
         select: { id: true, label: true, text: true },
@@ -479,7 +487,8 @@ export async function getExamPayload(userId: string, sectionRunId: string): Prom
       .filter((d) => usedDocumentIds.length === 0 || usedDocumentIds.includes(d.id))
       .map((d) => ({
         id: d.id,
-        code: d.code,
+        // Pas de `code` : certains codes internes encodent le niveau CECRL
+        // du document (T1-C1-01). Le candidat voit « Document 3 / 10 ».
         title: d.title,
         content: d.content,
         imageUrl: d.imageUrl,
@@ -491,7 +500,7 @@ export async function getExamPayload(userId: string, sectionRunId: string): Prom
         id: q.id,
         number: q.number,
         prompt: q.prompt,
-        level: q.level as Level,
+        // Pas de `level` : la difficulte CECRL ne doit jamais atteindre le client.
         points: q.points,
         documentId: q.documentId,
         category: q.category,
@@ -694,6 +703,7 @@ async function advanceAttempt(attemptId: string): Promise<string | null> {
     where: { id: attemptId },
     select: {
       id: true,
+      startedAt: true,
       focusedQuestionIds: true,
       test: { select: { sections: { orderBy: { order: "asc" } } } },
       sectionRuns: { select: { id: true, sectionId: true, status: true, expiresAt: true } },
@@ -734,7 +744,8 @@ async function advanceAttempt(attemptId: string): Promise<string | null> {
   }
 
   const existing = attempt.sectionRuns.find((r) => r.sectionId === next.id);
-  const expiresAt = new Date(now + next.durationMinutes * 60_000);
+  // Meme echeance que la premiere epreuve : le budget de 60 minutes est global.
+  const expiresAt = globalDeadline(attempt.startedAt);
 
   if (existing) {
     await prisma.sectionRun.update({
@@ -774,7 +785,6 @@ function toGradeInput(row: ResultRow): GradeInput {
       status: row.status,
       startedAt: row.startedAt,
       finishedAt: row.finishedAt,
-      scoringProfile: row.scoringProfile,
       test: row.test,
     },
     sectionRuns: row.sectionRuns
@@ -814,8 +824,8 @@ export async function finalizeAttempt(attemptId: string): Promise<void> {
       data: {
         status: "SUBMITTED",
         finishedAt: row.finishedAt ?? new Date(),
-        structureScore: output.structureScore,
-        comprehensionScore: output.comprehensionScore,
+        structureScore: output.structureCorrect,
+        comprehensionScore: output.comprehensionCorrect,
         totalScore: output.totalScore,
         maxScore: output.maxScore,
         cefrLevel: output.cefrLevel,
@@ -888,8 +898,8 @@ export async function getAttemptHistory(userId: string): Promise<AttemptSummary[
     finishedAt: attempt.finishedAt?.toISOString() ?? null,
     totalScore: attempt.totalScore,
     maxScore: attempt.maxScore,
-    structureScore: attempt.structureScore,
-    comprehensionScore: attempt.comprehensionScore,
+    structureCorrect: attempt.structureScore,
+    comprehensionCorrect: attempt.comprehensionScore,
     cefrLevel: attempt.cefrLevel as Level | null,
     totalTimeSec: attempt.answers.reduce((sum, a) => sum + (a.timeSpentSec ?? 0), 0),
   }));
@@ -908,7 +918,6 @@ export async function retryMistakes(userId: string, attemptId: string): Promise<
     select: {
       id: true,
       testId: true,
-      scoringProfile: true,
       status: true,
       answers: {
         where: { isCorrect: false },
@@ -930,7 +939,7 @@ export async function retryMistakes(userId: string, attemptId: string): Promise<
   const sections = await prisma.section.findMany({
     where: { id: { in: [...new Set(source.answers.map((a) => a.question.sectionId))] } },
     orderBy: { order: "asc" },
-    select: { id: true, durationMinutes: true },
+    select: { id: true },
   });
 
   if (sections.length === 0) throw new AttemptError("Aucune epreuve a retraiter", "NO_QUESTIONS");
@@ -942,7 +951,7 @@ export async function retryMistakes(userId: string, attemptId: string): Promise<
       testId: source.testId,
       status: "IN_PROGRESS",
       startedAt: now,
-      scoringProfile: source.scoringProfile,
+      scoringProfile: DEFAULT_SCORING_PROFILE.id,
       focusedQuestionIds: JSON.stringify(questionIds),
     },
     select: { id: true },
@@ -955,7 +964,7 @@ export async function retryMistakes(userId: string, attemptId: string): Promise<
       sectionId: first.id,
       status: "IN_PROGRESS",
       startedAt: now,
-      expiresAt: new Date(now.getTime() + first.durationMinutes * 60_000),
+      expiresAt: globalDeadline(now),
     },
   });
 

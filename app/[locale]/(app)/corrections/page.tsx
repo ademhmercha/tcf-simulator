@@ -3,7 +3,6 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { redirect } from "next/navigation";
 import { BookOpenCheck, Clock, FileText } from "lucide-react";
 
-import { LevelBadge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import type { AppLocale } from "@/config/enums";
@@ -81,12 +80,6 @@ export default async function CorrectionsPage({
                     <FileText className="size-3.5" aria-hidden />
                     {t("sectionCount", { count: test.sectionCount })}
                   </span>
-                </div>
-
-                <div className="flex flex-wrap gap-1.5">
-                  {test.levels.map((level) => (
-                    <LevelBadge key={level} level={level} size="sm" />
-                  ))}
                 </div>
 
                 <div className="mt-auto flex flex-wrap items-center gap-3 pt-2">

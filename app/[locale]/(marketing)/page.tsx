@@ -114,7 +114,6 @@ export default async function HomePage({
           {[
             { value: features.testCount, label: t("stats.tests"), icon: ClipboardCheck },
             { value: features.totalQuestions, label: t("stats.questions"), icon: BookOpenCheck },
-            { value: 6, label: t("stats.levels"), icon: Target },
             { value: "100%", label: t("stats.explanation"), icon: Sparkles },
           ].map((stat, index) => (
             <Card
@@ -235,7 +234,7 @@ export default async function HomePage({
           </div>
 
           <ul className="animate-fade-up mt-8 flex flex-wrap justify-center gap-3 [animation-delay:240ms]">
-            {[t("exam.badgeA"), t("exam.badgeB"), t("exam.badgeC")].map((badge) => (
+            {[t("exam.badgeA"), t("exam.badgeB")].map((badge) => (
               <li key={badge}>
                 <Badge variant="secondary" className="rounded-full px-3.5 py-1.5">
                   {badge}
@@ -387,7 +386,7 @@ export default async function HomePage({
             )}
           </div>
           <p className="relative mt-6 text-xs text-primary-foreground/70">
-            {t("exam.badgeC")} &middot; {t("stats.questions")} &middot; {t("stats.levels")}
+            {t("stats.questions")}
           </p>
         </div>
       </section>

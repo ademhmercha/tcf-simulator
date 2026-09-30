@@ -54,8 +54,7 @@ export function DocumentPanel({
           </p>
           <h2 className="font-display text-lg font-bold">{active.title}</h2>
           <p className="mt-0.5 text-xs text-muted-foreground">
-            {t("documentOf", { index: index + 1, total: documents.length })} &middot;{" "}
-            {active.code}
+            {t("documentOf", { index: index + 1, total: documents.length })}
           </p>
         </div>
         <Button

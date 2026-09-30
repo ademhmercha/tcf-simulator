@@ -4,6 +4,7 @@ import { fileURLToPath } from "node:url";
 
 import { PrismaClient } from "@prisma/client";
 
+import { computeSimulatedScore, DEFAULT_SCORING_PROFILE, SCORE_MAX } from "../config/scoring";
 import { importContentFile, parseContentJson } from "../server/services/content-import";
 import { getServerEnv } from "../lib/env";
 import { hashPassword } from "../lib/security";
@@ -160,12 +161,11 @@ async function seedDemoAttempts(): Promise<void> {
         status: "SUBMITTED",
         startedAt: new Date(Date.now() - 1000 * 60 * 60 * 24 * (5 - test.order)),
         finishedAt: new Date(),
-        scoringProfile: "approx-2026-v1",
+        scoringProfile: DEFAULT_SCORING_PROFILE.id,
       },
     });
 
-    let totalScore = 0;
-    let maxTotal = 0;
+    const parts = new Map<string, { correct: number; total: number }>();
 
     for (const section of test.sections) {
       const questions = await db.question.findMany({
@@ -186,11 +186,13 @@ async function seedDemoAttempts(): Promise<void> {
         },
       });
 
+      // `score` designe le nombre de bonnes reponses, `maxScore` le nombre de
+      // questions : c'est ce que le resultat affiche (« 16 / 20 »).
       let sectionScore = 0;
       let sectionMax = 0;
 
       for (const question of questions) {
-        const max = question.points;
+        const max = 1;
         sectionMax += max;
         // Determinisme : le ratio pilote l'echantillon, on alterne pour varier.
         const hash = (question.number * 31 + test.order * 7) % 100;
@@ -228,8 +230,7 @@ async function seedDemoAttempts(): Promise<void> {
         data: { score: sectionScore, maxScore: sectionMax },
       });
 
-      totalScore += sectionScore;
-      maxTotal += sectionMax;
+      parts.set(section.type, { correct: sectionScore, total: sectionMax });
 
       if (section.type === "STRUCTURE") {
         await db.attempt.update({ where: { id: attempt.id }, data: { structureScore: sectionScore } });
@@ -241,37 +242,20 @@ async function seedDemoAttempts(): Promise<void> {
       }
     }
 
-    const { computeCefrLevel } = await import("../config/scoring");
-    const structure = test.sections.find((s) => s.type === "STRUCTURE");
-    const comprehension = test.sections.find((s) => s.type === "COMPREHENSION_ECRITE");
-
-    const structureMax = await db.question.aggregate({
-      where: { sectionId: structure?.id },
-      _sum: { points: true },
-    });
-    const comprehensionMax = await db.question.aggregate({
-      where: { sectionId: comprehension?.id },
-      _sum: { points: true },
-    });
-
-    const current = await db.attempt.findUniqueOrThrow({ where: { id: attempt.id } });
-    const cefrLevel = computeCefrLevel(
-      {
-        STRUCTURE: current.structureScore ?? undefined,
-        COMPREHENSION_ECRITE: current.comprehensionScore ?? undefined,
-      },
-      {
-        STRUCTURE: structureMax._sum.points ?? 0,
-        COMPREHENSION_ECRITE: comprehensionMax._sum.points ?? 0,
-      },
-    );
+    const simulated = computeSimulatedScore([...parts.values()]);
 
     await db.attempt.update({
       where: { id: attempt.id },
-      data: { totalScore, maxScore: maxTotal, cefrLevel },
+      data: {
+        totalScore: simulated.score,
+        maxScore: SCORE_MAX,
+        cefrLevel: simulated.level,
+      },
     });
 
-    console.log(`  ${test.title} : ${totalScore}/${maxTotal} -> ${cefrLevel ?? "-"}`);
+    console.log(
+      `  ${test.title} : ${simulated.score}/${SCORE_MAX} -> ${simulated.level ?? "A1 non atteint"}`,
+    );
   }
 }
 

@@ -4,19 +4,18 @@ import { useMemo, useState } from "react";
 import { useTranslations } from "next-intl";
 import { CheckCircle2, ChevronDown, FileText, Lightbulb, Search } from "lucide-react";
 
-import { LevelBadge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import type { Level } from "@/config/enums";
-import { ALL_LEVELS, type CorrectionQuestion } from "@/lib/types";
+import type { CorrectionQuestion } from "@/lib/types";
 import { cn } from "@/lib/utils";
-
-type LevelFilter = Level | "all";
 
 /**
  * Corrigé detaille d'une épreuve : chaque question avec ses options, la bonne
  * réponse et l'explication. Les questions sont repliees par defaut, car une
  * épreuve de compréhension écrite affiche un document par question.
+ *
+ * Aucun niveau CECRL n'est propose : ni badge, ni filtre. Le filtre par niveau
+ * est meme un indice de difficulte, il serait lu avant de passer l'examen.
  */
 export function CorrectionList({
   questions,
@@ -25,19 +24,12 @@ export function CorrectionList({
 }): React.JSX.Element {
   const t = useTranslations("corrections");
   const [query, setQuery] = useState("");
-  const [level, setLevel] = useState<LevelFilter>("all");
   const [open, setOpen] = useState<Set<string>>(new Set());
-
-  const levels = useMemo(
-    () => ALL_LEVELS.filter((candidate) => questions.some((q) => q.level === candidate)),
-    [questions],
-  );
 
   const filtered = useMemo(() => {
     const needle = query.trim().toLowerCase();
 
     return questions.filter((question) => {
-      if (level !== "all" && question.level !== level) return false;
       if (!needle) return true;
 
       return (
@@ -47,7 +39,7 @@ export function CorrectionList({
         question.options.some((option) => option.text.toLowerCase().includes(needle))
       );
     });
-  }, [level, query, questions]);
+  }, [query, questions]);
 
   const toggle = (id: string) => {
     setOpen((previous) => {
@@ -93,35 +85,6 @@ export function CorrectionList({
         </Button>
       </div>
 
-      <div className="flex flex-wrap gap-2">
-        <Button
-          type="button"
-          size="sm"
-          variant={level === "all" ? "default" : "outline"}
-          onClick={() => setLevel("all")}
-        >
-          {t("filterAll")}
-          <span className="ml-1 text-xs opacity-70">{questions.length}</span>
-        </Button>
-
-        {levels.map((candidate) => {
-          const count = questions.filter((question) => question.level === candidate).length;
-
-          return (
-            <Button
-              key={candidate}
-              type="button"
-              size="sm"
-              variant={level === candidate ? "default" : "outline"}
-              onClick={() => setLevel(candidate)}
-            >
-              {candidate}
-              <span className="ml-1 text-xs opacity-70">{count}</span>
-            </Button>
-          );
-        })}
-      </div>
-
       <ul className="space-y-3">
         {filtered.map((question) => {
           const isOpen = open.has(question.id);
@@ -142,12 +105,9 @@ export function CorrectionList({
                 </span>
 
                 <span className="min-w-0 flex-1">
-                  <span className="flex flex-wrap items-center gap-2">
-                    <LevelBadge level={question.level} size="sm" />
-                    {question.category ? (
-                      <span className="text-xs text-muted-foreground">{question.category}</span>
-                    ) : null}
-                  </span>
+                  {question.category ? (
+                    <span className="block text-xs text-muted-foreground">{question.category}</span>
+                  ) : null}
                   <span className="mt-1.5 block text-sm leading-relaxed">{question.prompt}</span>
                   {question.documentTitle ? (
                     <span className="mt-1.5 inline-flex items-center gap-1.5 text-xs text-muted-foreground">

@@ -62,12 +62,6 @@ export default async function TestDetailPage({
             {test.description ? (
               <p className="mt-4 leading-relaxed text-muted-foreground">{test.description}</p>
             ) : null}
-
-            <div className="mt-5 flex flex-wrap items-center gap-2">
-              {test.levels.map((level) => (
-                <LevelBadge key={level} level={level} />
-              ))}
-            </div>
           </header>
 
           <dl className="grid gap-4 sm:grid-cols-3">
@@ -133,10 +127,6 @@ export default async function TestDetailPage({
                         <FileQuestion className="size-4" aria-hidden />
                         {section.questionCount} questions
                       </li>
-                      <li className="flex items-center gap-1.5">
-                        <Clock className="size-4" aria-hidden />
-                        {formatDurationHuman(section.durationMinutes * 60_000)}
-                      </li>
                       {section.documentCount > 0 ? (
                         <li className="flex items-center gap-1.5">
                           <FileQuestion className="size-4" aria-hidden />
@@ -144,6 +134,10 @@ export default async function TestDetailPage({
                         </li>
                       ) : null}
                     </ul>
+                    <p className="mt-3 flex items-center gap-1.5 text-xs text-muted-foreground">
+                      <Clock className="size-3.5 shrink-0" aria-hidden />
+                      {t("sharedTimer", { minutes: test.durationMinutes })}
+                    </p>
                   </CardContent>
                 </Card>
               ))}

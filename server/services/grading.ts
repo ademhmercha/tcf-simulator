@@ -1,14 +1,15 @@
 import type { Prisma } from "@prisma/client";
 
-import { LEVELS, type Level, type SectionType } from "@/config/enums";
-import { computeCefrLevel, getScoringProfile, scoreToLevel } from "@/config/scoring";
-import type {
-  AttemptResult,
-  CategoryStat,
-  LevelStat,
-  ReviewQuestion,
-  SectionResult,
-} from "@/lib/types";
+import { type Level, type SectionType } from "@/config/enums";
+import {
+  DEFAULT_SCORING_PROFILE,
+  SCORE_MAX,
+  computeSimulatedScore,
+  pointsToNextBand,
+  scoreToLevel,
+  type ScorePart,
+} from "@/config/scoring";
+import type { AttemptResult, CategoryStat, ReviewQuestion, SectionResult } from "@/lib/types";
 
 // ---------------------------------------------------------------------------
 // Calcul et agregation des resultats.
@@ -27,7 +28,6 @@ export type AnswerRow = {
     id: string;
     number: number;
     prompt: string;
-    level: string;
     category: string | null;
     points: number;
     explanation: string;
@@ -59,42 +59,6 @@ export function correctQuestionIds(answers: AnswerRow[]): Set<string> {
     if (selected?.isCorrect) ids.add(answer.questionId);
   }
   return ids;
-}
-
-export function sumPoints(answers: AnswerRow[], correctIds: Set<string>): number {
-  let total = 0;
-  for (const answer of answers) {
-    if (correctIds.has(answer.questionId)) total += answer.question.points;
-  }
-  return total;
-}
-
-export function maxPoints(answers: AnswerRow[]): number {
-  let total = 0;
-  for (const answer of answers) total += answer.question.points;
-  return total;
-}
-
-export function aggregateByLevel(answers: AnswerRow[], correctIds: Set<string>): LevelStat[] {
-  const buckets = new Map<Level, { total: number; correct: number }>();
-  for (const level of LEVELS) buckets.set(level, { total: 0, correct: 0 });
-
-  for (const answer of answers) {
-    const bucket = buckets.get(answer.question.level as Level);
-    if (!bucket) continue;
-    bucket.total += 1;
-    if (correctIds.has(answer.questionId)) bucket.correct += 1;
-  }
-
-  return LEVELS.map((level) => {
-    const bucket = buckets.get(level)!;
-    return {
-      level,
-      total: bucket.total,
-      correct: bucket.correct,
-      ratio: bucket.total === 0 ? 0 : bucket.correct / bucket.total,
-    };
-  }).filter((stat) => stat.total > 0);
 }
 
 /** Categories les moins reussies en tete (priorites de travail). */
@@ -135,7 +99,6 @@ export function buildReview(answers: AnswerRow[], correctIds: Set<string>): Revi
         id: answer.question.id,
         number: answer.question.number,
         prompt: answer.question.prompt,
-        level: answer.question.level as Level,
         category: answer.question.category,
         points: answer.question.points,
         explanation: answer.question.explanation,
@@ -174,7 +137,6 @@ export interface GradeInput {
     status: string;
     startedAt: Date;
     finishedAt: Date | null;
-    scoringProfile: string | null;
     test: { id: string; title: string; slug: string };
   };
   sectionRuns: Array<{
@@ -188,122 +150,101 @@ export interface GradeInput {
 }
 
 export interface GradeOutput {
-  structureScore: number | null;
-  comprehensionScore: number | null;
+  /** Nombre de bonnes reponses par epreuve. */
+  structureCorrect: number | null;
+  comprehensionCorrect: number | null;
+  structureTotal: number | null;
+  comprehensionTotal: number | null;
+  /** Score simule sur l'echelle 0-699. */
   totalScore: number;
   maxScore: number;
+  /** `null` sous 100 points : A1 non atteint. */
   cefrLevel: Level | null;
+  /** Pourcentage final, entre 0 et 1. */
+  scorePercentage: number;
+  /** Points manquants pour le palier suivant, 0 au sommet. */
+  missingToNextLevel: number;
   scoringProfile: string;
   sections: SectionResult[];
   sectionScores: Map<string, { score: number; maxScore: number }>;
   correctIds: Set<string>;
 }
 
+/**
+ * Note une tentative terminee.
+ *
+ * Chaque epreuve est ramenee a un pourcentage de reussite, puis les
+ * pourcentages sont averages : les deux parties pessent le meme poids, quel que
+ * soit leur nombre de questions. Le resultat est converti en score sur
+ * l'echelle 0-699 puis en niveau CECRL (voir `config/scoring.ts`).
+ */
 export function grade(input: GradeInput): GradeOutput {
-  const profile = getScoringProfile(input.attempt.scoringProfile);
   const correctIds = correctQuestionIds(input.answers);
 
   const runsByOrder = [...input.sectionRuns].sort((a, b) => a.order - b.order);
   const sections: SectionResult[] = [];
   const sectionScores = new Map<string, { score: number; maxScore: number }>();
-  const totals = new Map<SectionType, { score: number; max: number }>();
+  const parts = new Map<SectionType, ScorePart>();
 
   for (const run of runsByOrder) {
     const rows = input.answers.filter((a) => a.question.sectionId === run.sectionId);
-    const score = sumPoints(rows, correctIds);
-    const max = maxPoints(rows);
     const type = run.type as SectionType;
 
     const correct = rows.filter((a) => correctIds.has(a.questionId)).length;
+    const total = rows.length;
     const answered = rows.filter((a) => a.selectedOptionId !== null).length;
     const flagged = rows.filter((a) => a.flagged).length;
+    const ratio = total === 0 ? 0 : correct / total;
 
-    sectionScores.set(run.sectionId, { score, maxScore: max });
+    // `score` designe ici le nombre de bonnes reponses, sur `maxScore`
+    // questions : c'est ce que l'ecran affiche (« 16 / 20 »).
+    sectionScores.set(run.sectionId, { score: correct, maxScore: total });
 
-    const bucket = totals.get(type);
-    if (bucket) {
-      bucket.score += score;
-      bucket.max += max;
-    } else {
-      totals.set(type, { score, max });
-    }
+    const existing = parts.get(type);
+    parts.set(
+      type,
+      existing ? { correct: existing.correct + correct, total: existing.total + total } : { correct, total },
+    );
 
     sections.push({
       sectionId: run.sectionId,
       type,
       title: run.title,
-      score,
-      maxScore: max,
-      ratio: max === 0 ? 0 : score / max,
+      score: correct,
+      maxScore: total,
+      ratio,
       answered,
-      total: rows.length,
+      total,
       correct,
       flagged,
-      level: rows.length > 0 ? scoreToLevel(score, type, profile) : null,
+      level: total > 0 ? scoreToLevel(ratio * SCORE_MAX) : null,
       durationMinutes: run.durationMinutes,
     });
   }
 
-  const structure = totals.get("STRUCTURE");
-  const comprehension = totals.get("COMPREHENSION_ECRITE");
+  const structure = parts.get("STRUCTURE");
+  const comprehension = parts.get("COMPREHENSION_ECRITE");
+  const simulated = computeSimulatedScore([structure, comprehension].filter(isScorePart));
 
   return {
-    structureScore: structure?.score ?? null,
-    comprehensionScore: comprehension?.score ?? null,
-    totalScore: sumPoints(input.answers, correctIds),
-    maxScore: maxPoints(input.answers),
-    cefrLevel: computeCefrLevel(
-      {
-        STRUCTURE: structure?.score,
-        COMPREHENSION_ECRITE: comprehension?.score,
-      },
-      {
-        STRUCTURE: structure?.max ?? 0,
-        COMPREHENSION_ECRITE: comprehension?.max ?? 0,
-      },
-      profile,
-    ),
-    scoringProfile: profile.id,
+    structureCorrect: structure?.correct ?? null,
+    comprehensionCorrect: comprehension?.correct ?? null,
+    structureTotal: structure?.total ?? null,
+    comprehensionTotal: comprehension?.total ?? null,
+    totalScore: simulated.score,
+    maxScore: SCORE_MAX,
+    cefrLevel: simulated.level,
+    scorePercentage: simulated.percentage,
+    missingToNextLevel: pointsToNextBand(simulated.score),
+    scoringProfile: DEFAULT_SCORING_PROFILE.id,
     sections,
     sectionScores,
     correctIds,
   };
 }
 
-// --------------------------- Progression de niveau -----------------------
-
-export interface LevelGap {
-  /** Niveau correspondant au score actuel. */
-  current: Level | null;
-  /** Niveau Immediately superieur, ou null au sommet de l'echelle. */
-  next: Level | null;
-  /** Points manquants pour atteindre `next`. 0 si deja au sommet. */
-  missing: number;
-}
-
-/** Ecart au niveau suivant pour une epreuve donnee. */
-export function levelGap(score: number, section: SectionType): LevelGap {
-  const profile = getScoringProfile();
-  const bands = [...profile.bandsBySection[section]].sort((a, b) => a.min - b.min);
-
-  let current: Level | null = null;
-  for (const band of bands) {
-    if (score >= band.min) current = band.level;
-    else break;
-  }
-
-  const nextBand = bands.find((band) => score < band.min);
-  if (!nextBand) return { current, next: null, missing: 0 };
-
-  return { current, next: nextBand.level, missing: nextBand.min - score };
-}
-
-/** Niveau suivant sur l'echelle CECRL. */
-export function nextLevel(level: Level | null): Level | null {
-  if (!level) return "A1";
-  const index = LEVELS.indexOf(level);
-  if (index === -1 || index >= LEVELS.length - 1) return null;
-  return LEVELS[index + 1] ?? null;
+function isScorePart(part: ScorePart | undefined): part is ScorePart {
+  return part !== undefined;
 }
 
 // ---------------------------- Construction du resultat -------------------
@@ -329,12 +270,15 @@ export function buildAttemptResult(input: GradeInput, output: GradeOutput): Atte
     finishedAt: input.attempt.finishedAt?.toISOString() ?? null,
     totalScore: output.totalScore,
     maxScore: output.maxScore,
-    structureScore: output.structureScore,
-    comprehensionScore: output.comprehensionScore,
+    structureCorrect: output.structureCorrect,
+    structureTotal: output.structureTotal,
+    comprehensionCorrect: output.comprehensionCorrect,
+    comprehensionTotal: output.comprehensionTotal,
+    scorePercentage: output.scorePercentage,
+    missingToNextLevel: output.missingToNextLevel,
     cefrLevel: output.cefrLevel,
     scoringProfile: output.scoringProfile,
     sections: output.sections,
-    byLevel: aggregateByLevel(input.answers, output.correctIds),
     byCategory: aggregateByCategory(input.answers, output.correctIds),
     review,
     totalTimeSec,

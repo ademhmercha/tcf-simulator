@@ -4,7 +4,6 @@ import { notFound, redirect } from "next/navigation";
 import { ArrowLeft, BookOpenCheck, Clock, FileText } from "lucide-react";
 
 import { CorrectionList } from "@/components/corrections/correction-list";
-import { LevelBadge } from "@/components/ui/badge";
 import type { AppLocale } from "@/config/enums";
 import { Link } from "@/i18n/navigation";
 import { auth } from "@/server/auth";
@@ -74,12 +73,6 @@ export default async function TestCorrectionPage({
           </span>
         </div>
 
-        <div className="flex flex-wrap gap-1.5">
-          {test.levels.map((level) => (
-            <LevelBadge key={level} level={level} size="sm" />
-          ))}
-        </div>
-
         <p className="max-w-2xl rounded-xl border border-border/70 bg-muted/40 p-4 text-sm leading-relaxed text-muted-foreground">
           {t("warning")}
         </p>
@@ -91,7 +84,7 @@ export default async function TestCorrectionPage({
             <h2 className="text-xl font-bold">{section.title}</h2>
             <p className="text-sm text-muted-foreground">
               {tt("questionCount", { count: section.questions.length })} &middot;{" "}
-              {tt("duration", { minutes: section.durationMinutes })}
+              {tt("recommendedDuration", { minutes: section.durationMinutes })}
             </p>
             {section.instructions ? (
               <p className="text-sm text-muted-foreground">{section.instructions}</p>

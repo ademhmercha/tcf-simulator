@@ -3,7 +3,6 @@ import { Clock, FileQuestion, PlayCircle, RotateCcw, Trophy } from "lucide-react
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { LevelBadge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import type { TestSummary } from "@/lib/types";
 import { Link } from "@/i18n/navigation";
@@ -13,6 +12,10 @@ import { startAttemptAction } from "@/server/actions/attempts";
  * Carte de test. Rendue cote serveur : le bouton « Commencer » est un POST
  * vers `startAttemptAction`, qui cree (ou reprend) la tentative puis
  * redirige vers l'epreuve en cours.
+ *
+ * Aucun niveau CECRL n'est affiche : ni la plage du test, ni le niveau du
+ * meilleur score. Le candidat ne doit pas pouvoir evaluer la difficulte avant
+ * de se lancer.
  */
 export async function TestCard({
   test,
@@ -25,7 +28,6 @@ export async function TestCard({
 }): Promise<React.JSX.Element> {
   const t = await getTranslations("landing.testsPreview");
   const tc = await getTranslations("common");
-  const tl = await getTranslations("level");
 
   const bestPercent =
     test.bestTotalScore !== null && test.bestMaxScore
@@ -35,35 +37,14 @@ export async function TestCard({
   return (
     <Card className="flex h-full flex-col border-border/70 transition-shadow hover:shadow-medium">
       <CardContent className="flex flex-1 flex-col p-6">
-        <div className="flex items-start justify-between gap-3">
-          <div>
-            <p className="text-xs font-semibold uppercase tracking-wider text-primary">
-              Test {test.order}
-            </p>
-            <h3 className="mt-1 text-lg font-bold leading-snug">{test.title}</h3>
-          </div>
-          {test.bestLevel ? <LevelBadge level={test.bestLevel} /> : null}
-        </div>
+        <p className="text-xs font-semibold uppercase tracking-wider text-primary">
+          Test {test.order}
+        </p>
+        <h3 className="mt-1 text-lg font-bold leading-snug">{test.title}</h3>
 
         {test.description && !compact ? (
           <p className="mt-3 line-clamp-3 text-sm text-muted-foreground">{test.description}</p>
         ) : null}
-
-        <div className="mt-4 flex flex-wrap gap-1.5">
-          {test.levels.map((level) => (
-            <span
-              key={level}
-              title={tl(level)}
-              className="rounded-md px-1.5 py-0.5 text-[0.6875rem] font-bold"
-              style={{
-                backgroundColor: `hsl(var(--level-${level.toLowerCase()}) / 0.14)`,
-                color: `hsl(var(--level-${level.toLowerCase()}))`,
-              }}
-            >
-              {level}
-            </span>
-          ))}
-        </div>
 
         <ul className="mt-4 flex flex-wrap gap-x-4 gap-y-1.5 text-sm text-muted-foreground">
           <li className="flex items-center gap-1.5">
@@ -114,7 +95,7 @@ export async function TestCard({
             <Button asChild variant="ghost" size="sm" className="w-full">
               <Link href={`/tests/${test.slug}`}>
                 <RotateCcw aria-hidden />
-                {test.bestLevel ? t("viewResults") : tc("seeAll")}
+                {tc("seeAll")}
               </Link>
             </Button>
           ) : null}
