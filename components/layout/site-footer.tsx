@@ -41,11 +41,27 @@ export async function SiteFooter(): Promise<React.JSX.Element> {
           <p>
             {t("disclaimer")} &mdash; {new Date().getFullYear()} {siteConfig.name}. {t("rights")}
           </p>
-          <p>{t("langLabel")} : Fran&ccedil;ais</p>
+          <p className="flex items-center gap-3">
+            <span>{t("langLabel")} : Fran&ccedil;ais</span>
+            {/* Version deployee : permet de verifier d'un coup d'oeil que le
+                site tourne bien sur le dernier commit pousse. */}
+            <span
+              className="rounded border border-border px-1.5 py-0.5 font-mono text-xs"
+              title="Version deployee"
+            >
+              {buildLabel()}
+            </span>
+          </p>
         </div>
       </div>
     </footer>
   );
+}
+
+/** Commit deploye, injecte par Vercel au build ; `local` en developpement. */
+function buildLabel(): string {
+  const sha = process.env.VERCEL_GIT_COMMIT_SHA;
+  return sha ? sha.slice(0, 7) : "local";
 }
 
 function FooterColumn({
