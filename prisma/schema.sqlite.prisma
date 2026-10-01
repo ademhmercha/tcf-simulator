@@ -48,9 +48,42 @@ model User {
   accounts Account[]
   sessions Session[]
   attempts Attempt[]
+  auditLogs AuditLog[]
 
   @@index([role])
   @@map("users")
+}
+
+// ------------------------- Journal d'administration -----------------------
+
+/// Trace des actions sensibles de l'espace d'administration.
+///
+/// Le detail des reponses des candidats est masque par defaut : le deverrouiller
+/// ecrit une ligne ici, ce qui permet de savoir QUI a consulte QUOI et QUAND.
+/// `metadata` n'accueille que des identifiants et des compteurs, jamais le
+/// contenu d'une reponse ni une donnee personnelle en clair.
+model AuditLog {
+  id       String @id @default(cuid())
+  /// Administrateur auteur. `SetNull` : la trace survit a la suppression du
+  /// compte auteur, sinon effacer un administrateur effacerait son historique.
+  adminId  String?
+  /// ADMIN_VIEW_ANSWERS | ADMIN_UPDATE_ROLE | ADMIN_DELETE_USER
+  action   String
+  /// Identifiant de la cible : userId pour une action sur un compte,
+  /// attemptId pour une consultation de reponses.
+  targetId String?
+  /// JSON serialise : details non sensibles de l'action.
+  metadata String?
+  /// Adresse IP du client, pour correluer une action a une session.
+  ip       String?
+  createdAt DateTime @default(now())
+
+  admin User? @relation(fields: [adminId], references: [id], onDelete: SetNull)
+
+  @@index([adminId, createdAt])
+  @@index([action, createdAt])
+  @@index([createdAt])
+  @@map("audit_logs")
 }
 
 model Account {
@@ -236,6 +269,11 @@ model Attempt {
   @@index([userId, startedAt])
   @@index([testId, status])
   @@index([status])
+  // Series temporelles du tableau de bord admin (tentatives par jour/semaine).
+  @@index([status, startedAt])
+  // Fenetre de qualite du contenu : agregats sur les tentatives terminees
+  // dans les N derniers jours.
+  @@index([status, finishedAt])
   @@map("attempts")
 }
 
@@ -280,5 +318,8 @@ model Answer {
   @@unique([attemptId, questionId])
   @@index([attemptId])
   @@index([questionId])
+  // Qualite du contenu (taux de reussite par question) : index couvrant, evite
+  // de revenir a la table pour chaque question.
+  @@index([questionId, isCorrect])
   @@map("answers")
 }
