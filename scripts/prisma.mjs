@@ -26,7 +26,34 @@ if (existsSync(envFile)) {
   }
 }
 
-const provider = process.env.DATABASE_PROVIDER === "postgresql" ? "postgresql" : "sqlite";
+/**
+ * Fournisseur de base de donnees, resolu SANS valeur par defaut.
+ *
+ * Pourquoi ne pas retomber sur `sqlite` en cas d'absence ? parce que ce fichier
+ * pilote aussi `npm run build`. Sur Vercel, une variable d'environnement peut
+ * etre declaree pour l'execution mais absente du lot de build : `prisma
+ * generate` partait alors sur le miroir SQLite, produisait un client Prisma
+ * SQLite, et le deploiement se retrouvait a interroger Postgres avec un moteur
+ * SQLite. Le symptome etait une erreur « Server Components render » sur TOUTES
+ * les pages lisant la base, sans message cote client.
+ *
+ * On prefere donc un build bruyant a un build silencieusement casse.
+ */
+function resolveProvider() {
+  const raw = process.env.DATABASE_PROVIDER;
+
+  if (raw === "sqlite" || raw === "postgresql") return raw;
+
+  console.error(
+    `\n[prisma] DATABASE_PROVIDER vaut ${JSON.stringify(raw ?? "undefined")} : ` +
+      `elle doit valoir "sqlite" ou "postgresql".\n` +
+      `[prisma] Definis-la dans .env (local) ou dans les variables Vercel, ` +
+      `POUR LES BUILDS ET POUR L'EXECUTION (portee "All Environments").\n`,
+  );
+  process.exit(1);
+}
+
+const provider = resolveProvider();
 const schemaPath =
   provider === "sqlite" ? "prisma/schema.sqlite.prisma" : "prisma/schema.prisma";
 
