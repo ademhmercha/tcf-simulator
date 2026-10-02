@@ -65,6 +65,12 @@ export async function generateMetadata({
     robots: { index: true, follow: true },
     manifest: "/manifest.webmanifest",
     appleWebApp: { capable: true, statusBarStyle: "default", title: siteConfig.shortName },
+    // Chrome a retire `apple-mobile-web-app-capable` au profit de
+    // `mobile-web-app-capable`. Next 14 ne connait pas encore la cle
+    // `mobileWebApp`, on la declare donc via `other`. Les deux balises sont
+    // conservees : la premiere sert a Safari/iOS, la seconde a tous les autres
+    // navigateurs, qui ignorent sinon l'invite d'installation.
+    other: { "mobile-web-app-capable": "yes" },
     icons: {
       icon: [
         { url: "/favicon.ico", sizes: "16x16 32x32 48x48" },
