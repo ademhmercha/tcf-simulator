@@ -9,6 +9,7 @@ import "@/app/globals.css";
 
 import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "@/components/toaster";
+import { AiHoneypot } from "@/components/ai-honeypot";
 import { InstallPrompt } from "@/components/pwa/install-prompt";
 import { ServiceWorkerManager } from "@/components/pwa/service-worker-manager";
 import { DEFAULT_LOCALE, LOCALES, isRtlLocale, type AppLocale } from "@/config/enums";
@@ -131,6 +132,7 @@ export default async function LocaleLayout({
             <InstallPrompt />
             <Toaster />
             <Analytics />
+            <AiHoneypot />
           </ThemeProvider>
         </NextIntlClientProvider>
       </body>

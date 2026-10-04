@@ -87,8 +87,19 @@ export default function middleware(request: NextRequest) {
     "petalbot",
     "seekr",
     "exabot",
+    "firecrawlbot",
+    "crawl4ai",
+    "mistralai-user",
+    "cohere-ai",
+    "huggingface-bot",
+    "scraperbot",
+    "yandexbot",
+    "jinabot",
   ];
   if (blockedBots.some((bot) => userAgent.includes(bot))) {
+    return new NextResponse(null, { status: 403 });
+  }
+  if (request.nextUrl.pathname.includes("_ai-bot-trap")) {
     return new NextResponse(null, { status: 403 });
   }
 
@@ -119,11 +130,11 @@ export default function middleware(request: NextRequest) {
 export const config = {
   matcher: [
     /*
-     * 1) Toutes les routes de page, a l'exception :
+     * 1) Toutes les routes (pages + API), a l'exception :
      *    - des fichiers statiques (contiennent un point)
-     *    - des prefixes techniques (_next, api, service worker, manifest)
+     *    - des prefixes techniques (_next, _vercel, service worker, workbox)
      */
-    "/((?!_next|_vercel|api|sw\\.js|workbox|.*\\..*).*)",
+    "/((?!_next|_vercel|sw\\.js|workbox|.*\\..*).*)",
     /*
      * 2) Les assets situes sous un prefixe de locale doivent etre servis
      *    tels quels, sans passer par la logique de locale.

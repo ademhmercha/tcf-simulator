@@ -88,6 +88,30 @@ Disallow: /
 User-agent: ExaBot
 Disallow: /
 
+User-agent: FirecrawlBot
+Disallow: /
+
+User-agent: Crawl4AI
+Disallow: /
+
+User-agent: MistralAI-User
+Disallow: /
+
+User-agent: Cohere-AI
+Disallow: /
+
+User-agent: HuggingFace-Bot
+Disallow: /
+
+User-agent: ScraperBot
+Disallow: /
+
+User-agent: YandexBot
+Disallow: /
+
+User-agent: JinaBot
+Disallow: /
+
 User-agent: *
 Allow: /
 
