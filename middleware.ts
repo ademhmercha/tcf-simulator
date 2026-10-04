@@ -54,6 +54,44 @@ const PROTECTED_PREFIXES = [
 const SESSION_COOKIES = ["authjs.session-token", "__Secure-authjs.session-token"] as const;
 
 export default function middleware(request: NextRequest) {
+  // Bloquer les bots IA (scraping/clone)
+  const userAgent = request.headers.get("user-agent")?.toLowerCase() ?? "";
+  const blockedBots = [
+    "gptbot",
+    "chatgpt-user",
+    "chatgpt",
+    "oai-searchbot",
+    "openai",
+    "openai-bot",
+    "claudebot",
+    "claude-web",
+    "anthropic-ai",
+    "perplexitybot",
+    "perplexity-user",
+    "google-extended",
+    "googlebot-extended",
+    "applebot-extended",
+    "ccbot",
+    "bytespider",
+    "meta-externalagent",
+    "meta-externalfetcher",
+    "diffbot",
+    "facebookbot",
+    "amazonbot",
+    "youbot",
+    "semrushbot",
+    "dataforseobot",
+    "ahrefsbot",
+    "mj12bot",
+    "dotbot",
+    "petalbot",
+    "seekr",
+    "exabot",
+  ];
+  if (blockedBots.some((bot) => userAgent.includes(bot))) {
+    return new NextResponse(null, { status: 403 });
+  }
+
   const segments = request.nextUrl.pathname.split("/").filter(Boolean);
   const first = segments[0] as AppLocale | undefined;
   const localized = Boolean(first && (LOCALES as readonly string[]).includes(first));
@@ -70,7 +108,12 @@ export default function middleware(request: NextRequest) {
     return NextResponse.redirect(login);
   }
 
-  return handleI18n(request);
+  const response = handleI18n(request);
+  response.headers.set(
+    "X-Robots-Tag",
+    "noindex, nofollow, noarchive, nosnippet, noimageindex"
+  );
+  return response;
 }
 
 export const config = {
