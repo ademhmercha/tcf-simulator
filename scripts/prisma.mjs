@@ -54,6 +54,32 @@ function resolveProvider() {
 }
 
 const provider = resolveProvider();
+
+/**
+ * Garde-fou Vercel : `sqlite` y est toujours un piege.
+ *
+ * Le miroir `prisma/schema.sqlite.prisma` est versionne, donc la valeur passe
+ * le controle ci-dessus et le build SUCCEDE : `prisma generate` produit un
+ * client SQLite, embarque dans le bundle, qui interroge ensuite la base
+ * Postgres du deploiement. Le symptome est une erreur « An error occurred in
+ * the Server Components render » sur toutes les pages lisant la base, sans
+ * message exploitable cote client (le reel est dans les logs Vercel).
+ *
+ * Contrairement au cas « variable absente », aucun build n'eche ici : le
+ * deploiement est casse sans le moindre signal. On refuse donc explicitement.
+ */
+if (provider === "sqlite" && process.env.VERCEL) {
+  console.error(
+    `\n[prisma] DATABASE_PROVIDER vaut "sqlite" alors que ce build tourne sur Vercel.\n` +
+      `[prisma] C'est inutilisable : Vercel n'a pas de systeme de fichiers persistant\n` +
+      `[prisma] et la base du deploiement est PostgreSQL. Le bundle embarquerait un\n` +
+      `[prisma] client Prisma SQLite, et chaque page lisant la base echouerait avec\n` +
+      `[prisma] "An error occurred in the Server Components render".\n` +
+      `[prisma] Regle DATABASE_PROVIDER sur "postgresql" (portee "All Environments").\n`,
+  );
+  process.exit(1);
+}
+
 const schemaPath =
   provider === "sqlite" ? "prisma/schema.sqlite.prisma" : "prisma/schema.prisma";
 
