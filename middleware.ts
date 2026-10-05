@@ -53,6 +53,12 @@ const PROTECTED_PREFIXES = [
  */
 const SESSION_COOKIES = ["authjs.session-token", "__Secure-authjs.session-token"] as const;
 
+/** Ajoute l'en-tete anti-indexation a une reponse deja construite. */
+function withRobotsTag(response: NextResponse): NextResponse {
+  response.headers.set("X-Robots-Tag", "noindex, nofollow, noarchive, nosnippet, noimageindex");
+  return response;
+}
+
 export default function middleware(request: NextRequest) {
   // Bloquer les bots IA (scraping/clone)
   const userAgent = request.headers.get("user-agent")?.toLowerCase() ?? "";
@@ -109,6 +115,35 @@ export default function middleware(request: NextRequest) {
   const locale = localized ? (first as AppLocale) : DEFAULT_LOCALE;
   const route = `/${segments.slice(localized ? 1 : 0).join("/")}`;
 
+  // ---------------------------------------------------------------------
+  // ROUTES API : JAMAIS LOCALISEES, JAMAIS SOUMISES AU GARDE DE SESSION.
+  //
+  // next-intl ne fait aucune exception pour `/api` : avec
+  // `localePrefix: "always"`, il ajoute `/fr` a tout pathname depourvu de
+  // prefixe de locale, `/api/...` compris. `/api/exam/<id>/answer` se
+  // retrouvait donc reecrit en `/fr/api/exam/<id>/answer`, qui ne correspond a
+  // aucune route : reponse 404 sur CHAQUE sauvegarde et CHAQUE soumission,
+  // alors que le chronometre continuait de tourner cote serveur.
+  //
+  // Le garde de session ne s'applique pas non plus : chaque route API
+  // verifie sa propre session via `auth()` et repond 401 si besoin. L'appliquer
+  // ici renverrait vers une page de connexion HTML au lieu d'un 401 exploitable
+  // par le client.
+  // ---------------------------------------------------------------------
+  if (route === "/api" || route.startsWith("/api/")) {
+    // Cas de securite : un client obsolete (bundle servi par le service
+    // worker) qui appellerait `/fr/api/...` est recanonise plutot que de
+    // recevoir un 404. 307 conserve la methode et le corps du POST.
+    // `route` porte deja son slash initial : ne pas en ajouter un second, sous
+    // peine de produire une URL relative au protocole (`//api/...`) dont
+    // l'hote deviendrait `api`.
+    if (localized) {
+      const canonical = new URL(`${route}${request.nextUrl.search}`, request.url);
+      return NextResponse.redirect(canonical, 307);
+    }
+    return withRobotsTag(NextResponse.next());
+  }
+
   const isProtected = PROTECTED_PREFIXES.some(
     (prefix) => route === prefix || route.startsWith(`${prefix}/`),
   );
@@ -119,12 +154,7 @@ export default function middleware(request: NextRequest) {
     return NextResponse.redirect(login);
   }
 
-  const response = handleI18n(request);
-  response.headers.set(
-    "X-Robots-Tag",
-    "noindex, nofollow, noarchive, nosnippet, noimageindex"
-  );
-  return response;
+  return withRobotsTag(handleI18n(request));
 }
 
 export const config = {
@@ -133,6 +163,11 @@ export const config = {
      * 1) Toutes les routes (pages + API), a l'exception :
      *    - des fichiers statiques (contiennent un point)
      *    - des prefixes techniques (_next, _vercel, service worker, workbox)
+     *
+     * Les routes API passent bien ici — c'est volontaire : le bloc « ROUTES
+     * API » du middleware les court-circuite avant d'appeler `handleI18n`, ce
+     * qui leur applique le filtrage anti-bots et l'en-tete `X-Robots-Tag` sans
+     * les faire passer par la logique de locale.
      */
     "/((?!_next|_vercel|sw\\.js|workbox|.*\\..*).*)",
     /*

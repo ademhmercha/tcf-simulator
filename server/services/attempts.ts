@@ -753,8 +753,8 @@ async function advanceAttempt(attemptId: string): Promise<string | null> {
     attempt.sectionRuns.filter((r) => r.status !== "IN_PROGRESS").map((r) => r.sectionId),
   );
 
-  // Pour une tentative ciblee, seules les epreuves contenant des erreurs
-  // a retraiter existent.
+  // Tentative ciblee « refaire mes erreurs » : seules les epreuves contenant des
+  // erreurs a retraiter existent.
   let candidates = attempt.test.sections.filter((s) => !done.has(s.id));
 
   const focus = parseFocusedQuestionIds(attempt.focusedQuestionIds);
@@ -774,10 +774,19 @@ async function advanceAttempt(attemptId: string): Promise<string | null> {
     return null;
   }
 
-  const existing = attempt.sectionRuns.find((r) => r.sectionId === next.id);
   // Meme echeance que la premiere epreuve : le budget de 60 minutes est global.
   const expiresAt = globalDeadline(attempt.startedAt);
 
+  // Le budget global est epuise. Ouvrir l'epreuve suivante avec cette echeance
+  // deja depassee livrerait au candidat une page qui expire aussitot, qui
+  // renverrait a son tour vers les resultats : une chaine de pages et
+  // d'ecritures inutiles pour un examen dont le temps est fini. On finalise.
+  if (expiresAt.getTime() <= now) {
+    await finalizeAttempt(attemptId);
+    return null;
+  }
+
+  const existing = attempt.sectionRuns.find((r) => r.sectionId === next.id);
   if (existing) {
     await prisma.sectionRun.update({
       where: { id: existing.id },

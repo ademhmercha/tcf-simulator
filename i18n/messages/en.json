@@ -456,6 +456,8 @@
     "submitConfirmBody": "Once submitted, your answers for this module are graded and final.",
     "submitConfirmStats": "You answered {answered} of {total} questions and flagged {flagged} for review.",
     "submitWithUnanswered": "Warning: {count} unanswered question(s) will count as wrong.",
+    "submitBlockedUnsaved": "Your latest answers could not be saved. Finishing now would lose them: try again in a moment.",
+    "submitFailed": "Submission failed. Check your connection, then try again.",
     "confirmSubmit": "Yes, finish",
     "keepWorking": "Keep working",
     "finishTest": "Finish the test",

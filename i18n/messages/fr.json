@@ -456,6 +456,8 @@
     "submitConfirmBody": "Une fois soumis, vos reponses pour cette epreuve seront corrigees et definitives.",
     "submitConfirmStats": "Vous avez repondu a {answered} question(s) sur {total} et marque {flagged} pour revision.",
     "submitWithUnanswered": "Attention : {count} question(s) sans reponse compteront comme fausses.",
+    "submitBlockedUnsaved": "Vos dernieres reponses n'ont pas pu etre enregistrees. Terminer maintenant les perdrait : reessayez dans un instant.",
+    "submitFailed": "La soumission a echoue. Verifiez votre connexion, puis reessayez.",
     "confirmSubmit": "Oui, terminer",
     "keepWorking": "Continuer l'epreuve",
     "finishTest": "Terminer le test",

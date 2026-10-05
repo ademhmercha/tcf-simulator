@@ -78,6 +78,9 @@ export function ExamRunner({ payload }: { payload: ExamPayload }): React.JSX.Ele
   const [submitOpen, setSubmitOpen] = useState(false);
   const [timeUpOpen, setTimeUpOpen] = useState(false);
   const [submitting, setSubmitting] = useState(false);
+  // "save" = des reponses n'ont pas pu etre enregistrees avant soumission,
+  // "submit" = la soumission elle-meme a echoue.
+  const [submitError, setSubmitError] = useState<"save" | "submit" | null>(null);
 
   // Echeance locale calculee a partir de l'horloge serveur.
   const deadlineRef = useRef(Date.now() + (payload.expiresAt - payload.serverNow));
@@ -104,8 +107,8 @@ export function ExamRunner({ payload }: { payload: ExamPayload }): React.JSX.Ele
 
   // ----------------------------- Sauvegarde ------------------------------
 
-  const flush = useCallback(async (): Promise<void> => {
-    if (flushingRef.current) return;
+  const flush = useCallback(async (): Promise<boolean> => {
+    if (flushingRef.current) return pendingRef.current.size === 0;
     flushingRef.current = true;
 
     try {
@@ -126,14 +129,14 @@ export function ExamRunner({ payload }: { payload: ExamPayload }): React.JSX.Ele
           if (response.status === 409) {
             // Temps ecoule cote serveur : on bascule sur l'ecran de fin.
             setTimeUpOpen(true);
-            return;
+            return false;
           }
 
           if (!response.ok) {
             // On remet en file : l'ordre reste preserve.
             pendingRef.current.set(questionId, patch);
             setSaveState("error");
-            return;
+            return false;
           }
 
           const data = (await response.json()) as { expiresAt: number; serverNow: number };
@@ -142,9 +145,10 @@ export function ExamRunner({ payload }: { payload: ExamPayload }): React.JSX.Ele
         } catch {
           pendingRef.current.set(questionId, patch);
           setSaveState("error");
-          return;
+          return false;
         }
       }
+      return true;
     } finally {
       flushingRef.current = false;
     }
@@ -168,12 +172,24 @@ export function ExamRunner({ payload }: { payload: ExamPayload }): React.JSX.Ele
     if (submittedRef.current) return;
     submittedRef.current = true;
     setSubmitting(true);
+    setSubmitError(null);
 
     // On tente d'ecouler les sauvegardes en attente avant de soumettre.
-    await flush();
+    // Soumettre alors que des reponses sont encore en file les ferait perdre :
+    // elles ne sont pas en base, donc elles seraient corrigées comme non
+    // repondues. On refuse donc de soumettre et on previent le candidat.
+    const drained = await flush();
+    if (!drained) {
+      submittedRef.current = false;
+      setSubmitting(false);
+      setSubmitError("save");
+      return;
+    }
 
     try {
       const response = await fetch(`/api/exam/${payload.sectionRunId}/submit`, { method: "POST" });
+      if (!response.ok) throw new Error(`submit_${response.status}`);
+
       const data = (await response.json()) as {
         finished: boolean;
         nextSectionRunId?: string;
@@ -188,8 +204,11 @@ export function ExamRunner({ payload }: { payload: ExamPayload }): React.JSX.Ele
         router.push("/results");
       }
     } catch {
+      // Sans message, le bouton sembrait inerte et le candidat pouvait
+      // recliquer indefiniment.
       submittedRef.current = false;
       setSubmitting(false);
+      setSubmitError("submit");
     }
   }, [flush, payload.sectionRunId, router]);
 
@@ -548,6 +567,16 @@ export function ExamRunner({ payload }: { payload: ExamPayload }): React.JSX.Ele
                 {t("submitWithUnanswered", {
                   count: questions.length - answeredCount,
                 })}
+            </p>
+          ) : null}
+
+          {submitError ? (
+            <p
+              role="alert"
+              className="flex items-start gap-2 rounded-lg bg-destructive/10 p-3 text-sm text-destructive"
+            >
+              <AlertTriangle className="mt-0.5 size-4 shrink-0" aria-hidden />
+              {t(submitError === "save" ? "submitBlockedUnsaved" : "submitFailed")}
             </p>
           ) : null}
 
