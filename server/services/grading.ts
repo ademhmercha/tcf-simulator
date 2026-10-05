@@ -139,8 +139,6 @@ export interface GradeInput {
     finishedAt: Date | null;
     test: { id: string; title: string; slug: string };
   };
-  /** `true` pour une reprise ciblee sur les erreurs (voir `retryMistakes`). */
-  focused: boolean;
   /** Toutes les epreuves du test, avec leur nombre de questions. */
   sections: Array<{
     sectionId: string;
@@ -184,10 +182,13 @@ export interface GradeOutput {
 /**
  * Note une tentative terminee.
  *
- * Chaque epreuve est ramenee a un pourcentage de reussite, puis les
+ * Chaque epreuve du test est ramenee a un pourcentage de reussite, puis les
  * pourcentages sont averages : les deux parties pessent le meme poids, quel que
  * soit leur nombre de questions. Le resultat est converti en score sur
  * l'echelle 0-699 puis en niveau CECRL (voir `config/scoring.ts`).
+ *
+ * Toute epreuve non traitee compte comme entierement fausse, qu'il s'agisse
+ * d'une question sans reponse ou d'une epreuve jamais commencee.
  */
 export function grade(input: GradeInput): GradeOutput {
   const correctIds = correctQuestionIds(input.answers);
@@ -208,13 +209,15 @@ export function grade(input: GradeInput): GradeOutput {
   // epreuve au lieu de 10 %, et le score global etait gonfle d'autant. Le
   // denominateur est donc toujours le nombre de questions du test.
   const totals = new Map(input.sections.map((section) => [section.sectionId, section.questionCount]));
-  const playedSections = new Set(runsByOrder.map((run) => run.sectionId));
 
-  // Une reprise ciblee peut ne porter que sur une epreuve ; l'autre est
-  // ajoutee a zero pour que le bareme reste celui du test complet.
-  const orderedSections = input.focused
-    ? [...input.sections].sort((a, b) => a.order - b.order)
-    : input.sections.filter((section) => playedSections.has(section.sectionId));
+  // Toutes les epreuves du test sont notees, y compris celles qu'un abandon a
+  // laisse de cote. Une epreuve jamais commencee vaut zero, exactement comme
+  // une question jamais reponse : la filtrer sur les epreuves jouees ferait
+  // peser la seule epreuve faite de 100 % au lieu de 50 %, et une epreuve
+  // reussie donnerait un score parfait alors que la seconde n'a jamais ete
+  // ouverte. Le bareme ne depend donc d'aucun perimetre de reprise : une
+  // reprise sur les erreurs est notee comme un test complet.
+  const orderedSections = [...input.sections].sort((a, b) => a.order - b.order);
 
   for (const section of orderedSections) {
     const run = runsByOrder.find((candidate) => candidate.sectionId === section.sectionId);

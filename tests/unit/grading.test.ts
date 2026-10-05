@@ -71,7 +71,6 @@ function input(overrides: Partial<GradeInput> = {}): GradeInput {
       finishedAt: new Date("2026-01-01T11:00:00.000Z"),
       test: { id: "test-1", title: "Test 1", slug: "test-1" },
     },
-    focused: false,
     sections: SECTIONS,
     sectionRuns: [STRUCTURE, COMPREHENSION],
     answers: [],
@@ -269,12 +268,11 @@ describe("mistakeQuestionIds", () => {
   });
 });
 
-describe("grade - reprise sur les erreurs", () => {
+describe("grade - reprise sur les erreurs et epreuve jamais commencee", () => {
   it("affiche 2/20 et 0/30 et non 2/10 et 0/15", () => {
     // Reprise ciblee : seules les questions ratees sont rejouees.
     const result = grade(
       input({
-        focused: true,
         answers: [...series(STRUCTURE.sectionId, 10, 2), ...series(COMPREHENSION.sectionId, 15, 0)],
       }),
     );
@@ -294,10 +292,10 @@ describe("grade - reprise sur les erreurs", () => {
     ]);
   });
 
-  it("complete avec zero l'epreuve non retravaellee", () => {
+  it("note a zero une epreuve jamais commencee", () => {
+    // Abandon apres la langue : l'ecrite n'a pas de SectionRun terminee.
     const result = grade(
       input({
-        focused: true,
         sectionRuns: [STRUCTURE],
         answers: series(STRUCTURE.sectionId, 7, 2),
       }),
@@ -313,10 +311,27 @@ describe("grade - reprise sur les erreurs", () => {
     expect([...result.sectionScores.keys()]).toEqual([STRUCTURE.sectionId]);
   });
 
+  it("ne gonfle pas le score quand l'epreuve non commencee est la seule omission", () => {
+    // Sans l'epreuve non jouee, une langue parfaite pese 100 % et donne
+    // 699/699 : c'est le piege. Les deux parties doivent peser 50 % chacune,
+    // donc (100 % + 0 %) / 2 = 50 %, soit 349.5 -> 350.
+    const result = grade(
+      input({
+        sectionRuns: [STRUCTURE],
+        answers: series(STRUCTURE.sectionId, 20, 20),
+      }),
+    );
+
+    expect(result.structureCorrect).toBe(20);
+    expect(result.comprehensionCorrect).toBe(0);
+    expect(result.totalScore).toBe(350);
+    expect(result.cefrLevel).toBe("B1");
+    expect(result.sections.map((section) => section.answered)).toEqual([20, 0]);
+  });
+
   it("valide une reprise entierement reussie sur les deux epreuves", () => {
     const result = grade(
       input({
-        focused: true,
         answers: [...series(STRUCTURE.sectionId, 10, 10), ...series(COMPREHENSION.sectionId, 15, 15)],
       }),
     );

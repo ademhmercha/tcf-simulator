@@ -828,9 +828,7 @@ function toGradeInput(row: ResultRow): GradeInput {
       finishedAt: row.finishedAt,
       test: row.test,
     },
-    // Une reprise sur les erreurs ne joue qu'une partie des questions : le
-    // bareme doit toutefois rester celui du test complet (« 2 / 20 »).
-    focused: parseFocusedQuestionIds(row.focusedQuestionIds) !== null,
+    // Le bareme porte sur toutes les epreuves du test, reprise comprise.
     sections,
     sectionRuns: row.sectionRuns
       .filter((run) => run.status !== "IN_PROGRESS")

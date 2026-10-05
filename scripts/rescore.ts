@@ -1,6 +1,5 @@
 import { PrismaClient } from "@prisma/client";
 
-import { parseFocusedQuestionIds } from "../lib/focused";
 import { grade, type AnswerRow, type GradeInput } from "../server/services/grading";
 import { loadDotEnv } from "./cli-utils";
 
@@ -30,7 +29,6 @@ const ATTEMPT_SELECT = {
   status: true,
   startedAt: true,
   finishedAt: true,
-  focusedQuestionIds: true,
   totalScore: true,
   structureScore: true,
   comprehensionScore: true,
@@ -63,7 +61,6 @@ type AttemptRow = {
   status: string;
   startedAt: Date;
   finishedAt: Date | null;
-  focusedQuestionIds: string | null;
   totalScore: number | null;
   structureScore: number | null;
   comprehensionScore: number | null;
@@ -104,7 +101,6 @@ function toGradeInput(row: AttemptRow): GradeInput {
       finishedAt: row.finishedAt,
       test: row.test,
     },
-    focused: parseFocusedQuestionIds(row.focusedQuestionIds) !== null,
     sections: row.test.sections.map((section) => ({
       sectionId: section.id,
       type: section.type,
