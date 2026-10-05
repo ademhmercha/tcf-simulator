@@ -1,13 +1,41 @@
 import { PrismaClient } from "@prisma/client";
 
+import { isServerless, isSessionPooler, resolveDatasourceUrl } from "@/lib/db-url";
+
 // Singleton Prisma : en développement, Next.js recharge les modules à chaud et
 // on ne veut pas ouvrir un nouveau pool de connexions à chaque rechargement.
 
 const globalForPrisma = globalThis as unknown as { prisma?: PrismaClient };
 
+const datasourceUrl = resolveDatasourceUrl(process.env.DATABASE_URL ?? "");
+
+/**
+ * Alerte sur la configuration qui a mis le site hors service.
+ *
+ * En mode session, PgBouncer réserve un vrai backend PostgreSQL par connexion
+ * cliente : le pool total est borné (une quinzaine sur Supabase) et le deploiement
+ * echoue en `EMAXCONNSESSION` des que quelques fonctions serverless sont warm.
+ * Chaque page lisant la base rend alors « An error occurred in the Server
+ * Components render », sans detail exploitable cote client.
+ *
+ * On ne bloque pas le demarrage — la configuration fonctionne au ralenti et peut
+ * tenir a faible trafic — mais le diagnostic ne saurai etre devoile qu'apres
+ * coup, une fois les logs Vercel perdus.
+ */
+if (isServerless() && isSessionPooler(datasourceUrl)) {
+  console.warn(
+    `[prisma] DATABASE_URL utilise le pooler en MODE SESSION (port 5432).\n` +
+      `[prisma] Chaque fonction serverless garde son propre pool et le pooler est\n` +
+      `[prisma] partage : le deploiement echouera en EMAXCONNSESSION des que la\n` +
+      `[prisma] capacite est atteinte. Utilisez le pooler en mode TRANSACTION :\n` +
+      `[prisma] port 6543 et pgbouncer=true dans DATABASE_URL.`,
+  );
+}
+
 export const prisma =
   globalForPrisma.prisma ??
   new PrismaClient({
+    datasourceUrl,
     log:
       process.env.NODE_ENV === "development"
         ? ["warn", "error"]

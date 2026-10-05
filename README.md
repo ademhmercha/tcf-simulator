@@ -137,7 +137,7 @@ fonctionne pas**. Utilisez PostgreSQL.
    | Variable | Valeur |
    | --- | --- |
    | `DATABASE_PROVIDER` | `postgresql` |
-   | `DATABASE_URL` | URL du **pooler de session** |
+   | `DATABASE_URL` | URL du **pooler en mode transaction** (voir étape 4) |
    | `AUTH_SECRET` | `openssl rand -base64 32` |
    | `AUTH_URL` | `https://<domaine>.vercel.app` |
    | `NEXT_PUBLIC_APP_URL` | `https://<domaine>.vercel.app` |
@@ -166,9 +166,31 @@ npm run db:seed
    ajoutées n'existent pas en production et les pages correspondantes plantent
    au rendu (table `audit_logs` après le commit `ba4a0b3`, par exemple).
 
-4. Utilisez l'URL du **pooler de session** (hôte `*.pooler.supabase.com`,
-   port `5432`), et non la connexion directe : Supabase n'expose cette dernière
-   qu'en IPv6, que Vercel ne supporte pas.
+4. Utilisez l'URL du **pooler en mode transaction**, et non la connexion
+   directe : Supabase n'expose cette dernière qu'en IPv6, que Vercel ne supporte
+   pas. Et **surtout pas le mode session**.
+
+   | Mode | Port | Usage |
+   | --- | --- | --- |
+   | transaction | `6543` | **Obligatoire** pour Vercel |
+   | session | `5432` | Réservé à `db:push` / `DIRECT_URL` |
+
+   ```bash
+   DATABASE_URL="postgresql://postgres.[PROJECT_REF]:[PASSWORD]@aws-0-[REGION].pooler.supabase.com:6543/postgres?pgbouncer=true&connection_limit=1"
+   ```
+
+   En mode session, PgBouncer réserve un vrai backend PostgreSQL par connexion
+   cliente jusqu'à la fermeture de la session, et le pool total est borné à une
+   quinzaine de connexions. Or chaque fonction serverless garde son module en
+   mémoire entre deux requêtes, donc son propre pool Prisma : quelques
+   fonctions tièdes suffisent à saturer le pooler, et le site tombe en
+   `EMAXCONNSESSION`. Le mode transaction multiplexe au contraire de nombreuses
+   clientes sur les mêmes backends. `pgbouncer=true` désactive les requêtes
+   préparées, incompatibles avec ce mode.
+
+   `connection_limit=1` évite qu'une instance tiède consomme le pool à elle
+   seule. À partir de la version actuelle, le code l'ajoute de lui-même en
+   serverless si la variable ne le définit pas.
 5. Importez le projet dans Vercel. Le build utilise `npm run build`, qui
    exécute `prisma generate` avec le schéma PostgreSQL.
 
@@ -180,7 +202,13 @@ jamais dans la console du navigateur. Vérifiez dans l'ordre :
 
 1. `DATABASE_PROVIDER` est bien définie à la portée Build ;
 2. le schéma a été poussé sur la base de production (`npm run db:push`) ;
-3. `DATABASE_URL` pointe bien vers le pooler en IPv4.
+3. `DATABASE_URL` pointe bien vers le pooler en IPv4 ;
+4. `DATABASE_URL` est en **mode transaction** (port `6543`, `pgbouncer=true`).
+
+   Une entrée de log contenant `EMAXCONNSESSION` ou
+   `PrismaClientInitializationError: max clients reached in session mode`
+   désigne ce dernier point : le pooler en mode session est saturé. Basculez sur
+   le port `6543`.
 
 > `sharp` est aujourd'hui dans `devDependencies` alors que `next/image` en a
 > besoin a l'execution pour optimiser les images. Si les images ne sont pas
