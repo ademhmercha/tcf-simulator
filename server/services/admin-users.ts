@@ -6,6 +6,7 @@ import { z } from "zod";
 import { LEVELS, ROLES, isLevel, levelIndex, type Level, type Role } from "@/config/enums";
 import { prisma, textSearch } from "@/lib/db";
 import type { AdminWriteError } from "@/lib/admin-errors";
+import { mistakeQuestionIdsByAttempt } from "@/server/services/attempts";
 
 // ---------------------------------------------------------------------------
 // Administration des comptes.
@@ -538,13 +539,15 @@ export async function getUserDetail(userId: string): Promise<AdminUserDetail | n
   };
 }
 
+/**
+ * Nombre de questions ratees par tentative.
+ *
+ * Meme source que le bouton « refaire mes erreurs » du candidat, et donc meme
+ * convention : une question non traitee est une erreur.
+ */
 async function countMistakesByAttempt(attemptIds: string[]): Promise<Map<string, number>> {
-  const rows = await prisma.answer.groupBy({
-    by: ["attemptId"],
-    where: { attemptId: { in: attemptIds }, isCorrect: false },
-    _count: { _all: true },
-  });
-  return new Map(rows.map((row) => [row.attemptId, row._count._all]));
+  const scope = await mistakeQuestionIdsByAttempt(attemptIds);
+  return new Map([...scope].map(([attemptId, ids]) => [attemptId, ids.length]));
 }
 
 /**

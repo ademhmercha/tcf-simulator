@@ -166,6 +166,13 @@ npm run db:seed
    ajoutées n'existent pas en production et les pages correspondantes plantent
    au rendu (table `audit_logs` après le commit `ba4a0b3`, par exemple).
 
+   De même, **relancez `npm run db:rescore` après chaque modification du barème**
+   (`config/scoring.ts` ou `server/services/grading.ts`). Le score est écrit une
+   seule fois, à la soumission : sans ce recalcul, le tableau de bord,
+   l'historique et l'administration continuent d'afficher l'ancien score. Les
+   pages de résultat, elles, recalculent à la lecture et se corrigent seules.
+   Ajoutez `--dry-run` pour voir l'écart avant d'écrire.
+
 4. Utilisez l'URL du **pooler en mode transaction**, et non la connexion
    directe : Supabase n'expose cette dernière qu'en IPv6, que Vercel ne supporte
    pas. Et **surtout pas le mode session**.

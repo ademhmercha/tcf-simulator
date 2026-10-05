@@ -4,9 +4,11 @@ import { examConfig } from "@/config/site";
 import { type Level, type SectionType } from "@/config/enums";
 import { unstable_cache } from "next/cache";
 import type { AttemptResult, AttemptSummary, ExamPayload, TestSummary } from "@/lib/types";
+import { parseFocusedQuestionIds } from "@/lib/focused";
 import {
   buildAttemptResult,
   grade,
+  mistakeQuestionIds,
   type AnswerRow,
   type GradeInput,
 } from "@/server/services/grading";
@@ -69,16 +71,6 @@ const RESULT_INCLUDE = {
  * Une valeur corrompue est treatee comme « pas de filtre » afin de ne jamais
  * bloquer un candidat sur une donnee de base invalide.
  */
-function parseFocusedQuestionIds(raw: string | null): Set<string> | null {
-  if (!raw) return null;
-  try {
-    const parsed: unknown = JSON.parse(raw);
-    if (!Array.isArray(parsed)) return null;
-    return new Set(parsed.filter((value): value is string => typeof value === "string"));
-  } catch {
-    return null;
-  }
-}
 
 type ResultRow = {
   id: string;
@@ -961,6 +953,75 @@ export async function getAttemptHistory(userId: string): Promise<AttemptSummary[
 // ============================ Refaire mes erreurs =======================
 
 /**
+ * Questions a retraiter, pour plusieurs tentatives en une seule lecture.
+ *
+ * Source unique de verite partagee par `retryMistakes`, `countMistakes` et le
+ * compteur d'erreurs de l'administration : les trois affichages doivent dire la
+ * meme chose, et une question non traitee y compte comme une erreur. `userId`
+ * restreint la lecture aux tentatives du candidat.
+ */
+export async function mistakeQuestionIdsByAttempt(
+  attemptIds: string[],
+  userId?: string,
+): Promise<Map<string, string[]>> {
+  const result = new Map<string, string[]>();
+  if (attemptIds.length === 0) return result;
+
+  const attempts = await prisma.attempt.findMany({
+    where: { id: { in: attemptIds }, ...(userId ? { userId } : {}) },
+    select: {
+      id: true,
+      focusedQuestionIds: true,
+      sectionRuns: { where: { status: { not: "IN_PROGRESS" } }, select: { sectionId: true } },
+    },
+  });
+
+  const playedByAttempt = new Map<string, string[]>(
+    attempts.map((attempt) => [
+      attempt.id,
+      [...new Set(attempt.sectionRuns.map((run) => run.sectionId))],
+    ]),
+  );
+
+  const allSectionIds = [...new Set([...playedByAttempt.values()].flat())];
+
+  const questions = allSectionIds.length
+    ? await prisma.question.findMany({
+        where: { sectionId: { in: allSectionIds } },
+        select: { id: true, sectionId: true },
+      })
+    : [];
+
+  const correctRows = attempts.length
+    ? await prisma.answer.findMany({
+        where: { attemptId: { in: attempts.map((a) => a.id) }, isCorrect: true },
+        select: { attemptId: true, questionId: true },
+      })
+    : [];
+
+  const correctByAttempt = new Map<string, Set<string>>();
+  for (const row of correctRows) {
+    const set = correctByAttempt.get(row.attemptId) ?? new Set<string>();
+    set.add(row.questionId);
+    correctByAttempt.set(row.attemptId, set);
+  }
+
+  for (const attempt of attempts) {
+    result.set(
+      attempt.id,
+      mistakeQuestionIds({
+        sectionIds: playedByAttempt.get(attempt.id) ?? [],
+        questions,
+        focus: parseFocusedQuestionIds(attempt.focusedQuestionIds),
+        correctIds: correctByAttempt.get(attempt.id) ?? new Set<string>(),
+      }),
+    );
+  }
+
+  return result;
+}
+
+/**
  * Cree une tentative ciblee sur les questions ratees d'une tentative
  * precedente. La liste exacte est memorisee dans
  * `Attempt.focusedQuestionIds` : l'epreuve ne charge alors que ces questions.
@@ -972,10 +1033,7 @@ export async function retryMistakes(userId: string, attemptId: string): Promise<
       id: true,
       testId: true,
       status: true,
-      answers: {
-        where: { isCorrect: false },
-        select: { questionId: true, question: { select: { sectionId: true } } },
-      },
+      sectionRuns: { where: { status: { not: "IN_PROGRESS" } }, select: { sectionId: true } },
     },
   });
 
@@ -984,13 +1042,14 @@ export async function retryMistakes(userId: string, attemptId: string): Promise<
     throw new AttemptError("Cette tentative est encore en cours", "ALREADY_SUBMITTED");
   }
 
-  const questionIds = [...new Set(source.answers.map((a) => a.questionId))];
+  const scope = await mistakeQuestionIdsByAttempt([attemptId], userId);
+  const questionIds = scope.get(attemptId) ?? [];
   if (questionIds.length === 0) {
     throw new AttemptError("Aucune erreur a retraiter", "NO_QUESTIONS");
   }
 
   const sections = await prisma.section.findMany({
-    where: { id: { in: [...new Set(source.answers.map((a) => a.question.sectionId))] } },
+    where: { id: { in: [...new Set(source.sectionRuns.map((run) => run.sectionId))] } },
     orderBy: { order: "asc" },
     select: { id: true },
   });
@@ -1026,7 +1085,6 @@ export async function retryMistakes(userId: string, attemptId: string): Promise<
 
 /** Nombre de questions ratees dans une tentative (libelle du bouton). */
 export async function countMistakes(userId: string, attemptId: string): Promise<number> {
-  return prisma.answer.count({
-    where: { attemptId, isCorrect: false, attempt: { userId } },
-  });
+  const scope = await mistakeQuestionIdsByAttempt([attemptId], userId);
+  return (scope.get(attemptId) ?? []).length;
 }

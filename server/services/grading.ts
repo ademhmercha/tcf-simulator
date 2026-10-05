@@ -198,9 +198,15 @@ export function grade(input: GradeInput): GradeOutput {
   const parts = new Map<string, ScorePart>();
 
   // Nombre de questions du test pour chaque epreuve : c'est le denominateur
-  // affiche. Pour une reprise sur les erreurs, les questions non retravaillées
-  // comptent comme des erreurs, sinon le resultat afficherait « 2 / 10 » au
-  // lieu de « 2 / 20 ».
+  // affiche ET la base du bareme, pour toute tentative comme pour une reprise
+  // sur les erreurs.
+  //
+  // Une question non traitee est une erreur. Comme une ligne `Answer` n'est
+  // creee qu'a la premiere sauvegarde d'une question (voir `saveAnswer`),
+  // compter les lignes revient a ne noter que les questions touchees : un
+  // candidat ayant repondu juste a 2 questions sur 20 obtenait 100 % sur son
+  // epreuve au lieu de 10 %, et le score global etait gonfle d'autant. Le
+  // denominateur est donc toujours le nombre de questions du test.
   const totals = new Map(input.sections.map((section) => [section.sectionId, section.questionCount]));
   const playedSections = new Set(runsByOrder.map((run) => run.sectionId));
 
@@ -217,7 +223,7 @@ export function grade(input: GradeInput): GradeOutput {
 
     const correct = rows.filter((a) => correctIds.has(a.questionId)).length;
     const playedTotal = rows.length;
-    const total = input.focused ? (totals.get(section.sectionId) ?? playedTotal) : playedTotal;
+    const total = totals.get(section.sectionId) ?? playedTotal;
     const answered = rows.filter((a) => a.selectedOptionId !== null).length;
     const flagged = rows.filter((a) => a.flagged).length;
     const ratio = total === 0 ? 0 : correct / total;
@@ -270,6 +276,41 @@ export function grade(input: GradeInput): GradeOutput {
 
 function isScorePart(part: ScorePart | undefined): part is ScorePart {
   return part !== undefined;
+}
+
+// ---------------------------- Refaire mes erreurs --------------------------
+
+export interface MistakeScope {
+  /** Sections effectivement jouees par la tentative. */
+  sectionIds: readonly string[];
+  /** Questions de ces sections, avec leur section. */
+  questions: ReadonlyArray<{ id: string; sectionId: string }>;
+  /** Perimetre d'une reprise ciblee, `null` pour un test complet. */
+  focus: ReadonlySet<string> | null;
+  /** Questions notees justes. */
+  correctIds: ReadonlySet<string>;
+}
+
+/**
+ * Questions a retraiter apres une tentative terminee.
+ *
+ * Une question non traitee est une erreur : le replay porte donc sur toutes les
+ * questions des sections jouees, moins les seules reponses justes. Compter les
+ * lignes `Answer` `isCorrect: false` ignorerait les questions vierges — or c'est
+ * precisement le cas le plus frequent : un candidat qui laisse le test en plan
+ * verrait « aucune erreur a retraiter » alors que son score est tres bas.
+ *
+ * Une reprise reste limitee a son perimetre : on ne rejoue que les questions
+ * deja ciblees par la tentative source, moins celles reussies depuis.
+ */
+export function mistakeQuestionIds(scope: MistakeScope): string[] {
+  const pool = scope.focus
+    ? [...scope.focus]
+    : scope.questions
+        .filter((question) => scope.sectionIds.includes(question.sectionId))
+        .map((question) => question.id);
+
+  return [...new Set(pool)].filter((id) => !scope.correctIds.has(id));
 }
 
 // ---------------------------- Construction du resultat -------------------

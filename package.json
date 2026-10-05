@@ -36,7 +36,8 @@
     "import:csv": "tsx scripts/import-csv.ts",
     "export:csv": "tsx scripts/export-csv.ts",
     "admin:create": "tsx scripts/create-admin.ts",
-    "verify": "npm run typecheck && npm run lint && npm run test"
+    "verify": "npm run typecheck && npm run lint && npm run test",
+    "db:rescore": "tsx scripts/rescore.ts"
   },
   "prisma": {
     "seed": "tsx prisma/seed.ts"

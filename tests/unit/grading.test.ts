@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 
 import type { AnswerRow, GradeInput } from "@/server/services/grading";
-import { correctQuestionIds, grade } from "@/server/services/grading";
+import { correctQuestionIds, grade, mistakeQuestionIds } from "@/server/services/grading";
 
 // Une epreuve = 20 questions, l'autre = 30, comme dans les 5 tests TCF.
 const STRUCTURE = {
@@ -118,6 +118,154 @@ describe("grade - tentative complete", () => {
       { score: 10, maxScore: 20 },
       { score: 15, maxScore: 30 },
     ]);
+  });
+});
+
+describe("grade - tentative partielle", () => {
+  it("compte les questions non traitees comme des erreurs", () => {
+    // Une ligne Answer n'existe que pour les questions touchees : ici une seule
+    // reponse par epreuve, les 19 et 29 autres questions sont vierges.
+    const result = grade(
+      input({
+        answers: [
+          ...series(STRUCTURE.sectionId, 1, 0),
+          ...series(COMPREHENSION.sectionId, 1, 0),
+        ],
+      }),
+    );
+
+    expect(result.structureCorrect).toBe(0);
+    expect(result.structureTotal).toBe(20);
+    expect(result.comprehensionCorrect).toBe(0);
+    expect(result.comprehensionTotal).toBe(30);
+    // (0 % + 0 %) / 2 = 0 % -> 0/699, A1 non atteint.
+    expect(result.totalScore).toBe(0);
+    expect(result.cefrLevel).toBeNull();
+    expect(result.sections.map((section) => [section.answered, section.total])).toEqual([
+      [1, 20],
+      [1, 30],
+    ]);
+  });
+
+  it("note sur le bareme complet malgre une seule question touchee", () => {
+    // Une seule question repondue et juste : 1/20 et 1/30 valent 5 % et 3.3 %,
+    // soit 4 % -> 29/699. Compter les lignes Answer donnerait 100 % sur chaque
+    // epreuve, donc 699/699.
+    const result = grade(
+      input({
+        answers: [
+          ...series(STRUCTURE.sectionId, 1, 1),
+          ...series(COMPREHENSION.sectionId, 1, 1),
+        ],
+      }),
+    );
+
+    expect(result.structureCorrect).toBe(1);
+    expect(result.comprehensionCorrect).toBe(1);
+    expect(result.totalScore).toBe(29);
+    expect(result.cefrLevel).toBeNull();
+    expect(result.sections.map((section) => section.ratio)).toEqual([0.05, 1 / 30]);
+  });
+
+  it("distingue une question effacee d'une question jamais vue", () => {
+    // Les deux ont une ligne Answer, mais une option choisie compte comme
+    // reponse : `answered` ne doit pas les confondre avec le total.
+    const cleared = {
+      ...answer(STRUCTURE.sectionId, 2, false),
+      selectedOptionId: null,
+      isCorrect: false,
+    };
+    const result = grade(
+      input({
+        answers: [...series(STRUCTURE.sectionId, 1, 1), cleared, ...series(COMPREHENSION.sectionId, 1, 0)],
+      }),
+    );
+
+    expect(result.structureCorrect).toBe(1);
+    expect(result.structureTotal).toBe(20);
+    expect(result.sections[0]).toMatchObject({ answered: 1, total: 20, correct: 1 });
+  });
+
+  it("note a zero une epreuve entierement vierge", () => {
+    const result = grade(
+      input({
+        answers: series(STRUCTURE.sectionId, 1, 0),
+      }),
+    );
+
+    expect(result.structureCorrect).toBe(0);
+    expect(result.structureTotal).toBe(20);
+    expect(result.comprehensionCorrect).toBe(0);
+    expect(result.comprehensionTotal).toBe(30);
+    expect(result.sections.map((section) => section.answered)).toEqual([1, 0]);
+    expect(result.totalScore).toBe(0);
+  });
+});
+
+describe("mistakeQuestionIds", () => {
+  const QUESTIONS = [
+    ...Array.from({ length: 20 }, (_, i) => ({ id: `s-${i + 1}`, sectionId: "sec-structure" })),
+    ...Array.from({ length: 30 }, (_, i) => ({ id: `c-${i + 1}`, sectionId: "sec-comprehension" })),
+  ];
+
+  it("retraite les questions vierges et les erreurs, pas seulement les lignes Answer", () => {
+    // Seules trois questions repondues, dont une seule juste.
+    const ids = mistakeQuestionIds({
+      sectionIds: ["sec-structure", "sec-comprehension"],
+      questions: QUESTIONS,
+      focus: null,
+      correctIds: new Set(["s-1"]),
+    });
+
+    expect(ids).toHaveLength(49);
+    expect(ids).toContain("s-2");
+    expect(ids).toContain("c-30");
+    expect(ids).not.toContain("s-1");
+  });
+
+  it("respecte le perimetre d'une reprise ciblee", () => {
+    const ids = mistakeQuestionIds({
+      sectionIds: ["sec-structure", "sec-comprehension"],
+      questions: QUESTIONS,
+      focus: new Set(["s-1", "s-2", "s-3"]),
+      correctIds: new Set(["s-2"]),
+    });
+
+    expect(ids).toEqual(["s-1", "s-3"]);
+  });
+
+  it("ignore les questions d'une epreuve non jouee", () => {
+    const ids = mistakeQuestionIds({
+      sectionIds: ["sec-structure"],
+      questions: QUESTIONS,
+      focus: null,
+      correctIds: new Set<string>(),
+    });
+
+    expect(ids).toHaveLength(20);
+    expect(ids.every((id) => id.startsWith("s-"))).toBe(true);
+  });
+
+  it("renvoie une liste vide quand tout est juste", () => {
+    const ids = mistakeQuestionIds({
+      sectionIds: ["sec-structure"],
+      questions: QUESTIONS,
+      focus: null,
+      correctIds: new Set(QUESTIONS.filter((q) => q.sectionId === "sec-structure").map((q) => q.id)),
+    });
+
+    expect(ids).toEqual([]);
+  });
+
+  it("ne double pas une question listee plusieurs fois", () => {
+    const ids = mistakeQuestionIds({
+      sectionIds: ["sec-structure", "sec-structure"],
+      questions: [{ id: "s-1", sectionId: "sec-structure" }],
+      focus: null,
+      correctIds: new Set<string>(),
+    });
+
+    expect(ids).toEqual(["s-1"]);
   });
 });
 
