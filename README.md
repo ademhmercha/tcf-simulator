@@ -131,12 +131,26 @@ Vercel ne dispose pas d'un système de fichiers persistant : **SQLite n'y
 fonctionne pas**. Utilisez PostgreSQL.
 
 1. Créez une base PostgreSQL et copiez son URL de connexion.
-2. Réglez les variables d'environnement du projet Vercel :
-   - `DATABASE_PROVIDER=postgresql`
-   - `DATABASE_URL=<url postgres>`
-   - `AUTH_SECRET=<openssl rand -base64 32>`
-   - `AUTH_URL=https://<domaine>.vercel.app`
-   - `NEXT_PUBLIC_APP_URL=https://<domaine>.vercel.app`
+2. Réglez les variables d'environnement du projet Vercel, **avec la portée
+   « All Environments »** (build **et** exécution) :
+
+   | Variable | Valeur |
+   | --- | --- |
+   | `DATABASE_PROVIDER` | `postgresql` |
+   | `DATABASE_URL` | URL du **pooler de session** |
+   | `AUTH_SECRET` | `openssl rand -base64 32` |
+   | `AUTH_URL` | `https://<domaine>.vercel.app` |
+   | `NEXT_PUBLIC_APP_URL` | `https://<domaine>.vercel.app` |
+
+   > `DATABASE_PROVIDER` est la variable la plus critique du projet : elle
+   > choisit le schéma Prisma utilisé par `prisma generate` **pendant le build**.
+   > Si elle manque au build, le client généré est un client SQLite déployé sur
+   > une base Postgres, et chaque page qui lit la base échoue avec une erreur
+   > « An error occurred in the Server Components render ». Depuis la version
+   > actuelle, le build **s'interrompt avec un message explicite** au lieu de
+   > produire un déploiement cassé : si le build échoue sur
+   > `DATABASE_PROVIDER`, c'est que cette variable manque à la portée Build.
+
 3. Appliquez le schéma et chargez le contenu **depuis votre machine** :
 
 ```bash
@@ -146,11 +160,32 @@ npm run db:push
 npm run db:seed
 ```
 
+   Le projet n'a **pas de dossier `prisma/migrations`** : `db:push` est donc la
+   seule voie, et il n'est pas idempotent dans le temps. **Relancez `db:push`
+   après chaque commit qui modifie `prisma/schema.prisma`**, sinon les tables
+   ajoutées n'existent pas en production et les pages correspondantes plantent
+   au rendu (table `audit_logs` après le commit `ba4a0b3`, par exemple).
+
 4. Utilisez l'URL du **pooler de session** (hôte `*.pooler.supabase.com`,
    port `5432`), et non la connexion directe : Supabase n'expose cette dernière
    qu'en IPv6, que Vercel ne supporte pas.
 5. Importez le projet dans Vercel. Le build utilise `npm run build`, qui
    exécute `prisma generate` avec le schéma PostgreSQL.
+
+### Vérifier un déploiement
+
+Si une page affiche « An error occurred in the Server Components render »,
+l'erreur réelle est dans les logs du déploiement Vercel (onglet **Logs**),
+jamais dans la console du navigateur. Vérifiez dans l'ordre :
+
+1. `DATABASE_PROVIDER` est bien définie à la portée Build ;
+2. le schéma a été poussé sur la base de production (`npm run db:push`) ;
+3. `DATABASE_URL` pointe bien vers le pooler en IPv4.
+
+> `sharp` est aujourd'hui dans `devDependencies` alors que `next/image` en a
+> besoin a l'execution pour optimiser les images. Si les images ne sont pas
+> optimisees en production, deplacez `sharp` dans `dependencies` et regenerez le
+> lockfile avec la meme version de npm que celle utilisee pour `npm install`.
 
 ## Contenu
 

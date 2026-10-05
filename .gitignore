@@ -22,3 +22,7 @@ prisma/*.db-journal
 prisma/dev.db
 src/generated/prisma
 next-intl.config.mjs.bak
+
+# Scripts de diagnostic jetables (.tmp-*.cjs) : utiles en local, jamais
+# destines au depot.
+.tmp-*
