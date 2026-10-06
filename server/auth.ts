@@ -48,7 +48,10 @@ declare module "@auth/core/jwt" {
   }
 }
 
-const googleEnabled = Boolean(process.env.AUTH_GOOGLE_ID && process.env.AUTH_GOOGLE_SECRET);
+/** Vrai si les identifiants Google sont configures (local ou Vercel). */
+export const googleEnabled = Boolean(
+  process.env.AUTH_GOOGLE_ID && process.env.AUTH_GOOGLE_SECRET,
+);
 
 export const authConfig: NextAuthConfig = {
   adapter: PrismaAdapter(prisma),

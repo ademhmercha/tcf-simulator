@@ -4,9 +4,10 @@ import { redirect } from "next/navigation";
 import { Suspense } from "react";
 
 import { AuthShell } from "@/components/auth/auth-shell";
+import { GoogleSignInSection } from "@/components/auth/google-sign-in";
 import { LoginForm } from "@/components/auth/login-form";
 import { Skeleton } from "@/components/ui/skeleton";
-import { auth } from "@/server/auth";
+import { auth, googleEnabled } from "@/server/auth";
 import type { AppLocale } from "@/config/enums";
 
 export async function generateMetadata({
@@ -34,6 +35,9 @@ export default async function LoginPage({
     <AuthShell title={t("loginTitle")} subtitle={t("loginSubtitle")}>
       <Suspense fallback={<LoginSkeleton />}>
         <LoginForm />
+      </Suspense>
+      <Suspense fallback={null}>
+        <GoogleSignInSection enabled={googleEnabled} />
       </Suspense>
     </AuthShell>
   );

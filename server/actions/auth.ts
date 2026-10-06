@@ -10,7 +10,7 @@ import {
 } from "@/lib/security";
 import { INITIAL_FORM_STATE, zodFieldErrors, type FormState } from "@/lib/form-state";
 import { prisma } from "@/lib/db";
-import { signIn, signOut } from "@/server/auth";
+import { googleEnabled, signIn, signOut } from "@/server/auth";
 import {
   FORGOT_PASSWORD_SCHEMA,
   LOGIN_SCHEMA,
@@ -154,4 +154,18 @@ export async function forgotPasswordAction(
 
 export async function logoutAction(): Promise<void> {
   await signOut({ redirectTo: "/fr" });
+}
+
+/**
+ * Connexion "Continuer avec Google" : laisse Auth.js ouvrir la session et
+ * redirige le navigateur vers Google puis vers le dashboard. Un `next`
+ * (destination demandee) est repris s'il est local, sinon dashboard.
+ */
+export async function googleSignInAction(redirectTo?: string): Promise<void> {
+  if (!googleEnabled) return;
+  const target =
+    typeof redirectTo === "string" && redirectTo.startsWith("/") && !redirectTo.startsWith("//")
+      ? redirectTo
+      : "/fr/dashboard";
+  await signIn("google", { redirectTo: target });
 }

@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { redirect } from "next/navigation";
+import { Suspense } from "react";
 
 import { AuthShell } from "@/components/auth/auth-shell";
+import { GoogleSignInSection } from "@/components/auth/google-sign-in";
 import { RegisterForm } from "@/components/auth/register-form";
-import { auth } from "@/server/auth";
+import { auth, googleEnabled } from "@/server/auth";
 import type { AppLocale } from "@/config/enums";
 
 export async function generateMetadata({
@@ -30,6 +32,9 @@ export default async function RegisterPage({
   return (
     <AuthShell title={t("registerTitle")} subtitle={t("registerSubtitle")}>
       <RegisterForm />
+      <Suspense fallback={null}>
+        <GoogleSignInSection enabled={googleEnabled} />
+      </Suspense>
     </AuthShell>
   );
 }
