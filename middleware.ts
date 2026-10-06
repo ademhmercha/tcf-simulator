@@ -44,6 +44,7 @@ const PROTECTED_PREFIXES = [
   "/results",
   "/corrections",
   "/exam",
+  "/comprehension-orale",
   "/admin",
 ] as const;
 

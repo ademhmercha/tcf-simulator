@@ -38,13 +38,21 @@ function Badge({ className, variant, size, ...props }: BadgeProps): React.JSX.El
 /** Badge de niveau CECRL avec la couleur de l'echelle de difficulte. */
 function LevelBadge({
   level,
+  levelColor,
+  children,
   className,
   size,
 }: {
   level: string;
+  /** Couleur CSS a utiliser (par defaut le niveau, minuscule). */
+  levelColor?: string;
+  children?: React.ReactNode;
   className?: string;
   size?: BadgeProps["size"];
 }): React.JSX.Element {
+  // Les palettes melangees ("B1-B2") n'ont pas de couleur dediee : on repart
+  // sur le premier niveau de l'echelle.
+  const key = (levelColor ?? level.split("-")[0] ?? level).toLowerCase();
   return (
     <div
       className={cn(
@@ -53,10 +61,11 @@ function LevelBadge({
         className,
       )}
       style={{
-        backgroundColor: `hsl(var(--level-${level.toLowerCase()}) / 0.14)`,
-        color: `hsl(var(--level-${level.toLowerCase()}))`,
+        backgroundColor: `hsl(var(--level-${key}) / 0.14)`,
+        color: `hsl(var(--level-${key}))`,
       }}
     >
+      {children}
       {level}
     </div>
   );

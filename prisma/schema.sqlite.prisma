@@ -49,6 +49,7 @@ model User {
   sessions Session[]
   attempts Attempt[]
   auditLogs AuditLog[]
+  listeningResults ListeningResult[]
 
   @@index([role])
   @@map("users")
@@ -322,4 +323,89 @@ model Answer {
   // de revenir a la table pour chaque question.
   @@index([questionId, isCorrect])
   @@map("answers")
+}
+
+// ----------------------- Comprehension orale -----------------------------
+
+/// Serie d'entrainement a la comprehension orale.
+///
+/// Independante des tests blancs : pas de chronometre, une ou plusieurs
+/// ecoutes par audio (1 par defaut), correction immediate a la fin.
+model ListeningSeries {
+  id       String  @id @default(cuid())
+  slug     String  @unique
+  title    String
+  /// A1 | A2 | B1 | B2 | C1 | C2 (ou palette melangee, ex: "B1-B2")
+  level    String
+  order    Int     @default(1)
+  description String?
+  /// Nombre d'ecoutes autorisees par fichier audio (le TCF officiel en offre deux).
+  listenings Int   @default(1)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  questions ListeningQuestion[]
+  results   ListeningResult[]
+
+  @@index([level, order])
+  @@map("listening_series")
+}
+
+model ListeningQuestion {
+  id            String   @id @default(cuid())
+  seriesId      String
+  order         Int      @default(1)
+  /// Chemin public du fichier audio (ex: /audio/co/<serie>/01.mp3)
+  audioUrl      String
+  transcription String
+  prompt        String
+  optionA       String
+  optionB       String
+  optionC       String
+  optionD       String
+  /// A | B | C | D
+  correctLetter String
+  explanation   String
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  series  ListeningSeries    @relation(fields: [seriesId], references: [id], onDelete: Cascade)
+  answers ListeningAnswer[]
+
+  @@index([seriesId, order])
+  @@map("listening_questions")
+}
+
+/// Resultat d'une serie de comprehension orale. Une ligne par passage :
+/// retenter une serie cree une nouvelle ligne (historique de progression).
+model ListeningResult {
+  id        String   @id @default(cuid())
+  userId    String
+  seriesId  String
+  score     Int
+  maxScore  Int
+  createdAt DateTime @default(now())
+
+  user    User               @relation(fields: [userId], references: [id], onDelete: Cascade)
+  series  ListeningSeries    @relation(fields: [seriesId], references: [id], onDelete: Cascade)
+  answers ListeningAnswer[]
+
+  @@index([userId, createdAt])
+  @@index([seriesId])
+  @@map("listening_results")
+}
+
+model ListeningAnswer {
+  id             String   @id @default(cuid())
+  resultId       String
+  questionId     String
+  selectedLetter String?
+  isCorrect      Boolean  @default(false)
+
+  result   ListeningResult   @relation(fields: [resultId], references: [id], onDelete: Cascade)
+  question ListeningQuestion @relation(fields: [questionId], references: [id], onDelete: Cascade)
+
+  @@index([resultId])
+  @@index([questionId])
+  @@map("listening_answers")
 }

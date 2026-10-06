@@ -12,7 +12,7 @@
  * et aucune requete non-GET (reponses, soumission, heartbeat) n'est interceptee.
  */
 
-const VERSION = "v1";
+const VERSION = "v2";
 const STATIC_CACHE = "tcf-static-" + VERSION;
 const PAGES_CACHE = "tcf-pages-" + VERSION;
 const OFFLINE_URL = "/offline.html";
@@ -187,11 +187,11 @@ self.addEventListener("fetch", function (event) {
 
   if (isBypassed(url.pathname)) return;
 
-  // Ressources statiques (build Next.js, polices, images, icones).
+  // Ressources statiques (build Next.js, polices, images, icones, audio).
   if (
     url.pathname.startsWith("/_next/static/") ||
     url.pathname.startsWith("/icons/") ||
-    /\.(?:css|js|woff2?|ttf|png|jpe?g|svg|webp|avif|ico)$/.test(url.pathname)
+    /\.(?:css|js|woff2?|ttf|png|jpe?g|svg|webp|avif|ico|mp3)$/.test(url.pathname)
   ) {
     event.respondWith(cacheFirst(request));
   }

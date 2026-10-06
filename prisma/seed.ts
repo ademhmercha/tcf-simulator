@@ -6,6 +6,8 @@ import { PrismaClient } from "@prisma/client";
 
 import { computeSimulatedScore, DEFAULT_SCORING_PROFILE, SCORE_MAX } from "../config/scoring";
 import { importContentFile, parseContentJson } from "../server/services/content-import";
+import { CO_SERIES } from "../data/co";
+import { coAudioUrl } from "../data/co/types";
 import { getServerEnv } from "../lib/env";
 import { hashPassword } from "../lib/security";
 
@@ -259,14 +261,82 @@ async function seedDemoAttempts(): Promise<void> {
   }
 }
 
+async function seedListening(): Promise<void> {
+  heading("Comprehension orale");
+
+  let questionsTotal = 0;
+  for (const serie of CO_SERIES) {
+    await db.listeningSeries.upsert({
+      where: { slug: serie.slug },
+      update: {
+        title: serie.title,
+        level: serie.level,
+        order: serie.order,
+        description: serie.description,
+        listenings: serie.listenings,
+      },
+      create: {
+        slug: serie.slug,
+        title: serie.title,
+        level: serie.level,
+        order: serie.order,
+        description: serie.description,
+        listenings: serie.listenings,
+      },
+    });
+
+    // Regeneration simple : les resultats existants pointent vers d'anciennes
+    // questions, leur score reste inchange (historique conserve).
+    const seriesRow = await db.listeningSeries.findUniqueOrThrow({
+      where: { slug: serie.slug },
+    });
+
+    await db.listeningQuestion.deleteMany({ where: { seriesId: seriesRow.id } });
+    for (const [index, item] of serie.questions.entries()) {
+      await db.listeningQuestion.create({
+        data: {
+          seriesId: seriesRow.id,
+          order: index + 1,
+          audioUrl: coAudioUrl(serie.slug, index),
+          transcription: item.transcription,
+          prompt: item.prompt,
+          optionA: item.options[0],
+          optionB: item.options[1],
+          optionC: item.options[2],
+          optionD: item.options[3],
+          correctLetter: item.correct,
+          explanation: item.explanation,
+        },
+      });
+      questionsTotal += 1;
+    }
+  }
+
+  const seriesCount = await db.listeningSeries.count();
+  console.log(`  Series crees / mises a jour : ${seriesCount}`);
+  console.log(`  Questions ecrites          : ${questionsTotal}`);
+  console.log(
+    `  Fichiers audio attendus     : ${questionsTotal} (verifier avec npm run audio:co:check)`,
+  );
+}
+
 async function main(): Promise<void> {
   console.log("Seed TCF Simulator");
   console.log(`  NODE_ENV      : ${process.env.NODE_ENV ?? "development"}`);
   console.log(`  DATABASE_URL  : ${(process.env.DATABASE_URL ?? "").replace(/:[^:@/]+@/, ":***@")}`);
+  console.log(`  Mode          : ${process.env.SEED_LISTENING_ONLY === "1" ? "comprehension orale seule" : "complet"}`);
 
-  await seedUsers();
-  await seedTests();
-  await seedDemoAttempts();
+  // SEED_LISTENING_ONLY=1 : ne charge que les series de comprehension orale,
+  // sans retoucher aux comptes demo, tests existants ni tentatives. A utiliser
+  // en production apres un db:push pour ne pas ecraser les donnees en place.
+  if (process.env.SEED_LISTENING_ONLY === "1") {
+    await seedListening();
+  } else {
+    await seedUsers();
+    await seedTests();
+    await seedListening();
+    await seedDemoAttempts();
+  }
 
   heading("Termine");
   console.log("  Lancer l'application : npm run dev");
