@@ -282,6 +282,8 @@
     "oralColumn": "Compréhension orale",
     "oralColumnSub": "8 séries audio du A1 au C2 : une seule écoute, puis la correction avec transcription.",
     "seriesCount": "{count, plural, one {# série} other {# séries}}",
+    "writtenCount": "{count, plural, one {# test} other {# tests}}",
+    "backChoice": "Choisir une autre épreuve",
     "redo": "Refaire",
     "introTitle": "Presentation du test",
     "about": "A propos de ce test",

@@ -282,6 +282,8 @@
     "oralColumn": "Oral comprehension",
     "oralColumnSub": "8 audio series from A1 to C2: one listen, then the correction with the transcript.",
     "seriesCount": "{count, plural, one {# series} other {# series}}",
+    "writtenCount": "{count, plural, one {# test} other {# tests}}",
+    "backChoice": "Choose another test",
     "redo": "Redo",
     "introTitle": "Test overview",
     "about": "About this test",

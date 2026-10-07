@@ -4,6 +4,7 @@ import { BookOpenCheck, Headphones } from "lucide-react";
 
 import { SeriesCard } from "@/components/listening/series-card";
 import { TestCard } from "@/components/tests/test-card";
+import { TestsCatalog } from "@/components/tests/tests-catalog";
 import { LevelBadge } from "@/components/ui/badge";
 import type { AppLocale } from "@/config/enums";
 import { auth } from "@/server/auth";
@@ -54,6 +55,64 @@ export default async function TestsPage({
     groups.set(serie.level, list);
   }
 
+  const writtenPanel = (
+    <section aria-label={t("writtenColumn")} className="rounded-2xl border border-border/70 bg-surface/60 p-5 sm:p-6">
+      <div className="flex items-center gap-3">
+        <BookOpenCheck className="size-5 text-primary" aria-hidden />
+        <h2 className="text-xl font-bold">{t("writtenColumn")}</h2>
+      </div>
+      <p className="mt-1 text-sm text-muted-foreground">{t("writtenColumnSub")}</p>
+
+      {tests.length === 0 ? (
+        <p className="mt-6 text-center text-sm text-muted-foreground">
+          Aucun test publie pour le moment. Lancez{" "}
+          <code className="font-mono text-xs">npm run db:seed</code> pour charger le contenu.
+        </p>
+      ) : (
+        <div className="mt-5 grid gap-5 sm:grid-cols-2">
+          {tests.map((test) => (
+            <TestCard key={test.id} test={test} signedIn={signedIn} />
+          ))}
+        </div>
+      )}
+    </section>
+  );
+
+  const oralPanel = (
+    <section aria-label={t("oralColumn")} className="rounded-2xl border border-border/70 bg-surface/60 p-5 sm:p-6">
+      <div className="flex items-center gap-3">
+        <Headphones className="size-5 text-primary" aria-hidden />
+        <h2 className="text-xl font-bold">{t("oralColumn")}</h2>
+      </div>
+      <p className="mt-1 text-sm text-muted-foreground">{t("oralColumnSub")}</p>
+
+      {sorted.length === 0 ? (
+        <p className="mt-6 text-center text-sm text-muted-foreground">
+          {tc("emptySeries")}
+        </p>
+      ) : (
+        <div className="mt-5 space-y-7">
+          {[...groups.entries()].map(([level, items]) => (
+            <section key={level} aria-label={`Niveau ${level}`}>
+              <div className="mb-3 flex items-center gap-3">
+                <LevelBadge level={level} />
+                <span className="h-px flex-1 bg-border" />
+                <span className="text-xs font-medium text-muted-foreground">
+                  {t("seriesCount", { count: items.length })}
+                </span>
+              </div>
+              <div className="grid gap-4 sm:grid-cols-2">
+                {items.map((serie) => (
+                  <SeriesCard key={serie.id} serie={serie} signedIn={signedIn} />
+                ))}
+              </div>
+            </section>
+          ))}
+        </div>
+      )}
+    </section>
+  );
+
   return (
     <div className="container py-12">
       <header className="mx-auto max-w-2xl text-center">
@@ -62,63 +121,12 @@ export default async function TestsPage({
         <p className="mt-3 text-muted-foreground">{t("pageSubtitle")}</p>
       </header>
 
-      <div className="mt-12 grid items-start gap-6 lg:grid-cols-2">
-        {/* ----------------- Langue / Comprehension ecrite ----------------- */}
-        <section className="rounded-2xl border border-border/70 bg-surface/60 p-5 sm:p-6">
-          <div className="flex items-center gap-3">
-            <BookOpenCheck className="size-5 text-primary" aria-hidden />
-            <h2 className="text-xl font-bold">{t("writtenColumn")}</h2>
-          </div>
-          <p className="mt-1 text-sm text-muted-foreground">{t("writtenColumnSub")}</p>
-
-          {tests.length === 0 ? (
-            <p className="mt-6 text-center text-sm text-muted-foreground">
-              Aucun test publie pour le moment. Lancez{" "}
-              <code className="font-mono text-xs">npm run db:seed</code> pour charger le contenu.
-            </p>
-          ) : (
-            <div className="mt-5 grid gap-5 sm:grid-cols-2">
-              {tests.map((test) => (
-                <TestCard key={test.id} test={test} signedIn={signedIn} />
-              ))}
-            </div>
-          )}
-        </section>
-
-        {/* --------------------- Comprehension orale ------------------------ */}
-        <section className="rounded-2xl border border-border/70 bg-surface/60 p-5 sm:p-6">
-          <div className="flex items-center gap-3">
-            <Headphones className="size-5 text-primary" aria-hidden />
-            <h2 className="text-xl font-bold">{t("oralColumn")}</h2>
-          </div>
-          <p className="mt-1 text-sm text-muted-foreground">{t("oralColumnSub")}</p>
-
-          {sorted.length === 0 ? (
-            <p className="mt-6 text-center text-sm text-muted-foreground">
-              {tc("emptySeries")}
-            </p>
-          ) : (
-            <div className="mt-5 space-y-7">
-              {[...groups.entries()].map(([level, items]) => (
-                <section key={level} aria-label={`Niveau ${level}`}>
-                  <div className="mb-3 flex items-center gap-3">
-                    <LevelBadge level={level} />
-                    <span className="h-px flex-1 bg-border" />
-                    <span className="text-xs font-medium text-muted-foreground">
-                      {t("seriesCount", { count: items.length })}
-                    </span>
-                  </div>
-                  <div className="grid gap-4 sm:grid-cols-2">
-                    {items.map((serie) => (
-                      <SeriesCard key={serie.id} serie={serie} signedIn={signedIn} />
-                    ))}
-                  </div>
-                </section>
-              ))}
-            </div>
-          )}
-        </section>
-      </div>
+      <TestsCatalog
+        written={writtenPanel}
+        oral={oralPanel}
+        writtenCount={tests.length}
+        oralCount={sorted.length}
+      />
     </div>
   );
 }
