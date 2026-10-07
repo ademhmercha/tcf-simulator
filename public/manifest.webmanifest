@@ -1,7 +1,7 @@
 {
   "name": "TCF Simulator",
   "short_name": "TCF",
-  "description": "Plateforme d'entrainement au TCF : 5 tests blancs complets, correction detaillee et niveau CECRL estime.",
+  "description": "Plateforme d'entrainement au TCF : 5 tests blancs, 8 series d'ecoute (A1 → C2), 370 questions originales avec correction detaillee et niveau CECRL estime.",
   "lang": "fr",
   "dir": "ltr",
   "id": "/fr",

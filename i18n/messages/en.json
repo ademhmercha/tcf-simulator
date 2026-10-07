@@ -88,10 +88,10 @@
   "landing": {
     "meta": {
       "title": "TCF Simulator - Practise the TCF under real exam conditions",
-      "description": "5 complete mock TCF tests, timed like exam day. Score, CEFR level and a detailed correction of every mistake."
+      "description": "5 complete mock TCF tests and 8 oral comprehension practice series (A1 → C2): 370 original questions, timed like exam day. Score, CEFR level and a detailed correction of every mistake."
     },
     "hero": {
-      "eyebrow": "5 complete mock tests - 250 original questions",
+      "eyebrow": "5 mock tests · 8 listening series · 370 original questions",
       "titlePrefix": "Take the TCF",
       "titleAccent": "without the stress,",
       "titleSuffix": "at your own pace",
@@ -103,7 +103,8 @@
       "trustResume": "Resume after interruption"
     },
     "stats": {
-      "tests": "complete tests",
+      "tests": "mock tests",
+      "oralSeries": "listening series",
       "questions": "original questions",
       "explanation": "explanations per question"
     },
@@ -118,7 +119,7 @@
       "correctionTitle": "Educational correction",
       "correctionBody": "For each question: your answer, the right answer, and above all why. Mistakes turn into progress.",
       "analyticsTitle": "Mistake analysis",
-      "analyticsBody": "Radar by level, bars by difficulty, time spent per question and a progress curve across the 5 tests.",
+      "analyticsBody": "Radar by skill, bars by difficulty, time spent per question and a progress curve across the 5 written tests and the 8 listening series.",
       "mistakesTitle": "Retry only your mistakes",
       "mistakesBody": "A targeted session on the questions you got wrong, instead of repeating the whole test.",
       "mobileTitle": "Mobile first",
@@ -126,8 +127,11 @@
     },
     "exam": {
       "eyebrow": "The format",
-      "title": "Two modules, like the TCF",
-      "subtitle": "A single 60-minute timer covers both modules. You move forward one question at a time.",
+      "title": "Three skills, just like the TCF",
+      "subtitle": "The two written modules share a single 60-minute timer. Oral comprehension is trained series by series, with a single listen.",
+      "oralTitle": "Oral comprehension",
+      "oralBody": "Notices, conversations, interviews, debates: listen to a document once, then answer the question.",
+      "oralMeta": "15 questions per series · 8 series from A1 to C2",
       "structureTitle": "Language structure",
       "structureBody": "Grammar, vocabulary, morphology: complete the sentence with the correct form.",
       "structureMeta": "20 questions",
@@ -141,7 +145,7 @@
       "eyebrow": "In three steps",
       "title": "How it works",
       "step1Title": "Pick a test",
-      "step1Body": "5 tests of 50 questions, with progressive difficulty.",
+      "step1Body": "A 50-question written test or a 15-question listening series, from A1 to C2 with progressive difficulty.",
       "step2Title": "Take the exam",
       "step2Body": "Timer, navigation grid, flag for review, saved on every click.",
       "step3Title": "Analyse your mistakes",
@@ -149,8 +153,8 @@
     },
     "testsPreview": {
       "eyebrow": "The tests",
-      "title": "Five tests to measure your progress",
-      "subtitle": "All tests follow the same structure and the same scale, so your scores are directly comparable.",
+      "title": "A complete written and oral preparation",
+      "subtitle": "The 5 written mock tests and the 8 listening series cover the whole TCF, from A1 to C2, with a detailed question-by-question correction.",
       "questionCount": "{count} questions",
       "duration": "{minutes} min",
       "start": "Start",
@@ -182,9 +186,9 @@
       "q3": "What happens if I lose my connection?",
       "a3": "Your answers are already stored server-side. Saving resumes as soon as the connection is back. The timer, however, stays authoritative on the server.",
       "q4": "Can I pause a test and resume later?",
-      "a4": "Yes. The timer is unique and covers both modules. If you close the page you will find the in-progress attempt with the exact remaining time, as long as the 60 minutes have not elapsed.",
-      "q5": "How long does a full test take?",
-      "a5": "60 minutes for the whole test: language structure (20 questions) and reading comprehension (30 questions).",
+      "a4": "Yes. The timer is unique and covers the two written modules. If you close the page you will find the in-progress attempt with the exact remaining time, as long as the 60 minutes have not elapsed.",
+      "q5": "How long does a test take?",
+      "a5": "A written test takes 60 minutes in total: language structure (20 questions) and reading comprehension (30 questions). The oral comprehension series are worked through question by question (15 questions each), with a single listen per audio.",
       "q6": "Do I need an account?",
       "a6": "Yes, an account is needed to keep your results, history and progress curve. You can also sign in with Google."
     },
@@ -283,6 +287,7 @@
     "oralColumnSub": "8 audio series from A1 to C2: one listen, then the correction with the transcript.",
     "seriesCount": "{count, plural, one {# series} other {# series}}",
     "writtenCount": "{count, plural, one {# test} other {# tests}}",
+    "emptyWritten": "No test has been published yet. Run npm run db:seed to load the content.",
     "backChoice": "Choose another test",
     "redo": "Redo",
     "introTitle": "Test overview",
@@ -381,7 +386,7 @@
         "ecritTip": "Do not try to understand every word. Learn to spot the important information and the keywords quickly: that is what makes the difference at this level.",
         "tipLabel": "Tip",
         "noteTitle": "What TCF Simulator offers",
-        "noteBody": "Both written parts are reproduced identically in our mock exams: language structures (20 questions) and reading comprehension (30 questions), corrected question by question. Listening, which relies on audio material, still has to be worked on with the resources listed below."
+        "noteBody": "Both written parts are reproduced identically in our mock exams: language structures (20 questions) and reading comprehension (30 questions), corrected question by question. Listening is covered by 8 practice series from A1 to C2 (15 questions each), with transcriptions and explanations."
       },
       "duree": {
         "nav": "Exam duration",
@@ -478,8 +483,8 @@
       }
     },
     "endTitle": "Start your preparation",
-    "endSubtitle": "Five full mock exams, timed like the real thing, with detailed corrections and an estimated CEFR level.",
-    "endNote": "250 original questions. No bank details required."
+    "endSubtitle": "Five full mock exams and eight listening series, from A1 to C2, with detailed corrections, an estimated CEFR level and audio transcriptions.",
+    "endNote": "370 original questions. No bank details required."
   },
   "exam": {
     "structure": "Language structure",
@@ -1021,7 +1026,7 @@
     "product": "Product",
     "resources": "Resources",
     "legal": "Legal",
-    "tests": "The tests",
+    "tests": "Practice series",
     "guide": "TCF guide",
     "dashboard": "Dashboard",
     "history": "History",

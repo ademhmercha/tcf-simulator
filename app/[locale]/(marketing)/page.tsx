@@ -8,6 +8,7 @@ import {
   ClipboardCheck,
   Clock,
   Gauge,
+  Headphones,
   MonitorSmartphone,
   RefreshCcw,
   ShieldCheck,
@@ -17,13 +18,13 @@ import {
 } from "lucide-react";
 
 import { HeroBackdrop } from "@/components/marketing/hero-backdrop";
-import { TestCard } from "@/components/tests/test-card";
+import { OralPanel, WrittenPanel } from "@/components/tests/panels";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { features } from "@/config/site";
 import { LOCALES, type AppLocale } from "@/config/enums";
 import { getPublishedTests } from "@/server/services/attempts";
+import { getListeningSeriesList } from "@/server/services/listening";
 import { auth } from "@/server/auth";
 import { Link } from "@/i18n/navigation";
 
@@ -47,8 +48,18 @@ export default async function HomePage({
   const t = await getTranslations("landing");
 
   const session = await auth();
-  const tests = await getPublishedTests(session?.user?.id);
+  const signedIn = Boolean(session?.user);
+  const [tests, series] = await Promise.all([
+    getPublishedTests(session?.user?.id),
+    getListeningSeriesList(session?.user?.id),
+  ]);
   const firstTest = tests[0];
+
+  const writtenTests = tests.length;
+  const writtenQuestions = tests.reduce((sum, test) => sum + test.questionCount, 0);
+  const seriesCount = series.length;
+  const oralQuestions = series.reduce((sum, serie) => sum + serie.questionCount, 0);
+  const totalQuestions = writtenQuestions + oralQuestions;
 
   return (
     <>
@@ -112,8 +123,9 @@ export default async function HomePage({
       <section className="container pb-4">
         <dl className="grid grid-cols-2 gap-4 lg:grid-cols-4">
           {[
-            { value: features.testCount, label: t("stats.tests"), icon: ClipboardCheck },
-            { value: features.totalQuestions, label: t("stats.questions"), icon: BookOpenCheck },
+            { value: writtenTests, label: t("stats.tests"), icon: ClipboardCheck },
+            { value: seriesCount, label: t("stats.oralSeries"), icon: Headphones },
+            { value: totalQuestions, label: t("stats.questions"), icon: BookOpenCheck },
             { value: "100%", label: t("stats.explanation"), icon: Sparkles },
           ].map((stat, index) => (
             <Card
@@ -196,8 +208,14 @@ export default async function HomePage({
             <p className="mt-4 text-muted-foreground">{t("exam.subtitle")}</p>
           </div>
 
-          <div className="mt-14 grid gap-6 md:grid-cols-2">
+          <div className="mt-14 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {[
+              {
+                title: t("exam.oralTitle"),
+                body: t("exam.oralBody"),
+                meta: t("exam.oralMeta"),
+                icon: Headphones,
+              },
               {
                 title: t("exam.structureTitle"),
                 body: t("exam.structureBody"),
@@ -274,7 +292,7 @@ export default async function HomePage({
       </section>
 
       {/* ------------------------------ Tests ------------------------------ */}
-      {tests.length > 0 ? (
+      {tests.length > 0 || series.length > 0 ? (
         <section className="border-y border-border bg-surface py-20">
           <div className="container">
             <div className="animate-fade-up mx-auto max-w-2xl text-center">
@@ -285,16 +303,9 @@ export default async function HomePage({
               <p className="mt-4 text-muted-foreground">{t("testsPreview.subtitle")}</p>
             </div>
 
-            <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-              {tests.map((test, index) => (
-                <div
-                  key={test.id}
-                  className="animate-fade-up"
-                  style={{ animationDelay: `${index * 80}ms` }}
-                >
-                  <TestCard test={test} compact signedIn={Boolean(session?.user)} />
-                </div>
-              ))}
+            <div className="mt-14 grid items-start gap-6 lg:grid-cols-2">
+              <WrittenPanel tests={tests} signedIn={signedIn} compact />
+              <OralPanel series={series} signedIn={signedIn} />
             </div>
 
             <div className="mt-10 text-center">

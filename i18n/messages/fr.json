@@ -88,10 +88,10 @@
   "landing": {
     "meta": {
       "title": "TCF Simulator - Entraînement au TCF en conditions réelles",
-      "description": "5 tests blancs TCF complets, chronométrés comme le jour J. Score, niveau CECRL et correction détaillée de chaque erreur."
+      "description": "5 tests blancs TCF complets et 8 séries d'écoute de compréhension orale (A1 → C2) : 370 questions originales, chronométrées comme le jour J. Score, niveau CECRL et correction détaillée de chaque erreur."
     },
     "hero": {
-      "eyebrow": "5 tests blancs complets - 250 questions originales",
+      "eyebrow": "5 tests blancs · 8 séries d'écoute · 370 questions originales",
       "titlePrefix": "Repassez le TCF",
       "titleAccent": "sans stress,",
       "titleSuffix": "à votre rythme",
@@ -103,7 +103,8 @@
       "trustResume": "Reprise après interruption"
     },
     "stats": {
-      "tests": "tests complets",
+      "tests": "tests blancs",
+      "oralSeries": "séries d'écoute",
       "questions": "questions originales",
       "explanation": "explication par question"
     },
@@ -118,7 +119,7 @@
       "correctionTitle": "Correction pédagogique",
       "correctionBody": "Pour chaque question : votre réponse, la bonne réponse et surtout pourquoi. Les erreurs deviennent des points de progrès.",
       "analyticsTitle": "Analyse des erreurs",
-      "analyticsBody": "Répartition par compétence, barres par niveau de difficulté, temps passé par question et courbe de progression sur les 5 tests.",
+      "analyticsBody": "Répartition par compétence, barres par niveau de difficulté, temps passé par question et courbe de progression sur les 5 tests écrits et les 8 séries d'écoute.",
       "mistakesTitle": "Refaire uniquement mes erreurs",
       "mistakesBody": "Une session ciblée sur les questions que vous avez ratées, pour retravailler au lieu de repasser tout le test.",
       "mobileTitle": "Mobile d'abord",
@@ -126,8 +127,11 @@
     },
     "exam": {
       "eyebrow": "Le format",
-      "title": "Deux epreuves, comme le TCF",
-      "subtitle": "Un chronomètre unique de 60 minutes pour les deux épreuves. Vous avancez question par question.",
+      "title": "Trois épreuves, comme le TCF",
+      "subtitle": "Les deux épreuves écrites partagent un chronomètre unique de 60 minutes. La compréhension orale s'entraîne série par série, avec une seule écoute.",
+      "oralTitle": "Compréhension orale",
+      "oralBody": "Annonces, conversations, interviews, débats : écouter un document une seule fois puis répondre à la question.",
+      "oralMeta": "15 questions par série · 8 séries du A1 au C2",
       "structureTitle": "Structure de la langue",
       "structureBody": "Grammaire, vocabulaire, morphologie : compléter la phrase avec la forme correcte.",
       "structureMeta": "20 questions",
@@ -140,8 +144,8 @@
     "howItWorks": {
       "eyebrow": "En trois etapes",
       "title": "Comment ca marche",
-      "step1Title": "Choisissez un test",
-      "step1Body": "5 tests de 50 questions, avec une difficulté progressive.",
+      "step1Title": "Choisissez une épreuve",
+      "step1Body": "Un test écrit de 50 questions ou une série d'écoute de 15 questions, du A1 au C2 avec une difficulté progressive.",
       "step2Title": "Passez l'examen",
       "step2Body": "Chronometre, grille de navigation, marquage pour revision, sauvegarde a chaque clic.",
       "step3Title": "Analysez vos erreurs",
@@ -149,8 +153,8 @@
     },
     "testsPreview": {
       "eyebrow": "Les tests",
-      "title": "Cinq tests pour mesurer votre progression",
-      "subtitle": "Tous les tests suivent la même structure et le même barème : vos scores sont directement comparables.",
+      "title": "Une préparation écrite et orale complète",
+      "subtitle": "Les 5 tests écrits et les 8 séries d'écoute couvrent tout le TCF, du A1 au C2, avec une correction détaillée question par question.",
       "questionCount": "{count} questions",
       "duration": "{minutes} min",
       "start": "Commencer",
@@ -182,9 +186,9 @@
       "q3": "Que se passe-t-il si je perds ma connexion ?",
       "a3": "Vos reponses sont deja enregistrees cote serveur. Des le retour du reseau, la sauvegarde reprend. Le chronometre, lui, reste autoritaire cote serveur.",
       "q4": "Puis-je interrompre un test et le reprendre plus tard ?",
-      "a4": "Oui. Le chronomètre est unique et couvre les deux épreuves. Si vous fermez la page, vous retrouverez la tentative en cours avec le temps restant exact, tant que les 60 minutes ne sont pas écoulées.",
-      "q5": "Combien de temps dure un test complet ?",
-      "a5": "60 minutes au total pour l'ensemble du test : structure de la langue (20 questions) et compréhension écrite (30 questions).",
+      "a4": "Oui. Le chronomètre est unique et couvre les deux épreuves écrites. Si vous fermez la page, vous retrouverez la tentative en cours avec le temps restant exact, tant que les 60 minutes ne sont pas écoulées.",
+      "q5": "Combien de temps dure un test ?",
+      "a5": "Un test écrit dure 60 minutes en tout : structure de la langue (20 questions) et compréhension écrite (30 questions). Les séries de compréhension orale se travaillent question par question (15 questions chacune), avec une seule écoute par document.",
       "q6": "Faut-il creer un compte ?",
       "a6": "Oui, un compte est necessaire pour conserver vos resultats, votre historique et votre courbe de progression. Vous pouvez aussi vous connecter avec Google."
     },
@@ -283,6 +287,7 @@
     "oralColumnSub": "8 séries audio du A1 au C2 : une seule écoute, puis la correction avec transcription.",
     "seriesCount": "{count, plural, one {# série} other {# séries}}",
     "writtenCount": "{count, plural, one {# test} other {# tests}}",
+    "emptyWritten": "Aucun test publié pour le moment. Lancez npm run db:seed pour charger le contenu.",
     "backChoice": "Choisir une autre épreuve",
     "redo": "Refaire",
     "introTitle": "Presentation du test",
@@ -381,7 +386,7 @@
         "ecritTip": "Ne cherchez pas forcément à comprendre chaque mot. Apprenez à identifier rapidement les informations importantes et les mots-clés : c'est ce qui fait la différence à ce niveau.",
         "tipLabel": "Conseil",
         "noteTitle": "Ce que propose TCF Simulator",
-        "noteBody": "Les deux épreuves écrites sont reproduites à l'identique dans nos tests blancs : la structure de la langue (20 questions) et la compréhension écrite (30 questions), corrigées question par question. La compréhension orale, qui repose sur des supports audio, reste à travailler avec les ressources citées plus bas."
+        "noteBody": "Les deux épreuves écrites sont reproduites à l'identique dans nos tests blancs : la structure de la langue (20 questions) et la compréhension écrite (30 questions), corrigées question par question. La compréhension orale, elle, se travaille dans 8 séries d'écoute du A1 au C2 (15 questions chacune), avec transcription et explication."
       },
       "duree": {
         "nav": "La durée de l'épreuve",
@@ -478,8 +483,8 @@
       }
     },
     "endTitle": "Commencez votre préparation",
-    "endSubtitle": "Cinq tests blancs complets, chronométrés comme le jour J, avec correction détaillée et niveau CECRL estimé.",
-    "endNote": "250 questions originales. Aucun compte bancaire requis."
+    "endSubtitle": "Cinq tests blancs complets et huit séries d'écoute, du A1 au C2, avec correction détaillée, niveau CECRL estimé et transcription des audios.",
+    "endNote": "370 questions originales. Aucun compte bancaire requis."
   },
   "exam": {
     "structure": "Structure de la langue",
@@ -1026,7 +1031,7 @@
     "product": "Produit",
     "resources": "Ressources",
     "legal": "Legal",
-    "tests": "Les tests",
+    "tests": "Série d'entraînement",
     "guide": "Guide TCF",
     "dashboard": "Tableau de bord",
     "history": "Historique",
