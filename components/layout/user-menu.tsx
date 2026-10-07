@@ -1,7 +1,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { History, LayoutDashboard, LogOut, Shield } from "lucide-react";
+import { LayoutDashboard, LogOut, Shield } from "lucide-react";
 import { useFormStatus } from "react-dom";
 
 import {
@@ -83,12 +83,6 @@ export function UserMenu({
           <Link href="/dashboard" className={itemClass("/dashboard")}>
             <LayoutDashboard className="size-4" aria-hidden />
             {t("dashboard")}
-          </Link>
-        </DropdownMenuItem>
-        <DropdownMenuItem asChild>
-          <Link href="/history" className={itemClass("/history")}>
-            <History className="size-4" aria-hidden />
-            {t("history")}
           </Link>
         </DropdownMenuItem>
 

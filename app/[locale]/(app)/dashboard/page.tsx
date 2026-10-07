@@ -127,6 +127,71 @@ export default async function DashboardPage({
         </dl>
       </section>
 
+      {/* -------------------------- Historique ---------------------------- */}
+      <section className="animate-fade-up space-y-4">
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <div>
+            <h2 className="text-xl font-bold">{t("historyTitle")}</h2>
+            <p className="text-sm text-muted-foreground">{t("historySub")}</p>
+          </div>
+          {history.length > 3 ? (
+            <Button asChild variant="ghost" size="sm">
+              <Link href="/history">{t("viewHistory")}</Link>
+            </Button>
+          ) : null}
+        </div>
+
+        {history.length === 0 ? (
+          <Card>
+            <CardContent className="flex flex-col items-center gap-3 p-10 text-center">
+              <Sparkles className="size-8 text-primary" aria-hidden />
+              <p className="font-semibold">{t("noAttempts")}</p>
+              <p className="text-sm text-muted-foreground">{t("noAttemptsHint")}</p>
+              <Button asChild>
+                <Link href="/tests">{t("startTest")}</Link>
+              </Button>
+            </CardContent>
+          </Card>
+        ) : (
+          <Card>
+            <CardContent className="p-0">
+              <ul className="divide-y divide-border">
+                {history.slice(0, 8).map((attempt) => (
+                  <li key={attempt.id}>
+                    <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2 p-4 transition-colors hover:bg-muted/40">
+                      <div className="min-w-0">
+                        <Link
+                          href={`/results/${attempt.id}`}
+                          className="truncate font-medium hover:text-primary"
+                        >
+                          {attempt.testTitle}
+                        </Link>
+                        <p className="text-xs text-muted-foreground">
+                          {new Date(attempt.startedAt).toLocaleDateString("fr-FR")}
+                        </p>
+                      </div>
+                      <div className="flex shrink-0 flex-wrap items-center gap-3">
+                        {attempt.cefrLevel ? (
+                          <LevelBadge level={attempt.cefrLevel} size="sm" />
+                        ) : null}
+                        <span className="font-display font-bold tabular-nums">
+                          {attempt.totalScore ?? "-"}/{attempt.maxScore ?? "-"}
+                        </span>
+                        <Button asChild size="sm" variant="ghost">
+                          <Link href={`/corrections/${attempt.testSlug}`}>
+                            {tc("viewCorrection")}
+                          </Link>
+                        </Button>
+                      </div>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </CardContent>
+          </Card>
+        )}
+      </section>
+
       {/* ------------------------ Progression ---------------------------- */}
       {completed.length > 0 ? (
         <section className="animate-fade-up space-y-4">
@@ -198,7 +263,7 @@ export default async function DashboardPage({
           </div>
           <Button asChild variant="outline" size="sm">
             <Link href="/tests">
-              {t("viewHistory")}
+              {t("viewAllTests")}
               <ArrowRight className="size-4" aria-hidden />
             </Link>
           </Button>
@@ -241,70 +306,17 @@ export default async function DashboardPage({
                         </Link>
                       </Button>
                     ) : null}
-                    <Button asChild size="sm" variant="ghost">
-                      <Link href={`/corrections/${test.slug}`}>{tc("viewCorrection")}</Link>
-                    </Button>
+                    {test.bestTotalScore !== null ? (
+                      <Button asChild size="sm" variant="ghost">
+                        <Link href={`/corrections/${test.slug}`}>{tc("viewCorrection")}</Link>
+                      </Button>
+                    ) : null}
                   </div>
                 </CardContent>
               </Card>
             </li>
           ))}
         </ul>
-      </section>
-
-      {/* --------------------- Tentatives recentes ----------------------- */}
-      <section className="animate-fade-up space-y-4">
-        <div className="flex flex-wrap items-center justify-between gap-3">
-          <h2 className="text-xl font-bold">{t("recentAttempts")}</h2>
-          {history.length > 0 ? (
-            <Button asChild variant="ghost" size="sm">
-              <Link href="/history">{t("viewHistory")}</Link>
-            </Button>
-          ) : null}
-        </div>
-
-        {history.length === 0 ? (
-          <Card>
-            <CardContent className="flex flex-col items-center gap-3 p-10 text-center">
-              <Sparkles className="size-8 text-primary" aria-hidden />
-              <p className="font-semibold">{t("noAttempts")}</p>
-              <p className="text-sm text-muted-foreground">{t("noAttemptsHint")}</p>
-              <Button asChild>
-                <Link href="/tests">{t("startTest")}</Link>
-              </Button>
-            </CardContent>
-          </Card>
-        ) : (
-          <Card>
-            <CardContent className="p-0">
-              <ul className="divide-y divide-border">
-                {history.slice(0, 6).map((attempt) => (
-                  <li key={attempt.id}>
-                    <Link
-                      href={`/results/${attempt.id}`}
-                      className="flex items-center justify-between gap-4 p-4 transition-colors hover:bg-muted/40"
-                    >
-                      <div className="min-w-0">
-                        <p className="truncate font-medium">{attempt.testTitle}</p>
-                        <p className="text-xs text-muted-foreground">
-                          {new Date(attempt.startedAt).toLocaleDateString("fr-FR")}
-                        </p>
-                      </div>
-                      <div className="flex shrink-0 items-center gap-3">
-                        {attempt.cefrLevel ? (
-                          <LevelBadge level={attempt.cefrLevel} size="sm" />
-                        ) : null}
-                        <span className="font-display font-bold tabular-nums">
-                          {attempt.totalScore ?? "-"}/{attempt.maxScore ?? "-"}
-                        </span>
-                      </div>
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </CardContent>
-          </Card>
-        )}
       </section>
     </div>
   );

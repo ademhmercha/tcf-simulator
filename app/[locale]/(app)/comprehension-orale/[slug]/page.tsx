@@ -44,7 +44,7 @@ export default async function ListeningSeriesPage({
     <div className="container max-w-3xl py-10">
       <div className="mb-6 flex items-center justify-between gap-3">
         <Button asChild size="sm" variant="outline">
-          <Link href="/comprehension-orale">← {t("backToList")}</Link>
+          <Link href="/tests">← {t("backToList")}</Link>
         </Button>
         <LevelBadge level={payload.series.level} size="sm" />
       </div>

@@ -22,7 +22,11 @@
     "correctionMetaTitle": "Résultat",
     "correctionMetaDescription": "Score et correction détaillée d'une série de compréhension orale.",
     "correctionTitle": "Votre résultat",
-    "correctionSubtitle": "Réécoutez chaque audio, lisez la transcription et l'explication."
+    "correctionSubtitle": "Réécoutez chaque audio, lisez la transcription et l'explication.",
+    "redo": "Refaire",
+    "viewCorrection": "Voir le corrigé",
+    "bestScore": "Meilleur score",
+    "emptySeries": "Aucune série de compréhension orale pour le moment."
   },
   "common": {
     "appName": "TCF Simulator",
@@ -67,7 +71,7 @@
   },
   "nav": {
     "home": "Accueil",
-    "tests": "Tests",
+    "tests": "Série d'entraînement",
     "guide": "Guide TCF",
     "comprehensionOrale": "Compréhension orale",
     "dashboard": "Tableau de bord",
@@ -83,20 +87,20 @@
   },
   "landing": {
     "meta": {
-      "title": "TCF Simulator - Entrainement au TCF en conditions reelles",
-      "description": "5 tests blancs TCF complets, chronometres comme le jour J. Score, niveau CECRL et correction detaillee de chaque erreur."
+      "title": "TCF Simulator - Entraînement au TCF en conditions réelles",
+      "description": "5 tests blancs TCF complets, chronométrés comme le jour J. Score, niveau CECRL et correction détaillée de chaque erreur."
     },
     "hero": {
       "eyebrow": "5 tests blancs complets - 250 questions originales",
-      "titlePrefix": "Reprez le TCF",
-      "titleAccent": "sans stress",
-      "titleSuffix": ", a votre rythme",
-      "subtitle": "Conditions d'examen fideles : chronometre serveur, sauvegarde automatique, reprise apres interruption. Score, niveau CECRL estime et explication de chaque erreur.",
+      "titlePrefix": "Repassez le TCF",
+      "titleAccent": "sans stress,",
+      "titleSuffix": "à votre rythme",
+      "subtitle": "Conditions d'examen fidèles : chronomètre serveur, sauvegarde automatique, reprise après interruption. Score, niveau CECRL estimé et explication de chaque erreur.",
       "ctaPrimary": "Commencer le Test 1",
       "ctaSecondary": "Voir les tests",
       "trustNoAccount": "Aucune carte bancaire",
-      "trustInstant": "Resultats immediats",
-      "trustResume": "Reprise apres interruption"
+      "trustInstant": "Résultats immédiats",
+      "trustResume": "Reprise après interruption"
     },
     "stats": {
       "tests": "tests complets",
@@ -106,17 +110,17 @@
     "features": {
       "eyebrow": "Ce qui vous attend",
       "title": "Une simulation, pas un quiz",
-      "subtitle": "Chaque detail est calque sur l'examen : la pression du temps, la lecture de documents, l'analyse immediate de vos erreurs.",
-      "timerTitle": "Chronometre serveur",
-      "timerBody": "Le temps restant est calcule par le serveur. Recharger la page, perdre le reseau ou changer d'appareil ne vous fait rien perdre.",
+      "subtitle": "Chaque détail est calqué sur l'examen : la pression du temps, la lecture de documents, l'analyse immédiate de vos erreurs.",
+      "timerTitle": "Chronomètre serveur",
+      "timerBody": "Le temps restant est calculé par le serveur. Recharger la page, perdre le réseau ou changer d'appareil ne vous fait rien perdre.",
       "autosaveTitle": "Sauvegarde automatique",
-      "autosaveBody": "Chaque reponse est enregistree immediatement. Vous reprenez exactement ou vous vous etiez arrete.",
-      "correctionTitle": "Correction pedagogique",
-      "correctionBody": "Pour chaque question : votre reponse, la bonne reponse et surtout pourquoi. Les erreurs deviennent des points de progrs.",
+      "autosaveBody": "Chaque réponse est enregistrée immédiatement. Vous reprenez exactement où vous vous étiez arrêté.",
+      "correctionTitle": "Correction pédagogique",
+      "correctionBody": "Pour chaque question : votre réponse, la bonne réponse et surtout pourquoi. Les erreurs deviennent des points de progrès.",
       "analyticsTitle": "Analyse des erreurs",
-      "analyticsBody": "Radare par competence, barres par niveau de difficulte, temps passe par question et courbe de progression sur les 5 tests.",
+      "analyticsBody": "Répartition par compétence, barres par niveau de difficulté, temps passé par question et courbe de progression sur les 5 tests.",
       "mistakesTitle": "Refaire uniquement mes erreurs",
-      "mistakesBody": "Une session ciblee sur les questions que vous avez ratees, pour retravailler au lieu de repasser tout le test.",
+      "mistakesBody": "Une session ciblée sur les questions que vous avez ratées, pour retravailler au lieu de repasser tout le test.",
       "mobileTitle": "Mobile d'abord",
       "mobileBody": "Conception responsive et application installable (PWA). Revisez dans le metro, avec ou sans reseau."
     },
@@ -125,10 +129,10 @@
       "title": "Deux epreuves, comme le TCF",
       "subtitle": "Un chronomètre unique de 60 minutes pour les deux épreuves. Vous avancez question par question.",
       "structureTitle": "Structure de la langue",
-      "structureBody": "Grammaire, vocabulaire, morphologie : completer la phrase avec la forme correcte.",
+      "structureBody": "Grammaire, vocabulaire, morphologie : compléter la phrase avec la forme correcte.",
       "structureMeta": "20 questions",
       "comprehensionTitle": "Comprehension ecrite",
-      "comprehensionBody": "Annonces, courriels, articles, notices : lire un document puis repondre a ses questions.",
+      "comprehensionBody": "Annonces, courriels, articles, notices : lire un document puis répondre à ses questions.",
       "comprehensionMeta": "30 questions",
       "badgeA": "4 propositions",
       "badgeB": "1 seule bonne reponse"
@@ -137,7 +141,7 @@
       "eyebrow": "En trois etapes",
       "title": "Comment ca marche",
       "step1Title": "Choisissez un test",
-      "step1Body": "5 tests de 50 questions, avec une difficulte progressive.",
+      "step1Body": "5 tests de 50 questions, avec une difficulté progressive.",
       "step2Title": "Passez l'examen",
       "step2Body": "Chronometre, grille de navigation, marquage pour revision, sauvegarde a chaque clic.",
       "step3Title": "Analysez vos erreurs",
@@ -146,7 +150,7 @@
     "testsPreview": {
       "eyebrow": "Les tests",
       "title": "Cinq tests pour mesurer votre progression",
-      "subtitle": "Tous les tests suivent la meme structure et le meme bareme : vos scores sont directement comparables.",
+      "subtitle": "Tous les tests suivent la même structure et le même barème : vos scores sont directement comparables.",
       "questionCount": "{count} questions",
       "duration": "{minutes} min",
       "start": "Commencer",
@@ -166,7 +170,7 @@
       "t2Quote": "Refaire uniquement mes erreurs m'a fait gagner deux niveaux en trois semaines. Les explications sont precises, pas generiques.",
       "t3Name": "Sofia R.",
       "t3Role": "Candidat TCF, preparation FRENCH",
-      "t3Quote": "J'ai change de telephone en plein examen. En revenant, j'etais exactement au meme point avec le bon temps restant."
+      "t3Quote": "J'ai changé de téléphone en plein examen. En revenant, j'étais exactement au même point avec le bon temps restant."
     },
     "faq": {
       "eyebrow": "Questions frequentes",
@@ -262,11 +266,23 @@
     "accuracy": "Reussite",
     "retakeMistakes": "Refaire mes erreurs",
     "questionOf": "Question {current} sur {total}",
-    "viewHistory": "Voir l'historique complet"
+    "viewHistory": "Voir l'historique complet",
+    "viewAllTests": "Voir tous les tests",
+    "historyTitle": "Historique",
+    "historySub": "Vos tentatives passées : score, niveau et corrigé."
   },
   "tests": {
-    "listTitle": "Tests blancs TCF",
+    "listTitle": "Série d'entraînement",
     "listSubtitle": "5 tests complets de 50 questions, chronometres comme le jour J.",
+    "pageEyebrow": "Entraînement TCF",
+    "pageTitle": "Série d'entraînement",
+    "pageSubtitle": "Choisissez un test blanc complet ou une série de compréhension orale, puis entraînez-vous dans des conditions proches de l'examen.",
+    "writtenColumn": "Langue / Compréhension écrite",
+    "writtenColumnSub": "Les 5 tests blancs complets : structure de la langue et compréhension écrite, chronométrés comme le jour J.",
+    "oralColumn": "Compréhension orale",
+    "oralColumnSub": "8 séries audio du A1 au C2 : une seule écoute, puis la correction avec transcription.",
+    "seriesCount": "{count, plural, one {# série} other {# séries}}",
+    "redo": "Refaire",
     "introTitle": "Presentation du test",
     "about": "A propos de ce test",
     "totalDuration": "Duree totale",

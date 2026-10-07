@@ -25,13 +25,16 @@ export function StartTestDialog({
   inProgress = false,
   size = "default",
   className,
+  label,
 }: {
   testId: string;
   inProgress?: boolean;
   size?: React.ComponentProps<typeof Button>["size"];
   className?: string;
+  label?: string;
 }): React.JSX.Element {
   const t = useTranslations("tests");
+  const triggerLabel = label ?? (inProgress ? t("resumeAttempt") : t("start"));
 
   return (
     <Dialog>
@@ -42,7 +45,7 @@ export function StartTestDialog({
           className={className}
         >
           {inProgress ? <PlayCircle aria-hidden /> : <ShieldAlert aria-hidden />}
-          {inProgress ? t("resumeAttempt") : t("start")}
+          {triggerLabel}
         </Button>
       </DialogTrigger>
 

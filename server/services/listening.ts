@@ -80,9 +80,10 @@ const SERIES_SELECT = {
   listenings: true,
 } as const;
 
-/** Serie + nombre de questions, pour la liste des series. */
+/** Serie + nombre de questions, pour la liste des series. Sans `userId`,
+ *  retourne le catalogue sans progression (cotes visiteurs). */
 export async function getListeningSeriesList(
-  userId: string,
+  userId?: string,
 ): Promise<
   Array<{
     id: string;
@@ -95,6 +96,7 @@ export async function getListeningSeriesList(
     questionCount: number;
     bestScore: number | null;
     maxScore: number | null;
+    bestResultId: string | null;
   }>
 > {
   const series = await prisma.listeningSeries.findMany({
@@ -105,15 +107,17 @@ export async function getListeningSeriesList(
     },
   });
 
-  const results = await prisma.listeningResult.findMany({
-    where: { userId },
-    select: { seriesId: true, score: true, maxScore: true },
-  });
-  const bestBySeries = new Map<string, { score: number; maxScore: number }>();
-  for (const row of results) {
-    const current = bestBySeries.get(row.seriesId);
-    if (!current || row.score > current.score) {
-      bestBySeries.set(row.seriesId, { score: row.score, maxScore: row.maxScore });
+  const bestBySeries = new Map<string, { score: number; maxScore: number; id: string }>();
+  if (userId) {
+    const results = await prisma.listeningResult.findMany({
+      where: { userId },
+      select: { seriesId: true, score: true, maxScore: true, id: true },
+    });
+    for (const row of results) {
+      const current = bestBySeries.get(row.seriesId);
+      if (!current || row.score > current.score) {
+        bestBySeries.set(row.seriesId, { score: row.score, maxScore: row.maxScore, id: row.id });
+      }
     }
   }
 
@@ -128,6 +132,7 @@ export async function getListeningSeriesList(
     questionCount: serie._count.questions,
     bestScore: bestBySeries.get(serie.id)?.score ?? null,
     maxScore: bestBySeries.get(serie.id)?.maxScore ?? null,
+    bestResultId: bestBySeries.get(serie.id)?.id ?? null,
   }));
 }
 

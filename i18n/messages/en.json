@@ -22,7 +22,11 @@
     "correctionMetaTitle": "Result",
     "correctionMetaDescription": "Score and detailed correction of an oral comprehension series.",
     "correctionTitle": "Your result",
-    "correctionSubtitle": "Re-listen to each audio, read the transcript and the explanation."
+    "correctionSubtitle": "Re-listen to each audio, read the transcript and the explanation.",
+    "redo": "Redo",
+    "viewCorrection": "View the answer key",
+    "bestScore": "Best score",
+    "emptySeries": "No oral comprehension series available yet."
   },
   "common": {
     "appName": "TCF Simulator",
@@ -67,7 +71,7 @@
   },
   "nav": {
     "home": "Home",
-    "tests": "Tests",
+    "tests": "Practice series",
     "guide": "TCF guide",
     "comprehensionOrale": "Oral comprehension",
     "dashboard": "Dashboard",
@@ -89,8 +93,8 @@
     "hero": {
       "eyebrow": "5 complete mock tests - 250 original questions",
       "titlePrefix": "Take the TCF",
-      "titleAccent": "without the stress",
-      "titleSuffix": ", at your own pace",
+      "titleAccent": "without the stress,",
+      "titleSuffix": "at your own pace",
       "subtitle": "Fidelity to exam day: server-side timer, autosave, resume after any interruption. Score, estimated CEFR level and an explanation for every mistake.",
       "ctaPrimary": "Start Test 1",
       "ctaSecondary": "Browse the tests",
@@ -262,11 +266,23 @@
     "accuracy": "Success rate",
     "retakeMistakes": "Retry my mistakes",
     "questionOf": "Question {current} of {total}",
-    "viewHistory": "View full history"
+    "viewHistory": "View full history",
+    "viewAllTests": "See all tests",
+    "historyTitle": "History",
+    "historySub": "Your past attempts: score, level and answer key."
   },
   "tests": {
-    "listTitle": "Mock TCF tests",
+    "listTitle": "Practice series",
     "listSubtitle": "5 complete tests of 50 questions, timed like exam day.",
+    "pageEyebrow": "TCF practice",
+    "pageTitle": "Practice series",
+    "pageSubtitle": "Pick a full mock test or an oral comprehension series, then train under exam-like conditions.",
+    "writtenColumn": "Language / Reading comprehension",
+    "writtenColumnSub": "The 5 complete mock tests: language structures and reading comprehension, timed like exam day.",
+    "oralColumn": "Oral comprehension",
+    "oralColumnSub": "8 audio series from A1 to C2: one listen, then the correction with the transcript.",
+    "seriesCount": "{count, plural, one {# series} other {# series}}",
+    "redo": "Redo",
     "introTitle": "Test overview",
     "about": "About this test",
     "totalDuration": "Total duration",

@@ -71,7 +71,7 @@ export function CorrectionView({ correction }: CorrectionViewProps): React.JSX.E
               <Link href={`/comprehension-orale/${correction.series.slug}`}>Recommencer</Link>
             </Button>
             <Button asChild size="sm" variant="outline">
-              <Link href="/comprehension-orale">Toutes les séries</Link>
+              <Link href="/tests">Toutes les séries</Link>
             </Button>
           </div>
         </CardContent>

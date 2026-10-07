@@ -1,6 +1,8 @@
 import { getTranslations } from "next-intl/server";
-import { Clock, FileQuestion, PlayCircle, RotateCcw, Trophy } from "lucide-react";
+import { BookOpenCheck, Clock, FileQuestion, PlayCircle, Trophy } from "lucide-react";
 
+import { StartTestDialog } from "@/components/tests/start-test-dialog";
+import { LevelBadge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
@@ -13,9 +15,11 @@ import { startAttemptAction } from "@/server/actions/attempts";
  * vers `startAttemptAction`, qui cree (ou reprend) la tentative puis
  * redirige vers l'epreuve en cours.
  *
- * Aucun niveau CECRL n'est affiche : ni la plage du test, ni le niveau du
- * meilleur score. Le candidat ne doit pas pouvoir evaluer la difficulte avant
- * de se lancer.
+ * Trois etats :
+ * - jamais passe : bouton « Commencer » uniquement (aucun corrige, pour ne pas
+ *   reveler les reponses avant de tenter) ;
+ * - en cours : bouton « Reprendre » ;
+ * - termine : score, niveau CECRL, boutons « Refaire » et « Voir le corrige ».
  */
 export async function TestCard({
   test,
@@ -27,7 +31,11 @@ export async function TestCard({
   signedIn: boolean;
 }): Promise<React.JSX.Element> {
   const t = await getTranslations("landing.testsPreview");
-  const tc = await getTranslations("common");
+  const tt = await getTranslations("tests");
+  const tc = await getTranslations("corrections");
+
+  const finished = test.bestTotalScore !== null && test.bestMaxScore !== null;
+  const inProgress = Boolean(test.inProgressAttemptId);
 
   const bestPercent =
     test.bestTotalScore !== null && test.bestMaxScore
@@ -57,26 +65,42 @@ export async function TestCard({
           </li>
         </ul>
 
-        {bestPercent !== null ? (
+        {finished ? (
           <div className="mt-4 rounded-xl bg-surface p-3">
-            <div className="flex items-center justify-between text-xs">
+            <div className="flex items-center justify-between gap-3 text-xs">
               <span className="flex items-center gap-1.5 font-semibold">
                 <Trophy className="size-3.5 text-accent" aria-hidden />
                 {t("bestScore")}
               </span>
-              <span className="font-bold">
+              <span className="flex items-center gap-2 font-bold">
+                <LevelBadge level={test.bestLevel ?? "A1"} size="sm" />
                 {test.bestTotalScore}/{test.bestMaxScore} &middot; {bestPercent} %
               </span>
             </div>
-            <Progress value={bestPercent} className="mt-2 h-1.5" />
+            <Progress value={bestPercent ?? 0} className="mt-2 h-1.5" />
           </div>
         ) : null}
 
         <div className="mt-5 flex flex-col gap-2 pt-1">
-          {test.inProgressAttemptId ? (
+          {inProgress ? (
             <Button asChild className="w-full" variant="accent">
               <Link href={`/tests/${test.slug}`}>{t("resume")}</Link>
             </Button>
+          ) : finished ? (
+            <>
+              <StartTestDialog
+                testId={test.id}
+                size="sm"
+                label={tt("redo")}
+                className="w-full"
+              />
+              <Button asChild variant="ghost" size="sm" className="w-full">
+                <Link href={`/corrections/${test.slug}`}>
+                  <BookOpenCheck aria-hidden />
+                  {tc("viewCorrection")}
+                </Link>
+              </Button>
+            </>
           ) : signedIn ? (
             <form action={startAttemptAction}>
               <input type="hidden" name="testId" value={test.id} />
@@ -90,15 +114,6 @@ export async function TestCard({
               <Link href="/register">{t("start")}</Link>
             </Button>
           )}
-
-          {test.attemptCount > 0 ? (
-            <Button asChild variant="ghost" size="sm" className="w-full">
-              <Link href={`/tests/${test.slug}`}>
-                <RotateCcw aria-hidden />
-                {tc("seeAll")}
-              </Link>
-            </Button>
-          ) : null}
         </div>
       </CardContent>
     </Card>

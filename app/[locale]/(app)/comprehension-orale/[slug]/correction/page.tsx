@@ -46,7 +46,7 @@ export default async function ListeningCorrectionPage({
     <div className="container max-w-3xl py-10">
       <div className="mb-6">
         <Button asChild size="sm" variant="outline" className="mb-5">
-          <Link href="/comprehension-orale">← {t("backToList")}</Link>
+          <Link href="/tests">← {t("backToList")}</Link>
         </Button>
         <h1 className="text-2xl font-extrabold sm:text-3xl">{t("correctionTitle")}</h1>
         <p className="mt-2 text-sm text-muted-foreground">{t("correctionSubtitle")}</p>

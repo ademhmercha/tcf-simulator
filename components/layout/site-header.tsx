@@ -24,14 +24,7 @@ export async function SiteHeader(): Promise<React.JSX.Element> {
     { href: "/", label: t("home") },
     { href: "/tests", label: t("tests") },
     { href: "/guide", label: t("guide") },
-    ...(user
-      ? [
-          { href: "/dashboard", label: t("dashboard") },
-          { href: "/comprehension-orale", label: t("comprehensionOrale") },
-          { href: "/history", label: t("history") },
-          { href: "/corrections", label: t("corrections") },
-        ]
-      : []),
+    ...(user ? [{ href: "/dashboard", label: t("dashboard") }] : []),
     ...(isAdmin ? [{ href: "/admin", label: t("admin") }] : []),
   ];
 
