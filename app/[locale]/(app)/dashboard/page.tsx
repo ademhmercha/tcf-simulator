@@ -306,11 +306,9 @@ export default async function DashboardPage({
                         </Link>
                       </Button>
                     ) : null}
-                    {test.bestTotalScore !== null ? (
-                      <Button asChild size="sm" variant="ghost">
-                        <Link href={`/corrections/${test.slug}`}>{tc("viewCorrection")}</Link>
-                      </Button>
-                    ) : null}
+                    <Button asChild size="sm" variant="ghost">
+                      <Link href={`/corrections/${test.slug}`}>{tc("viewCorrection")}</Link>
+                    </Button>
                   </div>
                 </CardContent>
               </Card>

@@ -16,10 +16,12 @@ import { startAttemptAction } from "@/server/actions/attempts";
  * redirige vers l'epreuve en cours.
  *
  * Trois etats :
- * - jamais passe : bouton « Commencer » uniquement (aucun corrige, pour ne pas
- *   reveler les reponses avant de tenter) ;
+ * - jamais passe : bouton « Commencer » uniquement ;
  * - en cours : bouton « Reprendre » ;
- * - termine : score, niveau CECRL, boutons « Refaire » et « Voir le corrige ».
+ * - termine : score, niveau CECRL et bouton « Refaire ».
+ *
+ * Le corrige (`/corrections/<slug>`) est toujours accessible, meme avant de
+ * passer le test : les cartes ne revelent ni la reponse ni l'explication.
  */
 export async function TestCard({
   test,
@@ -87,20 +89,12 @@ export async function TestCard({
               <Link href={`/tests/${test.slug}`}>{t("resume")}</Link>
             </Button>
           ) : finished ? (
-            <>
-              <StartTestDialog
-                testId={test.id}
-                size="sm"
-                label={tt("redo")}
-                className="w-full"
-              />
-              <Button asChild variant="ghost" size="sm" className="w-full">
-                <Link href={`/corrections/${test.slug}`}>
-                  <BookOpenCheck aria-hidden />
-                  {tc("viewCorrection")}
-                </Link>
-              </Button>
-            </>
+            <StartTestDialog
+              testId={test.id}
+              size="sm"
+              label={tt("redo")}
+              className="w-full"
+            />
           ) : signedIn ? (
             <form action={startAttemptAction}>
               <input type="hidden" name="testId" value={test.id} />
@@ -114,6 +108,13 @@ export async function TestCard({
               <Link href="/register">{t("start")}</Link>
             </Button>
           )}
+
+          <Button asChild variant="ghost" size="sm" className="w-full">
+            <Link href={`/corrections/${test.slug}`}>
+              <BookOpenCheck aria-hidden />
+              {tc("viewCorrection")}
+            </Link>
+          </Button>
         </div>
       </CardContent>
     </Card>
