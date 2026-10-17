@@ -4,6 +4,7 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { OralPanel, WrittenPanel } from "@/components/tests/panels";
 import { TestsCatalog } from "@/components/tests/tests-catalog";
 import type { AppLocale } from "@/config/enums";
+import { VOCABULAIRE_SERIES } from "@/data/vocabulaire";
 import { auth } from "@/server/auth";
 import { getPublishedTests } from "@/server/services/attempts";
 import { getListeningSeriesList } from "@/server/services/listening";
@@ -46,6 +47,7 @@ export default async function TestsPage({
         oral={<OralPanel series={series} signedIn={signedIn} />}
         writtenCount={tests.length}
         oralCount={series.length}
+        vocabCount={VOCABULAIRE_SERIES.length}
       />
     </div>
   );

@@ -28,6 +28,20 @@
     "bestScore": "Meilleur score",
     "emptySeries": "Aucune série de compréhension orale pour le moment."
   },
+  "vocab": {
+    "metaTitle": "Série de vocabulaire — fiches PDF",
+    "metaDescription": "Des fiches de vocabulaire du TCF en PDF, avec corrigés, à consulter directement dans le site.",
+    "pageEyebrow": "Entraînement TCF",
+    "pageTitle": "Série de vocabulaire",
+    "pageSubtitle": "Des fiches PDF de vocabulaire, corrigées, à consulter directement dans le site.",
+    "openCard": "Consulter la fiche",
+    "questionCount": "{count, plural, one {# question} other {# questions}}",
+    "backToList": "Retour aux fiches",
+    "backToTests": "Retour aux séries d'entraînement",
+    "openNewTab": "Nouvel onglet",
+    "download": "Télécharger",
+    "empty": "Aucune fiche de vocabulaire pour le moment."
+  },
   "common": {
     "appName": "TCF Simulator",
     "loading": "Chargement",
@@ -285,6 +299,8 @@
     "writtenColumnSub": "Les 5 tests blancs complets : structure de la langue et compréhension écrite, chronométrés comme le jour J.",
     "oralColumn": "Compréhension orale",
     "oralColumnSub": "8 séries audio du A1 au C2 : une seule écoute, puis la correction avec transcription.",
+    "vocabColumn": "Série de vocabulaire",
+    "vocabColumnSub": "Des fiches PDF de vocabulaire, corrigées, à consulter directement dans le site.",
     "seriesCount": "{count, plural, one {# série} other {# séries}}",
     "writtenCount": "{count, plural, one {# test} other {# tests}}",
     "emptyWritten": "Aucun test publié pour le moment. Lancez npm run db:seed pour charger le contenu.",

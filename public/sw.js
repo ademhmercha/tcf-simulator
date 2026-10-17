@@ -12,7 +12,7 @@
  * et aucune requete non-GET (reponses, soumission, heartbeat) n'est interceptee.
  */
 
-const VERSION = "v3";
+const VERSION = "v4";
 const STATIC_CACHE = "tcf-static-" + VERSION;
 const PAGES_CACHE = "tcf-pages-" + VERSION;
 const OFFLINE_URL = "/offline.html";

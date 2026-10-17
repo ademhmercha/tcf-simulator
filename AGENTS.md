@@ -13,6 +13,7 @@ npm run build           # prisma generate + next build; FAILS if DATABASE_PROVID
 ```
 
 - Tests are pure unit tests (`vitest`, node env, no DB, no browser). `npm run test:e2e` exists but there is **no playwright config and no e2e tests** — don't chase it.
+- `tests/unit/build-guards.test.ts` is slow (~15s): it spawns the real `scripts/prisma.mjs`. Not a hang.
 - `scripts/` is typechecked but **not** linted; keep its style consistent manually.
 - `npm install` requires `.npmrc` `legacy-peer-deps=true` (forced by @vercel/analytics peers). Don't remove it.
 
@@ -32,7 +33,8 @@ npm run build           # prisma generate + next build; FAILS if DATABASE_PROVID
 - `app/api/exam/[sectionRunId]/{answer,submit,heartbeat}` — the exam is **server-authoritative**: timer, grading, and answers live server-side; the client only queues and replays answers. Never move grading or timing to the client.
 - `middleware.ts` does i18n **and** the session guard. API routes are deliberately exempted from locale prefixing and from the cookie guard (each API route does its own `auth()`); don't "simplify" that away.
 - `server/` = actions (`server/actions/`), domain services (`server/services/`), auth. `lib/` = shared utilities (`lib/db.ts` singleton, `lib/db-url.ts` pool URL, `lib/env.ts` zod env validation). `config/` = scoring, enums, site.
-- Content source of truth: `data/tcf_practice_5_tests_250_questions.json`, loaded by `npm run db:seed`. `data/ce/` holds reading content modules.
+- Content source of truth: `data/tcf_practice_5_tests_250_questions.json`, loaded by `npm run db:seed`. `data/co/` (oral series) is read directly by the seed; `data/ce/` (reading modules) is **compiled into the JSON** by `npm run content:reading` — editing `data/ce/*.ts` alone changes nothing until you run it. Checks: `content:reading:check` (dry run), `content:check`, `content:encoding`, `content:reading:verify` (needs DB).
+- Vocabulary series = static PDFs, no DB: drop files in `public/pdf/vocabulaire/` and register them in `data/vocabulaire.ts` (one serie can hold several documents shown as tabs, e.g. Questionnaire + Corrigé); the viewer embeds them same-origin via `/pdf/...`, which needs the `X-Frame-Options: SAMEORIGIN` override in `next.config.mjs` (the global default is `DENY`). `tests/unit/vocabulaire.test.ts` checks manifest ↔ files. UI strings in `vocab:` i18n namespace.
 
 ## Conventions
 

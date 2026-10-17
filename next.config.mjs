@@ -18,6 +18,16 @@ const nextConfig = {
   async headers() {
     return [
       {
+        source: "/pdf/:path*",
+        headers: [
+          // Les fiches de vocabulaire sont affichees dans une visionneuse
+          // integree (iframe de meme origine). Le X-Frame-Options: DENY global
+          // bloquerait ce cadre, on l'assouplit pour ce seul prefixe.
+          { key: "X-Frame-Options", value: "SAMEORIGIN" },
+          { key: "X-Content-Type-Options", value: "nosniff" },
+        ],
+      },
+      {
         source: "/(.*)",
         headers: [
           { key: "X-Content-Type-Options", value: "nosniff" },

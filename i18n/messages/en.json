@@ -28,6 +28,20 @@
     "bestScore": "Best score",
     "emptySeries": "No oral comprehension series available yet."
   },
+  "vocab": {
+    "metaTitle": "Vocabulary series — PDF sheets",
+    "metaDescription": "TCF vocabulary worksheets in PDF, with corrections, viewable directly in the site.",
+    "pageEyebrow": "TCF practice",
+    "pageTitle": "Vocabulary series",
+    "pageSubtitle": "Vocabulary PDF sheets, with corrections, viewable directly in the site.",
+    "openCard": "View sheet",
+    "questionCount": "{count, plural, one {# question} other {# questions}}",
+    "backToList": "Back to sheets",
+    "backToTests": "Back to practice series",
+    "openNewTab": "New tab",
+    "download": "Download",
+    "empty": "No vocabulary sheet available yet."
+  },
   "common": {
     "appName": "TCF Simulator",
     "loading": "Loading",
@@ -285,6 +299,8 @@
     "writtenColumnSub": "The 5 complete mock tests: language structures and reading comprehension, timed like exam day.",
     "oralColumn": "Oral comprehension",
     "oralColumnSub": "8 audio series from A1 to C2: one listen, then the correction with the transcript.",
+    "vocabColumn": "Vocabulary series",
+    "vocabColumnSub": "Correction-included vocabulary PDF sheets, viewable directly in the site.",
     "seriesCount": "{count, plural, one {# series} other {# series}}",
     "writtenCount": "{count, plural, one {# test} other {# tests}}",
     "emptyWritten": "No test has been published yet. Run npm run db:seed to load the content.",

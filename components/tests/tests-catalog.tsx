@@ -1,8 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import { ArrowLeft, ArrowRight, BookOpenCheck, Headphones } from "lucide-react";
+import { ArrowLeft, ArrowRight, BookOpenCheck, FileText, Headphones } from "lucide-react";
 import { useTranslations } from "next-intl";
+
+import { Link } from "@/i18n/navigation";
 
 type View = "written" | "oral";
 
@@ -11,6 +13,7 @@ interface TestsCatalogProps {
   oral: React.ReactNode;
   writtenCount: number;
   oralCount: number;
+  vocabCount: number;
 }
 
 export function TestsCatalog({
@@ -18,6 +21,7 @@ export function TestsCatalog({
   oral,
   writtenCount,
   oralCount,
+  vocabCount,
 }: TestsCatalogProps) {
   const t = useTranslations("tests");
   const [view, setView] = useState<View | null>(null);
@@ -39,7 +43,7 @@ export function TestsCatalog({
   }
 
   return (
-    <div className="mx-auto mt-12 grid max-w-4xl gap-5 md:grid-cols-2">
+    <div className="mx-auto mt-12 grid max-w-5xl gap-5 sm:grid-cols-2 lg:grid-cols-3">
       <button
         type="button"
         onClick={() => setView("written")}
@@ -85,6 +89,28 @@ export function TestsCatalog({
           aria-hidden
         />
       </button>
+
+      <Link
+        href="/vocabulaire"
+        className="group relative flex flex-col items-start gap-3 rounded-2xl border border-border/70 bg-surface/60 p-6 text-left transition-all hover:border-primary/40 hover:shadow-lg sm:p-8"
+      >
+        <span className="flex size-12 items-center justify-center rounded-xl bg-primary/10">
+          <FileText className="size-6 text-primary" aria-hidden />
+        </span>
+        <span className="text-xl font-bold transition-colors group-hover:text-primary">
+          {t("vocabColumn")}
+        </span>
+        <span className="text-sm leading-relaxed text-muted-foreground">
+          {t("vocabColumnSub")}
+        </span>
+        <span className="mt-1 text-sm font-semibold text-primary">
+          {t("seriesCount", { count: vocabCount })}
+        </span>
+        <ArrowRight
+          className="absolute end-6 top-6 size-5 text-muted-foreground transition-transform group-hover:translate-x-0.5 group-hover:text-primary"
+          aria-hidden
+        />
+      </Link>
     </div>
   );
 }
