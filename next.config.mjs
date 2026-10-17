@@ -28,7 +28,10 @@ const nextConfig = {
         ],
       },
       {
-        source: "/(.*)",
+        // Next fusionne les regles qui matchent un meme chemin et la derniere
+        // gagne : sans exclure /pdf/, le DENY ci-dessous ecraserait le
+        // SAMEORIGIN de la regle precedente.
+        source: "/((?!pdf/).*)",
         headers: [
           { key: "X-Content-Type-Options", value: "nosniff" },
           { key: "X-Frame-Options", value: "DENY" },
