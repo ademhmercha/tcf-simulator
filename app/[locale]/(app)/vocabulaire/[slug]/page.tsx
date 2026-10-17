@@ -98,7 +98,35 @@ export default async function VocabulaireSeriePage({
       </header>
 
       <div className="flex-1 bg-muted/30">
-        <iframe src={pdfUrl} title={`${serie.title} — ${doc.label}`} className="h-full w-full border-0" />
+        {/* Sur ordinateur : apercu integre. Sur mobile, les navigateurs
+            n'affichent pas les PDF dans une iframe (page vide) : on propose
+            l'ouverture dans le lecteur PDF natif. */}
+        <iframe
+          src={pdfUrl}
+          title={`${serie.title} — ${doc.label}`}
+          className="hidden h-full w-full border-0 md:block"
+        />
+        <div className="flex h-full flex-col items-center justify-center gap-4 px-6 py-16 text-center md:hidden">
+          <span className="flex size-16 items-center justify-center rounded-2xl bg-primary/10">
+            <FileText className="size-8 text-primary" aria-hidden />
+          </span>
+          <h2 className="text-lg font-bold">{t("mobileTitle")}</h2>
+          <p className="max-w-sm text-sm text-muted-foreground">{t("mobileHint")}</p>
+          <div className="mt-2 flex flex-col gap-2 sm:flex-row">
+            <Button asChild>
+              <a href={pdfUrl} target="_blank" rel="noreferrer">
+                <ExternalLink aria-hidden />
+                {t("openPdf")}
+              </a>
+            </Button>
+            <Button asChild variant="outline">
+              <a href={pdfUrl} download={doc.file}>
+                <Download aria-hidden />
+                {t("download")}
+              </a>
+            </Button>
+          </div>
+        </div>
       </div>
     </div>
   );

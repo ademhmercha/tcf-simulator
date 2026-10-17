@@ -40,6 +40,9 @@
     "backToTests": "Back to practice series",
     "openNewTab": "New tab",
     "download": "Download",
+    "openPdf": "Open PDF",
+    "mobileTitle": "Preview not available on mobile",
+    "mobileHint": "Open the sheet in your phone's PDF reader, or download it.",
     "empty": "No vocabulary sheet available yet."
   },
   "common": {

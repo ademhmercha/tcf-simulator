@@ -40,6 +40,9 @@
     "backToTests": "Retour aux séries d'entraînement",
     "openNewTab": "Nouvel onglet",
     "download": "Télécharger",
+    "openPdf": "Ouvrir le PDF",
+    "mobileTitle": "Aperçu non disponible sur mobile",
+    "mobileHint": "Ouvrez la fiche dans le lecteur PDF de votre téléphone, ou téléchargez-la.",
     "empty": "Aucune fiche de vocabulaire pour le moment."
   },
   "common": {
