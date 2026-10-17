@@ -78,6 +78,26 @@ export const VOCABULAIRE_SERIES: readonly VocabulaireSerie[] = [
       },
     ],
   },
+  {
+    slug: "revision-vocabulaire-b2-c1-c2-serie3",
+    title: "Révision de vocabulaire français — Série 3",
+    description:
+      "50 questions à choix multiple pour réviser le vocabulaire des niveaux B2, C1 et C2, avec grille de réponses et corrigé détaillé.",
+    level: "B2-C1-C2",
+    questionCount: 50,
+    documents: [
+      {
+        id: "questionnaire",
+        label: "Questionnaire",
+        file: "revision-vocabulaire-b2-c1-c2-serie3-questionnaire.pdf",
+      },
+      {
+        id: "corrige",
+        label: "Corrigé",
+        file: "revision-vocabulaire-b2-c1-c2-serie3-corrige.pdf",
+      },
+    ],
+  },
 ];
 
 /** Retourne la fiche correspondant au slug, ou null. */
