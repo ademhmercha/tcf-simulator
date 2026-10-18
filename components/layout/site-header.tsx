@@ -1,9 +1,10 @@
 import { getTranslations } from "next-intl/server";
 
+import { AccountNav } from "@/components/layout/account-nav";
 import { BrandLogo } from "@/components/layout/brand-logo";
+import { DesktopNav } from "@/components/layout/desktop-nav";
 import { MobileNav } from "@/components/layout/mobile-nav";
 import { ThemeToggleButton } from "@/components/theme-toggle";
-import { UserMenu } from "@/components/layout/user-menu";
 import { Button } from "@/components/ui/button";
 import { siteConfig } from "@/config/site";
 import { Link } from "@/i18n/navigation";
@@ -39,25 +40,11 @@ export async function SiteHeader(): Promise<React.JSX.Element> {
           <span className="hidden sm:inline">{siteConfig.name}</span>
         </Link>
 
-        <nav aria-label={t("menu")} className="ml-2 hidden items-center gap-1 md:flex">
-          {links.slice(1).map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className="rounded-lg px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-primary-soft hover:text-primary"
-            >
-              {link.label}
-            </Link>
-          ))}
-        </nav>
+        <DesktopNav links={links.slice(1)} />
 
         <div className="ml-auto flex items-center gap-2">
           {user ? (
-            <UserMenu
-              name={user.name ?? ""}
-              email={user.email ?? ""}
-              isAdmin={isAdmin}
-            />
+            <AccountNav name={user.name ?? ""} email={user.email ?? ""} />
           ) : (
             <>
               <Button asChild variant="ghost" size="sm" className="hidden sm:inline-flex">
@@ -73,7 +60,12 @@ export async function SiteHeader(): Promise<React.JSX.Element> {
             <ThemeToggleButton />
           </div>
 
-          <MobileNav links={links} signedIn={Boolean(user)} />
+          <MobileNav
+            links={links}
+            signedIn={Boolean(user)}
+            name={user?.name ?? ""}
+            email={user?.email ?? ""}
+          />
         </div>
       </div>
     </header>
