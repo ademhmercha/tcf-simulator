@@ -16,6 +16,13 @@ export const siteConfig = {
   ],
 } as const;
 
+/** URL absolue vers une route du site (les URLs canoniques doivent etre absolues). */
+export function absoluteUrl(path = ""): string {
+  const base = siteConfig.url.replace(/\/$/, "");
+  if (!path) return base;
+  return `${base}${path.startsWith("/") ? path : `/${path}`}`;
+}
+
 export const examConfig = {
   /**
    * Budget de temps de la tentative, en minutes.

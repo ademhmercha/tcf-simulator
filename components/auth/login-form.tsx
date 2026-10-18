@@ -5,6 +5,7 @@ import { useFormState, useFormStatus } from "react-dom";
 import { useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { AlertCircle } from "lucide-react";
+import { track } from "@vercel/analytics";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -16,7 +17,18 @@ function SubmitButton(): React.JSX.Element {
   const t = useTranslations("auth");
   const { pending } = useFormStatus();
   return (
-    <Button type="submit" className="w-full" loading={pending}>
+    <Button
+      type="submit"
+      className="w-full"
+      loading={pending}
+      onClick={() => {
+        try {
+          track("login_success");
+        } catch {
+          /* Analytics peut etre indisponible. */
+        }
+      }}
+    >
       {pending ? t("loggingIn") : t("login")}
     </Button>
   );

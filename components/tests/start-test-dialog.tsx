@@ -2,6 +2,7 @@
 
 import { useTranslations } from "next-intl";
 import { PlayCircle, ShieldAlert } from "lucide-react";
+import { track } from "@vercel/analytics";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -43,6 +44,7 @@ export function StartTestDialog({
           size={size}
           variant={inProgress ? "accent" : "default"}
           className={className}
+          onClick={() => track("exam_start")}
         >
           {inProgress ? <PlayCircle aria-hidden /> : <ShieldAlert aria-hidden />}
           {triggerLabel}

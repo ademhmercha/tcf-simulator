@@ -40,6 +40,10 @@ export async function generateMetadata({
   params: { locale: string };
 }): Promise<Metadata> {
   const t = await getTranslations({ locale: params.locale, namespace: "landing.meta" });
+  // Codes de verification poses dans les variables d'environnement pour ne pas
+  // avoir a redeployer du code quand ils changent (Search Console / Bing).
+  const googleVerification = process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION;
+  const bingVerification = process.env.NEXT_PUBLIC_BING_SITE_VERIFICATION;
   return {
     metadataBase: new URL(siteConfig.url),
     title: {
@@ -64,6 +68,10 @@ export async function generateMetadata({
       description: t("description"),
     },
     robots: { index: true, follow: true },
+    verification: {
+      ...(googleVerification ? { google: googleVerification } : {}),
+      ...(bingVerification ? { other: { "msvalidate.01": bingVerification } } : {}),
+    },
     manifest: "/manifest.webmanifest",
     appleWebApp: { capable: true, statusBarStyle: "default", title: siteConfig.shortName },
     // Chrome a retire `apple-mobile-web-app-capable` au profit de

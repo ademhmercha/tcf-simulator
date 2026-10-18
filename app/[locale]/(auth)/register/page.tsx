@@ -20,17 +20,25 @@ export async function generateMetadata({
 
 export default async function RegisterPage({
   params,
+  searchParams,
 }: {
   params: { locale: AppLocale };
+  searchParams?: { next?: string };
 }): Promise<React.JSX.Element> {
   setRequestLocale(params.locale);
   const t = await getTranslations("auth");
+
+  const next = typeof searchParams?.next === "string" ? searchParams.next : undefined;
 
   const session = await auth();
   if (session?.user) redirect("/fr/dashboard");
 
   return (
-    <AuthShell title={t("registerTitle")} subtitle={t("registerSubtitle")}>
+    <AuthShell
+      title={t("registerTitle")}
+      subtitle={t("registerSubtitle")}
+      notice={next ? t("registerNotice") : undefined}
+    >
       <RegisterForm />
       <Suspense fallback={null}>
         <GoogleSignInSection enabled={googleEnabled} />

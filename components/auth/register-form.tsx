@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useFormState, useFormStatus } from "react-dom";
 import { useTranslations } from "next-intl";
 import { AlertCircle, Check } from "lucide-react";
+import { track } from "@vercel/analytics";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -22,7 +23,18 @@ function SubmitButton(): React.JSX.Element {
   const t = useTranslations("auth");
   const { pending } = useFormStatus();
   return (
-    <Button type="submit" className="w-full" loading={pending}>
+    <Button
+      type="submit"
+      className="w-full"
+      loading={pending}
+      onClick={() => {
+        try {
+          track("register_submit");
+        } catch {
+          /* Analytics peut etre indisponible. */
+        }
+      }}
+    >
       {pending ? t("registering") : t("register")}
     </Button>
   );

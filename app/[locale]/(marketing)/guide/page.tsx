@@ -17,6 +17,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import type { AppLocale } from "@/config/enums";
+import { absoluteUrl } from "@/config/site";
 import { Link } from "@/i18n/navigation";
 import { auth } from "@/server/auth";
 
@@ -26,7 +27,11 @@ export async function generateMetadata({
   params: { locale: string };
 }): Promise<Metadata> {
   const t = await getTranslations({ locale: params.locale, namespace: "guide" });
-  return { title: t("meta.title"), description: t("meta.description") };
+  return {
+    title: t("meta.title"),
+    description: t("meta.description"),
+    alternates: { canonical: absoluteUrl(`/${params.locale}/guide`) },
+  };
 }
 
 export default async function GuidePage({

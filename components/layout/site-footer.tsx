@@ -3,15 +3,25 @@ import { getTranslations } from "next-intl/server";
 import { BrandLogo } from "@/components/layout/brand-logo";
 import { Link } from "@/i18n/navigation";
 import { siteConfig } from "@/config/site";
+import { auth } from "@/server/auth";
 
 export async function SiteFooter(): Promise<React.JSX.Element> {
   const t = await getTranslations("footer");
+  const session = await auth();
+  const signedIn = Boolean(session?.user);
 
-  const productLinks = [
-    { href: "/tests", label: t("tests") },
-    { href: "/guide", label: t("guide") },
-    { href: "/dashboard", label: t("dashboard") },
-  ];
+  // Les espaces (tests, tableau de bord) exigent une session : on n'envoie pas
+  // un visiteur anonyme vers une redirection de connexion.
+  const productLinks = signedIn
+    ? [
+        { href: "/tests", label: t("tests") },
+        { href: "/guide", label: t("guide") },
+        { href: "/dashboard", label: t("dashboard") },
+      ]
+    : [
+        { href: "/register", label: t("tests") },
+        { href: "/guide", label: t("guide") },
+      ];
 
   const legalLinks = [
     { href: "/legal/privacy", label: t("privacy") },

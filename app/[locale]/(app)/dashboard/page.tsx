@@ -36,6 +36,7 @@ export default async function DashboardPage({
 
   const completed = history.filter((attempt) => attempt.status === "SUBMITTED");
   const inProgress = tests.find((test) => test.inProgressAttemptId);
+  const firstTest = tests[0];
   const last = completed[0];
   const firstName = session.user.name?.split(" ")[0] ?? "";
 
@@ -147,9 +148,18 @@ export default async function DashboardPage({
               <Sparkles className="size-8 text-primary" aria-hidden />
               <p className="font-semibold">{t("noAttempts")}</p>
               <p className="text-sm text-muted-foreground">{t("noAttemptsHint")}</p>
-              <Button asChild>
-                <Link href="/tests">{t("startTest")}</Link>
-              </Button>
+              {firstTest ? (
+                <div className="mt-2 flex flex-col items-center gap-2 sm:flex-row">
+                  <StartTestDialog testId={firstTest.id} size="lg" label={t("startFirstTest")} />
+                  <Button asChild variant="ghost">
+                    <Link href="/tests">{t("startTest")}</Link>
+                  </Button>
+                </div>
+              ) : (
+                <Button asChild>
+                  <Link href="/tests">{t("startTest")}</Link>
+                </Button>
+              )}
             </CardContent>
           </Card>
         ) : (

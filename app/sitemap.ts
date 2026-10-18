@@ -1,20 +1,26 @@
 import type { MetadataRoute } from "next";
 
-import { siteConfig } from "@/config/site";
+import { absoluteUrl, siteConfig } from "@/config/site";
 
 // Volontairement statique : ne pas interroger la base pendant le build, sinon
-// un deploiement echoue des que la base est injoignable. Les pages de tests
-// restent exploreables et sont trouvees par le maillage interne.
-const PATHS = ["", "/tests", "/guide", "/login", "/register", "/legal/terms", "/legal/privacy"];
+// un deploiement echoue des que la base est injoignable. Le catalogue
+// (/tests) et les fiches (/vocabulaire) sont desormais proteges par session :
+// on ne les declare plus comme pages explorables.
+const PATHS = ["", "/guide", "/login", "/register", "/legal/terms", "/legal/privacy"];
+
+function priority(path: string): number {
+  if (path === "") return 1;
+  if (path === "/guide") return 0.8;
+  return 0.3;
+}
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const base = siteConfig.url.replace(/\/$/, "");
   const now = new Date();
 
   return PATHS.map((path) => ({
-    url: `${base}/${siteConfig.locale}${path}`,
+    url: absoluteUrl(`/${siteConfig.locale}${path}`),
     lastModified: now,
     changeFrequency: path === "" ? "weekly" : "monthly",
-    priority: path === "" ? 1 : path === "/tests" ? 0.8 : path === "/guide" ? 0.7 : 0.3,
+    priority: priority(path),
   }));
 }

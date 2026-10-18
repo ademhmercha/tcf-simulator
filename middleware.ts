@@ -1,6 +1,7 @@
 import createMiddleware from "next-intl/middleware";
 import { NextResponse, type NextRequest } from "next/server";
 
+import { AI_BOT_TOKENS } from "@/config/blocked-bots";
 import { DEFAULT_LOCALE, LOCALES, type AppLocale } from "@/config/enums";
 
 /**
@@ -65,49 +66,10 @@ function withRobotsTag(response: NextResponse): NextResponse {
 }
 
 export default function middleware(request: NextRequest) {
-  // Bloquer les bots IA (scraping/clone)
+  // Bloquer les bots IA (scraping/clone). La liste est partagee avec
+  // `app/robots.ts`, qui publie les memes regles dans `robots.txt`.
   const userAgent = request.headers.get("user-agent")?.toLowerCase() ?? "";
-  const blockedBots = [
-    "gptbot",
-    "chatgpt-user",
-    "chatgpt",
-    "oai-searchbot",
-    "openai",
-    "openai-bot",
-    "claudebot",
-    "claude-web",
-    "anthropic-ai",
-    "perplexitybot",
-    "perplexity-user",
-    "google-extended",
-    "googlebot-extended",
-    "applebot-extended",
-    "ccbot",
-    "bytespider",
-    "meta-externalagent",
-    "meta-externalfetcher",
-    "diffbot",
-    "facebookbot",
-    "amazonbot",
-    "youbot",
-    "semrushbot",
-    "dataforseobot",
-    "ahrefsbot",
-    "mj12bot",
-    "dotbot",
-    "petalbot",
-    "seekr",
-    "exabot",
-    "firecrawlbot",
-    "crawl4ai",
-    "mistralai-user",
-    "cohere-ai",
-    "huggingface-bot",
-    "scraperbot",
-    "yandexbot",
-    "jinabot",
-  ];
-  if (blockedBots.some((bot) => userAgent.includes(bot))) {
+  if (AI_BOT_TOKENS.some((bot) => userAgent.includes(bot))) {
     return new NextResponse(null, { status: 403 });
   }
   if (request.nextUrl.pathname.includes("_ai-bot-trap")) {

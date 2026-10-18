@@ -6,6 +6,7 @@ import { Award, BookOpenCheck, ClipboardCheck, Clock, Flag, Target } from "lucid
 import { PrintButton } from "@/components/results/print-button";
 import { RetakeFullButton, RetakeMistakesButton } from "@/components/results/retake-buttons";
 import { ReviewList } from "@/components/results/review-list";
+import { ShareResultButton } from "@/components/results/share-result-button";
 import { LevelBadge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -109,6 +110,13 @@ export default async function ResultsPage({
               </Link>
             </Button>
             <RetakeFullButton testId={result.testId} />
+            <ShareResultButton
+              title={t("shareTitle")}
+              text={t("shareText", {
+                level: result.cefrLevel ?? t("levelNotReached"),
+                score: Math.round(result.scorePercentage * 100),
+              })}
+            />
             <PrintButton />
           </div>
         </div>

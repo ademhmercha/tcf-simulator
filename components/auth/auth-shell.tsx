@@ -2,15 +2,19 @@ import { getTranslations } from "next-intl/server";
 import { ShieldCheck } from "lucide-react";
 
 import { BrandLogo } from "@/components/layout/brand-logo";
+import { Alert } from "@/components/ui/alert";
 import { siteConfig } from "@/config/site";
 
 export async function AuthShell({
   title,
   subtitle,
+  notice,
   children,
 }: {
   title: string;
   subtitle: string;
+  /** Message contextuel (ex. contenu protege), affiche au-dessus du formulaire. */
+  notice?: React.ReactNode;
   children: React.ReactNode;
 }): Promise<React.JSX.Element> {
   const t = await getTranslations("auth");
@@ -25,6 +29,11 @@ export async function AuthShell({
         </div>
 
         <div className="rounded-2xl border border-border bg-card p-6 shadow-medium sm:p-7">
+          {notice ? (
+            <Alert variant="info" className="mb-5">
+              {notice}
+            </Alert>
+          ) : null}
           {children}
         </div>
 

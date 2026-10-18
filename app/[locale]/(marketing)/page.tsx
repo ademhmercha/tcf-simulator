@@ -21,14 +21,17 @@ import {
 
 import { Reveal } from "@/components/marketing/reveal";
 import { HeroBackdrop } from "@/components/marketing/hero-backdrop";
+import { JsonLd } from "@/components/seo/json-ld";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { LOCALES, type AppLocale } from "@/config/enums";
+import { absoluteUrl } from "@/config/site";
 import { VOCABULAIRE_SERIES } from "@/data/vocabulaire";
 import { getPublishedTests } from "@/server/services/attempts";
 import { getListeningSeriesList } from "@/server/services/listening";
 import { auth } from "@/server/auth";
+import { faqJsonLd } from "@/lib/structured-data";
 import { Link } from "@/i18n/navigation";
 
 export async function generateMetadata({
@@ -37,7 +40,11 @@ export async function generateMetadata({
   params: { locale: string };
 }): Promise<Metadata> {
   const t = await getTranslations({ locale: params.locale, namespace: "landing.meta" });
-  return { title: t("title"), description: t("description") };
+  return {
+    title: t("title"),
+    description: t("description"),
+    alternates: { canonical: absoluteUrl(`/${params.locale}`) },
+  };
 }
 
 export default async function HomePage({
@@ -64,6 +71,11 @@ export default async function HomePage({
   const oralQuestions = series.reduce((sum, serie) => sum + serie.questionCount, 0);
   const vocabCount = VOCABULAIRE_SERIES.length;
   const totalQuestions = writtenQuestions + oralQuestions;
+
+  const faqItems = [1, 2, 3, 4, 5, 6].map((n) => ({
+    question: t(`faq.q${n}`),
+    answer: t(`faq.a${n}`),
+  }));
 
   const pillars = [
     {
@@ -94,13 +106,15 @@ export default async function HomePage({
       body: t("prep.vocabBody"),
       bullets: [t("prep.vocabBullet1"), t("prep.vocabBullet2"), t("prep.vocabBullet3")],
       meta: t("prep.vocabMeta", { count: vocabCount }),
-      cta: t("prep.vocabCta"),
-      href: "/vocabulaire",
+      cta: signedIn ? t("prep.vocabCta") : t("prep.vocabCtaGuest"),
+      href: signedIn ? "/vocabulaire" : "/register",
     },
   ];
 
   return (
     <>
+      <JsonLd data={faqJsonLd(faqItems)} />
+
       {/* ------------------------------- Hero ------------------------------ */}
       <section className="relative isolate overflow-hidden">
         <HeroBackdrop src="/images/hero-paris.jpg" />
@@ -135,7 +149,9 @@ export default async function HomePage({
                 <Link href={session?.user ? "/tests" : "/register"}>{t("hero.ctaPrimary")}</Link>
               </Button>
               <Button asChild size="xl" variant="outline" className="w-full sm:w-auto">
-                <Link href="/tests">{t("hero.ctaSecondary")}</Link>
+                <Link href={signedIn ? "/tests" : "/register"}>
+                  {signedIn ? t("hero.ctaSecondary") : t("hero.ctaSecondaryGuest")}
+                </Link>
               </Button>
             </div>
 
