@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Download, ExternalLink, FileText } from "lucide-react";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -9,6 +9,7 @@ import { cn } from "@/lib/utils";
 import type { AppLocale } from "@/config/enums";
 import { getVocabulaireDocument, getVocabulaireSerie } from "@/data/vocabulaire";
 import { Link } from "@/i18n/navigation";
+import { auth } from "@/server/auth";
 
 export async function generateMetadata({
   params,
@@ -30,6 +31,17 @@ export default async function VocabulaireSeriePage({
 }): Promise<React.JSX.Element> {
   setRequestLocale(params.locale);
   const t = await getTranslations("vocab");
+
+  // Fiches reservees aux utilisateurs connectes (voir aussi le garde PDF dans
+  // `middleware.ts`, qui protege les fichiers eux-memes).
+  const session = await auth();
+  if (!session?.user?.id) {
+    redirect(
+      `/${params.locale}/login?next=${encodeURIComponent(
+        `/${params.locale}/vocabulaire/${params.slug}`,
+      )}`,
+    );
+  }
 
   const serie = getVocabulaireSerie(params.slug);
   if (!serie) notFound();

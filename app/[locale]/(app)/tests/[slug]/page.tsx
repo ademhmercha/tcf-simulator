@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { AlertCircle, CheckCircle2, Clock, FileQuestion, Flag, Save, ShieldAlert } from "lucide-react";
 
 import { StartTestDialog } from "@/components/tests/start-test-dialog";
@@ -32,6 +32,15 @@ export default async function TestDetailPage({
 
   const session = await auth();
   const userId = session?.user?.id;
+  // Le middleware filtre deja les anonymes ; on revalide ici car un cookie
+  // present peut ne plus correspondre a une session valide.
+  if (!userId) {
+    redirect(
+      `/${params.locale}/login?next=${encodeURIComponent(
+        `/${params.locale}/tests/${params.slug}`,
+      )}`,
+    );
+  }
 
   // `getPublishedTests` agrege les donnees de progression du candidat
   // (tentative en cours, meilleur score) : on l'utilise plutot que
@@ -40,7 +49,7 @@ export default async function TestDetailPage({
   const test = tests.find((item) => item.slug === params.slug);
   if (!test) notFound();
 
-  const history = userId ? await getAttemptHistory(userId) : [];
+  const history = await getAttemptHistory(userId);
   const attempts = history.filter((attempt) => attempt.testId === test.id);
   const inProgress = attempts.find((attempt) => attempt.status === "IN_PROGRESS") ?? null;
 

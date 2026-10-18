@@ -127,9 +127,57 @@ describe("middleware — pages localisees", () => {
   });
 
   it("localise une page publique non prefixee", () => {
-    const response = middleware(request("/tests"));
+    const response = middleware(request("/guide"));
 
     expect(response.status).toBe(307);
-    expect(locationOf(response)).toBe("/fr/tests");
+    expect(locationOf(response)).toBe("/fr/guide");
+  });
+});
+
+describe("middleware — catalogue et fiches proteges", () => {
+  const protectedPaths = [
+    "/tests",
+    "/tests/test-blanc-1",
+    "/vocabulaire",
+    "/vocabulaire/revision-vocabulaire-b2-c1-c2",
+  ];
+
+  it.each(protectedPaths)("renvoie vers la connexion %s sans session", (pathname) => {
+    const response = middleware(request(pathname));
+
+    expect(response.status).toBe(307);
+    expect(locationOf(response)).toBe(
+      `/fr/login?next=${encodeURIComponent(pathname)}`,
+    );
+  });
+
+  it("laisse passer le catalogue avec une session", () => {
+    const response = middleware(
+      request("/fr/tests", { cookie: `${SESSION_COOKIE}=session-token` }),
+    );
+
+    expect(response.headers.get("location")).toBeNull();
+    expect(rewriteOf(response)).toBe(`${ORIGIN}/fr/tests`);
+  });
+
+  it("protege aussi les fichiers PDF des fiches, devinables par leur URL", () => {
+    const response = middleware(
+      request("/pdf/vocabulaire/revision-vocabulaire-b2-c1-c2-corrige.pdf"),
+    );
+
+    expect(response.status).toBe(307);
+    expect(locationOf(response)).toContain("/fr/login");
+  });
+
+  it("sert un PDF avec session, sans passer par la locale", () => {
+    const response = middleware(
+      request("/pdf/vocabulaire/revision-vocabulaire-b2-c1-c2-corrige.pdf", {
+        cookie: `${SESSION_COOKIE}=session-token`,
+      }),
+    );
+
+    expect(response.headers.get("location")).toBeNull();
+    expect(rewriteOf(response)).toBeNull();
+    expect(response.headers.get("x-middleware-next")).toBe("1");
   });
 });

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
+import { redirect } from "next/navigation";
 
 import { OralPanel, WrittenPanel } from "@/components/tests/panels";
 import { TestsCatalog } from "@/components/tests/tests-catalog";
@@ -26,8 +27,13 @@ export default async function TestsPage({
   setRequestLocale(params.locale);
   const t = await getTranslations("tests");
 
+  // Le middleware renvoie deja les visiteurs anonymes, mais chaque page reste
+  // seule autoritaire sur la session : un cookie invalide ne suffit pas.
   const session = await auth();
-  const signedIn = Boolean(session?.user);
+  if (!session?.user?.id) {
+    redirect(`/${params.locale}/login?next=${encodeURIComponent(`/${params.locale}/tests`)}`);
+  }
+  const signedIn = true;
 
   const [tests, series] = await Promise.all([
     getPublishedTests(session?.user?.id),

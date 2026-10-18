@@ -46,6 +46,10 @@ const PROTECTED_PREFIXES = [
   "/exam",
   "/comprehension-orale",
   "/admin",
+  // Catalogue et fiches : on ne consulte ni un test, ni une serie
+  // d'entrainement, ni une fiche de vocabulaire sans session.
+  "/tests",
+  "/vocabulaire",
 ] as const;
 
 /**
@@ -145,6 +149,24 @@ export default function middleware(request: NextRequest) {
     return withRobotsTag(NextResponse.next());
   }
 
+  // ---------------------------------------------------------------------
+  // PDF DES FICHES DE VOCABULAIRE : FICHIERS STATIQUES PROTEGES
+  //
+  // Les noms des PDF sont publics (`data/vocabulaire.ts`) et devinables, et
+  // l'un des deux contient les corriges. Les pages qui les affichent exigent
+  // deja une session, mais servir les fichiers tels quels laisserait tout le
+  // monde les ouvrir en tapant l'URL. Comme pour les routes API, on
+  // court-circuite `handleI18n` : `/pdf/...` n'a pas de segment de locale.
+  // ---------------------------------------------------------------------
+  if (route === "/pdf" || route.startsWith("/pdf/")) {
+    if (!SESSION_COOKIES.some((name) => request.cookies.has(name))) {
+      const login = new URL(`/${locale}/login`, request.url);
+      login.searchParams.set("next", request.nextUrl.pathname);
+      return NextResponse.redirect(login);
+    }
+    return withRobotsTag(NextResponse.next());
+  }
+
   const isProtected = PROTECTED_PREFIXES.some(
     (prefix) => route === prefix || route.startsWith(`${prefix}/`),
   );
@@ -173,8 +195,15 @@ export const config = {
     "/((?!_next|_vercel|sw\\.js|workbox|.*\\..*).*)",
     /*
      * 2) Les assets situes sous un prefixe de locale doivent etre servis
-     *    tels quels, sans passer par la logique de locale.
+     * tels quels, sans passer par la logique de locale.
      */
     "/(fr)/(.*)",
+    /*
+     * 3) Les fichiers PDF des fiches de vocabulaire. Le motif general ci-dessus
+     *    les exclut (« tout chemin contenant un point ») : sans cette regle
+     *    supplementaire, le garde de session ne courirait jamais sur un PDF et
+     *    les fiches resteraient librement telechargeables par leur URL.
+     */
+    "/pdf/(.*)",
   ],
 };
