@@ -158,6 +158,26 @@ export const VOCABULAIRE_SERIES: readonly VocabulaireSerie[] = [
       },
     ],
   },
+  {
+    slug: "tcf-serie-mixte",
+    title: "TCF — Série mixte : structures de la langue et vocabulaire",
+    description:
+      "30 questions à choix multiple (19 de grammaire, 11 de vocabulaire) classées par difficulté croissante, avec grille de réponses, barème indicatif et corrigé détaillé.",
+    level: "B2-C1-C2",
+    questionCount: 30,
+    documents: [
+      {
+        id: "questionnaire",
+        label: "Questionnaire",
+        file: "tcf-serie-mixte-questionnaire.pdf",
+      },
+      {
+        id: "corrige",
+        label: "Corrigé",
+        file: "tcf-serie-mixte-corrige.pdf",
+      },
+    ],
+  },
 ];
 
 /** Retourne la fiche correspondant au slug, ou null. */
