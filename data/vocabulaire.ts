@@ -178,6 +178,46 @@ export const VOCABULAIRE_SERIES: readonly VocabulaireSerie[] = [
       },
     ],
   },
+  {
+    slug: "tcf-structures-de-la-langue",
+    title: "TCF — Maîtrise des structures de la langue",
+    description:
+      "50 questions à choix multiple sur la grammaire (subjonctif, conditionnel, pronoms relatifs, concordance des temps), avec corrigé explicatif indiquant la règle et l'indice à retenir pour chaque question.",
+    level: "B2-C1",
+    questionCount: 50,
+    documents: [
+      {
+        id: "questionnaire",
+        label: "Questionnaire",
+        file: "tcf-structures-langue-50-questions.pdf",
+      },
+      {
+        id: "corrige",
+        label: "Corrigé",
+        file: "tcf-structures-langue-50-corrige.pdf",
+      },
+    ],
+  },
+  {
+    slug: "comprehension-ecrite-tcf",
+    title: "TCF — Compréhension écrite : 30 textes, 30 questions",
+    description:
+      "30 courts textes de niveau B2 et C1 mélangés, chacun suivi d'une question à choix multiple, avec corrigé détaillé indiquant la bonne réponse, sa justification et l'indice textuel à repérer.",
+    level: "B2-C1",
+    questionCount: 30,
+    documents: [
+      {
+        id: "questionnaire",
+        label: "Textes et questions",
+        file: "comprehension-ecrite-tcf-30-questions.pdf",
+      },
+      {
+        id: "corrige",
+        label: "Corrigé",
+        file: "comprehension-ecrite-tcf-30-corrige.pdf",
+      },
+    ],
+  },
 ];
 
 /** Retourne la fiche correspondant au slug, ou null. */
