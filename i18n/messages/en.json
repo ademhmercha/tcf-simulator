@@ -100,8 +100,7 @@
     "logout": "Sign out",
     "menu": "Menu",
     "openMenu": "Open menu",
-    "closeMenu": "Close menu",
-    "writing": "Written expression"
+    "closeMenu": "Close menu"
   },
   "landing": {
     "meta": {
@@ -381,7 +380,10 @@
     "sharedTimer": "Both modules share the same {minutes}-minute timer.",
     "duration": "Duration: {minutes} min",
     "recommendedDuration": "Recommended time for this module: {minutes} min",
-    "questionCount": "{count, plural, one {# question} other {# questions}}"
+    "questionCount": "{count, plural, one {# question} other {# questions}}",
+    "writingColumn": "Written expression",
+    "writingColumnSub": "30 original prompts (tasks 1 to 3, B2 to C2): timer, self-assessment and help to prepare for the paper-based exam.",
+    "writingCount": "{count, plural, one {# prompt} other {# prompts}}"
   },
   "corrections": {
     "indexEyebrow": "Answer keys",
@@ -1176,11 +1178,11 @@
   "writing": {
     "meta": {
       "title": "TCF Written Expression | TCF Simulator",
-      "description": "Practise the TCF written expression exam on paper: 30 original prompts from B2 to C2 (tasks 1, 2 and 3), a timer, a printable A4 sheet and a self-assessment."
+      "description": "Practise the TCF written expression exam: 30 original prompts from B2 to C2 (tasks 1, 2 and 3), a timer, a self-assessment and help."
     },
     "list": {
       "title": "Written expression prompts",
-      "subtitle": "The TCF written expression exam is taken on paper, with a pen. Pick a prompt, time yourself, print the sheet and check your copy with the self-assessment.",
+      "subtitle": "The TCF written expression exam is taken on paper, with a pen. Pick a prompt, time yourself, write on your own sheet and check your copy with the self-assessment.",
       "intro": "The TCF assesses written expression in French through three tasks, in 60 minutes: a short message (task 1), an argumentative message (task 2) and an argumentative text based on two documents (task 3). The prompts on this site are original and do not come from the official TCF.",
       "filters": "Filters",
       "all": "All",
@@ -1188,7 +1190,8 @@
       "level": "Level",
       "theme": "Theme",
       "empty": "No prompt matches these filters.",
-      "count": "prompts"
+      "count": "prompts",
+      "backToSeries": "Back to the training series"
     },
     "task": {
       "1": "Task 1",
@@ -1222,8 +1225,6 @@
       "requirements": "Exam requirements",
       "words": "words",
       "minutes": "min",
-      "print": "Print the sheet",
-      "printHint": "A4 sheet with lines, a header (name, date, task) and word-count markers.",
       "back": "Back to the prompts",
       "paperNotice": "This exam is taken on paper: no text area is provided and no AI grades your work."
     },
@@ -1270,16 +1271,6 @@
       "plan": "Suggested plan",
       "phrases": "Useful phrases",
       "mistakes": "Frequent mistakes"
-    },
-    "sheet": {
-      "title": "Written expression sheet",
-      "print": "Print",
-      "name": "Full name",
-      "date": "Date",
-      "task": "Task",
-      "subject": "Prompt",
-      "footer": "Write your text on this sheet, then re-read it and complete the self-assessment.",
-      "back": "Back to the prompt"
     },
     "history": {
       "title": "My written expression history",

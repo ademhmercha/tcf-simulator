@@ -6,8 +6,8 @@
  * expose les helpers partages par le seed, les pages et les tests.
  *
  * L'epreuve TCF d'expression ecrite se passe SUR PAPIER : le site ne fournit
- * que la consigne, le chronometre, une feuille a imprimer et une
- * auto-evaluation. Aucun texte n'est saisi ni corrige par une IA.
+ * que la consigne, le chronometre et une auto-evaluation. Aucun texte n'est
+ * saisi ni corrige par une IA.
  */
 import { z } from "zod";
 

@@ -61,7 +61,7 @@ export async function SiteHeader(): Promise<React.JSX.Element> {
           </div>
 
           <MobileNav
-            links={[...links, { href: "/ecriture", label: t("writing") }]}
+            links={links}
             signedIn={Boolean(user)}
             name={user?.name ?? ""}
             email={user?.email ?? ""}

@@ -21,7 +21,7 @@ export async function generateMetadata({
 }
 
 function formatDuration(seconds: number | null): string {
-  if (!seconds || seconds <= 0) return "â€”";
+  if (!seconds || seconds <= 0) return "—";
   const minutes = Math.floor(seconds / 60);
   const rest = seconds % 60;
   return minutes > 0 ? `${minutes} min ${String(rest).padStart(2, "0")} s` : `${rest} s`;
@@ -82,14 +82,14 @@ export default async function WritingHistoryPage({
                 <div>
                   <p className="font-semibold">{attempt.title}</p>
                   <p className="mt-1 text-sm text-muted-foreground">
-                    {t(`task.${attempt.task}`)} â€¢ {attempt.level} â€¢{" "}
+                    {t(`task.${attempt.task}`)} • {attempt.level} •{" "}
                     {t(`theme.${attempt.theme}`)}
                   </p>
                 </div>
                 <div className="flex items-center gap-6 text-sm">
                   <div>
                     <p className="text-muted-foreground">{t("history.words")}</p>
-                    <p className="font-semibold">{attempt.wordCount ?? "â€”"}</p>
+                    <p className="font-semibold">{attempt.wordCount ?? "—"}</p>
                   </div>
                   <div>
                     <p className="text-muted-foreground">{t("history.time")}</p>
@@ -104,7 +104,7 @@ export default async function WritingHistoryPage({
                     <p className="font-semibold">
                       {attempt.finishedAt
                         ? attempt.finishedAt.toLocaleDateString("fr-FR")
-                        : "â€”"}
+                        : "—"}
                     </p>
                   </div>
                 </div>

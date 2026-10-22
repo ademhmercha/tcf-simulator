@@ -1,7 +1,6 @@
 ﻿import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import { Printer } from "lucide-react";
 
 import { WritingPractice } from "@/components/writing/writing-practice";
 import { Badge } from "@/components/ui/badge";
@@ -51,7 +50,7 @@ export default async function EcritureSujetPage({
         </div>
         <h1 className="text-3xl font-extrabold leading-tight sm:text-4xl">{prompt.title}</h1>
         <p className="text-sm text-muted-foreground">
-          {prompt.minWords}â€“{prompt.maxWords} {t("detail.words")} â€¢ {prompt.durationMin}{" "}
+          {prompt.minWords}–{prompt.maxWords} {t("detail.words")} • {prompt.durationMin}{" "}
           {t("detail.minutes")}
         </p>
       </header>
@@ -81,10 +80,7 @@ export default async function EcritureSujetPage({
             </Card>
           ) : null}
 
-          <WritingPractice
-            prompt={prompt}
-            printHref={`/ecriture/${prompt.slug}/feuille`}
-          />
+          <WritingPractice prompt={prompt} />
         </div>
 
         <aside className="space-y-4 lg:sticky lg:top-24">
@@ -107,7 +103,7 @@ export default async function EcritureSujetPage({
                 <div>
                   <dt className="text-muted-foreground">{t("detail.words")}</dt>
                   <dd className="font-semibold">
-                    {prompt.minWords}â€“{prompt.maxWords}
+                    {prompt.minWords}–{prompt.maxWords}
                   </dd>
                 </div>
                 <div>
@@ -115,14 +111,6 @@ export default async function EcritureSujetPage({
                   <dd className="font-semibold">{prompt.durationMin}</dd>
                 </div>
               </dl>
-
-              <Button asChild variant="outline" className="w-full">
-                <Link href={`/ecriture/${prompt.slug}/feuille`}>
-                  <Printer className="size-4" aria-hidden />
-                  {t("detail.print")}
-                </Link>
-              </Button>
-              <p className="text-xs text-muted-foreground">{t("detail.printHint")}</p>
 
               <Button asChild variant="ghost" className="w-full">
                 <Link href="/ecriture">{t("detail.back")}</Link>

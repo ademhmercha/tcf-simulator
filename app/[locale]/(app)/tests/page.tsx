@@ -5,6 +5,7 @@ import { redirect } from "next/navigation";
 import { OralPanel, WrittenPanel } from "@/components/tests/panels";
 import { TestsCatalog } from "@/components/tests/tests-catalog";
 import type { AppLocale } from "@/config/enums";
+import { WRITING_PROMPTS } from "@/data/writing";
 import { VOCABULAIRE_SERIES } from "@/data/vocabulaire";
 import { auth } from "@/server/auth";
 import { getPublishedTests } from "@/server/services/attempts";
@@ -54,6 +55,7 @@ export default async function TestsPage({
         writtenCount={tests.length}
         oralCount={series.length}
         vocabCount={VOCABULAIRE_SERIES.length}
+        writingCount={WRITING_PROMPTS.length}
       />
     </div>
   );

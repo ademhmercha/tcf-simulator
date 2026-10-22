@@ -100,8 +100,7 @@
     "logout": "Déconnexion",
     "menu": "Menu",
     "openMenu": "Ouvrir le menu",
-    "closeMenu": "Fermer le menu",
-    "writing": "Expression écrite"
+    "closeMenu": "Fermer le menu"
   },
   "landing": {
     "meta": {
@@ -381,7 +380,10 @@
     "sharedTimer": "Les deux épreuves se partagent le même chronomètre de {minutes} minutes.",
     "duration": "Durée : {minutes} min",
     "recommendedDuration": "Durée conseillée pour cette épreuve : {minutes} min",
-    "questionCount": "{count, plural, one {# question} other {# questions}}"
+    "questionCount": "{count, plural, one {# question} other {# questions}}",
+    "writingColumn": "Expression écrite",
+    "writingColumnSub": "30 sujets originaux (tâches 1 à 3, B2 à C2) : chronomètre, auto-évaluation et aides pour préparer l'épreuve sur papier.",
+    "writingCount": "{count, plural, one {# sujet} other {# sujets}}"
   },
   "corrections": {
     "indexEyebrow": "Corrigés",
@@ -1181,11 +1183,11 @@
   "writing": {
     "meta": {
       "title": "Expression écrite TCF | TCF Simulator",
-      "description": "Entraînement à l'expression écrite du TCF sur papier : 30 sujets originaux B2 à C2 (tâches 1, 2 et 3), chronomètre, feuille A4 à imprimer et auto-évaluation."
+      "description": "Entraînement à l'expression écrite du TCF : 30 sujets originaux B2 à C2 (tâches 1, 2 et 3), chronomètre, auto-évaluation et aides."
     },
     "list": {
       "title": "Sujets d'expression écrite",
-      "subtitle": "L'épreuve d'expression écrite du TCF se passe sur papier, au stylo. Choisissez un sujet, chronométrez-vous, imprimez la feuille et corrigez votre copie avec l'auto-évaluation.",
+      "subtitle": "L'épreuve d'expression écrite du TCF se passe sur papier, au stylo. Choisissez un sujet, chronométrez-vous, rédigez sur votre feuille puis corrigez votre copie avec l'auto-évaluation.",
       "intro": "Le TCF évalue l'expression écrite en français à partir de trois tâches, en 60 minutes : un message court (tâche 1), un message argumentatif (tâche 2) et un texte argumentatif à partir de deux documents (tâche 3). Les sujets de ce site sont originaux et ne proviennent pas du TCF officiel.",
       "filters": "Filtres",
       "all": "Tous",
@@ -1193,7 +1195,8 @@
       "level": "Niveau",
       "theme": "Thème",
       "empty": "Aucun sujet ne correspond à ces filtres.",
-      "count": "sujets"
+      "count": "sujets",
+      "backToSeries": "Retour aux séries d'entraînement"
     },
     "task": {
       "1": "Tâche 1",
@@ -1227,8 +1230,6 @@
       "requirements": "Consignes de l'épreuve",
       "words": "mots",
       "minutes": "min",
-      "print": "Imprimer la feuille",
-      "printHint": "Feuille A4 avec lignes, en-tête (nom, date, tâche) et repères de comptage des mots.",
       "back": "Retour aux sujets",
       "paperNotice": "Cette épreuve se passe sur papier : aucune zone de texte n'est fournie, et aucune IA ne corrige votre production."
     },
@@ -1275,16 +1276,6 @@
       "plan": "Plan proposé",
       "phrases": "Phrases utiles",
       "mistakes": "Erreurs fréquentes"
-    },
-    "sheet": {
-      "title": "Feuille d'expression écrite",
-      "print": "Imprimer",
-      "name": "Nom et prénom",
-      "date": "Date",
-      "task": "Tâche",
-      "subject": "Sujet",
-      "footer": "Rédigez sur cette feuille, puis relisez votre texte et complétez l'auto-évaluation.",
-      "back": "Retour au sujet"
     },
     "history": {
       "title": "Mon historique d'expression écrite",

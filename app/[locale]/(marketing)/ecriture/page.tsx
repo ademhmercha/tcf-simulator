@@ -1,11 +1,14 @@
 ﻿import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
+import { ArrowRight } from "lucide-react";
 
-import { WritingPromptCard } from "@/components/writing/writing-prompt-card";
 import { WritingFilters } from "@/components/writing/writing-filters";
-import type { WritingLevel, WritingTask, WritingTheme } from "@/config/enums";
+import { WritingPromptCard } from "@/components/writing/writing-prompt-card";
+import { Button } from "@/components/ui/button";
 import { absoluteUrl } from "@/config/site";
+import { Link } from "@/i18n/navigation";
 import { listWritingPrompts } from "@/server/services/writing";
+import { WRITING_FILTERS_SCHEMA } from "@/server/validation/writing";
 
 export async function generateMetadata({
   params,
@@ -35,11 +38,16 @@ export default async function EcriturePage({
   setRequestLocale(params.locale);
   const t = await getTranslations("writing");
 
-  const task = searchParams.task ? (Number(searchParams.task) as WritingTask) : undefined;
-  const level = searchParams.level as WritingLevel | undefined;
-  const theme = searchParams.theme as WritingTheme | undefined;
+  // Filtres venus de la query string : on ignore toute valeur invalide plutot
+  // que de la transmettre a Prisma.
+  const parsed = WRITING_FILTERS_SCHEMA.safeParse({
+    task: searchParams.task,
+    level: searchParams.level,
+    theme: searchParams.theme,
+  });
+  const filters = parsed.success ? parsed.data : {};
 
-  const prompts = await listWritingPrompts({ task, level, theme });
+  const prompts = await listWritingPrompts(filters);
 
   return (
     <>
@@ -63,9 +71,9 @@ export default async function EcriturePage({
         </section>
 
         <WritingFilters
-          activeTask={task ?? null}
-          activeLevel={level ?? null}
-          activeTheme={theme ?? null}
+          activeTask={filters.task ?? null}
+          activeLevel={filters.level ?? null}
+          activeTheme={filters.theme ?? null}
         />
 
         <section className="space-y-5">
@@ -82,6 +90,13 @@ export default async function EcriturePage({
             </div>
           )}
         </section>
+
+        <Button asChild variant="outline" size="sm">
+          <Link href="/tests">
+            <ArrowRight className="rotate-180" aria-hidden />
+            {t("list.backToSeries")}
+          </Link>
+        </Button>
       </div>
     </>
   );

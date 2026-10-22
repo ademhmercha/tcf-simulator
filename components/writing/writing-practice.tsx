@@ -2,28 +2,26 @@
 
 import { useState } from "react";
 import { useTranslations } from "next-intl";
-import { BookOpenCheck, ClipboardCheck, Printer } from "lucide-react";
+import { BookOpenCheck, ClipboardCheck } from "lucide-react";
 
 import { WritingChecklistForm } from "@/components/writing/writing-checklist-form";
 import { WritingTimer } from "@/components/writing/writing-timer";
 import { Alert } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Link } from "@/i18n/navigation";
 import type { WritingPromptView } from "@/server/services/writing";
 
 /**
  * Deroule l'entrainement : chronometre, puis auto-evaluation.
  *
- * L'epreuve se fait sur papier : la page ne propose aucune zone de texte.
- * Le bouton « J'ai terminé » ouvre l'etape d'auto-evaluation et les aides.
+ * L'epreuve se fait sur papier, sur la feuille du candidat : la page ne
+ * propose aucune zone de texte. Le bouton « J'ai terminé » ouvre l'etape
+ * d'auto-evaluation et les aides.
  */
 export function WritingPractice({
   prompt,
-  printHref,
 }: {
   prompt: WritingPromptView;
-  printHref: string;
 }): React.JSX.Element {
   const t = useTranslations("writing");
   const [elapsedSeconds, setElapsedSeconds] = useState(0);
@@ -37,12 +35,6 @@ export function WritingPractice({
         <Button type="button" onClick={() => setFinished(true)}>
           <ClipboardCheck className="size-4" aria-hidden />
           {t("evaluation.open")}
-        </Button>
-        <Button asChild variant="outline">
-          <Link href={printHref}>
-            <Printer className="size-4" aria-hidden />
-            {t("detail.print")}
-          </Link>
         </Button>
       </div>
 
