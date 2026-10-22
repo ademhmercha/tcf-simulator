@@ -1,5 +1,5 @@
 /**
- * Manifeste des series de vocabulaire (fiches PDF).
+ * Manifeste des series d'exercices PDF (langue, vocabulaire, ecrite).
  *
  * Pour ajouter une fiche :
  *  1. deposer le(s) PDF dans `public/pdf/vocabulaire/` (nom ascii simple :
