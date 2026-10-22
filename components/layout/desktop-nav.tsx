@@ -34,6 +34,18 @@ export function DesktopNav({
           </Link>
         );
       })}
+      <Link
+        href="/ecriture"
+        aria-current={isActivePath(pathname, "/ecriture") ? "page" : undefined}
+        className={cn(
+          "rounded-lg px-3 py-2 text-sm font-medium transition-colors",
+          isActivePath(pathname, "/ecriture")
+            ? "bg-primary-soft font-semibold text-primary"
+            : "text-muted-foreground hover:bg-primary-soft hover:text-primary",
+        )}
+      >
+        {t("writing")}
+      </Link>
     </nav>
   );
 }

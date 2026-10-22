@@ -50,6 +50,7 @@ model User {
   attempts Attempt[]
   auditLogs AuditLog[]
   listeningResults ListeningResult[]
+  writingAttempts WritingAttempt[]
 
   @@index([role])
   @@map("users")
@@ -408,4 +409,72 @@ model ListeningAnswer {
   @@index([resultId])
   @@index([questionId])
   @@map("listening_answers")
+}
+
+// --------------------------- Expression ecrite ----------------------------
+
+/// Sujet d'expression ecrite (epreuve TCF, 3 taches).
+///
+/// L'epreuve se passe sur papier : le site ne fournit QUE la consigne, le
+/// chronometre, une feuille a imprimer et une auto-evaluation. Aucun texte
+/// n'est saisi ni corrige par une IA.
+model WritingPrompt {
+  id           String  @id @default(cuid())
+  slug         String  @unique
+  /// 1 | 2 | 3 (tache de l'epreuve)
+  task         Int
+  /// B2 | C1 | C2
+  level        String
+  theme        String
+  title        String
+  instructions String
+  /// JSON serialise : [{ author, text }] — les deux documents de la tache 3.
+  documents    String  @default("[]")
+  minWords     Int
+  maxWords     Int
+  durationMin  Int
+  /// JSON serialise : plan en etapes.
+  plan         String  @default("[]")
+  /// JSON serialise : phrases types.
+  usefulPhrases String @default("[]")
+  /// JSON serialise : erreurs frequentes.
+  commonMistakes String @default("[]")
+  isPublished  Boolean @default(true)
+  order        Int     @default(0)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  attempts WritingAttempt[]
+
+  @@index([task, level])
+  @@index([level])
+  @@map("writing_prompts")
+}
+
+/// Tentative d'expression ecrite : un sujet, un temps passe, un nombre de
+/// mots et l'auto-evaluation cochee par le candidat.
+///
+/// `selfScore` est un pourcentage de cases cochees : c'est un indicateur
+/// d'entrainement, jamais une note officielle.
+model WritingAttempt {
+  id              String    @id @default(cuid())
+  userId          String
+  promptId        String
+  startedAt       DateTime  @default(now())
+  finishedAt      DateTime?
+  durationSeconds Int?
+  wordCount       Int?
+  /// JSON serialise : { <id de la checklist> : true }
+  checklist       String    @default("{}")
+  /// Pourcentage de cases cochees (0-100).
+  selfScore       Int?
+  notes           String?
+  createdAt       DateTime  @default(now())
+
+  user   User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  prompt WritingPrompt @relation(fields: [promptId], references: [id], onDelete: Cascade)
+
+  @@index([userId, createdAt])
+  @@index([promptId])
+  @@map("writing_attempts")
 }

@@ -129,11 +129,15 @@ export default function middleware(request: NextRequest) {
     return withRobotsTag(NextResponse.next());
   }
 
+  // PROTECTED_PREFIXES : on evite un prefixe trop large ("/ecriture" reste public,
+  // mais "/ecriture/historique" est protege ci-dessous par un chemin exact).
   const isProtected = PROTECTED_PREFIXES.some(
     (prefix) => route === prefix || route.startsWith(`${prefix}/`),
   );
 
-  if (isProtected && !SESSION_COOKIES.some((name) => request.cookies.has(name))) {
+  const isWritingHistory = route === "/ecriture/historique" || route.startsWith("/ecriture/historique/");
+
+  if ((isProtected || isWritingHistory) && !SESSION_COOKIES.some((name) => request.cookies.has(name))) {
     const login = new URL(`/${locale}/login`, request.url);
     login.searchParams.set("next", request.nextUrl.pathname);
     return NextResponse.redirect(login);

@@ -100,7 +100,8 @@
     "logout": "Déconnexion",
     "menu": "Menu",
     "openMenu": "Ouvrir le menu",
-    "closeMenu": "Fermer le menu"
+    "closeMenu": "Fermer le menu",
+    "writing": "Expression écrite"
   },
   "landing": {
     "meta": {
@@ -1175,6 +1176,132 @@
       "changesBody": "Ces conditions peuvent évoluer pour des raisons techniques ou juridiques. La date de dernière mise à jour figure en tête de page. En cas de modification substantielle, l'information est portée à la connaissance des utilisateurs via la plateforme.",
       "contactTitle": "Nous contacter",
       "contactBody": "Pour toute question relative à ces conditions d'utilisation, utilisez le formulaire de contact indiqué sur la page d'accueil."
+    }
+  },
+  "writing": {
+    "meta": {
+      "title": "Expression écrite TCF | TCF Simulator",
+      "description": "Entraînement à l'expression écrite du TCF sur papier : 30 sujets originaux B2 à C2 (tâches 1, 2 et 3), chronomètre, feuille A4 à imprimer et auto-évaluation."
+    },
+    "list": {
+      "title": "Sujets d'expression écrite",
+      "subtitle": "L'épreuve d'expression écrite du TCF se passe sur papier, au stylo. Choisissez un sujet, chronométrez-vous, imprimez la feuille et corrigez votre copie avec l'auto-évaluation.",
+      "intro": "Le TCF évalue l'expression écrite en français à partir de trois tâches, en 60 minutes : un message court (tâche 1), un message argumentatif (tâche 2) et un texte argumentatif à partir de deux documents (tâche 3). Les sujets de ce site sont originaux et ne proviennent pas du TCF officiel.",
+      "filters": "Filtres",
+      "all": "Tous",
+      "task": "Tâche",
+      "level": "Niveau",
+      "theme": "Thème",
+      "empty": "Aucun sujet ne correspond à ces filtres.",
+      "count": "sujets"
+    },
+    "task": {
+      "1": "Tâche 1",
+      "2": "Tâche 2",
+      "3": "Tâche 3"
+    },
+    "theme": {
+      "consommation": "Consommation",
+      "travail": "Travail",
+      "logement": "Logement",
+      "etudes": "Études",
+      "voyage": "Voyage",
+      "ville": "Ville",
+      "langue": "Langue",
+      "technologie": "Technologie",
+      "culture": "Culture",
+      "education": "Éducation",
+      "societe": "Société",
+      "environnement": "Environnement",
+      "tourisme": "Tourisme",
+      "sport": "Sport"
+    },
+    "card": {
+      "words": "mots",
+      "minutes": "min",
+      "start": "S'entraîner sur ce sujet"
+    },
+    "detail": {
+      "instructions": "Consigne",
+      "documents": "Documents",
+      "requirements": "Consignes de l'épreuve",
+      "words": "mots",
+      "minutes": "min",
+      "print": "Imprimer la feuille",
+      "printHint": "Feuille A4 avec lignes, en-tête (nom, date, tâche) et repères de comptage des mots.",
+      "back": "Retour aux sujets",
+      "paperNotice": "Cette épreuve se passe sur papier : aucune zone de texte n'est fournie, et aucune IA ne corrige votre production."
+    },
+    "timer": {
+      "label": "Chronomètre",
+      "start": "Démarrer",
+      "pause": "Pause",
+      "resume": "Reprendre",
+      "reset": "Réinitialiser",
+      "timeUp": "Temps écoulé",
+      "elapsed": "Temps de travail"
+    },
+    "evaluation": {
+      "title": "Auto-évaluation",
+      "subtitle": "Indicateur d'entraînement, ce n'est pas une note officielle.",
+      "open": "J'ai terminé",
+      "wordsLabel": "Combien de mots avez-vous écrits ?",
+      "wordsHint": "Indiquez un nombre approximatif, hors brouillon.",
+      "wordsTooShort": "Votre texte semble plus court que la fourchette conseillée.",
+      "wordsTooLong": "Votre texte semble plus long que la fourchette conseillée.",
+      "checklistTitle": "Vérifiez votre copie",
+      "score": "Score d'auto-évaluation",
+      "checked": "cases cochées",
+      "save": "Enregistrer ma tentative",
+      "saving": "Enregistrement…",
+      "saved": "Tentative enregistrée.",
+      "saveError": "La tentative n'a pas pu être enregistrée.",
+      "loginRequired": "Connectez-vous pour enregistrer cette tentative et suivre votre progression.",
+      "historyLink": "Voir mon historique"
+    },
+    "checklist": {
+      "consigne": "J'ai respecté la consigne et traité tout le sujet",
+      "longueur": "Mon nombre de mots est dans la fourchette",
+      "registre": "Le registre est adapté (tu / vous, formules de politesse)",
+      "organisation": "Mon texte est organisé en paragraphes, avec une introduction et une conclusion",
+      "connecteurs": "J'ai utilisé des connecteurs variés",
+      "relecture": "J'ai relu les accords, la conjugaison et l'orthographe",
+      "exemples": "J'ai donné des exemples ou des arguments précis",
+      "lisibilite": "Mon écriture est lisible"
+    },
+    "aids": {
+      "title": "Aides",
+      "subtitle": "À consulter après votre rédaction, pour préparer la correction.",
+      "plan": "Plan proposé",
+      "phrases": "Phrases utiles",
+      "mistakes": "Erreurs fréquentes"
+    },
+    "sheet": {
+      "title": "Feuille d'expression écrite",
+      "print": "Imprimer",
+      "name": "Nom et prénom",
+      "date": "Date",
+      "task": "Tâche",
+      "subject": "Sujet",
+      "footer": "Rédigez sur cette feuille, puis relisez votre texte et complétez l'auto-évaluation.",
+      "back": "Retour au sujet"
+    },
+    "history": {
+      "title": "Mon historique d'expression écrite",
+      "subtitle": "Vos tentatives d'entraînement : nombre de mots, temps passé et score d'auto-évaluation.",
+      "empty": "Aucune tentative enregistrée pour l'instant.",
+      "date": "Date",
+      "subject": "Sujet",
+      "words": "Mots",
+      "score": "Auto-évaluation",
+      "time": "Temps passé",
+      "loginRequired": "Connectez-vous pour enregistrer vos tentatives et suivre votre progression."
+    },
+    "progress": {
+      "title": "Progression",
+      "attempts": "Tentatives",
+      "average": "Moyenne",
+      "best": "Meilleur"
     }
   }
 }

@@ -3,7 +3,14 @@ export const siteConfig = {
   shortName: "TCF",
   description:
     "Plateforme d'entrainement au TCF : 5 tests blancs, 8 series d'ecoute de comprehension orale (A1 → C2), 370 questions originales avec correction detaillee et niveau CECRL estime.",
-  url: process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000",
+  url:
+    process.env.NEXT_PUBLIC_SITE_URL ??
+    process.env.NEXT_PUBLIC_APP_URL ??
+    (process.env.VERCEL_PROJECT_PRODUCTION_URL
+      ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+      : process.env.VERCEL_URL
+        ? `https://${process.env.VERCEL_URL}`
+        : "http://localhost:3000"),
   locale: "fr",
   keywords: [
     "TCF",

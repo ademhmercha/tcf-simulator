@@ -40,6 +40,7 @@ section dédiée à la compréhension orale.
 | --- | --- |
 | Tests blancs | 5 tests complets, 10 sections, 250 questions, 150 documents, 400 minutes au total |
 | Compréhension orale | 8 séries d'entraînement (A1 → C2), 120 questions, audio + transcription + explication |
+| Expression écrite | 30 sujets originaux (B2 → C2, tâches 1 à 3), chronomètre, feuille A4 à imprimer, auto-évaluation, historique |
 | Épreuve | Chronomètre serveur, reprise de tentative, réponses en file d'attente côté client |
 | Correction | Détail question par question, score écrit à la soumission, estimation CECRL |
 | Suivi | Tableau de bord, historique, espace d'administration |
@@ -183,6 +184,7 @@ npm run content:encoding     # contrôle l'encodage des modules de lecture
 npm run db:audit             # audite l'intégrité du contenu de lecture en base
 npm run audio:co             # génère/synchronise l'audio de la compréhension orale
 npm run audio:co:check       # vérifie que chaque item a un fichier audio valide
+npm run writing:seed         # importe les 30 sujets d'expression écrite (idempotent)
 ```
 
 > **Barème et notes** : le score est écrit **une seule fois, à la soumission**.
@@ -206,6 +208,25 @@ npm run admin:create     # crée un compte administrateur
 | `data/tcf_practice_5_tests_250_questions.json` | 5 tests, 10 sections, 250 questions, 1000 options, 150 documents | `npm run db:seed` |
 | `data/co/` (module TS) | 8 séries de compréhension orale, A1 → C2 (annonces, conversations, radio, débats…) : transcription exacte, question, 4 propositions, bonne réponse, explication | `npm run db:seed` |
 | `data/ce/` | Modules de compréhension écrite | `npm run content:reading` |
+| `data/writing_prompts.json` | 30 sujets d'expression écrite (tâches 1 à 3, B2 → C2) : consigne, documents, plan, phrases utiles, erreurs fréquentes | `npm run writing:seed` |
+
+### Expression écrite (module « papier »)
+
+L'épreuve TCF d'expression écrite se passe **sur papier**. Le site n'offre donc
+aucune zone de saisie et aucune correction par IA : il fournit la consigne, un
+chronomètre, une feuille A4 à imprimer et une auto-évaluation indicative.
+
+- Catalogue figé dans `data/writing_prompts.json`, chargé et validé par Zod dans
+  `data/writing.ts` ;
+- miroir en base `writing_prompts` (import via `npm run writing:seed`, ou
+  `npm run db:seed`) : si la table est vide, le catalogue statique prend le
+  relais et les pages restent accessibles ;
+- tentatives (`writing_attempts`) : temps passé, nombre de mots, checklist
+  d'auto-évaluation ; le score est **recalculé côté serveur**, le client n'envoie
+  que des cases cochées ;
+- les pages `/fr/ecriture` (catalogue public) et `/fr/ecriture/<slug>` (sujet,
+  chronomètre, aides) sont publiques ; `/fr/ecriture/historique` exige une
+  session.
 
 La compréhension orale souscrit à 120 items accompagnés d'un fichier audio
 (`public/audio/co/…`) et d'une transcription strictement identique à l'énoncé

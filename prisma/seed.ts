@@ -8,6 +8,7 @@ import { computeSimulatedScore, DEFAULT_SCORING_PROFILE, SCORE_MAX } from "../co
 import { importContentFile, parseContentJson } from "../server/services/content-import";
 import { CO_SERIES } from "../data/co";
 import { coAudioUrl } from "../data/co/types";
+import { importWritingPrompts } from "../server/services/writing-import";
 import { getServerEnv } from "../lib/env";
 import { hashPassword } from "../lib/security";
 
@@ -320,6 +321,15 @@ async function seedListening(): Promise<void> {
   );
 }
 
+async function seedWriting(): Promise<void> {
+  heading("Expression ecrite");
+
+  const stats = await importWritingPrompts(db, (message) => console.log(message));
+
+  console.log(`  Sujets du catalogue      : ${stats.total}`);
+  console.log(`  Sujets en base (total)   : ${await db.writingPrompt.count()}`);
+}
+
 async function main(): Promise<void> {
   console.log("Seed TCF Simulator");
   console.log(`  NODE_ENV      : ${process.env.NODE_ENV ?? "development"}`);
@@ -335,6 +345,7 @@ async function main(): Promise<void> {
     await seedUsers();
     await seedTests();
     await seedListening();
+    await seedWriting();
     await seedDemoAttempts();
   }
 

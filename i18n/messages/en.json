@@ -100,7 +100,8 @@
     "logout": "Sign out",
     "menu": "Menu",
     "openMenu": "Open menu",
-    "closeMenu": "Close menu"
+    "closeMenu": "Close menu",
+    "writing": "Written expression"
   },
   "landing": {
     "meta": {
@@ -1170,6 +1171,132 @@
       "changesBody": "These terms may change for technical or legal reasons. The last update date appears at the top of the page. In the event of a substantial change, users are informed via the platform.",
       "contactTitle": "Contact us",
       "contactBody": "For any question about these terms of use, use the contact form shown on the home page."
+    }
+  },
+  "writing": {
+    "meta": {
+      "title": "TCF Written Expression | TCF Simulator",
+      "description": "Practise the TCF written expression exam on paper: 30 original prompts from B2 to C2 (tasks 1, 2 and 3), a timer, a printable A4 sheet and a self-assessment."
+    },
+    "list": {
+      "title": "Written expression prompts",
+      "subtitle": "The TCF written expression exam is taken on paper, with a pen. Pick a prompt, time yourself, print the sheet and check your copy with the self-assessment.",
+      "intro": "The TCF assesses written expression in French through three tasks, in 60 minutes: a short message (task 1), an argumentative message (task 2) and an argumentative text based on two documents (task 3). The prompts on this site are original and do not come from the official TCF.",
+      "filters": "Filters",
+      "all": "All",
+      "task": "Task",
+      "level": "Level",
+      "theme": "Theme",
+      "empty": "No prompt matches these filters.",
+      "count": "prompts"
+    },
+    "task": {
+      "1": "Task 1",
+      "2": "Task 2",
+      "3": "Task 3"
+    },
+    "theme": {
+      "consommation": "Consumer",
+      "travail": "Work",
+      "logement": "Housing",
+      "etudes": "Education",
+      "voyage": "Travel",
+      "ville": "City",
+      "langue": "Language",
+      "technologie": "Technology",
+      "culture": "Culture",
+      "education": "Education",
+      "societe": "Society",
+      "environnement": "Environment",
+      "tourisme": "Tourism",
+      "sport": "Sport"
+    },
+    "card": {
+      "words": "words",
+      "minutes": "min",
+      "start": "Train on this prompt"
+    },
+    "detail": {
+      "instructions": "Instructions",
+      "documents": "Documents",
+      "requirements": "Exam requirements",
+      "words": "words",
+      "minutes": "min",
+      "print": "Print the sheet",
+      "printHint": "A4 sheet with lines, a header (name, date, task) and word-count markers.",
+      "back": "Back to the prompts",
+      "paperNotice": "This exam is taken on paper: no text area is provided and no AI grades your work."
+    },
+    "timer": {
+      "label": "Timer",
+      "start": "Start",
+      "pause": "Pause",
+      "resume": "Resume",
+      "reset": "Reset",
+      "timeUp": "Time is up",
+      "elapsed": "Working time"
+    },
+    "evaluation": {
+      "title": "Self-assessment",
+      "subtitle": "A training indicator, not an official score.",
+      "open": "I have finished",
+      "wordsLabel": "How many words did you write?",
+      "wordsHint": "Enter an approximate number, excluding your rough draft.",
+      "wordsTooShort": "Your text looks shorter than the recommended range.",
+      "wordsTooLong": "Your text looks longer than the recommended range.",
+      "checklistTitle": "Check your copy",
+      "score": "Self-assessment score",
+      "checked": "checked boxes",
+      "save": "Save my attempt",
+      "saving": "Saving…",
+      "saved": "Attempt saved.",
+      "saveError": "The attempt could not be saved.",
+      "loginRequired": "Sign in to save this attempt and track your progress.",
+      "historyLink": "See my history"
+    },
+    "checklist": {
+      "consigne": "I followed the instructions and covered the whole topic",
+      "longueur": "My word count is within the range",
+      "registre": "The register is appropriate (tu / vous, polite formulas)",
+      "organisation": "My text is organised in paragraphs, with an introduction and a conclusion",
+      "connecteurs": "I used a variety of linking words",
+      "relecture": "I checked agreement, conjugation and spelling",
+      "exemples": "I gave precise examples or arguments",
+      "lisibilite": "My handwriting is legible"
+    },
+    "aids": {
+      "title": "Help",
+      "subtitle": "To read after you finish writing, to prepare your correction.",
+      "plan": "Suggested plan",
+      "phrases": "Useful phrases",
+      "mistakes": "Frequent mistakes"
+    },
+    "sheet": {
+      "title": "Written expression sheet",
+      "print": "Print",
+      "name": "Full name",
+      "date": "Date",
+      "task": "Task",
+      "subject": "Prompt",
+      "footer": "Write your text on this sheet, then re-read it and complete the self-assessment.",
+      "back": "Back to the prompt"
+    },
+    "history": {
+      "title": "My written expression history",
+      "subtitle": "Your training attempts: word count, time spent and self-assessment score.",
+      "empty": "No attempt saved yet.",
+      "date": "Date",
+      "subject": "Prompt",
+      "words": "Words",
+      "score": "Self-assessment",
+      "time": "Time spent",
+      "loginRequired": "Sign in to save your attempts and track your progress."
+    },
+    "progress": {
+      "title": "Progress",
+      "attempts": "Attempts",
+      "average": "Average",
+      "best": "Best"
     }
   }
 }

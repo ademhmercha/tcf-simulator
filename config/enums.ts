@@ -33,6 +33,46 @@ export const SectionRunStatusSchema = z.enum(SECTION_RUN_STATUSES);
 export type SectionRunStatus = z.infer<typeof SectionRunStatusSchema>;
 
 /**
+ * Expression ecrite : les trois taches de l'epreuve TCF.
+ *
+ * - tache 1 : message court (60 a 120 mots) ;
+ * - tache 2 : message argumentatif (120 a 150 mots) ;
+ * - tache 3 : texte argumentatif a partir de deux documents (120 a 180 mots).
+ */
+export const WRITING_TASKS = [1, 2, 3] as const;
+export const WritingTaskSchema = z.coerce.number().int().refine(
+  (value): value is (typeof WRITING_TASKS)[number] =>
+    (WRITING_TASKS as readonly number[]).includes(value),
+  "Tache d'ecriture invalide",
+);
+export type WritingTask = z.infer<typeof WritingTaskSchema>;
+
+/** Niveaux CECRL proposes en expression ecrite. */
+export const WRITING_LEVELS = ["B2", "C1", "C2"] as const;
+export const WritingLevelSchema = z.enum(WRITING_LEVELS);
+export type WritingLevel = z.infer<typeof WritingLevelSchema>;
+
+/** Themes des sujets (filtre de la liste des sujets). */
+export const WRITING_THEMES = [
+  "consommation",
+  "travail",
+  "logement",
+  "etudes",
+  "voyage",
+  "ville",
+  "langue",
+  "technologie",
+  "culture",
+  "education",
+  "societe",
+  "environnement",
+  "tourisme",
+  "sport",
+] as const;
+export const WritingThemeSchema = z.enum(WRITING_THEMES);
+export type WritingTheme = z.infer<typeof WritingThemeSchema>;
+
+/**
  * Locales livrees.
  *
  * Le francais est la seule langue de la plateforme. Le catalogue anglais est
