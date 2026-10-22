@@ -357,7 +357,7 @@ fonctionne pas**. Utilisez PostgreSQL.
    | `DATABASE_URL` | URL du **pooler en mode transaction** (voir étape 4) |
    | `AUTH_SECRET` | `openssl rand -base64 32` |
    | `AUTH_URL` | `https://<domaine>.vercel.app` |
-   | `NEXT_PUBLIC_APP_URL` | `https://<domaine>.vercel.app` |
+   | `NEXT_PUBLIC_SITE_URL` | `https://<domaine>.vercel.app` — origine des URLs canoniques, `og:url` et `sitemap.xml` (défaut : `https://tcf-simulator-tn.vercel.app`) |
    | `AUTH_GOOGLE_ID` / `AUTH_GOOGLE_SECRET` | (optionnel) connexion Google |
 
    > `DATABASE_PROVIDER` est la variable la plus critique du projet : elle choisit

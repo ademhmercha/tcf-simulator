@@ -1,3 +1,15 @@
+/**
+ * Origine de production du site.
+ *
+ * Sert de valeur par defaut aux URLs absolues (canonical, og:url, sitemap,
+ * images Open Graph). Elle ne peut pas etre deduite de l'environnement Vercel :
+ * `VERCEL_PROJECT_PRODUCTION_URL` pointe ici vers `tcf-simulator.vercel.app`,
+ * un domaine qui ne repond pas (404), alors que le site est servi depuis
+ * `tcf-simulator-tn.vercel.app`. Definir `NEXT_PUBLIC_SITE_URL` sur Vercel
+ * lorsqu'un domaine personnalise est branche.
+ */
+const PRODUCTION_SITE_URL = "https://tcf-simulator-tn.vercel.app";
+
 export const siteConfig = {
   name: "TCF Simulator",
   shortName: "TCF",
@@ -5,12 +17,7 @@ export const siteConfig = {
     "Plateforme d'entrainement au TCF : 5 tests blancs, 8 series d'ecoute de comprehension orale (A1 → C2), 370 questions originales avec correction detaillee et niveau CECRL estime.",
   url:
     process.env.NEXT_PUBLIC_SITE_URL ??
-    process.env.NEXT_PUBLIC_APP_URL ??
-    (process.env.VERCEL_PROJECT_PRODUCTION_URL
-      ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
-      : process.env.VERCEL_URL
-        ? `https://${process.env.VERCEL_URL}`
-        : "http://localhost:3000"),
+    (process.env.NODE_ENV === "production" ? PRODUCTION_SITE_URL : "http://localhost:3000"),
   locale: "fr",
   keywords: [
     "TCF",
