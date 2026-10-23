@@ -1,13 +1,17 @@
 import type { PrismaClient } from "@prisma/client";
 import { z } from "zod";
 
+import type { SectionType, TestKind } from "@/config/enums";
 import { examConfig } from "@/config/site";
 import {
   ContentFileSchema,
   CsvRowSchema,
   SECTION_KEY_TO_TYPE,
-  type CsvRow,
+  type ContentListeningQuestion,
+  type ContentQuestion,
+  type ContentStructureQuestion,
   type ContentFile,
+  type CsvRow,
 } from "@/lib/content-schema";
 import { slugify } from "@/lib/slug";
 
@@ -25,16 +29,53 @@ import { slugify } from "@/lib/slug";
 // ---------------------------------------------------------------------------
 
 const DEFAULT_SECTION_TITLES: Record<string, string> = {
+  COMPREHENSION_ORALE: "Comprehension orale",
   STRUCTURE: "Structure de la langue",
   COMPREHENSION_ECRITE: "Comprehension ecrite",
 };
 
 const DEFAULT_SECTION_INSTRUCTIONS: Record<string, string> = {
+  COMPREHENSION_ORALE:
+    "Ecoutez le document audio, puis choisissez la reponse qui correspond a la question. Chaque audio ne peut etre ecoute qu'une seule fois.",
   STRUCTURE:
     "Pour chaque question, choisissez la forme correcte qui complete la phrase. Une seule reponse est correcte.",
   COMPREHENSION_ECRITE:
     "Lisez le document puis repondez aux questions qui s'y rapportent. Une seule reponse est correcte par question.",
 };
+
+/**
+ * Duree par defaut d'une epreuve, selon le type de test.
+ *
+ * Un examen blanc suit le minutage du TCF (25 / 20 / 45) ; une serie
+ * d'entrainement conserve ses durees historiques (structure 20, CE 60).
+ */
+function defaultSectionDuration(kind: TestKind, type: SectionType): number {
+  if (kind === "FULL") {
+    return examConfig.fullTestSectionMinutes[type] ?? 25;
+  }
+  if (type === "COMPREHENSION_ORALE") return 25;
+  return examConfig.recommendedSectionMinutes[type] ?? 20;
+}
+
+type SectionInput =
+  | {
+      type: "COMPREHENSION_ORALE";
+      duration: number;
+      order: number;
+      questions: ContentListeningQuestion[];
+    }
+  | {
+      type: "STRUCTURE";
+      duration: number;
+      order: number;
+      questions: ContentStructureQuestion[];
+    }
+  | {
+      type: "COMPREHENSION_ECRITE";
+      duration: number;
+      order: number;
+      questions: ContentQuestion[];
+    };
 
 export interface ImportStats {
   testsCreated: number;
@@ -165,6 +206,46 @@ export async function importContentFile(
   for (const [testIndex, test] of content.tests.entries()) {
     const order = startOrder + testIndex;
     const slug = slugify(test.title) || test.id;
+    const kind = test.kind;
+
+    // Sections dans l'ordre officiel : CO, structure, CE. Une serie
+    // d'entrainement n'a pas de comprehension orale.
+    const sectionInputs: SectionInput[] = [];
+    const listening = test.sections.comprehension_orale;
+    if (listening) {
+      sectionInputs.push({
+        type: "COMPREHENSION_ORALE",
+        duration:
+          listening.durationMinutes ?? defaultSectionDuration(kind, "COMPREHENSION_ORALE"),
+        order: sectionInputs.length + 1,
+        questions: listening.questions,
+      });
+    }
+    const structure = test.sections.structure_de_la_langue;
+    sectionInputs.push({
+      type: "STRUCTURE",
+      duration:
+        structure.durationMinutes ??
+        structureDuration ??
+        defaultSectionDuration(kind, "STRUCTURE"),
+      order: sectionInputs.length + 1,
+      questions: structure.questions,
+    });
+    const written = test.sections.comprehension_ecrite;
+    sectionInputs.push({
+      type: "COMPREHENSION_ECRITE",
+      duration:
+        written.durationMinutes ??
+        comprehensionDuration ??
+        defaultSectionDuration(kind, "COMPREHENSION_ECRITE"),
+      order: sectionInputs.length + 1,
+      questions: written.questions,
+    });
+
+    const testDurationMinutes =
+      kind === "FULL"
+        ? sectionInputs.reduce((sum, sectionInput) => sum + sectionInput.duration, 0)
+        : examConfig.totalDurationMinutes;
 
     const existingTest = await db.test.findFirst({
       where: { OR: [{ code: test.id }, { slug }] },
@@ -174,12 +255,14 @@ export async function importContentFile(
     const testData = {
       code: test.id,
       title: test.title,
-      slug: existingTest?.id ? slug : slug,
+      slug,
       description: test.description || null,
       order,
       isPublished: options.publish ?? false,
-      // Budget global du chronometre ; les durees par epreuve restent indicatives.
-      durationMinutes: examConfig.totalDurationMinutes,
+      kind,
+      // Examen blanc : somme des chronos d'epreuve (25 + 20 + 45).
+      // Entrainement : budget global unique de 60 minutes.
+      durationMinutes: testDurationMinutes,
     };
 
     const savedTest = existingTest
@@ -194,23 +277,6 @@ export async function importContentFile(
     log(`  Test ${savedTest.order}. ${savedTest.title} (${existingTest ? "mis a jour" : "cree"})`);
 
     // ---------------------------- Sections -----------------------------
-    // Union discriminee sur `type` : la `questions` associee est ainsi
-    // automatiquement reduite (StructureQuestion[] ou ComprehensionQuestion[]).
-    const sectionInputs = [
-      {
-        type: "STRUCTURE" as const,
-        duration: structureDuration,
-        order: 1,
-        questions: test.sections.structure_de_la_langue.questions,
-      },
-      {
-        type: "COMPREHENSION_ECRITE" as const,
-        duration: comprehensionDuration,
-        order: 2,
-        questions: test.sections.comprehension_ecrite.questions,
-      },
-    ];
-
     for (const sectionInput of sectionInputs) {
       const count = sectionInput.questions.length;
 
@@ -298,6 +364,11 @@ export async function importContentFile(
             })
           : null;
 
+        const listeningQuestion =
+          sectionInput.type === "COMPREHENSION_ORALE"
+            ? (question as ContentListeningQuestion)
+            : null;
+
         const questionData = {
           sectionId: section.id,
           documentId,
@@ -308,6 +379,10 @@ export async function importContentFile(
           category: question.category || null,
           points: 1,
           explanation: question.explanation,
+          // Comprehension orale uniquement : l'audio est joue pendant
+          // l'epreuve, la transcription n'apparait que dans les corriges.
+          audioUrl: listeningQuestion?.audioUrl ?? null,
+          transcription: listeningQuestion?.transcription ?? null,
         };
 
         const savedQuestion = existingQuestion
@@ -454,9 +529,34 @@ async function importCsvRowsIntoContent(
       select: { id: true },
     });
 
-    const durations = [
-      ...new Set(testRows.map((r) => r.duration_minutes).filter(Boolean)),
-    ] as number[];
+    const declaredSectionTypes = [
+      "COMPREHENSION_ORALE",
+      "STRUCTURE",
+      "COMPREHENSION_ECRITE",
+    ] as const;
+    const presentTypes = declaredSectionTypes.filter((type) =>
+      testRows.some((row) => row.section_type === type),
+    );
+    const hasListening = presentTypes.includes("COMPREHENSION_ORALE");
+    // Une comprehension orale implique un examen blanc complet.
+    const kind: TestKind = hasListening ? "FULL" : first.test_kind;
+
+    if (kind === "FULL" && !hasListening) {
+      throw new Error(
+        `Test ${testCode} : un examen blanc (FULL) doit comporter une section COMPREHENSION_ORALE.`,
+      );
+    }
+
+    const testDurationMinutes =
+      kind === "FULL"
+        ? presentTypes.reduce((sum, type) => {
+            const explicit = testRows.find(
+              (row) => row.section_type === type && row.duration_minutes,
+            )?.duration_minutes;
+            return sum + (explicit ?? defaultSectionDuration(kind, type));
+          }, 0)
+        : examConfig.totalDurationMinutes;
+
     const testData = {
       code: testCode,
       title,
@@ -464,8 +564,8 @@ async function importCsvRowsIntoContent(
       description: first.test_description || null,
       order: startOrder + testIndex,
       isPublished: options.publish ?? false,
-      durationMinutes:
-        durations.reduce<number>((sum, d) => sum + (d ?? 0), 0) || undefined,
+      kind,
+      durationMinutes: testDurationMinutes,
     };
 
     const savedTest = existingTest
@@ -475,17 +575,14 @@ async function importCsvRowsIntoContent(
     else stats.testsCreated += 1;
     log(`  Test ${savedTest.order}. ${savedTest.title} (${existingTest ? "mis a jour" : "cree"})`);
 
-    const sectionTypes = ["STRUCTURE", "COMPREHENSION_ECRITE"] as const;
-    for (const [sectionIndex, sectionType] of sectionTypes.entries()) {
+    for (const [presentIndex, sectionType] of presentTypes.entries()) {
       const sectionRows = testRows.filter((r) => r.section_type === sectionType);
       if (sectionRows.length === 0) continue;
 
       const explicitTitle = sectionRows.find((r) => r.section_title)?.section_title;
       const duration =
         sectionRows.find((r) => r.duration_minutes)?.duration_minutes ??
-        (sectionType === "STRUCTURE"
-          ? examConfig.recommendedSectionMinutes.STRUCTURE
-          : examConfig.recommendedSectionMinutes.COMPREHENSION_ECRITE);
+        defaultSectionDuration(kind, sectionType);
 
       const existingSection = await db.section.findFirst({
         where: { testId: savedTest.id, type: sectionType },
@@ -500,7 +597,7 @@ async function importCsvRowsIntoContent(
         instructions: DEFAULT_SECTION_INSTRUCTIONS[sectionType] ?? null,
         durationMinutes: duration,
         questionCount: sectionRows.length,
-        order: sectionIndex + 1,
+        order: presentIndex + 1,
       };
 
       const section = existingSection
@@ -567,6 +664,8 @@ async function importCsvRowsIntoContent(
           category: row.category || null,
           points: row.points ?? 1,
           explanation: row.explanation,
+          audioUrl: sectionType === "COMPREHENSION_ORALE" ? row.audio_url : null,
+          transcription: sectionType === "COMPREHENSION_ORALE" ? row.transcription : null,
         };
 
         const savedQuestion = existingQuestion

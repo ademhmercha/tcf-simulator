@@ -11,6 +11,7 @@ const serverSchema = z.object({
   AUTH_SECRET: z.string().min(16, "AUTH_SECRET doit faire au moins 16 caracteres"),
   NODE_ENV: z.enum(["development", "test", "production"]).default("development"),
   TCF_SOURCE_JSON: z.string().default("data/tcf_practice_5_tests_250_questions.json"),
+  TCF_FULL_SOURCE_JSON: z.string().default("data/tcf_full_tests_10x70.json"),
   TCF_SEED_PUBLISH: z
     .string()
     .default("true")
@@ -34,6 +35,7 @@ export function getServerEnv(): ServerEnv {
     AUTH_SECRET: process.env.AUTH_SECRET,
     NODE_ENV: process.env.NODE_ENV,
     TCF_SOURCE_JSON: process.env.TCF_SOURCE_JSON,
+    TCF_FULL_SOURCE_JSON: process.env.TCF_FULL_SOURCE_JSON,
     TCF_SEED_PUBLISH: process.env.TCF_SEED_PUBLISH,
     SEED_ADMIN_EMAIL: process.env.SEED_ADMIN_EMAIL || undefined,
     SEED_ADMIN_PASSWORD: process.env.SEED_ADMIN_PASSWORD || undefined,

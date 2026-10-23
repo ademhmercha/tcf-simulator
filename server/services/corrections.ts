@@ -1,4 +1,4 @@
-import { isSectionType } from "@/config/enums";
+import { isSectionType, type TestKind } from "@/config/enums";
 import { examConfig } from "@/config/site";
 import { unstable_cache } from "next/cache";
 import { prisma } from "@/lib/db";
@@ -43,6 +43,7 @@ type CorrectionRow = {
   description: string | null;
   order: number;
   isPublished: boolean;
+  kind: string;
   sections: Array<{
     id: string;
     type: string;
@@ -57,6 +58,8 @@ type CorrectionRow = {
       category: string | null;
       points: number;
       explanation: string;
+      audioUrl: string | null;
+      transcription: string | null;
       document: { code: string; title: string; content: string } | null;
       options: Array<{ id: string; label: string; text: string; isCorrect: boolean }>;
     }>;
@@ -99,10 +102,14 @@ const getCorrectionRow = unstable_cache(
  * Retourne `null` si le test n'existe pas ou n'est pas publie, afin que la
  * page affiche une 404.
  */
-export async function getTestCorrection(slug: string): Promise<TestCorrection | null> {
+export async function getTestCorrection(
+  slug: string,
+  kind?: TestKind,
+): Promise<TestCorrection | null> {
   const test = await getCorrectionRow(slug);
 
   if (!test || !test.isPublished) return null;
+  if (kind && test.kind !== kind) return null;
 
   const sections: CorrectionSection[] = test.sections.map((section) => {
     const sectionType = toSectionOrder(section.type);
@@ -128,6 +135,8 @@ export async function getTestCorrection(slug: string): Promise<TestCorrection | 
         sectionType,
         documentTitle: question.document?.title ?? null,
         documentContent: question.document?.content ?? null,
+        audioUrl: question.audioUrl,
+        transcription: question.transcription,
         options,
         correctOptionId: options.find((option) => option.isCorrect)?.id ?? "",
       };
@@ -151,7 +160,11 @@ export async function getTestCorrection(slug: string): Promise<TestCorrection | 
     title: test.title,
     description: test.description,
     order: test.order,
-    durationMinutes: examConfig.totalDurationMinutes,
+    kind: test.kind as TestKind,
+    durationMinutes:
+      test.kind === "FULL"
+        ? test.sections.reduce((sum, section) => sum + section.durationMinutes, 0)
+        : examConfig.totalDurationMinutes,
     questionCount: all.length,
     sections,
   };
@@ -163,8 +176,9 @@ export async function getTestCorrection(slug: string): Promise<TestCorrection | 
  */
 export async function getCorrectionsIndex(
   userId?: string,
+  kind?: TestKind,
 ): Promise<CorrectionIndexEntry[]> {
-  const tests = await getPublishedTests(userId);
+  const tests = await getPublishedTests(userId, kind);
 
   return tests.map((test) => ({
     id: test.id,
@@ -172,8 +186,9 @@ export async function getCorrectionsIndex(
     title: test.title,
     description: test.description,
     order: test.order,
+    kind: test.kind,
     questionCount: test.questionCount,
-    durationMinutes: examConfig.totalDurationMinutes,
+    durationMinutes: test.durationMinutes ?? examConfig.totalDurationMinutes,
     sectionCount: test.sections.length,
     attemptCount: test.attemptCount,
     bestTotalScore: test.bestTotalScore,

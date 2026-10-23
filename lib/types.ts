@@ -1,4 +1,4 @@
-import { LEVELS, type Level } from "@/config/enums";
+import { LEVELS, SECTION_TYPES, type Level, type SectionType, type TestKind } from "@/config/enums";
 
 // ---------------------------------------------------------------------------
 // Types de domaine partages entre le serveur et le client.
@@ -6,8 +6,9 @@ import { LEVELS, type Level } from "@/config/enums";
 // `ExamQuestion` ne contient volontairement que `label` et `text`.
 // ---------------------------------------------------------------------------
 
-export const SECTION_ORDER = ["STRUCTURE", "COMPREHENSION_ECRITE"] as const;
-export type SectionOrder = (typeof SECTION_ORDER)[number];
+/** Ordre officiel de presentation des epreuves d'un examen blanc. */
+export const SECTION_ORDER = SECTION_TYPES;
+export type SectionOrder = SectionType;
 
 export interface SectionSummary {
   id: string;
@@ -26,6 +27,7 @@ export interface TestSummary {
   title: string;
   description: string | null;
   order: number;
+  kind: TestKind;
   durationMinutes: number | null;
   questionCount: number;
   sections: SectionSummary[];
@@ -62,6 +64,8 @@ export interface ExamQuestion {
   points: number;
   documentId: string | null;
   category: string | null;
+  /** Comprehension orale : fichier audio de la question (null ailleurs). */
+  audioUrl: string | null;
   options: ExamOption[];
   /** Etat local restaure depuis le serveur. */
   selectedOptionId: string | null;
@@ -106,6 +110,9 @@ export interface ReviewQuestion {
   documentId: string | null;
   documentTitle: string | null;
   documentContent: string | null;
+  /** Comprehension orale : audio et transcription (apres l'epreuve seulement). */
+  audioUrl: string | null;
+  transcription: string | null;
   options: ReviewOption[];
   selectedOptionId: string | null;
   isCorrect: boolean;
@@ -136,6 +143,8 @@ export interface CorrectionQuestion {
   sectionType: SectionOrder;
   documentTitle: string | null;
   documentContent: string | null;
+  audioUrl: string | null;
+  transcription: string | null;
   options: CorrectionOption[];
   correctOptionId: string;
 }
@@ -155,6 +164,7 @@ export interface TestCorrection {
   title: string;
   description: string | null;
   order: number;
+  kind: TestKind;
   /** Somme des durees des epreuves. */
   durationMinutes: number;
   questionCount: number;
@@ -168,6 +178,7 @@ export interface CorrectionIndexEntry {
   title: string;
   description: string | null;
   order: number;
+  kind: TestKind;
   questionCount: number;
   durationMinutes: number;
   sectionCount: number;
@@ -193,6 +204,8 @@ export interface SectionResult {
   /** Nombre de questions notees : celui du test complet, meme pour une
    *  reprise ciblee sur les erreurs (« 2 / 20 »). */
   maxScore: number;
+  /** Score de l'epreuve ramene sur l'echelle 0-699. */
+  scaledScore: number;
   ratio: number;
   answered: number;
   total: number;
@@ -206,16 +219,22 @@ export interface AttemptResult {
   testId: string;
   testTitle: string;
   testSlug: string;
+  /** Serie d'entrainement ou examen blanc complet. */
+  testKind: TestKind;
   status: string;
   startedAt: string;
   finishedAt: string | null;
   /** Score simule sur l'echelle 0-699. */
   totalScore: number;
   maxScore: number;
+  listeningCorrect: number | null;
+  listeningTotal: number | null;
   structureCorrect: number | null;
   structureTotal: number | null;
   comprehensionCorrect: number | null;
   comprehensionTotal: number | null;
+  /** Budget de temps du test, en secondes (somme des epreuves). */
+  timeBudgetSec: number;
   /** Pourcentage final, entre 0 et 1. */
   scorePercentage: number;
   /** Points manquants pour le palier suivant, 0 au sommet. */
@@ -242,6 +261,7 @@ export interface AttemptSummary {
   finishedAt: string | null;
   totalScore: number | null;
   maxScore: number | null;
+  listeningCorrect: number | null;
   structureCorrect: number | null;
   comprehensionCorrect: number | null;
   cefrLevel: Level | null;

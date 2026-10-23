@@ -12,9 +12,24 @@ export const ROLES = ["USER", "ADMIN"] as const;
 export const RoleSchema = z.enum(ROLES);
 export type Role = z.infer<typeof RoleSchema>;
 
-export const SECTION_TYPES = ["STRUCTURE", "COMPREHENSION_ECRITE"] as const;
+export const SECTION_TYPES = [
+  "COMPREHENSION_ORALE",
+  "STRUCTURE",
+  "COMPREHENSION_ECRITE",
+] as const;
 export const SectionTypeSchema = z.enum(SECTION_TYPES);
 export type SectionType = z.infer<typeof SectionTypeSchema>;
+
+/**
+ * Nature d'un test.
+ *
+ * - `PRACTICE` : serie d'entrainement (structure + comprehension ecrite) ;
+ * - `FULL` : examen blanc complet (comprehension orale + structure +
+ *   comprehension ecrite, 70 questions, une duree par epreuve).
+ */
+export const TEST_KINDS = ["PRACTICE", "FULL"] as const;
+export const TestKindSchema = z.enum(TEST_KINDS);
+export type TestKind = z.infer<typeof TestKindSchema>;
 
 export const LEVELS = ["A1", "A2", "B1", "B2", "C1", "C2"] as const;
 export const LevelSchema = z.enum(LEVELS);

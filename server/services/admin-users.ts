@@ -264,8 +264,15 @@ export interface AdminUserAttempt {
   durationSec: number | null;
   totalScore: number | null;
   maxScore: number | null;
+  listeningScore: number | null;
   structureScore: number | null;
   comprehensionScore: number | null;
+  /** Nombre total de questions par epreuve (null si l'epreuve n'existe pas). */
+  sectionTotals: {
+    listening: number | null;
+    structure: number | null;
+    comprehension: number | null;
+  };
   cefrLevel: Level | null;
   /** Nombre de questions ratees (portee du bouton « revoir mes erreurs »). */
   mistakes: number;
@@ -383,10 +390,17 @@ export async function getUserDetail(userId: string): Promise<AdminUserDetail | n
           finishedAt: true,
           totalScore: true,
           maxScore: true,
+          listeningScore: true,
           structureScore: true,
           comprehensionScore: true,
           cefrLevel: true,
-          test: { select: { id: true, title: true } },
+          test: {
+            select: {
+              id: true,
+              title: true,
+              sections: { select: { type: true, questionCount: true } },
+            },
+          },
         },
       }),
       prisma.answer.aggregate({
@@ -520,8 +534,10 @@ export async function getUserDetail(userId: string): Promise<AdminUserDetail | n
         : null,
       totalScore: attempt.totalScore,
       maxScore: attempt.maxScore,
+      listeningScore: attempt.listeningScore,
       structureScore: attempt.structureScore,
       comprehensionScore: attempt.comprehensionScore,
+      sectionTotals: sectionTotalsOf(attempt.test.sections),
       cefrLevel:
         attempt.cefrLevel && isLevel(attempt.cefrLevel) ? attempt.cefrLevel : null,
       mistakes: mistakeCounts.get(attempt.id) ?? 0,
@@ -548,6 +564,29 @@ export async function getUserDetail(userId: string): Promise<AdminUserDetail | n
 async function countMistakesByAttempt(attemptIds: string[]): Promise<Map<string, number>> {
   const scope = await mistakeQuestionIdsByAttempt(attemptIds);
   return new Map([...scope].map(([attemptId, ids]) => [attemptId, ids.length]));
+}
+
+/**
+ * Nombre de questions par epreuve pour une tentative.
+ *
+ * Les scores stockes par epreuve sont des compteurs de bonnes reponses : le
+ * maximum affiche doit donc etre le nombre de questions de l'epreuve, pas une
+ * fraction du score global sur 699.
+ */
+function sectionTotalsOf(
+  sections: Array<{ type: string; questionCount: number }>,
+): AdminUserAttempt["sectionTotals"] {
+  const totalOf = (type: string): number | null => {
+    const matching = sections.filter((section) => section.type === type);
+    if (matching.length === 0) return null;
+    return matching.reduce((sum, section) => sum + section.questionCount, 0);
+  };
+
+  return {
+    listening: totalOf("COMPREHENSION_ORALE"),
+    structure: totalOf("STRUCTURE"),
+    comprehension: totalOf("COMPREHENSION_ECRITE"),
+  };
 }
 
 /**

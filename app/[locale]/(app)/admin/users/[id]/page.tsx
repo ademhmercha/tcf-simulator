@@ -254,21 +254,28 @@ export default async function AdminUserDetailPage({
                   </div>
 
                   {attempt.status === "SUBMITTED" ? (
-                    <dl className="grid gap-3 text-sm sm:grid-cols-3">
+                    <dl className="grid gap-3 text-sm sm:grid-cols-4">
                       <ScoreCell
                         label={t("total")}
                         value={attempt.totalScore}
                         max={attempt.maxScore}
                       />
+                      {attempt.sectionTotals.listening !== null ? (
+                        <ScoreCell
+                          label={t("listening")}
+                          value={attempt.listeningScore}
+                          max={attempt.sectionTotals.listening}
+                        />
+                      ) : null}
                       <ScoreCell
                         label={t("structure")}
                         value={attempt.structureScore}
-                        max={attempt.maxScore ? attempt.maxScore / 2 : null}
+                        max={attempt.sectionTotals.structure}
                       />
                       <ScoreCell
                         label={t("comprehension")}
                         value={attempt.comprehensionScore}
-                        max={attempt.maxScore ? attempt.maxScore / 2 : null}
+                        max={attempt.sectionTotals.comprehension}
                       />
                     </dl>
                   ) : null}

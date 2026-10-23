@@ -30,6 +30,8 @@
     "content:reading:check": "tsx scripts/apply-reading-content.ts --check",
     "content:reading:verify": "tsx scripts/verify-reading-content.ts",
     "content:check": "tsx scripts/check-ce-content.ts",
+    "content:full": "tsx scripts/build-full-tests.ts",
+    "content:full:check": "tsx scripts/build-full-tests.ts --check",
     "content:encoding": "tsx scripts/check-ce-encoding.ts",
     "db:audit": "tsx scripts/audit-reading-db.mts",
     "import:tests": "tsx scripts/import-tests.ts",
@@ -40,7 +42,9 @@
     "verify": "npm run typecheck && npm run lint && npm run test",
     "db:rescore": "tsx scripts/rescore.ts",
     "audio:co": "tsx scripts/generate-co-audio.ts",
-    "audio:co:check": "tsx scripts/generate-co-audio.ts --check"
+    "audio:co:check": "tsx scripts/generate-co-audio.ts --check",
+    "audio:examens": "tsx scripts/generate-full-test-audio.ts",
+    "audio:examens:check": "tsx scripts/generate-full-test-audio.ts --check"
   },
   "prisma": {
     "seed": "tsx prisma/seed.ts"

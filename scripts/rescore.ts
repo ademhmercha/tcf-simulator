@@ -38,6 +38,7 @@ const ATTEMPT_SELECT = {
       id: true,
       title: true,
       slug: true,
+      kind: true,
       sections: {
         select: {
           id: true,
@@ -69,6 +70,7 @@ type AttemptRow = {
     id: string;
     title: string;
     slug: string;
+    kind: string;
     sections: {
       id: string;
       type: string;

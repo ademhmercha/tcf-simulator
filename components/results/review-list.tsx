@@ -7,11 +7,12 @@ import {
   ChevronDown,
   FileText,
   Flag,
+  Headphones,
   Lightbulb,
   XCircle,
 } from "lucide-react";
 
-import { Badge } from "@/components/ui/badge";
+import { AudioTranscript } from "@/components/corrections/audio-transcript";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import type { ReviewQuestion } from "@/lib/types";
@@ -128,6 +129,12 @@ export function ReviewList({ questions }: { questions: ReviewQuestion[] }): Reac
                       {question.documentTitle}
                     </span>
                   ) : null}
+                  {question.audioUrl ? (
+                    <span className="mt-1.5 inline-flex items-center gap-1.5 text-xs text-muted-foreground">
+                      <Headphones className="size-3.5" aria-hidden />
+                      {t("listening")}
+                    </span>
+                  ) : null}
                 </span>
 
                 <ChevronDown
@@ -141,6 +148,11 @@ export function ReviewList({ questions }: { questions: ReviewQuestion[] }): Reac
 
               {isOpen ? (
                 <div className="space-y-3 border-t border-border/70 p-4 sm:p-5">
+                  <AudioTranscript
+                    audioUrl={question.audioUrl}
+                    transcription={question.transcription}
+                  />
+
                   <ul className="space-y-2">
                     {question.options.map((option) => {
                       const isChosen = option.id === question.selectedOptionId;

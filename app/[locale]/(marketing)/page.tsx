@@ -60,7 +60,7 @@ export default async function HomePage({
   const session = await auth();
   const signedIn = Boolean(session?.user);
   const [tests, series] = await Promise.all([
-    getPublishedTests(session?.user?.id),
+    getPublishedTests(session?.user?.id, "PRACTICE"),
     getListeningSeriesList(session?.user?.id),
   ]);
   const firstTest = tests[0];

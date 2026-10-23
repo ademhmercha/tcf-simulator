@@ -37,7 +37,7 @@ export default async function TestsPage({
   const signedIn = true;
 
   const [tests, series] = await Promise.all([
-    getPublishedTests(session?.user?.id),
+    getPublishedTests(session?.user?.id, "PRACTICE"),
     getListeningSeriesList(session?.user?.id),
   ]);
 

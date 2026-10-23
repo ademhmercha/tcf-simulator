@@ -13,7 +13,6 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import type { AppLocale } from "@/config/enums";
 import { SCORE_BANDS } from "@/config/scoring";
-import { examConfig } from "@/config/site";
 import { Link } from "@/i18n/navigation";
 import { SECOND, formatDuration } from "@/lib/time";
 import { auth } from "@/server/auth";
@@ -58,7 +57,7 @@ export default async function ResultsPage({
 
   const mistakes = await countMistakes(session.user.id, result.attemptId);
 
-  const budgetSec = examConfig.totalDurationMinutes * 60;
+  const budgetSec = result.timeBudgetSec;
   const elapsedSec = Math.round(
     (Date.parse(result.finishedAt ?? result.startedAt) - Date.parse(result.startedAt)) / SECOND,
   );
@@ -66,7 +65,18 @@ export default async function ResultsPage({
   // est plafonnee, sinon l'ecart d'affichage depasserait le budget.
   const usedSec = Math.max(0, Math.min(budgetSec, elapsedSec));
 
+  // Un examen blanc comporte trois epreuves : la comprehension orale n'est
+  // affichee que lorsqu'elle a ete jouee (les series d'entrainement n'en ont pas).
   const parts = [
+    ...(result.listeningTotal !== null
+      ? [
+          {
+            key: "listening",
+            correct: result.listeningCorrect ?? 0,
+            total: result.listeningTotal,
+          },
+        ]
+      : []),
     {
       key: "languageMastery",
       correct: result.structureCorrect ?? 0,
@@ -78,6 +88,11 @@ export default async function ResultsPage({
       total: result.comprehensionTotal ?? 0,
     },
   ];
+
+  const correctionHref =
+    result.testKind === "FULL"
+      ? `/examens/${result.testSlug}/corrige`
+      : `/corrections/${result.testSlug}`;
 
   // « Points forts » et « A retravailler » se lisent sur les THEMES, jamais sur
   // les niveaux CECRL : afficher un niveau par question revelerait la
@@ -104,7 +119,7 @@ export default async function ResultsPage({
             </Button>
             <RetakeMistakesButton attemptId={result.attemptId} mistakesCount={mistakes} />
             <Button asChild variant="ghost">
-              <Link href={`/corrections/${result.testSlug}`}>
+              <Link href={correctionHref}>
                 <BookOpenCheck className="size-4" aria-hidden />
                 {tc("viewCorrection")}
               </Link>
@@ -123,8 +138,8 @@ export default async function ResultsPage({
 
         <Card className="border-primary/25">
           <CardContent className="space-y-6 p-6">
-            <div className="grid gap-5 sm:grid-cols-2">
-              <h2 className="flex items-center gap-2 text-lg font-bold sm:col-span-2">
+            <div className={`grid gap-5 ${parts.length === 3 ? "sm:grid-cols-3" : "sm:grid-cols-2"}`}>
+              <h2 className="flex items-center gap-2 text-lg font-bold sm:col-span-full">
                 <ClipboardCheck className="size-5 text-primary" aria-hidden />
                 {t("summary")}
               </h2>
@@ -139,7 +154,10 @@ export default async function ResultsPage({
                     </span>
                   </p>
                   {part.total > 0 ? (
-                    <Progress value={(part.correct / part.total) * 100} className="mt-2" />
+                    <Progress
+                      value={(part.correct / part.total) * 100}
+                      className="mt-2"
+                    />
                   ) : null}
                 </div>
               ))}
@@ -203,23 +221,29 @@ export default async function ResultsPage({
       </header>
 
       {/* ----------------------- Details par epreuve ---------------------- */}
-      <section className="grid gap-4 md:grid-cols-2">
+      <section className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {result.sections.map((section) => (
           <Card key={section.sectionId}>
             <CardContent className="space-y-3 p-5">
-              <div className="flex items-center justify-between gap-3">
+              <div className="flex items-start justify-between gap-3">
                 <h2 className="font-bold">{section.title}</h2>
+                <span className="shrink-0 rounded-full bg-primary/10 px-2.5 py-1 text-sm font-semibold tabular-nums text-primary">
+                  {section.scaledScore}
+                  <span className="text-xs font-normal text-muted-foreground">/699</span>
+                </span>
+              </div>
+
+              <div className="flex items-baseline justify-between gap-2">
+                <p className="font-display text-2xl font-extrabold tabular-nums">
+                  {section.correct}
+                  <span className="text-sm text-muted-foreground">/{section.total}</span>
+                </p>
                 {section.maxScore > 0 ? (
-                  <span className="text-sm font-semibold text-primary">
+                  <span className="text-xs text-muted-foreground">
                     {Math.round(section.ratio * 100)} %
                   </span>
                 ) : null}
               </div>
-
-              <p className="font-display text-2xl font-extrabold tabular-nums">
-                {section.correct}
-                <span className="text-sm text-muted-foreground">/{section.total}</span>
-              </p>
 
               <Progress
                 value={section.maxScore > 0 ? (section.score / section.maxScore) * 100 : 0}

@@ -38,6 +38,11 @@ export async function TestCard({
 
   const finished = test.bestTotalScore !== null && test.bestMaxScore !== null;
   const inProgress = Boolean(test.inProgressAttemptId);
+  const isFull = test.kind === "FULL";
+  const detailHref = `${isFull ? "/examens" : "/tests"}/${test.slug}`;
+  const correctionHref = isFull
+    ? `/examens/${test.slug}/corrige`
+    : `/corrections/${test.slug}`;
 
   const bestPercent =
     test.bestTotalScore !== null && test.bestMaxScore
@@ -48,7 +53,7 @@ export async function TestCard({
     <Card className="flex h-full flex-col border-border/70 transition-shadow hover:shadow-medium">
       <CardContent className="flex flex-1 flex-col p-6">
         <p className="text-xs font-semibold uppercase tracking-wider text-primary">
-          Test {test.order}
+          {tt(isFull ? "examNumber" : "testNumber", { order: test.order })}
         </p>
         <h3 className="mt-1 text-lg font-bold leading-snug">{test.title}</h3>
 
@@ -86,7 +91,7 @@ export async function TestCard({
         <div className="mt-5 flex flex-col gap-2 pt-1">
           {inProgress ? (
             <Button asChild className="w-full" variant="accent">
-              <Link href={`/tests/${test.slug}`}>{t("resume")}</Link>
+              <Link href={detailHref}>{t("resume")}</Link>
             </Button>
           ) : finished ? (
             <StartTestDialog
@@ -110,7 +115,7 @@ export async function TestCard({
           )}
 
           <Button asChild variant="ghost" size="sm" className="w-full">
-            <Link href={`/corrections/${test.slug}`}>
+            <Link href={correctionHref}>
               <BookOpenCheck aria-hidden />
               {tc("viewCorrection")}
             </Link>

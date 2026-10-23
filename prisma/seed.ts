@@ -4,7 +4,12 @@ import { fileURLToPath } from "node:url";
 
 import { PrismaClient } from "@prisma/client";
 
-import { computeSimulatedScore, DEFAULT_SCORING_PROFILE, SCORE_MAX } from "../config/scoring";
+import {
+  computeOverallScore,
+  computeSectionScore,
+  DEFAULT_SCORING_PROFILE,
+  SCORE_MAX,
+} from "../config/scoring";
 import { importContentFile, parseContentJson } from "../server/services/content-import";
 import { CO_SERIES } from "../data/co";
 import { coAudioUrl } from "../data/co/types";
@@ -88,36 +93,76 @@ async function seedTests(): Promise<void> {
   heading("Tests");
 
   const env = getServerEnv();
-  const sourcePath = resolve(ROOT, env.TCF_SOURCE_JSON);
 
-  if (!existsSync(sourcePath)) {
-    throw new Error(
-      `Fichier de contenu introuvable : ${sourcePath}\n` +
-        `Placez votre JSON dans data/ ou definissez TCF_SOURCE_JSON dans .env.`,
+  const sources = [
+    {
+      label: "Series d'entrainement",
+      path: env.TCF_SOURCE_JSON,
+      required: true,
+    },
+    {
+      label: "Examens blancs",
+      path: env.TCF_FULL_SOURCE_JSON,
+      required: false,
+    },
+  ] as const;
+
+  let testsTotal = 0;
+  let questionsTotal = 0;
+  let durationTotal = 0;
+
+  for (const source of sources) {
+    const sourcePath = resolve(ROOT, source.path);
+
+    if (!existsSync(sourcePath)) {
+      if (source.required) {
+        throw new Error(
+          `Fichier de contenu introuvable : ${sourcePath}\n` +
+            `Placez votre JSON dans data/ ou definissez TCF_SOURCE_JSON dans .env.`,
+        );
+      }
+      console.log(`\n  ${source.label} : ${source.path} absent, ignore.`);
+      continue;
+    }
+
+    const content = parseContentJson(readFileSync(sourcePath, "utf8"));
+    const questionCount = content.tests.reduce(
+      (sum, test) =>
+        sum +
+        Object.values(test.sections).reduce(
+          (sectionSum, section) => sectionSum + (section?.questions.length ?? 0),
+          0,
+        ),
+      0,
     );
+
+    console.log(`\n  ${source.label} : ${source.path}`);
+    console.log(`  Tests   : ${content.tests.length}`);
+    console.log(`  Questions : ${questionCount}`);
+    console.log("");
+
+    const stats = await importContentFile(db, content, {
+      publish: env.TCF_SEED_PUBLISH,
+      startOrder: 1,
+      log: (message) => console.log(message),
+    });
+
+    console.log("");
+    console.log("  Resume :");
+    console.log(`    Tests crees / mis a jour : ${stats.testsCreated} / ${stats.testsUpdated}`);
+    console.log(`    Sections creees / maj   : ${stats.sectionsCreated} / ${stats.sectionsUpdated}`);
+    console.log(`    Documents crees / maj   : ${stats.documentsCreated} / ${stats.documentsUpdated}`);
+    console.log(`    Questions creees / maj  : ${stats.questionsCreated} / ${stats.questionsUpdated}`);
+    console.log(`    Options ecrites         : ${stats.optionsWritten}`);
+    console.log(`    Duree de contenu        : ${stats.durationMinutes} min`);
+
+    testsTotal += content.tests.length;
+    questionsTotal += questionCount;
+    durationTotal += stats.durationMinutes;
   }
 
-  const raw = readFileSync(sourcePath, "utf8");
-  const content = parseContentJson(raw);
-
-  console.log(`  Source : ${env.TCF_SOURCE_JSON}`);
-  console.log(`  Tests  : ${content.tests.length}`);
   console.log("");
-
-  const stats = await importContentFile(db, content, {
-    publish: env.TCF_SEED_PUBLISH,
-    startOrder: 1,
-    log: (message) => console.log(message),
-  });
-
-  console.log("");
-  console.log("  Resume :");
-  console.log(`    Tests crees / mis a jour : ${stats.testsCreated} / ${stats.testsUpdated}`);
-  console.log(`    Sections creees / maj   : ${stats.sectionsCreated} / ${stats.sectionsUpdated}`);
-  console.log(`    Documents crees / maj   : ${stats.documentsCreated} / ${stats.documentsUpdated}`);
-  console.log(`    Questions creees / maj  : ${stats.questionsCreated} / ${stats.questionsUpdated}`);
-  console.log(`    Options ecrites         : ${stats.optionsWritten}`);
-  console.log(`    Duree totale (5 tests)  : ${stats.durationMinutes} min`);
+  console.log(`  Total : ${testsTotal} tests, ${questionsTotal} questions, ${durationTotal} min de contenu.`);
 }
 
 async function seedDemoAttempts(): Promise<void> {
@@ -139,6 +184,7 @@ async function seedDemoAttempts(): Promise<void> {
   }
 
   const tests = await db.test.findMany({
+    where: { kind: "PRACTICE" },
     orderBy: { order: "asc" },
     include: {
       sections: { orderBy: { order: "asc" } },
@@ -168,7 +214,7 @@ async function seedDemoAttempts(): Promise<void> {
       },
     });
 
-    const parts = new Map<string, { correct: number; total: number }>();
+    const scaledScores: number[] = [];
 
     for (const section of test.sections) {
       const questions = await db.question.findMany({
@@ -233,11 +279,11 @@ async function seedDemoAttempts(): Promise<void> {
         data: { score: sectionScore, maxScore: sectionMax },
       });
 
-      parts.set(section.type, { correct: sectionScore, total: sectionMax });
+      scaledScores.push(computeSectionScore(sectionScore, sectionMax));
 
       if (section.type === "STRUCTURE") {
         await db.attempt.update({ where: { id: attempt.id }, data: { structureScore: sectionScore } });
-      } else {
+      } else if (section.type === "COMPREHENSION_ECRITE") {
         await db.attempt.update({
           where: { id: attempt.id },
           data: { comprehensionScore: sectionScore },
@@ -245,7 +291,7 @@ async function seedDemoAttempts(): Promise<void> {
       }
     }
 
-    const simulated = computeSimulatedScore([...parts.values()]);
+    const simulated = computeOverallScore(scaledScores);
 
     await db.attempt.update({
       where: { id: attempt.id },

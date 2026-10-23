@@ -39,6 +39,7 @@ section dédiée à la compréhension orale.
 | Domaine | Détail |
 | --- | --- |
 | Tests blancs | 5 tests complets, 10 sections, 250 questions, 150 documents, 400 minutes au total |
+| Examens blancs | Examens complets (CO + structure + CE), 70 questions, 3 épreuves enchaînées, chronomètre par épreuve, score /699 |
 | Compréhension orale | 8 séries d'entraînement (A1 → C2), 120 questions, audio + transcription + explication |
 | Expression écrite | 30 sujets originaux (B2 → C2, tâches 1 à 3), chronomètre, auto-évaluation, historique |
 | Épreuve | Chronomètre serveur, reprise de tentative, réponses en file d'attente côté client |
@@ -138,6 +139,7 @@ Copiez `.env.example` vers `.env` et adaptez. Récapitulatif :
 | `NEXT_PUBLIC_APP_NAME` | Nom lisible de l'application | `TCF Simulator` |
 | `NEXT_PUBLIC_SW_VERSION` | Version du service worker (stable entre déploiements) | `v1` |
 | `TCF_SOURCE_JSON` | Source d'import des 5 tests | `data/tcf_practice_5_tests_250_questions.json` |
+| `TCF_FULL_SOURCE_JSON` | Source d'import des examens blancs compilés | `data/tcf_full_tests_10x70.json` |
 | `TCF_SEED_PUBLISH` | Publier les tests au seed (`true`/`false`) | `true` |
 | `SEED_LISTENING_ONLY` | `1` = le seed ne charge que la compréhension orale | absent |
 | `DIRECT_URL` | URL directe du pooler (adapter Prisma + Postgres, `db:push`) | absent |
@@ -181,9 +183,13 @@ npm run content:reading:check    # mode contrôle (n'applique rien)
 npm run content:reading:verify   # vérifie l'intégrité des questions en base
 npm run content:check        # contrôle la cohérence des modules de lecture
 npm run content:encoding     # contrôle l'encodage des modules de lecture
+npm run content:full         # compile les examens blancs (data/full_tests → JSON)
+npm run content:full:check   # validation seule, sans écrire le JSON
 npm run db:audit             # audite l'intégrité du contenu de lecture en base
 npm run audio:co             # génère/synchronise l'audio de la compréhension orale
 npm run audio:co:check       # vérifie que chaque item a un fichier audio valide
+npm run audio:examens        # génère/synchronise l'audio des examens blancs
+npm run audio:examens:check  # vérifie que chaque question CO a son fichier audio
 npm run writing:seed         # importe les 30 sujets d'expression écrite (idempotent)
 ```
 
@@ -206,6 +212,8 @@ npm run admin:create     # crée un compte administrateur
 | Source | Contenu | Import |
 | --- | --- | --- |
 | `data/tcf_practice_5_tests_250_questions.json` | 5 tests, 10 sections, 250 questions, 1000 options, 150 documents | `npm run db:seed` |
+| `data/full_tests/` (modules TS) | Examens blancs : CO 25 + structure 20 + CE 25, un document par question CE | `npm run content:full` puis `npm run db:seed` |
+| `data/tcf_full_tests_10x70.json` | JSON compilé des examens blancs (généré, ne pas éditer) | `npm run db:seed` |
 | `data/co/` (module TS) | 8 séries de compréhension orale, A1 → C2 (annonces, conversations, radio, débats…) : transcription exacte, question, 4 propositions, bonne réponse, explication | `npm run db:seed` |
 | `data/ce/` | Modules de compréhension écrite | `npm run content:reading` |
 | `data/writing_prompts.json` | 30 sujets d'expression écrite (tâches 1 à 3, B2 → C2) : consigne, documents, plan, phrases utiles, erreurs fréquentes | `npm run writing:seed` |
@@ -237,6 +245,25 @@ prononcé. L'audio est généré par synthèse (`edge-tts`) via
 être servi sans son fichier audio (le seed échoue sinon).
 
 Le seed est **idempotent** : relancé sur une base existante, il ne duplique rien.
+
+### Examens blancs
+
+Les examens blancs sont rédigés dans `data/full_tests/test-NN.ts` (un module par
+examen, enregistré dans `data/full_tests/index.ts`), puis **compilés** vers
+`data/tcf_full_tests_10x70.json` par `npm run content:full`. Modifier un module
+sans recompiler ne change rien en base. Le compilateur :
+
+- vérifie les volumes (25 CO, 20 structure dont 2 conjugaison, 25 CE), les
+  répartitions de niveaux et la longueur des textes ;
+- contrôle l'unicité des énoncés, textes, titres et transcriptions ;
+- équilibre automatiquement la position des bonnes réponses (aucun motif
+  exploitable dans le JSON publié) ;
+- dérive identifiants, slugs et chemins audio du numéro d'examen.
+
+Les MP3 de compréhension orale sont générés dans
+`public/audio/examens/<testId>/<nn>.mp3` par `npm run audio:examens`
+(`--check` pour vérifier, `--force` pour régénérer). Ordre d'exécution :
+`npm run content:full` → `npm run audio:examens` → `npm run db:seed`.
 Deux modes :
 
 - **Complet** (défaut) : insère le contenu puis crée/mit à jour les comptes de démonstration ;

@@ -1,10 +1,11 @@
 import type { Prisma } from "@prisma/client";
 
-import { type Level, type SectionType } from "@/config/enums";
+import { type Level, type SectionType, type TestKind } from "@/config/enums";
 import {
   DEFAULT_SCORING_PROFILE,
   SCORE_MAX,
-  computeSimulatedScore,
+  computeOverallScore,
+  computeSectionScore,
   pointsToNextBand,
   scoreToLevel,
   type ScorePart,
@@ -33,6 +34,8 @@ export type AnswerRow = {
     explanation: string;
     sectionId: string;
     documentId: string | null;
+    audioUrl: string | null;
+    transcription: string | null;
     document: { title: string; content: string } | null;
     section: {
       id: string;
@@ -107,6 +110,8 @@ export function buildReview(answers: AnswerRow[], correctIds: Set<string>): Revi
         documentId: answer.question.documentId,
         documentTitle: answer.question.document?.title ?? null,
         documentContent: answer.question.document?.content ?? null,
+        audioUrl: answer.question.audioUrl,
+        transcription: answer.question.transcription,
         options: [...answer.question.options]
           .sort((a, b) => a.label.localeCompare(b.label))
           .map((o) => ({ id: o.id, label: o.label, text: o.text, isCorrect: o.isCorrect })),
@@ -119,11 +124,14 @@ export function buildReview(answers: AnswerRow[], correctIds: Set<string>): Revi
     });
 }
 
-/** Trie la correction par epreuve puis par numero de question. */
+/** Trie la correction dans l'ordre officiel des epreuves, puis par numero. */
 export function sortReview(review: ReviewQuestion[]): ReviewQuestion[] {
+  const rank = (type: SectionType): number =>
+    type === "COMPREHENSION_ORALE" ? 0 : type === "STRUCTURE" ? 1 : 2;
+
   return [...review].sort((a, b) => {
     if (a.sectionType !== b.sectionType) {
-      return a.sectionType === "STRUCTURE" ? -1 : 1;
+      return rank(a.sectionType) - rank(b.sectionType);
     }
     return a.number - b.number;
   });
@@ -137,7 +145,7 @@ export interface GradeInput {
     status: string;
     startedAt: Date;
     finishedAt: Date | null;
-    test: { id: string; title: string; slug: string };
+    test: { id: string; title: string; slug: string; kind: string };
   };
   /** Toutes les epreuves du test, avec leur nombre de questions. */
   sections: Array<{
@@ -160,8 +168,10 @@ export interface GradeInput {
 
 export interface GradeOutput {
   /** Nombre de bonnes reponses par epreuve. */
+  listeningCorrect: number | null;
   structureCorrect: number | null;
   comprehensionCorrect: number | null;
+  listeningTotal: number | null;
   structureTotal: number | null;
   comprehensionTotal: number | null;
   /** Score simule sur l'echelle 0-699. */
@@ -176,16 +186,18 @@ export interface GradeOutput {
   scoringProfile: string;
   sections: SectionResult[];
   sectionScores: Map<string, { score: number; maxScore: number }>;
+  /** Budget de temps du test, en secondes (somme des epreuves). */
+  timeBudgetSec: number;
   correctIds: Set<string>;
 }
 
 /**
  * Note une tentative terminee.
  *
- * Chaque epreuve du test est ramenee a un pourcentage de reussite, puis les
- * pourcentages sont averages : les deux parties pessent le meme poids, quel que
- * soit leur nombre de questions. Le resultat est converti en score sur
- * l'echelle 0-699 puis en niveau CECRL (voir `config/scoring.ts`).
+ * Chaque epreuve est ramenee sur l'echelle 0-699 (`arrondi(bonnes / total *
+ * 699)`), puis le score global est la moyenne arrondie de ces scores : une
+ * epreuve de 20 questions pese autant qu'une epreuve de 30. Le resultat est
+ * converti en niveau CECRL (voir `config/scoring.ts`).
  *
  * Toute epreuve non traitee compte comme entierement fausse, qu'il s'agisse
  * d'une question sans reponse ou d'une epreuve jamais commencee.
@@ -196,7 +208,8 @@ export function grade(input: GradeInput): GradeOutput {
   const runsByOrder = [...input.sectionRuns].sort((a, b) => a.order - b.order);
   const sections: SectionResult[] = [];
   const sectionScores = new Map<string, { score: number; maxScore: number }>();
-  const parts = new Map<string, ScorePart>();
+  const counts = new Map<SectionType, ScorePart>();
+  const scaledScores: number[] = [];
 
   // Nombre de questions du test pour chaque epreuve : c'est le denominateur
   // affiche ET la base du bareme, pour toute tentative comme pour une reprise
@@ -235,11 +248,14 @@ export function grade(input: GradeInput): GradeOutput {
     // questions : c'est ce que l'ecran affiche (« 16 / 20 »).
     if (run) sectionScores.set(section.sectionId, { score: correct, maxScore: total });
 
-    const existing = parts.get(type);
-    parts.set(
+    const existing = counts.get(type);
+    counts.set(
       type,
       existing ? { correct: existing.correct + correct, total: existing.total + total } : { correct, total },
     );
+
+    const scaledScore = computeSectionScore(correct, total);
+    scaledScores.push(scaledScore);
 
     sections.push({
       sectionId: section.sectionId,
@@ -247,6 +263,7 @@ export function grade(input: GradeInput): GradeOutput {
       title: section.title,
       score: correct,
       maxScore: total,
+      scaledScore,
       ratio,
       answered,
       total,
@@ -256,29 +273,30 @@ export function grade(input: GradeInput): GradeOutput {
     });
   }
 
-  const structure = parts.get("STRUCTURE");
-  const comprehension = parts.get("COMPREHENSION_ECRITE");
-  const simulated = computeSimulatedScore([structure, comprehension].filter(isScorePart));
+  const listening = counts.get("COMPREHENSION_ORALE");
+  const structure = counts.get("STRUCTURE");
+  const comprehension = counts.get("COMPREHENSION_ECRITE");
+  const overall = computeOverallScore(scaledScores);
 
   return {
+    listeningCorrect: listening?.correct ?? null,
     structureCorrect: structure?.correct ?? null,
     comprehensionCorrect: comprehension?.correct ?? null,
+    listeningTotal: listening?.total ?? null,
     structureTotal: structure?.total ?? null,
     comprehensionTotal: comprehension?.total ?? null,
-    totalScore: simulated.score,
+    totalScore: overall.score,
     maxScore: SCORE_MAX,
-    cefrLevel: simulated.level,
-    scorePercentage: simulated.percentage,
-    missingToNextLevel: pointsToNextBand(simulated.score),
+    cefrLevel: overall.level,
+    scorePercentage: overall.percentage,
+    missingToNextLevel: pointsToNextBand(overall.score),
     scoringProfile: DEFAULT_SCORING_PROFILE.id,
     sections,
     sectionScores,
+    timeBudgetSec:
+      orderedSections.reduce((sum, section) => sum + (section.durationMinutes ?? 0), 0) * 60,
     correctIds,
   };
-}
-
-function isScorePart(part: ScorePart | undefined): part is ScorePart {
-  return part !== undefined;
 }
 
 // ---------------------------- Refaire mes erreurs --------------------------
@@ -334,15 +352,19 @@ export function buildAttemptResult(input: GradeInput, output: GradeOutput): Atte
     testId: input.attempt.test.id,
     testTitle: input.attempt.test.title,
     testSlug: input.attempt.test.slug,
+    testKind: input.attempt.test.kind as TestKind,
     status: input.attempt.status,
     startedAt: input.attempt.startedAt.toISOString(),
     finishedAt: input.attempt.finishedAt?.toISOString() ?? null,
     totalScore: output.totalScore,
     maxScore: output.maxScore,
+    listeningCorrect: output.listeningCorrect,
+    listeningTotal: output.listeningTotal,
     structureCorrect: output.structureCorrect,
     structureTotal: output.structureTotal,
     comprehensionCorrect: output.comprehensionCorrect,
     comprehensionTotal: output.comprehensionTotal,
+    timeBudgetSec: output.timeBudgetSec,
     scorePercentage: output.scorePercentage,
     missingToNextLevel: output.missingToNextLevel,
     cefrLevel: output.cefrLevel,
@@ -363,6 +385,7 @@ export type AttemptWithAnswers = Prisma.AttemptGetPayload<{
         id: true;
         title: true;
         slug: true;
+        kind: true;
         sections: {
           select: {
             id: true;

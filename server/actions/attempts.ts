@@ -43,13 +43,19 @@ export async function startAttemptAction(formData: FormData): Promise<void> {
   const testId = String(formData.get("testId") ?? "");
   if (!testId) redirect("/fr/tests");
 
+  const test = await prisma.test.findUnique({
+    where: { id: testId },
+    select: { kind: true },
+  });
+  const fallback = test?.kind === "FULL" ? "/fr/examens" : "/fr/tests";
+
   try {
     const attemptId = await startAttempt(userId, testId);
     const sectionRunId = await liveSectionRunId(userId, attemptId);
     if (!sectionRunId) redirect(`/fr/results/${attemptId}`);
     redirect(`/fr/exam/${sectionRunId}`);
   } catch (error) {
-    if (error instanceof AttemptError) redirect("/fr/tests");
+    if (error instanceof AttemptError) redirect(fallback);
     throw error;
   }
 }

@@ -4,6 +4,7 @@ import { useId } from "react";
 import { useTranslations } from "next-intl";
 import { Flag, Star } from "lucide-react";
 
+import { ExamAudio } from "@/components/exam/exam-audio";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import type { ExamQuestion } from "@/lib/types";
 
@@ -15,10 +16,13 @@ import type { ExamQuestion } from "@/lib/types";
  */
 export function QuestionCard({
   question,
+  audioKey,
   onSelect,
   onToggleFlag,
 }: {
   question: ExamQuestion;
+  /** Portee de l'ecoute unique (tentative + question). */
+  audioKey: string;
   onSelect: (optionId: string) => void;
   onToggleFlag: () => void;
 }): React.JSX.Element {
@@ -42,6 +46,8 @@ export function QuestionCard({
           {question.flagged ? t("unflag") : t("markForReview")}
         </button>
       </header>
+
+      {question.audioUrl ? <ExamAudio src={question.audioUrl} audioKey={audioKey} /> : null}
 
       <p className="text-lg leading-relaxed">{question.prompt}</p>
 

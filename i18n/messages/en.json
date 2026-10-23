@@ -89,6 +89,7 @@
   "nav": {
     "home": "Home",
     "tests": "Practice series",
+    "exams": "Mock exams",
     "guide": "TCF guide",
     "comprehensionOrale": "Oral comprehension",
     "dashboard": "Dashboard",
@@ -378,6 +379,9 @@
     "resumeAttempt": "Resume the current attempt",
     "resumeHint": "{time} left for the whole test.",
     "sharedTimer": "Both modules share the same {minutes}-minute timer.",
+    "sectionTimer": "{minutes} minutes for this module.",
+    "testNumber": "Test {order}",
+    "examNumber": "Mock exam {order}",
     "duration": "Duration: {minutes} min",
     "recommendedDuration": "Recommended time for this module: {minutes} min",
     "questionCount": "{count, plural, one {# question} other {# questions}}",
@@ -402,7 +406,24 @@
     "correctAnswer": "Correct answer",
     "document": "Document",
     "lineLabel": "Line {number}",
+    "audio": "Play the audio",
+    "transcription": "Transcript",
     "noResults": "No question matches these filters."
+  },
+  "exams": {
+    "metaTitle": "TCF mock exams",
+    "metaDescription": "Ten full TCF mock exams: listening, language structure and reading, with a timer for each module and a score out of 699.",
+    "eyebrow": "Mock exams",
+    "title": "Mock exams",
+    "subtitle": "Ten full exams under TCF conditions: three modules in a row, one timer per module, a score out of 699 and a detailed answer key.",
+    "facts": {
+      "sections": "3 modules",
+      "questions": "70 questions",
+      "duration": "90 minutes",
+      "scale": "Score /699"
+    },
+    "emptyTitle": "Mock exams coming soon",
+    "empty": "The mock exams are being prepared. They will appear here as soon as they are published."
   },
   "guide": {
     "meta": {
@@ -609,7 +630,12 @@
     "legendCurrent": "Current question",
     "legendCorrect": "Correct answer",
     "legendIncorrect": "Wrong answer",
-    "inProgressBadge": "In progress"
+    "inProgressBadge": "In progress",
+    "listening": "Listening comprehension",
+    "listen": "Play the audio",
+    "listenOnce": "Single play: the audio cannot be paused or replayed.",
+    "listenEnded": "Playback finished",
+    "audioError": "The audio could not be loaded. Please report it to the administrator."
   },
   "results": {
     "title": "Your results",
@@ -664,7 +690,7 @@
     "shareText": "I reached level {level} on TCF Simulator ({score}%). Practice on the same tests:",
     "noResults": "No results",
     "levelExplanation": "How this level is computed",
-    "levelExplanationBody": "Your score is the average of your two success percentages, converted onto the TCF 699-point scale: (16/20 + 21/30) / 2 = 75%, i.e. 524/699. This is a training scale for learning purposes, not the official one.",
+    "levelExplanationBody": "Each module is scaled to 699 points in proportion to the number of correct answers, then the overall score is the average of the modules. For example, 20/25 in listening, 16/20 in structure and 21/25 in reading give 559, 559 and 587, i.e. 568/699. This is a training scale for learning purposes, not the official one.",
     "nextLevel": "Next level",
     "pointsToNext": "{count} point(s) to reach {level}",
     "topLevel": "Highest level reached",
@@ -686,6 +712,7 @@
     "spendMoreTime": "The slowest questions are the ones where you hesitate most.",
     "spendMoreTimeBody": "Reading the explanation of those questions clears up the doubt and prevents repeating the mistake.",
     "summary": "Test result",
+    "listening": "Listening comprehension",
     "languageMastery": "Language mastery",
     "writtenComprehension": "Written comprehension",
     "estimatedScore": "Estimated score",
@@ -1037,6 +1064,7 @@
       "attemptsHistorySubtitle": "The 25 most recent attempts",
       "noAttempts": "No attempt.",
       "total": "Total",
+      "listening": "Listening",
       "structure": "Structure",
       "comprehension": "Comprehension",
       "status": {
@@ -1091,6 +1119,7 @@
     "resources": "Resources",
     "legal": "Legal",
     "tests": "Practice series",
+    "exams": "Mock exams",
     "guide": "TCF guide",
     "dashboard": "Dashboard",
     "history": "History",

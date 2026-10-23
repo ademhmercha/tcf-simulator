@@ -39,13 +39,24 @@ export function absoluteUrl(path = ""): string {
 
 export const examConfig = {
   /**
-   * Budget de temps de la tentative, en minutes.
+   * Budget de temps d'une serie d'entrainement, en minutes.
    *
    * Un SEUL chronometre couvre l'ensemble du test : les deux epreuves se
    * partagent cette duree globale, elle ne repart pas a zero entre la
    * Structure et la Comprehension ecrite.
    */
   totalDurationMinutes: 60,
+  /**
+   * Examens blancs complets : une duree par epreuve. Le chronometre repart a
+   * zero a chaque epreuve (comme au TCF), il n'y a pas de report de temps.
+   */
+  fullTestSectionMinutes: {
+    COMPREHENSION_ORALE: 25,
+    STRUCTURE: 20,
+    COMPREHENSION_ECRITE: 45,
+  } as const,
+  /** Duree totale d'un examen blanc (25 + 20 + 45). */
+  fullTestDurationMinutes: 90,
   /**
    * Duree indicative par epreuve, en minutes. Decrit le volume de contenu et
    * sert de recommandation de travail dans les corriges ; elle ne pilote pas le

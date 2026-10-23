@@ -30,7 +30,7 @@ export default async function DashboardPage({
   if (!session?.user) redirect(`/fr/login?next=${encodeURIComponent("/fr/dashboard")}`);
 
   const [tests, history] = await Promise.all([
-    getPublishedTests(session.user.id),
+    getPublishedTests(session.user.id, "PRACTICE"),
     getAttemptHistory(session.user.id),
   ]);
 

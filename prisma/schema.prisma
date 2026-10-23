@@ -136,6 +136,11 @@ model Test {
   description String?
   order       Int      @default(1)
   isPublished Boolean  @default(false)
+  /// PRACTICE = serie d'entrainement (2 epreuves) | FULL = examen blanc
+  /// complet (comprehension orale + structure + comprehension ecrite).
+  /// Separation des catalogues : `/tests` ne liste que PRACTICE, `/examens`
+  /// ne liste que FULL.
+  kind        String   @default("PRACTICE")
   /// duree totale indicative en minutes (somme des sections)
   durationMinutes Int?
   createdAt   DateTime @default(now())
@@ -145,6 +150,7 @@ model Test {
   attempts Attempt[]
 
   @@index([isPublished, order])
+  @@index([kind, isPublished, order])
   @@map("tests")
 }
 
@@ -203,6 +209,13 @@ model Question {
   category    String?
   points      Int     @default(1)
   explanation String
+  /// Comprehension orale : chemin public du fichier audio (ex:
+  /// /audio/tests/test-01/03.mp3). Jamais envoye en correction avant la fin
+  /// de l'epreuve, comme le reste du contenu.
+  audioUrl    String?
+  /// Comprehension orale : transcription exacte de l'audio. Sert aux
+  /// corriges UNIQUEMENT : elle n'est jamais incluse dans le payload d'examen.
+  transcription String?
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
@@ -244,6 +257,8 @@ model Attempt {
   status             String    @default("IN_PROGRESS")
   startedAt          DateTime  @default(now())
   finishedAt         DateTime?
+  /// Nombre de bonnes reponses en comprehension orale (examens blancs).
+  listeningScore     Int?
   structureScore     Int?
   comprehensionScore Int?
   totalScore         Int?

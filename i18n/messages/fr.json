@@ -89,6 +89,7 @@
   "nav": {
     "home": "Accueil",
     "tests": "Série d'entraînement",
+    "exams": "Examens blancs",
     "guide": "Guide TCF",
     "comprehensionOrale": "Compréhension orale",
     "dashboard": "Tableau de bord",
@@ -378,6 +379,9 @@
     "resumeAttempt": "Reprendre la tentative en cours",
     "resumeHint": "Il vous reste {time} sur l'ensemble du test.",
     "sharedTimer": "Les deux épreuves se partagent le même chronomètre de {minutes} minutes.",
+    "sectionTimer": "{minutes} minutes pour cette épreuve.",
+    "testNumber": "Test {order}",
+    "examNumber": "Examen blanc {order}",
     "duration": "Durée : {minutes} min",
     "recommendedDuration": "Durée conseillée pour cette épreuve : {minutes} min",
     "questionCount": "{count, plural, one {# question} other {# questions}}",
@@ -402,7 +406,24 @@
     "correctAnswer": "Bonne réponse",
     "document": "Document",
     "lineLabel": "Ligne {number}",
+    "audio": "Écouter l'audio",
+    "transcription": "Transcription",
     "noResults": "Aucune question ne correspond à ces filtres."
+  },
+  "exams": {
+    "metaTitle": "Examens blancs TCF",
+    "metaDescription": "Dix examens blancs TCF complets : compréhension orale, structure de la langue et compréhension écrite, avec chronomètre par épreuve et score sur 699.",
+    "eyebrow": "Examens blancs",
+    "title": "Examens blancs",
+    "subtitle": "Dix examens complets dans les conditions du TCF : trois épreuves enchaînées, un chronomètre par épreuve, un score sur 699 et une correction détaillée.",
+    "facts": {
+      "sections": "3 épreuves",
+      "questions": "70 questions",
+      "duration": "90 minutes",
+      "scale": "Score /699"
+    },
+    "emptyTitle": "Examens bientôt disponibles",
+    "empty": "Les examens blancs sont en cours de préparation. Ils apparaîtront ici dès leur publication."
   },
   "guide": {
     "meta": {
@@ -614,7 +635,12 @@
     "legendCurrent": "Question actuelle",
     "legendCorrect": "Bonne reponse",
     "legendIncorrect": "Mauvaise reponse",
-    "inProgressBadge": "En cours"
+    "inProgressBadge": "En cours",
+    "listening": "Compréhension orale",
+    "listen": "Écouter l'audio",
+    "listenOnce": "Une seule écoute : le son ne peut pas être mis en pause ni réécouté.",
+    "listenEnded": "Écoute terminée",
+    "audioError": "L'audio n'a pas pu être chargé. Signalez-le à l'administrateur."
   },
   "results": {
     "title": "Vos resultats",
@@ -670,7 +696,7 @@
     "shareText": "J'ai obtenu le niveau {level} au TCF Simulator ({score} %). Entrainez-vous sur les memes tests :",
     "noResults": "Aucun resultat",
     "levelExplanation": "Comment ce niveau est calcule",
-    "levelExplanationBody": "Votre score est la moyenne des deux pourcentages de réussite, convertie sur l'échelle de 699 points du TCF : (16/20 + 21/30) / 2 = 75 %, soit 524/699. Il s'agit d'un barème d'entraînement à but pédagogique, pas du barème officiel.",
+    "levelExplanationBody": "Chaque épreuve est ramenée sur 699 points au prorata des bonnes réponses, puis le score global est la moyenne des épreuves. Par exemple, 20/25 en compréhension orale, 16/20 en structure et 21/25 en compréhension écrite donnent 559, 559 et 587, soit 568/699. Il s'agit d'un barème d'entraînement à but pédagogique, pas du barème officiel.",
     "nextLevel": "Niveau suivant",
     "pointsToNext": "{count} point(s) pour atteindre {level}",
     "topLevel": "Niveau maximal atteint",
@@ -692,6 +718,7 @@
     "spendMoreTime": "Les questions les plus lentes sont celles ou vous hesitez le plus.",
     "spendMoreTimeBody": "Lire l'explication de ces questions permet de lever le doute et d'eviter de repeter l'erreur.",
     "summary": "Résultat du test",
+    "listening": "Compréhension orale",
     "languageMastery": "Maîtrise de la langue",
     "writtenComprehension": "Compréhension écrite",
     "estimatedScore": "Score estimé",
@@ -1042,6 +1069,7 @@
       "attemptsHistorySubtitle": "Les 25 tentatives les plus recentes",
       "noAttempts": "Aucune tentative.",
       "total": "Total",
+      "listening": "Compréhension orale",
       "structure": "Structure",
       "comprehension": "Comprehension",
       "status": {
@@ -1096,6 +1124,7 @@
     "resources": "Ressources",
     "legal": "Legal",
     "tests": "Série d'entraînement",
+    "exams": "Examens blancs",
     "guide": "Guide TCF",
     "dashboard": "Tableau de bord",
     "history": "Historique",

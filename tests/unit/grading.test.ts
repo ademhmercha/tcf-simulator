@@ -46,6 +46,8 @@ function answer(sectionId: string, number: number, correct: boolean): AnswerRow 
       explanation: "Explication",
       sectionId,
       documentId: null,
+      audioUrl: null,
+      transcription: null,
       document: null,
       section: {
         id: sectionId,
@@ -69,7 +71,7 @@ function input(overrides: Partial<GradeInput> = {}): GradeInput {
       status: "SUBMITTED",
       startedAt: new Date("2026-01-01T10:00:00.000Z"),
       finishedAt: new Date("2026-01-01T11:00:00.000Z"),
-      test: { id: "test-1", title: "Test 1", slug: "test-1" },
+      test: { id: "test-1", title: "Test 1", slug: "test-1", kind: "PRACTICE" },
     },
     sections: SECTIONS,
     sectionRuns: [STRUCTURE, COMPREHENSION],

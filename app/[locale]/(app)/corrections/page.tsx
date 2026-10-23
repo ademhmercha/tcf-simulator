@@ -37,7 +37,7 @@ export default async function CorrectionsPage({
     redirect(`/fr/login?next=${encodeURIComponent("/fr/corrections")}`);
   }
 
-  const tests = await getCorrectionsIndex(session.user.id);
+  const tests = await getCorrectionsIndex(session.user.id, "PRACTICE");
 
   return (
     <div className="container py-12">

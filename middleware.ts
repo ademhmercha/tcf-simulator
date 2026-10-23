@@ -50,6 +50,7 @@ const PROTECTED_PREFIXES = [
   // Catalogue et fiches : on ne consulte ni un test, ni une serie
   // d'entrainement, ni une fiche de vocabulaire sans session.
   "/tests",
+  "/examens",
   "/vocabulaire",
 ] as const;
 

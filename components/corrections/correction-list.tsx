@@ -2,8 +2,9 @@
 
 import { useMemo, useState } from "react";
 import { useTranslations } from "next-intl";
-import { CheckCircle2, ChevronDown, FileText, Lightbulb, Search } from "lucide-react";
+import { CheckCircle2, ChevronDown, FileText, Headphones, Lightbulb, Search } from "lucide-react";
 
+import { AudioTranscript } from "@/components/corrections/audio-transcript";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import type { CorrectionQuestion } from "@/lib/types";
@@ -36,6 +37,7 @@ export function CorrectionList({
         question.prompt.toLowerCase().includes(needle) ||
         question.explanation.toLowerCase().includes(needle) ||
         (question.documentTitle ?? "").toLowerCase().includes(needle) ||
+        (question.transcription ?? "").toLowerCase().includes(needle) ||
         question.options.some((option) => option.text.toLowerCase().includes(needle))
       );
     });
@@ -115,6 +117,12 @@ export function CorrectionList({
                       {question.documentTitle}
                     </span>
                   ) : null}
+                  {question.audioUrl ? (
+                    <span className="mt-1.5 inline-flex items-center gap-1.5 text-xs text-muted-foreground">
+                      <Headphones className="size-3.5" aria-hidden />
+                      {t("audio")}
+                    </span>
+                  ) : null}
                 </span>
 
                 <ChevronDown
@@ -128,6 +136,11 @@ export function CorrectionList({
 
               {isOpen ? (
                 <div className="space-y-4 border-t border-border/70 p-4 sm:p-5">
+                  <AudioTranscript
+                    audioUrl={question.audioUrl}
+                    transcription={question.transcription}
+                  />
+
                   {question.documentContent ? (
                     <DocumentBlock
                       content={question.documentContent}

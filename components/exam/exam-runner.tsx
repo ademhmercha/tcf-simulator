@@ -450,6 +450,7 @@ export function ExamRunner({ payload }: { payload: ExamPayload }): React.JSX.Ele
               <section className="rounded-2xl border border-border/70 bg-card p-5 sm:p-7">
                 <QuestionCard
                   question={current}
+                  audioKey={`${payload.sectionRunId}:${current.id}`}
                   onSelect={selectOption}
                   onToggleFlag={toggleFlag}
                 />
