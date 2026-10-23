@@ -21,6 +21,13 @@ export interface SectionSummary {
   documentCount: number;
 }
 
+export interface TestSectionResult {
+  type: SectionType;
+  scaledScore: number;
+  correct: number;
+  total: number;
+}
+
 export interface TestSummary {
   id: string;
   slug: string;
@@ -37,6 +44,8 @@ export interface TestSummary {
   bestLevel: Level | null;
   /** Identifiant de la tentative ayant obtenu `bestTotalScore`. */
   bestAttemptId: string | null;
+  /** Detail par epreuve de la meilleure tentative terminee. */
+  bestSections: TestSectionResult[];
   inProgressAttemptId: string | null;
   inProgressSectionId: string | null;
   inProgressRemainingMs: number | null;

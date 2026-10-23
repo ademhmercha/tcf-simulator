@@ -1,5 +1,5 @@
 import { prisma } from "@/lib/db";
-import { DEFAULT_SCORING_PROFILE } from "@/config/scoring";
+import { DEFAULT_SCORING_PROFILE, computeSectionScore } from "@/config/scoring";
 import { examConfig } from "@/config/site";
 import { type Level, type SectionType, type TestKind } from "@/config/enums";
 import { unstable_cache } from "next/cache";
@@ -179,7 +179,13 @@ type AttemptLight = {
   totalScore: number | null;
   maxScore: number | null;
   cefrLevel: string | null;
-  sectionRuns: Array<{ sectionId: string; expiresAt: Date; status: string }>;
+  sectionRuns: Array<{
+    sectionId: string;
+    expiresAt: Date;
+    status: string;
+    score: number | null;
+    maxScore: number | null;
+  }>;
 };
 
 function toTestSummary(test: TestRow, attempts: AttemptLight[]): TestSummary {
@@ -215,6 +221,35 @@ function toTestSummary(test: TestRow, attempts: AttemptLight[]): TestSummary {
       bestAttemptId = attempt.id;
     }
   }
+
+  const bestAttempt =
+    bestAttemptId === null ? null : attempts.find((attempt) => attempt.id === bestAttemptId) ?? null;
+
+  // Detail par epreuve de la meilleure tentative : les cartes d'examen peuvent
+  // ainsi afficher les trois notes sans requete supplementaire.
+  const bestSections = bestAttempt
+    ? [...test.sections]
+        .sort((a, b) => a.order - b.order)
+        .flatMap((section) => {
+          const run = bestAttempt.sectionRuns.find(
+            (candidate) =>
+              candidate.sectionId === section.id &&
+              candidate.status !== "IN_PROGRESS" &&
+              candidate.score !== null &&
+              candidate.maxScore !== null &&
+              candidate.maxScore > 0,
+          );
+          if (!run || run.score === null || run.maxScore === null) return [];
+          return [
+            {
+              type: section.type as SectionType,
+              scaledScore: computeSectionScore(run.score, run.maxScore),
+              correct: run.score,
+              total: run.maxScore,
+            },
+          ];
+        })
+    : [];
 
   const kind = test.kind as TestKind;
 
@@ -252,6 +287,7 @@ function toTestSummary(test: TestRow, attempts: AttemptLight[]): TestSummary {
     bestMaxScore,
     bestLevel,
     bestAttemptId,
+    bestSections,
     inProgressAttemptId,
     inProgressSectionId,
     inProgressRemainingMs,
@@ -318,8 +354,13 @@ export async function getPublishedTests(
       maxScore: true,
       cefrLevel: true,
       sectionRuns: {
-        where: { status: "IN_PROGRESS" },
-        select: { sectionId: true, expiresAt: true, status: true },
+        select: {
+          sectionId: true,
+          expiresAt: true,
+          status: true,
+          score: true,
+          maxScore: true,
+        },
       },
     },
     orderBy: { startedAt: "desc" },

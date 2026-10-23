@@ -3,7 +3,7 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { redirect } from "next/navigation";
 import { Clock, FileQuestion, Layers, Target } from "lucide-react";
 
-import { TestCard } from "@/components/tests/test-card";
+import { ExamCard } from "@/components/tests/exam-card";
 import { Card, CardContent } from "@/components/ui/card";
 import type { AppLocale } from "@/config/enums";
 import { auth } from "@/server/auth";
@@ -63,11 +63,13 @@ export default async function ExamsPage({
       </ul>
 
       {tests.length > 0 ? (
-        <div className="mt-10 grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
+        <ul className="mx-auto mt-10 max-w-5xl space-y-4">
           {tests.map((test) => (
-            <TestCard key={test.id} test={test} signedIn />
+            <li key={test.id}>
+              <ExamCard test={test} signedIn />
+            </li>
           ))}
-        </div>
+        </ul>
       ) : (
         <Card className="mx-auto mt-10 max-w-xl border-dashed">
           <CardContent className="p-8 text-center">
