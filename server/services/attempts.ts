@@ -310,7 +310,7 @@ function toTestSummary(test: TestRow, attempts: AttemptLight[]): TestSummary {
  * script, hors du serveur : ils ne peuvent pas invalider le cache. La fenetre
  * de revalidation absorbe donc ce decalage.
  */
-const CATALOG_REVALIDATE_SECONDS = 0;
+const CATALOG_REVALIDATE_SECONDS = 1;
 
 const getPublishedTestRows = unstable_cache(
   async (): Promise<TestRow[]> => {
@@ -321,8 +321,8 @@ const getPublishedTestRows = unstable_cache(
     });
     return rows as unknown as TestRow[];
   },
-  ["published-test-rows-v2"],
-  { revalidate: 0, tags: ["tests"] },
+  ["published-test-rows-v3"],
+  { revalidate: 1, tags: ["tests"] },
 );
 
 /** Fiche d'un test publie, avec la meme fenetre de cache que le catalogue. */
