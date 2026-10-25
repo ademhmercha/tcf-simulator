@@ -310,30 +310,22 @@ function toTestSummary(test: TestRow, attempts: AttemptLight[]): TestSummary {
  * script, hors du serveur : ils ne peuvent pas invalider le cache. La fenetre
  * de revalidation absorbe donc ce decalage.
  */
-const CATALOG_REVALIDATE_SECONDS = 300;
+const CATALOG_REVALIDATE_SECONDS = 0;
 
-const getPublishedTestRows = unstable_cache(
-  async (): Promise<TestRow[]> => {
-    const rows = await prisma.test.findMany({
-      where: { isPublished: true },
-      orderBy: { order: "asc" },
-      include: TEST_INCLUDE,
-    });
-    return rows as unknown as TestRow[];
-  },
-  ["published-test-rows"],
-  { revalidate: CATALOG_REVALIDATE_SECONDS, tags: ["tests"] },
-);
+const getPublishedTestRows = async (): Promise<TestRow[]> => {
+  const rows = await prisma.test.findMany({
+    where: { isPublished: true },
+    orderBy: { order: "asc" },
+    include: TEST_INCLUDE,
+  });
+  return rows as unknown as TestRow[];
+};
 
 /** Fiche d'un test publie, avec la meme fenetre de cache que le catalogue. */
-const getPublishedTestRowBySlug = unstable_cache(
-  async (slug: string): Promise<TestRow | null> => {
-    const row = await prisma.test.findUnique({ where: { slug }, include: TEST_INCLUDE });
-    return (row as unknown as TestRow | null) ?? null;
-  },
-  ["published-test-row-by-slug"],
-  { revalidate: CATALOG_REVALIDATE_SECONDS, tags: ["tests"] },
-);
+const getPublishedTestRowBySlug = async (slug: string): Promise<TestRow | null> => {
+  const row = await prisma.test.findUnique({ where: { slug }, include: TEST_INCLUDE });
+  return (row as unknown as TestRow | null) ?? null;
+};
 
 export async function getPublishedTests(
   userId?: string,
