@@ -47,10 +47,9 @@ export default async function ExamsPage({
       <header className="mx-auto max-w-2xl text-center">
         <p className="eyebrow">{t("eyebrow")}</p>
         <h1 className="mt-3 text-3xl font-extrabold sm:text-4xl">{t("title")}</h1>
-        <p className="mt-3 text-muted-foreground">{t("subtitle")}</p>
       </header>
 
-      <ul className="mx-auto mt-8 flex max-w-3xl flex-wrap items-center justify-center gap-2">
+      <ul className="mx-auto mt-6 flex max-w-3xl flex-wrap items-center justify-center gap-2">
         {facts.map((fact) => (
           <li
             key={fact.label}

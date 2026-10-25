@@ -53,9 +53,9 @@ export async function ExamCard({
 
   return (
     <Card className="border-border/70 transition-shadow hover:shadow-medium">
-      <CardContent className="flex flex-col gap-6 p-5 sm:p-6 lg:flex-row lg:items-stretch">
+      <CardContent className="flex flex-col gap-4 p-4 sm:p-5 lg:flex-row lg:items-center lg:gap-5">
         <div className="flex flex-1 items-start gap-4">
-          <span className="grid size-12 shrink-0 place-items-center rounded-2xl bg-primary font-display text-lg font-extrabold text-primary-foreground">
+          <span className="grid size-10 shrink-0 place-items-center rounded-2xl bg-primary font-display text-base font-extrabold text-primary-foreground">
             {test.order}
           </span>
 
@@ -63,13 +63,13 @@ export async function ExamCard({
             <p className="text-xs font-semibold uppercase tracking-wider text-primary">
               {t("eyebrow")}
             </p>
-            <h2 className="mt-1 text-xl font-extrabold leading-snug">{test.title}</h2>
+            <h2 className="mt-1 text-lg font-extrabold leading-snug">{test.title}</h2>
 
             {test.description ? (
               <p className="mt-2 text-sm text-muted-foreground">{test.description}</p>
             ) : null}
 
-            <ul className="mt-3 flex flex-wrap gap-x-4 gap-y-1.5 text-sm text-muted-foreground">
+            <ul className="mt-2 flex flex-wrap gap-x-3 gap-y-1 text-sm text-muted-foreground">
               <li className="flex items-center gap-1.5">
                 <FileQuestion className="size-4" aria-hidden />
                 {tt("questionCount", { count: test.questionCount })}
@@ -84,7 +84,7 @@ export async function ExamCard({
               </li>
             </ul>
 
-            <div className="mt-5 flex flex-wrap gap-2">
+            <div className="mt-3 flex flex-wrap gap-2">
               {inProgress ? (
                 <Button asChild>
                   <Link href={detailHref}>
