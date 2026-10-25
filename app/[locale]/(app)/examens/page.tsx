@@ -3,9 +3,6 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { redirect } from "next/navigation";
 import { Clock, FileQuestion, Layers, Target } from "lucide-react";
 
-export const dynamic = "force-dynamic";
-export const revalidate = 0;
-
 import { ExamCard } from "@/components/tests/exam-card";
 import { Card, CardContent } from "@/components/ui/card";
 import type { AppLocale } from "@/config/enums";
