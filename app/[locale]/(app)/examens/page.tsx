@@ -65,7 +65,7 @@ export default async function ExamsPage({
       </ul>
 
       {tests.length > 0 ? (
-        <ul className="mx-auto mt-6 max-w-5xl space-y-3">
+        <ul className="mx-auto mt-4 max-w-5xl space-y-2">
           {tests.map((test) => (
             <li key={test.id}>
               <ExamCard test={test} signedIn />

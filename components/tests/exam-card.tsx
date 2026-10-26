@@ -53,30 +53,31 @@ export async function ExamCard({
 
   return (
     <Card className="border-border/70 transition-shadow hover:shadow-medium">
-      <CardContent className="flex flex-col gap-3 p-3 sm:p-4 lg:flex-row lg:items-center lg:gap-4">
-        <div className="flex flex-1 items-start gap-3">
-          <span className="grid size-9 shrink-0 place-items-center rounded-2xl bg-primary font-display text-sm font-extrabold text-primary-foreground">
+      <CardContent className="flex h-20 flex-col justify-center gap-2 p-2 sm:p-2 lg:flex-row lg:items-center lg:gap-3">
+        <div className="flex flex-1 items-center gap-2">
+          <span className="grid size-7 shrink-0 place-items-center rounded-lg bg-primary font-display text-xs font-extrabold text-primary-foreground">
             {test.order}
           </span>
 
           <div className="min-w-0 flex-1">
-            <p className="text-xs font-semibold uppercase tracking-wider text-primary">
-              {t("eyebrow")}
-            </p>
-            <h2 className="mt-0.5 text-base font-bold leading-tight">{test.title}</h2>
+            <div className="flex flex-wrap items-center gap-x-2 gap-y-0.5">
+              <p className="text-[0.65rem] font-semibold uppercase tracking-wider text-primary">
+                {t("eyebrow")}
+              </p>
+              <h2 className="text-sm font-bold leading-none">{test.title}</h2>
+              <div className="flex flex-wrap items-center gap-x-2 text-xs text-muted-foreground">
+                <span className="flex items-center gap-1">
+                  <FileQuestion className="size-3.5" aria-hidden />
+                  {tt("questionCount", { count: test.questionCount })}
+                </span>
+                <span className="flex items-center gap-1">
+                  <Clock className="size-3.5" aria-hidden />
+                  {tt("duration", { minutes: test.durationMinutes ?? 0 })}
+                </span>
+              </div>
+            </div>
 
-            <ul className="mt-1.5 flex flex-wrap gap-x-3 gap-y-1 text-sm text-muted-foreground">
-              <li className="flex items-center gap-1.5">
-                <FileQuestion className="size-4" aria-hidden />
-                {tt("questionCount", { count: test.questionCount })}
-              </li>
-              <li className="flex items-center gap-1.5">
-                <Clock className="size-4" aria-hidden />
-                {tt("duration", { minutes: test.durationMinutes ?? 0 })}
-              </li>
-            </ul>
-
-            <div className="mt-2 flex flex-wrap gap-2">
+            <div className="mt-1 flex flex-wrap gap-1">
               {inProgress ? (
                 <Button asChild>
                   <Link href={detailHref}>
@@ -121,41 +122,27 @@ export async function ExamCard({
           </div>
         </div>
 
-        <div className="shrink-0 lg:w-72 xl:w-80">
+        <div className="shrink-0 lg:h-16 lg:w-64 xl:w-72">
           {finished ? (
-            <div className="flex h-full flex-col rounded-2xl border border-primary/20 bg-primary/5 p-3">
-              <div className="flex items-start justify-between gap-3">
-                <div>
-                  <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-                    {t("bestResult")}
-                  </p>
-                  <p className="mt-0.5 font-display text-2xl font-extrabold tabular-nums">
-                    {test.bestTotalScore}
-                    <span className="text-base font-bold text-muted-foreground">
-                      /{test.bestMaxScore}
-                    </span>
-                  </p>
-                </div>
-                {test.bestLevel ? <LevelBadge level={test.bestLevel} size="lg" /> : null}
+            <div className="flex h-full items-center justify-between rounded-lg border border-primary/20 bg-primary/5 px-2.5 py-1.5">
+              <div className="flex items-center gap-2">
+                <p className="font-display text-xl font-extrabold tabular-nums">
+                  {test.bestTotalScore}
+                  <span className="text-xs font-bold text-muted-foreground">
+                    /{test.bestMaxScore}
+                  </span>
+                </p>
+                {test.bestLevel ? <LevelBadge level={test.bestLevel} size="sm" /> : null}
               </div>
-
-              <Progress value={bestPercent} className="mt-2 h-1.5" />
-
               {test.bestSections.length > 0 ? (
-                <div className="mt-3 grid grid-cols-3 gap-1.5">
+                <div className="flex items-center gap-2">
                   {test.bestSections.map((section: TestSectionResult) => (
-                    <div
-                      key={section.type}
-                      className="rounded-lg bg-background/70 px-1 py-1.5 text-center"
-                    >
-                      <p className="text-[0.625rem] font-semibold uppercase leading-tight text-muted-foreground">
-                        {sectionLabel(section.type)}
+                    <div key={section.type} className="text-center">
+                      <p className="text-[0.6rem] uppercase leading-none text-muted-foreground">
+                        {sectionLabel(section.type).slice(0, 4)}
                       </p>
-                      <p className="mt-0.5 font-display text-base font-bold tabular-nums">
+                      <p className="text-xs font-bold tabular-nums leading-tight">
                         {section.scaledScore}
-                      </p>
-                      <p className="text-[0.625rem] text-muted-foreground">
-                        {section.correct}/{section.total}
                       </p>
                     </div>
                   ))}
@@ -163,11 +150,8 @@ export async function ExamCard({
               ) : null}
             </div>
           ) : (
-            <div className="flex h-full min-h-20 flex-col justify-center rounded-2xl border border-dashed bg-muted/20 p-3">
-              <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-                {inProgress ? t("inProgress") : t("notStarted")}
-              </p>
-              <p className="mt-0.5 text-sm text-muted-foreground">
+            <div className="flex h-full items-center rounded-lg border border-dashed bg-muted/20 px-2.5 py-1.5">
+              <p className="text-xs text-muted-foreground">
                 {inProgress ? t("inProgressHint") : t("notStartedHint")}
               </p>
             </div>
