@@ -55,10 +55,6 @@ export async function ExamCard({
     <Card className="border-border/70 transition-shadow hover:shadow-medium">
       <CardContent className="flex h-20 flex-col justify-center gap-2 p-2 sm:p-2 lg:flex-row lg:items-center lg:gap-3">
         <div className="flex flex-1 items-center gap-2">
-          <span className="grid size-7 shrink-0 place-items-center rounded-lg bg-primary font-display text-xs font-extrabold text-primary-foreground">
-            {test.order}
-          </span>
-
           <div className="min-w-0 flex-1">
             <div className="flex flex-wrap items-center gap-x-2 gap-y-0.5">
               <p className="text-[0.65rem] font-semibold uppercase tracking-wider text-primary">

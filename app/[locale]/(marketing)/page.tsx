@@ -146,11 +146,13 @@ export default async function HomePage({
 
             <div className="animate-fade-up mt-9 flex flex-col items-center justify-center gap-3 [animation-delay:240ms] sm:flex-row">
               <Button asChild size="xl" className="w-full sm:w-auto">
-                <Link href={session?.user ? "/tests" : "/register"}>{t("hero.ctaPrimary")}</Link>
+                <Link href={session?.user ? "/examens" : "/register"}>
+                  Commencer les examens blancs
+                </Link>
               </Button>
               <Button asChild size="xl" variant="outline" className="w-full sm:w-auto">
                 <Link href={signedIn ? "/tests" : "/register"}>
-                  {signedIn ? t("hero.ctaSecondary") : t("hero.ctaSecondaryGuest")}
+                  Séries d'entraînement
                 </Link>
               </Button>
             </div>
@@ -345,48 +347,90 @@ export default async function HomePage({
       <section className="border-y border-border bg-surface py-20">
         <div className="container">
           <Reveal className="mx-auto max-w-2xl text-center">
-            <p className="eyebrow">{t("prep.eyebrow")}</p>
-            <h2 className="mt-3 text-3xl font-extrabold sm:text-4xl">{t("prep.title")}</h2>
-            <p className="mt-4 text-muted-foreground">{t("prep.subtitle")}</p>
+            <p className="eyebrow">Préparation</p>
+            <h2 className="mt-3 text-3xl font-extrabold sm:text-4xl">Examens blancs et séries d'entraînement</h2>
+            <p className="mt-4 text-muted-foreground">
+              Choisis entre des examens blancs complets dans les conditions du TCF ou des séries d'entraînement ciblées.
+            </p>
           </Reveal>
 
-          <div className="mt-14 grid items-stretch gap-6 lg:grid-cols-3">
-            {pillars.map((pillar, index) => (
-              <Reveal key={pillar.title} delay={index * 100} className="h-full">
-                <article className="group relative flex h-full flex-col overflow-hidden rounded-3xl border border-border/70 bg-card p-7 shadow-soft transition-all duration-300 hover:-translate-y-1.5 hover:border-primary/40 hover:shadow-strong">
-                  <span
-                    aria-hidden
-                    className="pointer-events-none absolute -right-10 -top-10 size-32 rounded-full bg-primary/10 blur-2xl transition-opacity duration-300 group-hover:opacity-80"
-                  />
-                  <span className="relative flex size-12 items-center justify-center rounded-2xl bg-primary-soft text-primary transition-transform duration-300 group-hover:scale-110">
-                    <pillar.icon className="size-6" aria-hidden />
-                  </span>
-                  <h3 className="relative mt-5 text-xl font-bold">{pillar.title}</h3>
-                  <p className="relative mt-2 text-sm leading-relaxed text-muted-foreground">
-                    {pillar.body}
-                  </p>
-                  <ul className="relative mt-5 space-y-2 text-sm">
-                    {pillar.bullets.map((bullet) => (
-                      <li key={bullet} className="flex items-start gap-2">
-                        <CheckCircle2 className="mt-0.5 size-4 shrink-0 text-success" aria-hidden />
-                        <span className="text-muted-foreground">{bullet}</span>
-                      </li>
-                    ))}
-                  </ul>
-                  <div className="relative mt-auto flex items-center justify-between gap-3 pt-6">
-                    <span className="rounded-full bg-surface px-3 py-1 text-xs font-semibold text-primary">
-                      {pillar.meta}
-                    </span>
-                    <Button asChild variant="ghost" size="sm">
-                      <Link href={pillar.href}>
-                        {pillar.cta}
-                        <ArrowRight aria-hidden />
-                      </Link>
-                    </Button>
-                  </div>
-                </article>
-              </Reveal>
-            ))}
+          <div className="mt-14 grid items-stretch gap-6 lg:grid-cols-2">
+            <Reveal delay={0} className="h-full">
+              <article className="group relative flex h-full flex-col overflow-hidden rounded-3xl border border-border/70 bg-card p-7 shadow-soft transition-all duration-300 hover:-translate-y-1.5 hover:border-primary/40 hover:shadow-strong">
+                <span
+                  aria-hidden
+                  className="pointer-events-none absolute -right-10 -top-10 size-32 rounded-full bg-primary/10 blur-2xl transition-opacity duration-300 group-hover:opacity-80"
+                />
+                <span className="relative flex size-12 items-center justify-center rounded-2xl bg-primary-soft text-primary transition-transform duration-300 group-hover:scale-110">
+                  <ClipboardCheck className="size-6" aria-hidden />
+                </span>
+                <h3 className="relative mt-5 text-xl font-bold">Examens blancs</h3>
+                <p className="relative mt-2 text-sm leading-relaxed text-muted-foreground">
+                  Trois épreuves enchaînées, du niveau A1 au C2, dans les conditions réelles du TCF Tout public.
+                </p>
+                <ul className="relative mt-5 space-y-2 text-sm">
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 className="mt-0.5 size-4 shrink-0 text-success" aria-hidden />
+                    <span className="text-muted-foreground">70 questions • 90 minutes</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 className="mt-0.5 size-4 shrink-0 text-success" aria-hidden />
+                    <span className="text-muted-foreground">Compréhension orale, maîtrise de la langue, compréhension écrite</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 className="mt-0.5 size-4 shrink-0 text-success" aria-hidden />
+                    <span className="text-muted-foreground">Note sur 699, niveau CECRL et correction détaillée</span>
+                  </li>
+                </ul>
+                <div className="relative mt-auto flex items-center justify-between gap-3 pt-6">
+                  <span className="rounded-full bg-surface px-3 py-1 text-xs font-semibold text-primary">10 examens blancs</span>
+                  <Button asChild variant="ghost" size="sm">
+                    <Link href={signedIn ? "/examens" : "/register"}>
+                      Commencer les examens blancs
+                      <ArrowRight aria-hidden />
+                    </Link>
+                  </Button>
+                </div>
+              </article>
+            </Reveal>
+            <Reveal delay={100} className="h-full">
+              <article className="group relative flex h-full flex-col overflow-hidden rounded-3xl border border-border/70 bg-card p-7 shadow-soft transition-all duration-300 hover:-translate-y-1.5 hover:border-primary/40 hover:shadow-strong">
+                <span
+                  aria-hidden
+                  className="pointer-events-none absolute -right-10 -top-10 size-32 rounded-full bg-primary/10 blur-2xl transition-opacity duration-300 group-hover:opacity-80"
+                />
+                <span className="relative flex size-12 items-center justify-center rounded-2xl bg-primary-soft text-primary transition-transform duration-300 group-hover:scale-110">
+                  <BookOpenCheck className="size-6" aria-hidden />
+                </span>
+                <h3 className="relative mt-5 text-xl font-bold">Séries d'entraînement</h3>
+                <p className="relative mt-2 text-sm leading-relaxed text-muted-foreground">
+                  Entraîne-toi épreuve par épreuve avec des séries ciblées pour progresser efficacement.
+                </p>
+                <ul className="relative mt-5 space-y-2 text-sm">
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 className="mt-0.5 size-4 shrink-0 text-success" aria-hidden />
+                    <span className="text-muted-foreground">Compréhension orale, structure, compréhension écrite</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 className="mt-0.5 size-4 shrink-0 text-success" aria-hidden />
+                    <span className="text-muted-foreground">Corrigé détaillé et explications</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 className="mt-0.5 size-4 shrink-0 text-success" aria-hidden />
+                    <span className="text-muted-foreground">Idéal pour cibler tes points faibles</span>
+                  </li>
+                </ul>
+                <div className="relative mt-auto flex items-center justify-between gap-3 pt-6">
+                  <span className="rounded-full bg-surface px-3 py-1 text-xs font-semibold text-primary">{writtenTests} séries • {seriesCount} CO</span>
+                  <Button asChild variant="ghost" size="sm">
+                    <Link href={signedIn ? "/tests" : "/register"}>
+                      Séries d'entraînement
+                      <ArrowRight aria-hidden />
+                    </Link>
+                  </Button>
+                </div>
+              </article>
+            </Reveal>
           </div>
 
           <Reveal delay={120} className="mt-12">
