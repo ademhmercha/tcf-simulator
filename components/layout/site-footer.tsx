@@ -17,7 +17,7 @@ export async function SiteFooter(): Promise<React.JSX.Element> {
         { href: "/tests", label: t("tests") },
         { href: "/examens", label: t("exams") },
         { href: "/guide", label: t("guide") },
-        { href: "/dashboard", label: t("dashboard") },
+
       ]
     : [
         { href: "/register", label: t("tests") },

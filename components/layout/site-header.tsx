@@ -23,10 +23,10 @@ export async function SiteHeader(): Promise<React.JSX.Element> {
 
   const links: NavItem[] = [
     { href: "/", label: t("home") },
-    { href: "/tests", label: t("tests") },
     { href: "/examens", label: t("exams") },
-    { href: "/guide", label: t("guide") },
-    ...(user ? [{ href: "/dashboard", label: t("dashboard") }] : []),
+    { href: "/tests", label: t("tests") },
+    { href: "/co", label: t("co") },
+    { href: "/vocabulaire", label: t("vocab") },
     ...(isAdmin ? [{ href: "/admin", label: t("admin") }] : []),
   ];
 
