@@ -48,9 +48,17 @@ export async function SiteFooter(): Promise<React.JSX.Element> {
         </div>
 
         <div className="mt-10 flex flex-col items-start justify-between gap-3 border-t border-border pt-6 text-sm text-muted-foreground sm:flex-row sm:items-center">
-          <p>
-            {t("disclaimer")} &mdash; {new Date().getFullYear()} {siteConfig.name}. {t("rights")}
-          </p>
+          <div className="flex flex-col gap-1">
+            <p>
+              {t("disclaimer")} &mdash; {new Date().getFullYear()} {siteConfig.name}. {t("rights")}
+            </p>
+            <a
+              href="mailto:ademhmerchaaa@gmail.com"
+              className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+            >
+              Contact : ademhmerchaaa@gmail.com
+            </a>
+          </div>
           <p className="flex items-center gap-3">
             <span>{t("langLabel")} : Fran&ccedil;ais</span>
             {/* Version deployee : permet de verifier d'un coup d'oeil que le
