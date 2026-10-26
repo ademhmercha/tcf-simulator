@@ -152,7 +152,7 @@ export default async function HomePage({
               </Button>
               <Button asChild size="xl" variant="outline" className="w-full sm:w-auto">
                 <Link href={signedIn ? "/tests" : "/register"}>
-                  Séries d'entraînement
+                  Séries d&apos;entraînement
                 </Link>
               </Button>
             </div>
@@ -348,9 +348,9 @@ export default async function HomePage({
         <div className="container">
           <Reveal className="mx-auto max-w-2xl text-center">
             <p className="eyebrow">Préparation</p>
-            <h2 className="mt-3 text-3xl font-extrabold sm:text-4xl">Examens blancs et séries d'entraînement</h2>
+            <h2 className="mt-3 text-3xl font-extrabold sm:text-4xl">Examens blancs et séries d&apos;entraînement</h2>
             <p className="mt-4 text-muted-foreground">
-              Choisis entre des examens blancs complets dans les conditions du TCF ou des séries d'entraînement ciblées.
+              Choisis entre des examens blancs complets dans les conditions du TCF ou des séries d&apos;entraînement ciblées.
             </p>
           </Reveal>
 
@@ -402,7 +402,7 @@ export default async function HomePage({
                 <span className="relative flex size-12 items-center justify-center rounded-2xl bg-primary-soft text-primary transition-transform duration-300 group-hover:scale-110">
                   <BookOpenCheck className="size-6" aria-hidden />
                 </span>
-                <h3 className="relative mt-5 text-xl font-bold">Séries d'entraînement</h3>
+                <h3 className="relative mt-5 text-xl font-bold">Séries d&apos;entraînement</h3>
                 <p className="relative mt-2 text-sm leading-relaxed text-muted-foreground">
                   Entraîne-toi épreuve par épreuve avec des séries ciblées pour progresser efficacement.
                 </p>
@@ -424,7 +424,7 @@ export default async function HomePage({
                   <span className="rounded-full bg-surface px-3 py-1 text-xs font-semibold text-primary">{writtenTests} séries • {seriesCount} CO</span>
                   <Button asChild variant="ghost" size="sm">
                     <Link href={signedIn ? "/tests" : "/register"}>
-                      Séries d'entraînement
+                      Séries d&apos;entraînement
                       <ArrowRight aria-hidden />
                     </Link>
                   </Button>
