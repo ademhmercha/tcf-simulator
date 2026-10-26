@@ -38,13 +38,13 @@ section dédiée à la compréhension orale.
 
 | Domaine | Détail |
 | --- | --- |
-| Tests blancs | 5 tests complets, 10 sections, 250 questions, 150 documents, 400 minutes au total |
-| Examens blancs | Examens complets (CO + structure + CE), 70 questions, 3 épreuves enchaînées, chronomètre par épreuve, score /699 |
+| Tests d'entraînement | 5 tests par épreuve (Compréhension orale, Maîtrise de la langue, Compréhension écrite), corrigé détaillé, idéal pour cibler ses faiblesses |
+| Examens blancs | **10 examens blancs complets** dans les conditions du TCF Tout public (CO + Maîtrise de la langue + Compréhension écrite), 70 questions, 90 minutes, 3 épreuves enchaînées, chronomètre par épreuve, score /699, estimation du niveau CECRL |
 | Compréhension orale | 8 séries d'entraînement (A1 → C2), 120 questions, audio + transcription + explication |
 | Expression écrite | 30 sujets originaux (B2 → C2, tâches 1 à 3), chronomètre, auto-évaluation, historique |
 | Épreuve | Chronomètre serveur, reprise de tentative, réponses en file d'attente côté client |
 | Correction | Détail question par question, score écrit à la soumission, estimation CECRL |
-| Suivi | Tableau de bord, historique, espace d'administration |
+| Suivi | Historique des tentatives, résultats, corrections et espace d'administration |
 | PWA | Installable, pages publiques consultables hors ligne |
 
 ## Stack technique
@@ -69,7 +69,7 @@ Projection des répertoires principaux :
 app/[locale]/          # groups de routes Next.js
   (marketing)          #  pages publiques
   (auth)               #  login / enregistrement / mot de passe
-  (app)                #  tableau de bord, historique, résultats, corrections, admin
+  (app)                #  historique, résultats, corrections, admin
   (exam)               #  passage de l'épreuve
 app/api/               #  routes API (examen = answer/submit/heartbeat, auth, admin)
 components/            # UI réutilisable
@@ -90,6 +90,7 @@ Principes de conception, à ne pas contourner :
 - `middleware.ts` gère l'i18n **et** le garde-fou de session. Les routes API sont
   volontairement exemptées du préfixe de locale et du cookie de garde : chacune
   appelle `auth()` de son côté.
+- `/tests`, `/vocabulaire` sont protégés. L'accès aux examens blancs passe par une vérification explicite de session.
 - Deux schémas Prisma coexistent : `prisma/schema.prisma` (PostgreSQL, canonique)
   et `prisma/schema.sqlite.prisma` (miroir **généré**). Le sélecteur
   `scripts/prisma.mjs` choisit selon `DATABASE_PROVIDER` — pas de fallback silencieux.
@@ -211,9 +212,9 @@ npm run admin:create     # crée un compte administrateur
 
 | Source | Contenu | Import |
 | --- | --- | --- |
-| `data/tcf_practice_5_tests_250_questions.json` | 5 tests, 10 sections, 250 questions, 1000 options, 150 documents | `npm run db:seed` |
-| `data/full_tests/` (modules TS) | Examens blancs : CO 25 + structure 20 + CE 25, un document par question CE | `npm run content:full` puis `npm run db:seed` |
-| `data/tcf_full_tests_10x70.json` | JSON compilé des examens blancs (généré, ne pas éditer) | `npm run db:seed` |
+| `data/tcf_practice_5_tests_250_questions.json` | 5 tests d'entraînement, 10 sections, 250 questions, 1000 options, 150 documents | `npm run db:seed` |
+| `data/full_tests/` (modules TS) | **10 examens blancs** : CO 25 + Maîtrise de la langue 20 + Compréhension écrite 25, un document par question CE | `npm run content:full` puis `npm run db:seed` |
+| `data/tcf_full_tests_10x70.json` | JSON compilé des 10 examens blancs (généré, ne pas éditer) | `npm run db:seed` |
 | `data/co/` (module TS) | 8 séries de compréhension orale, A1 → C2 (annonces, conversations, radio, débats…) : transcription exacte, question, 4 propositions, bonne réponse, explication | `npm run db:seed` |
 | `data/ce/` | Modules de compréhension écrite | `npm run content:reading` |
 | `data/writing_prompts.json` | 30 sujets d'expression écrite (tâches 1 à 3, B2 → C2) : consigne, documents, plan, phrases utiles, erreurs fréquentes | `npm run writing:seed` |
