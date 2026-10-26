@@ -95,7 +95,6 @@ export async function ExamCard({
                   <StartTestDialog
                     testId={test.id}
                     size="sm"
-                    variant="ghost"
                     label={t("redoExam")}
                   />
                 </>
