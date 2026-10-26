@@ -23,10 +23,9 @@ export async function SiteHeader(): Promise<React.JSX.Element> {
 
   const links: NavItem[] = [
     { href: "/", label: t("home") },
-    { href: "/examens", label: t("exams") },
     { href: "/tests", label: t("tests") },
-    { href: "/co", label: t("co") },
-    { href: "/vocabulaire", label: t("vocab") },
+    { href: "/examens", label: t("exams") },
+    { href: "/guide", label: t("guide") },
     ...(isAdmin ? [{ href: "/admin", label: t("admin") }] : []),
   ];
 
