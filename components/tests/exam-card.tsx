@@ -79,15 +79,15 @@ export async function ExamCard({
 
             <div className="mt-1 flex flex-wrap gap-1">
               {inProgress ? (
-                <Button asChild>
+                <Button asChild variant="outline" size="sm">
                   <Link href={detailHref}>
-                    <PlayCircle aria-hidden />
+                    <PlayCircle aria-hidden className="size-3.5" />
                     {t("resumeExam")}
                   </Link>
                 </Button>
               ) : finished ? (
                 <>
-                  <Button asChild>
+                  <Button asChild variant="outline" size="sm">
                     <Link href={`/results/${test.bestAttemptId ?? ""}`}>
                       {t("viewResult")}
                     </Link>
@@ -95,26 +95,27 @@ export async function ExamCard({
                   <StartTestDialog
                     testId={test.id}
                     size="sm"
+                    variant="ghost"
                     label={t("redoExam")}
                   />
                 </>
               ) : signedIn ? (
                 <form action={startAttemptAction}>
                   <input type="hidden" name="testId" value={test.id} />
-                  <Button type="submit">
-                    <PlayCircle aria-hidden />
+                  <Button type="submit" size="sm" variant="secondary">
+                    <PlayCircle aria-hidden className="size-3.5" />
                     {t("startExam")}
                   </Button>
                 </form>
               ) : (
-                <Button asChild>
+                <Button asChild size="sm" variant="secondary">
                   <Link href="/register">{t("startExam")}</Link>
                 </Button>
               )}
 
               <Button asChild variant="ghost" size="sm">
                 <Link href={correctionHref}>
-                  <BookOpenCheck aria-hidden />
+                  <BookOpenCheck aria-hidden className="size-3.5" />
                   {tc("viewCorrection")}
                 </Link>
               </Button>
