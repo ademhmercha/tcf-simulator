@@ -46,17 +46,17 @@ export default async function ExamsPage({
   ];
 
   return (
-    <div className="container py-12">
+    <div className="container py-6 md:py-8">
       <header className="mx-auto max-w-2xl text-center">
         <p className="eyebrow">{t("eyebrow")}</p>
-        <h1 className="mt-3 text-3xl font-extrabold sm:text-4xl">{t("title")}</h1>
+        <h1 className="mt-2 text-2xl font-extrabold sm:text-3xl">{t("title")}</h1>
       </header>
 
-      <ul className="mx-auto mt-6 flex max-w-3xl flex-wrap items-center justify-center gap-2">
+      <ul className="mx-auto mt-4 flex max-w-3xl flex-wrap items-center justify-center gap-2">
         {facts.map((fact) => (
           <li
             key={fact.label}
-            className="inline-flex items-center gap-1.5 rounded-full border border-border/70 bg-card px-3 py-1.5 text-sm text-muted-foreground"
+            className="inline-flex items-center gap-1.5 rounded-full border border-border/70 bg-card px-3 py-1 text-sm text-muted-foreground"
           >
             <fact.icon className="size-4 text-primary" aria-hidden />
             {fact.label}
@@ -65,7 +65,7 @@ export default async function ExamsPage({
       </ul>
 
       {tests.length > 0 ? (
-        <ul className="mx-auto mt-10 max-w-5xl space-y-4">
+        <ul className="mx-auto mt-6 max-w-5xl space-y-3">
           {tests.map((test) => (
             <li key={test.id}>
               <ExamCard test={test} signedIn />
