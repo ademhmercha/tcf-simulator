@@ -15,8 +15,10 @@ import {
   RefreshCcw,
   ShieldCheck,
   Sparkles,
+  Target,
   Timer,
   UserPlus,
+  Users,
 } from "lucide-react";
 
 import { Reveal } from "@/components/marketing/reveal";
@@ -33,6 +35,7 @@ import { getListeningSeriesList } from "@/server/services/listening";
 import { auth } from "@/server/auth";
 import { faqJsonLd } from "@/lib/structured-data";
 import { Link } from "@/i18n/navigation";
+import { prisma } from "@/lib/db";
 
 export async function generateMetadata({
   params,
@@ -59,9 +62,10 @@ export default async function HomePage({
 
   const session = await auth();
   const signedIn = Boolean(session?.user);
-  const [tests, series] = await Promise.all([
+  const [tests, series, userCount] = await Promise.all([
     getPublishedTests(session?.user?.id, "PRACTICE"),
     getListeningSeriesList(session?.user?.id),
+    prisma.user.count(),
   ]);
   const firstTest = tests[0];
 
@@ -134,25 +138,27 @@ export default async function HomePage({
             </Badge>
 
             <h1 className="animate-fade-up text-4xl font-extrabold leading-[1.08] [animation-delay:80ms] sm:text-5xl lg:text-6xl">
-              {t("hero.titlePrefix")}{" "}
-              <span className="text-gradient">{t("hero.titleAccent")}</span>
+              Entraîne-toi au{" "}
+              <span className="text-gradient">TCF Tout public</span>
               <br />
-              {t("hero.titleSuffix")}
+              dans les conditions réelles
             </h1>
 
             <p className="animate-fade-up mx-auto mt-6 max-w-2xl text-base leading-relaxed text-muted-foreground [animation-delay:160ms] sm:text-lg">
-              {t("hero.subtitle")}
+              Examens blancs complets, entraînement par épreuve, correction détaillée et estimation de ton niveau CECRL. Prépare ton TCF sereinement avec une plateforme claire et efficace.
             </p>
 
             <div className="animate-fade-up mt-9 flex flex-col items-center justify-center gap-3 [animation-delay:240ms] sm:flex-row">
               <Button asChild size="xl" className="w-full sm:w-auto">
                 <Link href={session?.user ? "/examens" : "/register"}>
-                  Commencer les examens blancs
+                  <Target aria-hidden />
+                  Commencer un examen blanc
                 </Link>
               </Button>
               <Button asChild size="xl" variant="outline" className="w-full sm:w-auto">
                 <Link href={signedIn ? "/tests" : "/register"}>
-                  Séries d&apos;entraînement
+                  <BookOpenCheck aria-hidden />
+                  S&apos;entraîner par épreuve
                 </Link>
               </Button>
             </div>
@@ -160,15 +166,15 @@ export default async function HomePage({
             <ul className="animate-fade-up mt-7 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-muted-foreground [animation-delay:320ms]">
               <li className="flex items-center gap-1.5">
                 <CheckCircle2 className="size-4 text-success" aria-hidden />
-                {t("hero.trustNoAccount")}
+                Gratuit et sans engagement
               </li>
               <li className="flex items-center gap-1.5">
                 <CheckCircle2 className="size-4 text-success" aria-hidden />
-                {t("hero.trustInstant")}
+                Chronométré comme l&apos;examen
               </li>
               <li className="flex items-center gap-1.5">
                 <CheckCircle2 className="size-4 text-success" aria-hidden />
-                {t("hero.trustResume")}
+                Correction détaillée immédiate
               </li>
             </ul>
           </div>
@@ -177,14 +183,15 @@ export default async function HomePage({
 
       {/* ------------------------------ Chiffres --------------------------- */}
       <section className="container pb-4">
-        <dl className="grid grid-cols-2 gap-4 lg:grid-cols-4">
+        <dl className="grid grid-cols-2 gap-4 lg:grid-cols-5">
           {[
-            { value: writtenTests, label: t("stats.tests"), icon: ClipboardCheck },
-            { value: seriesCount, label: t("stats.oralSeries"), icon: Headphones },
-            { value: totalQuestions, label: t("stats.questions"), icon: BookOpenCheck },
-            { value: "100%", label: t("stats.explanation"), icon: Sparkles },
+            { value: "10", label: "Examens blancs complets", icon: Target },
+            { value: writtenTests, label: "Séries d'entraînement", icon: ClipboardCheck },
+            { value: seriesCount, label: "Séries de compréhension orale", icon: Headphones },
+            { value: totalQuestions, label: "Questions au total", icon: BookOpenCheck },
+            { value: `${userCount}+`, label: "Utilisateurs inscrits", icon: Users },
           ].map((stat, index) => (
-            <Reveal key={stat.label} delay={index * 90} className="h-full">
+            <Reveal key={stat.label} delay={index * 70} className="h-full">
               <Card className="h-full border-border/70 transition-all duration-300 hover:-translate-y-1 hover:border-primary/40 hover:shadow-medium">
                 <CardContent className="flex flex-col items-center gap-1 p-6 text-center">
                   <stat.icon className="size-5 text-primary" aria-hidden />
@@ -200,38 +207,40 @@ export default async function HomePage({
       {/* ------------------------------ Fonctions -------------------------- */}
       <section className="container py-20">
         <Reveal className="mx-auto max-w-2xl text-center">
-          <p className="eyebrow">{t("features.eyebrow")}</p>
-          <h2 className="mt-3 text-3xl font-extrabold sm:text-4xl">{t("features.title")}</h2>
-          <p className="mt-4 text-muted-foreground">{t("features.subtitle")}</p>
+          <p className="eyebrow">Pourquoi s&apos;entraîner ici</p>
+          <h2 className="mt-3 text-3xl font-extrabold sm:text-4xl">Tout ce qu&apos;il faut pour réussir le TCF</h2>
+          <p className="mt-4 text-muted-foreground">
+            Une préparation complète, fidèle au format officiel, pensée pour progresser efficacement.
+          </p>
         </Reveal>
 
         <div className="mt-14 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
           {[
-            { icon: Timer, title: t("features.timerTitle"), body: t("features.timerBody") },
+            { icon: Timer, title: "Chronomètre fidèle au TCF", body: "Minuteur autoritaire côté serveur, respect strict des temps par épreuve pour t'habituer aux vraies conditions." },
             {
               icon: ShieldCheck,
-              title: t("features.autosaveTitle"),
-              body: t("features.autosaveBody"),
+              title: "Reprise automatique",
+              body: "Coupure ou rafraîchissement n'efface rien : tes réponses sont sauvegardées et tu peux reprendre exactement où tu t'étais arrêté.",
             },
             {
               icon: BookOpenCheck,
-              title: t("features.correctionTitle"),
-              body: t("features.correctionBody"),
+              title: "Correction détaillée",
+              body: "Explication par question, bonnes réponses, analyse précise pour comprendre tes erreurs et progresser rapidement.",
             },
             {
               icon: BarChart3,
-              title: t("features.analyticsTitle"),
-              body: t("features.analyticsBody"),
+              title: "Estimation CECRL & score /699",
+              body: "Obtiens ton niveau estimé et ton score global, comme à l'examen, avec le détail par épreuve.",
             },
             {
               icon: RefreshCcw,
-              title: t("features.mistakesTitle"),
-              body: t("features.mistakesBody"),
+              title: "Entraînement ciblé",
+              body: "Travaille épreuve par épreuve pour renforcer tes points faibles sans refaire un examen complet à chaque fois.",
             },
             {
               icon: MonitorSmartphone,
-              title: t("features.mobileTitle"),
-              body: t("features.mobileBody"),
+              title: "Accessible partout",
+              body: "Interface claire, responsive, installable en PWA. Idéal pour t'entraîner sur ordinateur, tablette ou mobile.",
             },
           ].map((feature, index) => (
             <Reveal key={feature.title} delay={index * 70} className="h-full">
@@ -460,9 +469,9 @@ export default async function HomePage({
                 </div>
                 <div className="flex w-full shrink-0 flex-col gap-2 sm:w-auto sm:items-end">
                   {signedIn ? (
-                    <Button asChild size="lg" variant="accent" className="w-full sm:w-auto">
-                      <Link href="/dashboard">{t("cta.buttonExisting")}</Link>
-                    </Button>
+                  <Button asChild size="lg" variant="accent" className="w-full sm:w-auto">
+                    <Link href="/examens">{t("cta.buttonExisting")}</Link>
+                  </Button>
                   ) : (
                     <>
                       <Button asChild size="lg" variant="accent" className="w-full sm:w-auto">
