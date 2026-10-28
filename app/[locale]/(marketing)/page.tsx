@@ -3,6 +3,7 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
 import {
   ArrowRight,
+  Award,
   BarChart3,
   BookOpenCheck,
   CheckCircle2,
@@ -10,13 +11,17 @@ import {
   Clock,
   FileText,
   Gauge,
+  GraduationCap,
   Headphones,
+  Landmark,
   MonitorSmartphone,
+  Plane,
   RefreshCcw,
   ShieldCheck,
   Sparkles,
   Target,
   Timer,
+  TrendingUp,
   UserPlus,
   Users,
 } from "lucide-react";
@@ -62,8 +67,9 @@ export default async function HomePage({
 
   const session = await auth();
   const signedIn = Boolean(session?.user);
-  const [tests, series, userCount] = await Promise.all([
+  const [tests, exams, series, userCount] = await Promise.all([
     getPublishedTests(session?.user?.id, "PRACTICE"),
+    getPublishedTests(session?.user?.id, "FULL"),
     getListeningSeriesList(session?.user?.id),
     prisma.user.count(),
   ]);
@@ -74,7 +80,9 @@ export default async function HomePage({
   const seriesCount = series.length;
   const oralQuestions = series.reduce((sum, serie) => sum + serie.questionCount, 0);
   const vocabCount = VOCABULAIRE_SERIES.length;
-  const totalQuestions = writtenQuestions + oralQuestions;
+  const examsCount = exams.length;
+  const examsQuestions = exams.reduce((sum, exam) => sum + exam.questionCount, 0);
+  const totalQuestions = writtenQuestions + oralQuestions + examsQuestions;
 
   const faqItems = [1, 2, 3, 4, 5, 6].map((n) => ({
     question: t(`faq.q${n}`),
@@ -127,69 +135,102 @@ export default async function HomePage({
           className="hero-aurora animate-aurora-pan pointer-events-none absolute -inset-1/4 -z-10 opacity-70"
           aria-hidden
         />
-        <div className="container py-20 sm:py-28">
-          <div className="mx-auto max-w-3xl text-center">
+        <div className="container grid items-center gap-16 py-16 sm:py-24 lg:grid-cols-[1.05fr_0.95fr] lg:gap-10">
+          <div className="text-center lg:text-left">
             <Badge
               variant="outline"
-              className="mb-6 animate-scale-in gap-2 rounded-full px-3.5 py-1.5"
+              className="mb-6 animate-scale-in gap-2.5 rounded-full border-primary/30 bg-background/70 px-4 py-1.5 text-sm font-semibold backdrop-blur"
             >
-              <Sparkles className="size-3.5" aria-hidden />
-              {t("hero.eyebrow")}
+              <TunisianFlag />
+              Première plateforme tunisienne de simulation du TCF
             </Badge>
 
-            <h1 className="animate-fade-up text-4xl font-extrabold leading-[1.08] [animation-delay:80ms] sm:text-5xl lg:text-6xl">
-              Entraîne-toi au{" "}
-              <span className="text-gradient">TCF Tout public</span>
-              <br />
-              dans les conditions réelles
+            <h1 className="animate-fade-up text-4xl font-extrabold leading-[1.06] [animation-delay:80ms] sm:text-5xl lg:text-6xl">
+              Décroche ton niveau au{" "}
+              <span className="text-gradient">TCF Tout public</span>{" "}
+              avant le jour J
             </h1>
 
-            <p className="animate-fade-up mx-auto mt-6 max-w-2xl text-base leading-relaxed text-muted-foreground [animation-delay:160ms] sm:text-lg">
-              Examens blancs complets, entraînement par épreuve, correction détaillée et estimation de ton niveau CECRL. Prépare ton TCF sereinement avec une plateforme claire et efficace.
+            <p className="animate-fade-up mx-auto mt-6 max-w-xl text-base leading-relaxed text-muted-foreground [animation-delay:160ms] sm:text-lg lg:mx-0">
+              <strong className="font-semibold text-foreground">
+                {examsCount} examens blancs complets
+              </strong>{" "}
+              dans les conditions réelles : chronomètre officiel, audio, correction détaillée de
+              chaque question, score sur 699 et niveau CECRL estimé. Le moyen le plus sûr de
+              savoir où tu en es.
             </p>
 
-            <div className="animate-fade-up mt-9 flex flex-col items-center justify-center gap-3 [animation-delay:240ms] sm:flex-row">
-              <Button asChild size="xl" className="w-full sm:w-auto">
-                <Link href={session?.user ? "/examens" : "/register"}>
+            <div className="animate-fade-up mt-9 flex flex-col items-center gap-3 [animation-delay:240ms] sm:flex-row sm:justify-center lg:justify-start">
+              <Button asChild size="xl" variant="accent" className="w-full sm:w-auto">
+                <Link href={signedIn ? "/examens" : "/register"}>
                   <Target aria-hidden />
-                  Commencer un examen blanc
+                  {signedIn ? "Commencer un examen blanc" : "Commencer gratuitement"}
                 </Link>
               </Button>
-              <Button asChild size="xl" variant="outline" className="w-full sm:w-auto">
-                <Link href={signedIn ? "/tests" : "/register"}>
+              <Button
+                asChild
+                size="xl"
+                variant="outline"
+                className="w-full bg-background/70 backdrop-blur sm:w-auto"
+              >
+                <Link href={signedIn ? "/tests" : "/login"}>
                   <BookOpenCheck aria-hidden />
-                  S&apos;entraîner par épreuve
+                  {signedIn ? "S'entraîner par épreuve" : "J'ai déjà un compte"}
                 </Link>
               </Button>
             </div>
 
-            <ul className="animate-fade-up mt-7 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-muted-foreground [animation-delay:320ms]">
+            <ul className="animate-fade-up mt-7 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-muted-foreground [animation-delay:320ms] lg:justify-start">
               <li className="flex items-center gap-1.5">
                 <CheckCircle2 className="size-4 text-success" aria-hidden />
-                Gratuit et sans engagement
+                Gratuit, sans carte bancaire
               </li>
               <li className="flex items-center gap-1.5">
                 <CheckCircle2 className="size-4 text-success" aria-hidden />
-                Chronométré comme l&apos;examen
+                Résultats immédiats
               </li>
               <li className="flex items-center gap-1.5">
                 <CheckCircle2 className="size-4 text-success" aria-hidden />
-                Correction détaillée immédiate
+                Sur mobile et ordinateur
               </li>
             </ul>
+
+            <div className="animate-fade-up mt-8 flex items-center justify-center gap-3 [animation-delay:400ms] lg:justify-start">
+              <div className="flex -space-x-2" aria-hidden>
+                {["bg-primary", "bg-accent", "bg-success", "bg-warning"].map((tone, index) => (
+                  <span
+                    key={tone}
+                    className={`flex size-8 items-center justify-center rounded-full border-2 border-background text-[11px] font-bold text-primary-foreground ${tone}`}
+                  >
+                    {["A", "S", "M", "Y"][index]}
+                  </span>
+                ))}
+              </div>
+              <p className="text-sm text-muted-foreground">
+                Déjà{" "}
+                <strong className="font-semibold text-foreground">{userCount}+ candidats</strong>{" "}
+                inscrits
+              </p>
+            </div>
           </div>
+
+          <ExamPreview examsCount={examsCount} />
         </div>
       </section>
 
-      {/* ------------------------------ Chiffres --------------------------- */}
-      <section className="container pb-4">
+      {/* ------------------------------ Bande de preuves ------------------------- */}
+      <section className="container pb-4 pt-8">
         <dl className="grid grid-cols-2 gap-4 lg:grid-cols-5">
           {[
-            { value: "10", label: "Examens blancs complets", icon: Target },
-            { value: writtenTests, label: "Séries d'entraînement", icon: ClipboardCheck },
-            { value: seriesCount, label: "Séries de compréhension orale", icon: Headphones },
-            { value: totalQuestions, label: "Questions au total", icon: BookOpenCheck },
-            { value: `${userCount}+`, label: "Utilisateurs inscrits", icon: Users },
+            { value: examsCount, label: "Examens blancs complets", icon: Target },
+            { value: totalQuestions, label: "Questions corrigées", icon: BookOpenCheck },
+            {
+              value: writtenTests + seriesCount,
+              label: "Séries d'entraînement",
+              icon: ClipboardCheck,
+            },
+            { value: "A1 → C2", label: "Tous les niveaux CECRL", icon: TrendingUp },
+            { value: `${userCount}+`, label: "Candidats inscrits", icon: Users },
           ].map((stat, index) => (
             <Reveal key={stat.label} delay={index * 70} className="h-full">
               <Card className="h-full border-border/70 transition-all duration-300 hover:-translate-y-1 hover:border-primary/40 hover:shadow-medium">
@@ -202,6 +243,54 @@ export default async function HomePage({
             </Reveal>
           ))}
         </dl>
+      </section>
+
+      {/* ------------------------------ Pour qui --------------------------- */}
+      <section className="container py-20">
+        <Reveal className="mx-auto max-w-2xl text-center">
+          <p className="eyebrow">Pourquoi le TCF compte</p>
+          <h2 className="mt-3 text-3xl font-extrabold sm:text-4xl">Un projet derrière chaque score</h2>
+          <p className="mt-4 text-muted-foreground">
+            Études, installation ou carrière : ton niveau de français ouvre des portes. Arrive le
+            jour J en sachant déjà comment l&apos;épreuve se déroule.
+          </p>
+        </Reveal>
+
+        <div className="mt-12 grid gap-5 md:grid-cols-3">
+          {[
+            {
+              icon: GraduationCap,
+              title: "Études en France",
+              body: "Constitue un dossier solide pour tes admissions : vise le niveau demandé par ton établissement et mesure ta marge.",
+            },
+            {
+              icon: Landmark,
+              title: "Démarches et séjour",
+              body: "Visa, titre de séjour, projet d'installation : prépare l'exigence de niveau sans mauvaise surprise.",
+            },
+            {
+              icon: Plane,
+              title: "Mobilité professionnelle",
+              body: "Postuler dans un environnement francophone demande un niveau prouvé. Entraîne-toi à le décrocher.",
+            },
+          ].map((item, index) => (
+            <Reveal key={item.title} delay={index * 90} className="h-full">
+              <div className="group relative h-full overflow-hidden rounded-3xl border border-border/70 bg-card p-7 shadow-soft transition-all duration-300 hover:-translate-y-1 hover:border-primary/40 hover:shadow-strong">
+                <span
+                  aria-hidden
+                  className="pointer-events-none absolute -right-8 -top-8 size-28 rounded-full bg-primary/10 blur-2xl"
+                />
+                <span className="relative flex size-12 items-center justify-center rounded-2xl bg-primary text-primary-foreground transition-transform duration-300 group-hover:scale-110">
+                  <item.icon className="size-6" aria-hidden />
+                </span>
+                <h3 className="relative mt-5 text-xl font-bold">{item.title}</h3>
+                <p className="relative mt-2 text-sm leading-relaxed text-muted-foreground">
+                  {item.body}
+                </p>
+              </div>
+            </Reveal>
+          ))}
+        </div>
       </section>
 
       {/* ------------------------------ Fonctions -------------------------- */}
@@ -541,9 +630,16 @@ export default async function HomePage({
               className="animate-float pointer-events-none absolute -bottom-20 -right-14 size-64 rounded-full bg-accent/25 blur-3xl"
               aria-hidden
             />
-            <h2 className="relative text-3xl font-extrabold sm:text-4xl">{t("cta.title")}</h2>
-            <p className="relative mt-3 mx-auto max-w-xl text-primary-foreground/85">
-              {t("cta.subtitle")}
+            <span className="relative mb-5 inline-flex items-center gap-2 rounded-full border border-primary-foreground/25 bg-primary-foreground/10 px-4 py-1.5 text-sm font-semibold">
+              <Sparkles className="size-4" aria-hidden />
+              Rejoins {userCount}+ candidats qui s&apos;entraînent déjà
+            </span>
+            <h2 className="relative text-3xl font-extrabold sm:text-4xl">
+              Prêt à passer le TCF en confiance ?
+            </h2>
+            <p className="relative mx-auto mt-3 max-w-xl text-primary-foreground/85">
+              {examsCount} examens blancs complets, corrigés question par question. Crée ton compte
+              gratuitement et lance ton premier examen en moins d&apos;une minute.
             </p>
             <div className="relative mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
               {session?.user ? (
@@ -585,5 +681,118 @@ export default async function HomePage({
         </Reveal>
       </section>
     </>
+  );
+}
+
+/* Drapeau de la Tunisie (SVG inline : les drapeaux emoji ne s'affichent pas sous Windows). */
+function TunisianFlag(): React.JSX.Element {
+  return (
+    <svg
+      viewBox="0 0 24 16"
+      className="h-4 w-6 shrink-0 rounded-[3px] shadow-sm"
+      role="img"
+      aria-label="Drapeau de la Tunisie"
+    >
+      <rect width="24" height="16" fill="#E70013" />
+      <circle cx="12" cy="8" r="4.6" fill="#fff" />
+      <circle cx="13" cy="8" r="3.4" fill="#E70013" />
+      <circle cx="13.4" cy="8" r="2.5" fill="#fff" />
+      <path
+        d="M13.6 6.5l.5 1.1 1.2.1-.9.8.3 1.2-1.1-.7-1.1.7.3-1.2-.9-.8 1.2-.1z"
+        fill="#E70013"
+      />
+    </svg>
+  );
+}
+
+/* Aperçu décoratif de l'interface d'examen et du résultat (exemple fictif). */
+function ExamPreview({ examsCount }: { examsCount: number }): React.JSX.Element {
+  const bars = [
+    { label: "Compréhension orale", value: 84 },
+    { label: "Maîtrise de la langue", value: 72 },
+    { label: "Compréhension écrite", value: 91 },
+  ];
+
+  return (
+    <div
+      className="relative mx-auto mb-10 w-full max-w-md animate-fade-up [animation-delay:200ms]"
+      aria-hidden
+    >
+      <span className="absolute -inset-6 -z-10 rounded-[2.5rem] bg-gradient-to-br from-primary/25 via-accent/10 to-transparent blur-2xl" />
+
+      <div className="rounded-3xl border border-border/70 bg-card/95 p-5 shadow-strong backdrop-blur">
+        <div className="flex items-center justify-between">
+          <span className="text-xs font-semibold uppercase tracking-wider text-primary">
+            Examen blanc TCF {Math.max(examsCount, 1)}
+          </span>
+          <span className="inline-flex items-center gap-1.5 rounded-full bg-primary-soft px-2.5 py-1 text-xs font-bold text-primary">
+            <Clock className="size-3.5" />
+            14:32
+          </span>
+        </div>
+
+        <div className="mt-4 h-1.5 overflow-hidden rounded-full bg-muted">
+          <div className="h-full w-2/3 rounded-full bg-primary" />
+        </div>
+        <p className="mt-1.5 text-[11px] text-muted-foreground">
+          Épreuve 2 sur 3 · question 14 / 20
+        </p>
+
+        <p className="mt-4 text-sm font-semibold">
+          Si vous aviez prévenu plus tôt, nous ___ autrement.
+        </p>
+        <ul className="mt-3 space-y-2 text-sm">
+          {["aurions agi", "agirions", "avions agi", "agissions"].map((option, index) => (
+            <li
+              key={option}
+              className={`flex items-center gap-3 rounded-xl border px-3 py-2 ${
+                index === 0
+                  ? "border-primary bg-primary-soft font-semibold text-primary"
+                  : "border-border/70 text-muted-foreground"
+              }`}
+            >
+              <span
+                className={`flex size-5 items-center justify-center rounded-full text-[11px] font-bold ${
+                  index === 0 ? "bg-primary text-primary-foreground" : "bg-muted"
+                }`}
+              >
+                {"ABCD"[index]}
+              </span>
+              {option}
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <div className="absolute -bottom-10 -right-2 w-60 animate-float rounded-2xl border border-border/70 bg-card p-4 shadow-strong sm:-right-8">
+        <div className="flex items-center gap-2">
+          <span className="flex size-8 items-center justify-center rounded-xl bg-accent/15 text-accent">
+            <Award className="size-4" />
+          </span>
+          <div>
+            <p className="text-[11px] text-muted-foreground">Exemple de résultat</p>
+            <p className="font-display text-lg font-extrabold leading-none">
+              587<span className="text-xs font-semibold text-muted-foreground"> / 699</span>
+              <span className="ml-2 rounded-md bg-success/15 px-1.5 py-0.5 text-xs font-bold text-success">
+                C1
+              </span>
+            </p>
+          </div>
+        </div>
+        <ul className="mt-3 space-y-1.5">
+          {bars.map((bar) => (
+            <li key={bar.label}>
+              <div className="flex justify-between text-[10px] text-muted-foreground">
+                <span>{bar.label}</span>
+                <span>{bar.value}%</span>
+              </div>
+              <div className="mt-0.5 h-1 overflow-hidden rounded-full bg-muted">
+                <div className="h-full rounded-full bg-primary" style={{ width: `${bar.value}%` }} />
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
   );
 }
