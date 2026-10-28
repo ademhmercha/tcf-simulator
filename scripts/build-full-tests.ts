@@ -53,8 +53,8 @@ export function validateFullTest(test: FullTestInput): string[] {
   const errors: string[] = [];
   const label = `Examen ${test.number}`;
 
-  if (!Number.isInteger(test.number) || test.number < 1 || test.number > 10) {
-    errors.push(`${label} : le numero doit etre un entier de 1 a 10.`);
+  if (!Number.isInteger(test.number) || test.number < 1 || test.number > 20) {
+    errors.push(`${label} : le numero doit etre un entier de 1 a 20.`);
   }
 
   const sections = [

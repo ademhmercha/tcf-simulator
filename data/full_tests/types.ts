@@ -43,7 +43,7 @@ export interface FullReadingDocument {
 }
 
 export interface FullTestInput {
-  /** Numero de l'examen, de 1 a 10. Determine aussi l'identifiant et le slug. */
+  /** Numero de l'examen, de 1 a 20. Determine aussi l'identifiant et le slug. */
   number: number;
   description: string;
   /** 25 questions, niveaux A1 -> C2. */

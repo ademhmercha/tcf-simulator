@@ -392,7 +392,7 @@ export default async function HomePage({
                   </li>
                 </ul>
                 <div className="relative mt-auto flex items-center justify-between gap-3 pt-6">
-                  <span className="rounded-full bg-surface px-3 py-1 text-xs font-semibold text-primary">10 examens blancs</span>
+                  <span className="rounded-full bg-surface px-3 py-1 text-xs font-semibold text-primary">20 examens blancs</span>
                   <Button asChild variant="ghost" size="sm">
                     <Link href={signedIn ? "/examens" : "/register"}>
                       Commencer les examens blancs

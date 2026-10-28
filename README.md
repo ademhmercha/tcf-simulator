@@ -39,7 +39,7 @@ section dédiée à la compréhension orale.
 | Domaine | Détail |
 | --- | --- |
 | Tests d'entraînement | 5 tests par épreuve (Compréhension orale, Maîtrise de la langue, Compréhension écrite), corrigé détaillé, idéal pour cibler ses faiblesses |
-| Examens blancs | **10 examens blancs complets** dans les conditions du TCF Tout public (CO + Maîtrise de la langue + Compréhension écrite), 70 questions, 90 minutes, 3 épreuves enchaînées, chronomètre par épreuve, score /699, estimation du niveau CECRL |
+| Examens blancs | **20 examens blancs complets** dans les conditions du TCF Tout public (CO + Maîtrise de la langue + Compréhension écrite), 70 questions, 90 minutes, 3 épreuves enchaînées, chronomètre par épreuve, score /699, estimation du niveau CECRL |
 | Compréhension orale | 8 séries d'entraînement (A1 → C2), 120 questions, audio + transcription + explication |
 | Expression écrite | 30 sujets originaux (B2 → C2, tâches 1 à 3), chronomètre, auto-évaluation, historique |
 | Épreuve | Chronomètre serveur, reprise de tentative, réponses en file d'attente côté client |
@@ -213,8 +213,8 @@ npm run admin:create     # crée un compte administrateur
 | Source | Contenu | Import |
 | --- | --- | --- |
 | `data/tcf_practice_5_tests_250_questions.json` | 5 tests d'entraînement, 10 sections, 250 questions, 1000 options, 150 documents | `npm run db:seed` |
-| `data/full_tests/` (modules TS) | **10 examens blancs** : CO 25 + Maîtrise de la langue 20 + Compréhension écrite 25, un document par question CE | `npm run content:full` puis `npm run db:seed` |
-| `data/tcf_full_tests_10x70.json` | JSON compilé des 10 examens blancs (généré, ne pas éditer) | `npm run db:seed` |
+| `data/full_tests/` (modules TS) | **20 examens blancs** : CO 25 + Maîtrise de la langue 20 + Compréhension écrite 25, un document par question CE | `npm run content:full` puis `npm run db:seed` |
+| `data/tcf_full_tests_10x70.json` | JSON compilé des 20 examens blancs (généré, ne pas éditer) | `npm run db:seed` |
 | `data/co/` (module TS) | 8 séries de compréhension orale, A1 → C2 (annonces, conversations, radio, débats…) : transcription exacte, question, 4 propositions, bonne réponse, explication | `npm run db:seed` |
 | `data/ce/` | Modules de compréhension écrite | `npm run content:reading` |
 | `data/writing_prompts.json` | 30 sujets d'expression écrite (tâches 1 à 3, B2 → C2) : consigne, documents, plan, phrases utiles, erreurs fréquentes | `npm run writing:seed` |

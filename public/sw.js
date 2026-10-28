@@ -12,7 +12,7 @@
  * et aucune requete non-GET (reponses, soumission, heartbeat) n'est interceptee.
  */
 
-const VERSION = "v10";
+const VERSION = "v12";
 const STATIC_CACHE = "tcf-static-" + VERSION;
 const PAGES_CACHE = "tcf-pages-" + VERSION;
 const OFFLINE_URL = "/offline.html";
@@ -104,11 +104,13 @@ function cacheFirst(request) {
   return caches.match(request).then(function (cached) {
     const network = fetch(request)
       .then(function (response) {
-        if (response && response.ok && response.type === "basic") {
+        // Statut 200 uniquement : les requetes Range de l'audio renvoient un 206
+        // (reponse partielle) que Cache.put refuse.
+        if (response && response.status === 200 && response.type === "basic") {
           const copy = response.clone();
           caches.open(STATIC_CACHE).then(function (cache) {
-            cache.put(request, copy);
-          });
+            return cache.put(request, copy);
+          }).catch(function () {});
         }
         return response;
       })
