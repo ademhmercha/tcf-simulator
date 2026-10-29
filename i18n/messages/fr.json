@@ -778,7 +778,8 @@
       "import": "Import",
       "stats": "Statistiques",
       "users": "Utilisateurs",
-      "section": "Navigation de l'administration"
+      "section": "Navigation de l'administration",
+      "reviews": "Avis"
     },
     "overview": {
       "users": "Utilisateurs",
@@ -1097,8 +1098,19 @@
       "actions": {
         "ADMIN_VIEW_ANSWERS": "Consultation de reponses",
         "ADMIN_UPDATE_ROLE": "Changement de role",
-        "ADMIN_DELETE_USER": "Suppression de compte"
+        "ADMIN_DELETE_USER": "Suppression de compte",
+        "ADMIN_MODERATE_TESTIMONIAL": "Modération d'un avis"
       }
+    },
+    "reviews": {
+      "title": "Avis des candidats",
+      "lead": "Rien n'est affiché sur la page d'accueil avant votre validation.",
+      "empty": "Aucun avis pour le moment.",
+      "approve": "Publier",
+      "reject": "Refuser",
+      "delete": "Supprimer",
+      "pending": "À modérer",
+      "by": "par"
     }
   },
   "errors": {
@@ -1333,5 +1345,33 @@
       "average": "Moyenne",
       "best": "Meilleur"
     }
+  },
+  "testimonials": {
+    "title": "Ton avis compte",
+    "lead": "Tu as terminé un examen ? Dis-nous ce que tu en penses : ton retour aide d'autres candidats à se lancer.",
+    "rating": "Ta note",
+    "ratingValue": "{n} sur 5",
+    "name": "Prénom affiché",
+    "namePlaceholder": "Ex. Sarra M.",
+    "city": "Ville (facultatif)",
+    "cityPlaceholder": "Ex. Tunis",
+    "level": "Niveau obtenu (facultatif)",
+    "levelNone": "Je préfère ne pas le dire",
+    "comment": "Ton avis",
+    "commentPlaceholder": "Ce qui t'a aidé, ce que tu as aimé, ce que tu referais…",
+    "consent": "J'accepte que mon avis soit publié sur la page d'accueil avec le prénom indiqué.",
+    "submit": "Envoyer mon avis",
+    "update": "Mettre à jour mon avis",
+    "sending": "Envoi…",
+    "yourReview": "Ton avis",
+    "editHint": "Tu peux le modifier : il repassera en validation.",
+    "status": {
+      "PENDING": "En attente de validation",
+      "APPROVED": "Publié",
+      "REJECTED": "Non retenu"
+    },
+    "landingEyebrow": "Ils s'entraînent avec nous",
+    "landingTitle": "Ce que disent les candidats",
+    "landingLead": "Des avis réels, publiés après validation par notre équipe."
   }
 }

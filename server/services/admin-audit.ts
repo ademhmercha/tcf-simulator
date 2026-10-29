@@ -34,6 +34,8 @@ export const ADMIN_ACTIONS = {
   updateRole: "ADMIN_UPDATE_ROLE",
   /** Suppression definitive d'un compte et de ses donnees. */
   deleteUser: "ADMIN_DELETE_USER",
+  /** Decision de moderation sur un avis candidat (publier, refuser, supprimer). */
+  moderateTestimonial: "ADMIN_MODERATE_TESTIMONIAL",
 } as const;
 
 export type AdminAction = (typeof ADMIN_ACTIONS)[keyof typeof ADMIN_ACTIONS];

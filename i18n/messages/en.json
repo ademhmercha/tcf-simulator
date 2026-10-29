@@ -773,7 +773,8 @@
       "import": "Import",
       "stats": "Statistics",
       "users": "Users",
-      "section": "Admin navigation"
+      "section": "Admin navigation",
+      "reviews": "Reviews"
     },
     "overview": {
       "users": "Users",
@@ -1092,8 +1093,19 @@
       "actions": {
         "ADMIN_VIEW_ANSWERS": "Answers viewed",
         "ADMIN_UPDATE_ROLE": "Role changed",
-        "ADMIN_DELETE_USER": "Account deleted"
+        "ADMIN_DELETE_USER": "Account deleted",
+        "ADMIN_MODERATE_TESTIMONIAL": "Review moderation"
       }
+    },
+    "reviews": {
+      "title": "Candidate reviews",
+      "lead": "Nothing is shown on the home page until you approve it.",
+      "empty": "No reviews yet.",
+      "approve": "Publish",
+      "reject": "Reject",
+      "delete": "Delete",
+      "pending": "To moderate",
+      "by": "by"
     }
   },
   "errors": {
@@ -1328,5 +1340,33 @@
       "average": "Average",
       "best": "Best"
     }
+  },
+  "testimonials": {
+    "title": "Your feedback matters",
+    "lead": "Finished an exam? Tell us what you think: your feedback helps other candidates get started.",
+    "rating": "Your rating",
+    "ratingValue": "{n} out of 5",
+    "name": "Display name",
+    "namePlaceholder": "e.g. Sarra M.",
+    "city": "City (optional)",
+    "cityPlaceholder": "e.g. Tunis",
+    "level": "Level obtained (optional)",
+    "levelNone": "I'd rather not say",
+    "comment": "Your review",
+    "commentPlaceholder": "What helped you, what you liked, what you would do again…",
+    "consent": "I agree to my review being published on the home page with the name above.",
+    "submit": "Send my review",
+    "update": "Update my review",
+    "sending": "Sending…",
+    "yourReview": "Your review",
+    "editHint": "You can edit it: it will go back to moderation.",
+    "status": {
+      "PENDING": "Awaiting approval",
+      "APPROVED": "Published",
+      "REJECTED": "Not selected"
+    },
+    "landingEyebrow": "They train with us",
+    "landingTitle": "What candidates say",
+    "landingLead": "Real reviews, published after approval by our team."
   }
 }

@@ -27,6 +27,7 @@ import {
 } from "lucide-react";
 
 import { Reveal } from "@/components/marketing/reveal";
+import { Stars } from "@/components/testimonials/stars";
 import { HeroBackdrop } from "@/components/marketing/hero-backdrop";
 import { JsonLd } from "@/components/seo/json-ld";
 import { Badge } from "@/components/ui/badge";
@@ -37,6 +38,7 @@ import { absoluteUrl } from "@/config/site";
 import { VOCABULAIRE_SERIES } from "@/data/vocabulaire";
 import { getPublishedTests } from "@/server/services/attempts";
 import { getListeningSeriesList } from "@/server/services/listening";
+import { getApprovedTestimonials } from "@/server/services/testimonials";
 import { auth } from "@/server/auth";
 import { faqJsonLd } from "@/lib/structured-data";
 import { Link } from "@/i18n/navigation";
@@ -64,14 +66,16 @@ export default async function HomePage({
   setRequestLocale(params.locale);
 
   const t = await getTranslations("landing");
+  const tt = await getTranslations("testimonials");
 
   const session = await auth();
   const signedIn = Boolean(session?.user);
-  const [tests, exams, series, userCount] = await Promise.all([
+  const [tests, exams, series, userCount, testimonials] = await Promise.all([
     getPublishedTests(session?.user?.id, "PRACTICE"),
     getPublishedTests(session?.user?.id, "FULL"),
     getListeningSeriesList(session?.user?.id),
     prisma.user.count(),
+    getApprovedTestimonials(6),
   ]);
   const firstTest = tests[0];
 
@@ -292,6 +296,48 @@ export default async function HomePage({
           ))}
         </div>
       </section>
+
+      {/* ------------------------------ Avis ------------------------------- */}
+      {testimonials.length > 0 ? (
+        <section className="border-y border-border bg-surface py-20">
+          <div className="container">
+            <Reveal className="mx-auto max-w-2xl text-center">
+              <p className="eyebrow">{tt("landingEyebrow")}</p>
+              <h2 className="mt-3 text-3xl font-extrabold sm:text-4xl">{tt("landingTitle")}</h2>
+              <p className="mt-4 text-muted-foreground">{tt("landingLead")}</p>
+            </Reveal>
+
+            <div className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+              {testimonials.map((item, index) => (
+                <Reveal key={item.id} delay={index * 80} className="h-full">
+                  <figure className="flex h-full flex-col rounded-3xl border border-border/70 bg-card p-6 shadow-soft transition-all duration-300 hover:-translate-y-1 hover:shadow-medium">
+                    <Stars value={item.rating} />
+                    <blockquote className="mt-4 flex-1 text-sm leading-relaxed text-foreground/90">
+                      « {item.comment} »
+                    </blockquote>
+                    <div className="mt-5 flex items-center gap-3 border-t border-border/60 pt-4">
+                      <span
+                        aria-hidden
+                        className="flex size-10 items-center justify-center rounded-full bg-primary font-display text-sm font-bold text-primary-foreground"
+                      >
+                        {item.displayName.charAt(0).toUpperCase()}
+                      </span>
+                      <div className="min-w-0">
+                        <p className="truncate text-sm font-bold">{item.displayName}</p>
+                        <p className="truncate text-xs text-muted-foreground">
+                          {[item.city, item.level ? `Niveau ${item.level}` : null]
+                            .filter(Boolean)
+                            .join(" · ") || "Candidat TCF"}
+                        </p>
+                      </div>
+                    </div>
+                  </figure>
+                </Reveal>
+              ))}
+            </div>
+          </div>
+        </section>
+      ) : null}
 
       {/* ------------------------------ Fonctions -------------------------- */}
       <section className="container py-20">

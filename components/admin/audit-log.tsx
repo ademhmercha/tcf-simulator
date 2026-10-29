@@ -17,6 +17,7 @@ const ACTION_VARIANTS: Record<string, "default" | "warning" | "destructive" | "o
   ADMIN_VIEW_ANSWERS: "warning",
   ADMIN_UPDATE_ROLE: "default",
   ADMIN_DELETE_USER: "destructive",
+  ADMIN_MODERATE_TESTIMONIAL: "outline",
 };
 
 export function AdminAuditLog({ entries }: { entries: AuditEntry[] }): React.JSX.Element {

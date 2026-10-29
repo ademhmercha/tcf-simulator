@@ -1,6 +1,6 @@
 "use client";
 
-import { BarChart3, LayoutDashboard, Users } from "lucide-react";
+import { BarChart3, LayoutDashboard, MessageSquareHeart, Users } from "lucide-react";
 import { useTranslations } from "next-intl";
 
 import { Link, usePathname } from "@/i18n/navigation";
@@ -18,6 +18,7 @@ const ITEMS = [
   { href: "/admin", label: "overview", icon: LayoutDashboard },
   { href: "/admin/stats", label: "stats", icon: BarChart3 },
   { href: "/admin/users", label: "users", icon: Users },
+  { href: "/admin/avis", label: "reviews", icon: MessageSquareHeart },
 ] as const;
 
 export function AdminNav(): React.JSX.Element {

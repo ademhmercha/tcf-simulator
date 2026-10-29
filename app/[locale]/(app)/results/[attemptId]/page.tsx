@@ -3,6 +3,7 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { notFound, redirect } from "next/navigation";
 import { BookOpenCheck, ClipboardCheck } from "lucide-react";
 
+import { TestimonialCard } from "@/components/testimonials/testimonial-card";
 import { LevelBadge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -12,6 +13,7 @@ import { SCORE_BANDS } from "@/config/scoring";
 import { Link } from "@/i18n/navigation";
 import { auth } from "@/server/auth";
 import { getAttemptResult } from "@/server/services/attempts";
+import { getOwnTestimonial } from "@/server/services/testimonials";
 
 /** Libelle du palier suivant, pour « X points pour B2 ». */
 function nextBandLevel(score: number): string {
@@ -53,6 +55,8 @@ export default async function ResultsPage({
       </div>
     );
   }
+
+  const ownTestimonial = await getOwnTestimonial(session.user.id);
 
   const correctionHref =
     result.testKind === "FULL"
@@ -152,6 +156,11 @@ export default async function ResultsPage({
           </div>
         </CardContent>
       </Card>
+
+      <TestimonialCard
+        defaultName={(session.user.name ?? "").split(" ")[0] ?? ""}
+        existing={ownTestimonial}
+      />
     </div>
   );
 }

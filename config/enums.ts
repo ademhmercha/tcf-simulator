@@ -31,6 +31,11 @@ export const TEST_KINDS = ["PRACTICE", "FULL"] as const;
 export const TestKindSchema = z.enum(TEST_KINDS);
 export type TestKind = z.infer<typeof TestKindSchema>;
 
+/** Moderation des avis candidats : rien n'est public avant `APPROVED`. */
+export const TESTIMONIAL_STATUSES = ["PENDING", "APPROVED", "REJECTED"] as const;
+export const TestimonialStatusSchema = z.enum(TESTIMONIAL_STATUSES);
+export type TestimonialStatus = z.infer<typeof TestimonialStatusSchema>;
+
 export const LEVELS = ["A1", "A2", "B1", "B2", "C1", "C2"] as const;
 export const LevelSchema = z.enum(LEVELS);
 export type Level = z.infer<typeof LevelSchema>;

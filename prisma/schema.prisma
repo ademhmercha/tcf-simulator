@@ -46,9 +46,37 @@ model User {
   auditLogs AuditLog[]
   listeningResults ListeningResult[]
   writingAttempts WritingAttempt[]
+  testimonial Testimonial?
 
   @@index([role])
   @@map("users")
+}
+
+// ------------------------------ Avis candidats ----------------------------
+
+/// Avis laisse par un candidat apres un examen. Un seul avis par compte
+/// (modifiable) : toute modification repasse en PENDING. Rien n'est affiche
+/// publiquement avant validation par un administrateur.
+model Testimonial {
+  id          String   @id @default(cuid())
+  userId      String   @unique
+  /// Nom affiche publiquement (prenom + initiale), choisi par le candidat.
+  displayName String
+  city        String?
+  /// Niveau CECRL obtenu, declaratif (A1..C2), optionnel.
+  level       String?
+  /// Note de 1 a 5.
+  rating      Int
+  comment     String
+  /// PENDING | APPROVED | REJECTED
+  status      String   @default("PENDING")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([status, createdAt])
+  @@map("testimonials")
 }
 
 // ------------------------- Journal d'administration -----------------------
