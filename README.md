@@ -479,17 +479,18 @@ Réservé aux comptes `ADMIN`. La vue d'ensemble regroupe les indicateurs clés 
 utilisateurs et nouveaux comptes, tests publiés, questions, tentatives, taux de
 soumission, taux de réussite et score moyen, avec l'activité des 30 derniers
 jours et la répartition des niveaux atteints. Les pages **Statistiques** et
-**Utilisateurs** détaillent ces chiffres.
+**Utilisateurs** détaillent ces chiffres, et la page **Avis** permet de modérer
+les avis des candidats avant leur publication sur la page d'accueil.
 
 ![Vue d'ensemble de l'administration : utilisateurs, tentatives, taux de réussite et score moyen](docs/images/analytics-admin-apercu.png)
 
 ### Audience (Vercel Analytics)
 
 Le site est mesuré avec `@vercel/analytics` : visiteurs, pages vues, taux de
-rebond, évolution sur 7 jours, ainsi que la répartition par pays, appareil et
+rebond, évolution sur 30 jours, ainsi que la répartition par pays, appareil et
 système d'exploitation.
 
-![Vercel Analytics : visiteurs, pages vues et taux de rebond sur 7 jours](docs/images/analytics-vercel-visiteurs.png)
+![Vercel Analytics : visiteurs, pages vues et taux de rebond sur 30 jours](docs/images/analytics-vercel-visiteurs.png)
 
 ![Vercel Analytics : répartition par pays, appareil et système d'exploitation](docs/images/analytics-vercel-audience.png)
 
