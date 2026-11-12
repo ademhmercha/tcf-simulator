@@ -30,7 +30,8 @@ section dédiée à la compréhension orale.
 11. [Tests et validation](#tests-et-validation)
 12. [Déploiement](#déploiement)
 13. [Vérifier un déploiement](#vérifier-un-déploiement)
-14. [Avertissement](#avertissement)
+14. [Statistiques et analytics](#statistiques-et-analytics)
+15. [Avertissement](#avertissement)
 
 ---
 
@@ -465,6 +466,36 @@ Une entrée de log contenant `EMAXCONNSESSION` ou
 `PrismaClientInitializationError: max clients reached in session mode` désigne
 ce dernier point : le pooler en mode session est saturé. Basculez sur le
 port `6543`.
+
+## Statistiques et analytics
+
+L'activité de la plateforme se suit à deux endroits : l'espace d'administration
+de l'application (comptes, tentatives, résultats) et Vercel Analytics (audience
+du site).
+
+### Espace d'administration (`/admin`)
+
+Réservé aux comptes `ADMIN`. La vue d'ensemble regroupe les indicateurs clés :
+utilisateurs et nouveaux comptes, tests publiés, questions, tentatives, taux de
+soumission, taux de réussite et score moyen, avec l'activité des 30 derniers
+jours et la répartition des niveaux atteints. Les pages **Statistiques** et
+**Utilisateurs** détaillent ces chiffres.
+
+![Vue d'ensemble de l'administration : utilisateurs, tentatives, taux de réussite et score moyen](docs/images/analytics-admin-apercu.png)
+
+### Audience (Vercel Analytics)
+
+Le site est mesuré avec `@vercel/analytics` : visiteurs, pages vues, taux de
+rebond, évolution sur 7 jours, ainsi que la répartition par pays, appareil et
+système d'exploitation.
+
+![Vercel Analytics : visiteurs, pages vues et taux de rebond sur 7 jours](docs/images/analytics-vercel-visiteurs.png)
+
+![Vercel Analytics : répartition par pays, appareil et système d'exploitation](docs/images/analytics-vercel-audience.png)
+
+> Captures d'écran prises sur l'environnement de production à un instant donné :
+> les chiffres évoluent. Pour les mettre à jour, remplacez les fichiers de
+> `docs/images/` en conservant leurs noms.
 
 ## Avertissement
 
